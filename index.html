@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【デモ】生成AI活用 インタラクティブ分析レポート</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Calm Harmony" - A warm neutral base (#F8F7F4), dark text (#333333), primary accent (#4A5568), and a subtle secondary color (#A0AEC0) with a highlight for charts (#63B3ED). This palette is professional, calm, and ensures high readability. -->
+    <!-- Application Structure Plan: The application is designed as a single-page interactive dashboard with three main sections: 1)サマリー (Summary), 2)事業部門別分析 (Divisional Analysis), and 3)全社的提言 (Strategic Recommendations). The user starts with a high-level overview on the Summary page, which features key metrics and a comparative chart of all business divisions. Clicking on the chart or the main navigation allows the user to drill down into the Divisional Analysis for a specific sector. This section uses tabs for navigation and presents data through an interactive chart linked to a detailed table, preventing information overload. Finally, the Strategic Recommendations section organizes the report's conclusions into actionable, digestible formats like timelines and risk-mitigation cards. This structure was chosen to transform the dense, linear report into an intuitive, non-linear exploration tool, allowing decision-makers to quickly grasp key insights and delve into details as needed, thus facilitating faster, data-driven decision-making. -->
+    <!-- Visualization & Content Choices: 
+    - Summary Page: Goal: Inform & Compare. Method: A horizontal bar chart (Chart.js) shows the average potential savings per division, providing an immediate comparative overview. Key findings are presented in "Key Metric" cards (HTML/Tailwind) for quick absorption. Interaction: Clicking a bar on the chart navigates to that division's detailed analysis. Justification: This immediately answers "Where is the biggest impact?" and guides the user's exploration.
+    - Divisional Analysis: Goal: Organize & Explore Details. Method: For each division, a vertical bar chart (Chart.js) visualizes the reduction potential for each specific task. This is linked to a detailed HTML table below. Interaction: Hovering over a bar highlights the corresponding row in the table, instantly connecting the visual data point to its underlying details (scenario, rationale). Justification: This interactive pairing makes complex data accessible without cluttering the screen, allowing users to explore the "why" behind the numbers.
+    - Strategic Recommendations: Goal: Organize & Guide Action. Method: A timeline-like layout (HTML/Tailwind with Unicode icons) is used for the implementation roadmap. Cards are used for prerequisites and risks. An accordion element presents the reallocation of saved hours. Interaction: The accordion allows users to show/hide detailed text. Justification: This structures qualitative strategic advice into a clear, actionable, and visually organized format, making it easier to digest than long paragraphs of text.
+    - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. All visuals are created with Chart.js (Canvas), Tailwind CSS, and Unicode characters. -->
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: #F8F7F4; color: #333333; }
+        .nav-button { transition: all 0.3s ease; }
+        .nav-button.active { background-color: #4A5568; color: white; }
+        .nav-button:not(.active):hover { background-color: #E2E8F0; }
+        .card { background-color: white; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); padding: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .tab-button.active { border-color: #4A5568; color: #4A5568; background-color: #EDF2F7; }
+        .tab-button:not(.active):hover { background-color: #F7FAFC; }
+        .chart-container { position: relative; width: 100%; height: 320px; max-height: 400px; }
+        @media (min-width: 640px) { .chart-container { height: 350px; } }
+        @media (min-width: 1024px) { .chart-container { height: 400px; } }
+        .table-highlight { background-color: #EBF8FF; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #E2E8F0; }
+        ::-webkit-scrollbar-thumb { background: #A0AEC0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #718096; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="min-h-screen flex flex-col">
+        <header class="bg-white shadow-md sticky top-0 z-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-xl sm:text-2xl font-bold text-gray-800">【デモ】生成AI活用 インタラクティブ分析レポート</h1>
+                    </div>
+                </div>
+                <nav class="flex space-x-2 sm:space-x-4 border-t border-gray-200 -mb-px">
+                    <button data-view="summary" class="nav-button active whitespace-nowrap py-3 px-3 sm:px-4 border-b-2 border-transparent font-medium text-sm sm:text-base text-gray-600 rounded-t-lg">📊 サマリー</button>
+                    <button data-view="analysis" class="nav-button whitespace-nowrap py-3 px-3 sm:px-4 border-b-2 border-transparent font-medium text-sm sm:text-base text-gray-600 rounded-t-lg">🏢 事業部門別分析</button>
+                    <button data-view="strategy" class="nav-button whitespace-nowrap py-3 px-3 sm:px-4 border-b-2 border-transparent font-medium text-sm sm:text-base text-gray-600 rounded-t-lg">🎯 戦略的提言</button>
+                </nav>
+            </div>
+        </header>
+
+        <main id="app-container" class="flex-grow p-4 sm:p-6 lg:p-8">
+        </main>
+    </div>
+
+    <script>
+        const appData = {
+            divisions: {
+                real_estate: {
+                    name: "賃貸・不動産事業",
+                    color: "rgba(54, 162, 235, 0.8)",
+                    highlightColor: "rgba(54, 162, 235, 1)",
+                    description: "定型的な顧客コミュニケーションと報告業務が多く、AIによる自動化で即時的な効率化効果が最も高い事業。創出された時間は、オーナーへの資産価値向上提案など、高付加価値業務へ再配分すべきです。",
+                    tasks: [
+                        { major: "賃貸物件の仲介業務", task: "新規顧客からの問い合わせメール・電話への一次対応", reduction: 80, scenario: "問い合わせ内容をAIが解析し、定型的な質問に24時間365日自動で回答するチャットボットを導入。担当者は複雑な質問のみに対応。", rationale: "定型的な問い合わせが全体の8割を占めると仮定。担当者が直接対応する時間を大幅に削減できるため。" },
+                        { major: "賃貸物件の仲介業務", task: "物件紹介コンテンツ（ポータルサイト、SNS）の作成", reduction: 60, scenario: "物件データを基に、AIがターゲット顧客層に合わせた魅力的な紹介文やSNS投稿のドラフトを複数パターン自動生成する。", rationale: "担当者がゼロから文章を考案する時間が不要になり、AIが生成したドラフトの校正・修正に集中できるため。" },
+                        { major: "賃貸物件の仲介業務", task: "顧客への物件提案資料の作成", reduction: 50, scenario: "顧客の希望条件を入力すると、AIが該当物件を抽出し、比較表や地図付きの提案資料のドラフトを自動で作成する。", rationale: "物件情報の検索、コピー＆ペースト、レイアウト調整といった手作業が大幅に削減されるため。" },
+                        { major: "賃貸物件の仲介業務", task: "内見の日程調整と連絡", reduction: 70, scenario: "AIが担当者と物件の空き状況を照合し、最適な候補日時を自動で提案・仮押さえし、関係者への連絡メールを生成する。", rationale: "複数関係者間の往復連絡やカレンダー確認といった煩雑な調整業務を自動化できるため。" },
+                        { major: "賃貸物件の仲介業務", task: "賃貸借契約書のドラフト作成", reduction: 40, scenario: "契約者情報、物件情報、契約条件を入力すると、AIが標準テンプレートに情報を反映させ、ドラフト文書を自動生成する。", rationale: "転記ミスなどのヒューマンエラーを削減し、法務チェック前の文書作成時間を短縮できるため。" },
+                        { major: "賃貸物件の管理業務", task: "入居者からのクレーム・修繕依頼の受付と対応記録", reduction: 75, scenario: "クレーム内容をAIがテキストで受け付け、緊急度を判断。対応履歴をシステムに自動で要約・記録する。", rationale: "一次受付と記録作成を自動化することで、担当者は問題解決そのものに集中できるため。" },
+                        { major: "賃貸物件の管理業務", task: "家賃入金状況の確認と督促連絡", reduction: 80, scenario: "未入金者をAIが自動でリストアップし、初期段階の督促メールやSMSの文面を自動生成・送信予約する。", rationale: "定型的な確認作業と初期連絡を完全に自動化できるため。" },
+                        { major: "賃貸物件の管理業務", task: "物件オーナーへの月次報告書作成", reduction: 70, scenario: "家賃収支、空室状況、修繕履歴等のデータをAIが自動で集計・分析し、定型の月次報告書を生成する。", rationale: "データ収集、集計、グラフ作成、定型文入力といった一連の報告書作成プロセスを大幅に自動化できるため。" },
+                        { major: "市場調査・マーケティング", task: "周辺エリアの競合物件・家賃相場の調査", reduction: 80, scenario: "不動産ポータルサイトをAIが定期的に巡回し、新規物件情報、家賃の変動などを抽出し、サマリーレポートを自動生成する。", rationale: "手作業での情報収集とデータ入力が不要になり、担当者は分析と戦略立案に集中できるため。" }
+                    ]
+                },
+                energy: {
+                    name: "エネルギー事業",
+                    color: "rgba(255, 159, 64, 0.8)",
+                    highlightColor: "rgba(255, 159, 64, 1)",
+                    description: "競争が激しい市場で、AIはサービスによる差別化を実現する武器となります。特に法人顧客に対し、データに基づいた付加価値の高い省エネ提案などを自動生成することで、価格以外の強力な訴求点を創出します。",
+                    tasks: [
+                        { major: "営業・顧客獲得", task: "料金プランに関する問い合わせへの一次対応", reduction: 80, scenario: "ウェブサイトにAIチャットボットを設置し、料金プランのシミュレーションやFAQを24時間自動で提供する。", rationale: "顧客からの問い合わせの大部分を占める、定型的な質問を自動化できるため。" },
+                        { major: "営業・顧客獲得", task: "法人顧客向けの提案書・見積書の作成", reduction: 60, scenario: "顧客の電力使用量データから、AIが最適な料金プランを推奨し、コスト削減シミュレーションを含む提案書のドラフトを生成する。", rationale: "データ分析や資料作成時間を短縮し、顧客との対話に集中できるため。" },
+                        { major: "営業・顧客獲得", task: "見込み顧客リストの作成とアプローチ文面の生成", reduction: 50, scenario: "AIが業界ニュース等を分析し、ニーズが見込まれるリストを抽出。初期アプローチメールの文面も生成する。", rationale: "手作業によるリストアップ作業を自動化し、質の高いリストを効率的に作成できるため。" },
+                        { major: "営業・顧客獲得", task: "販促キャンペーンの企画・メールマガジン作成", reduction: 40, scenario: "市場動向や実績データを基に、AIがキャンペーンのアイデアやメルマガコンテンツを複数案生成する。", rationale: "企画のブレインストーミングやコンテンツ作成時間を短縮し、より創造的な施策検討に時間を割けるため。" },
+                        { major: "契約・顧客管理", task: "新規契約・プラン変更の申込処理", reduction: 70, scenario: "申込情報をAIが読み取り、システムへのデータ入力や不備確認メールの送信を自動化する。", rationale: "データ転記や定型連絡を自動化し、処理速度向上とヒューマンエラー削減を実現するため。" },
+                        { major: "契約・顧客管理", task: "顧客からの問い合わせ対応（メール・電話）", reduction: 75, scenario: "請求内容の確認や住所変更といった定型的な問い合わせに、AIがデータベースと連携して即座に回答する。", rationale: "コールセンターの定型業務を大幅に削減し、担当者は個別案件に専念できるため。" },
+                        { ma
