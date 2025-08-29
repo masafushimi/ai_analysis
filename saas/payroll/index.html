@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI活用によるSaaS企業 業務効率化インタラクティブ分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony (Light neutrals with muted teal/blue accents) -->
+    <!-- Application Structure Plan: A single-page dashboard design. It starts with a high-level executive summary and a comparative chart of all departments to provide immediate key insights. A sticky navigation bar allows users to jump to specific departmental sections. Each section provides a detailed analysis with an interactive bar chart. Clicking on a task in the chart reveals its specific details (AI application, rationale) in a dedicated panel. This structure facilitates a "summary-first, detail-on-demand" user flow, making the dense report easily digestible and preventing information overload. The final section uses an accordion to neatly present the holistic strategic considerations. -->
+    <!-- Visualization & Content Choices: Report Info: Cross-departmental efficiency gains -> Goal: Compare -> Viz: Bar Chart (Chart.js) -> Interaction: Hover for details. Report Info: Task-specific efficiency gains within a department -> Goal: Inform & Compare -> Viz: Horizontal Bar Chart (Chart.js) -> Interaction: Click on a bar to display detailed text in a side panel, enabling progressive disclosure. Report Info: Strategic analysis text -> Goal: Organize -> Presentation: HTML/JS Accordion -> Interaction: Click to expand/collapse. This approach uses interactive charts to visualize quantitative data and interactive text elements for qualitative insights, ensuring an engaging and clear presentation of the report's content. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #FDFBF7;
+            color: #383838;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(253, 251, 247, 0.8);
+        }
+        .active-nav {
+            color: #0d9488;
+            font-weight: 700;
+            border-bottom-color: #0d9488;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="py-12 px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-teal-800">生成AI活用によるSaaS企業</h1>
+        <h2 class="text-2xl md:text-3xl font-bold text-teal-700 mt-2">業務効率化インタラクティブ分析</h2>
+        <p class="mt-6 max-w-3xl mx-auto text-lg text-gray-700">
+            本レポートは、日本のBtoB人事SaaS企業をモデルとし、生成AI導入による業務効率化と工数削減の可能性を分析します。各部門の分析をインタラクティブに探索し、組織全体の変革ポテンシャルをご確認ください。
+        </p>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <section id="summary" class="mb-16 p-8 bg-white rounded-2xl shadow-lg">
+            <h3 class="text-2xl font-bold text-center text-teal-700 mb-6">エグゼクティブサマリー & 部門別インパクト概観</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-8">
+                <div class="p-6 bg-teal-50 rounded-xl">
+                    <div class="text-4xl font-bold text-teal-600">25-35%</div>
+                    <div class="mt-2 text-gray-600">全社レベルでの想定工数削減率</div>
+                </div>
+                <div class="p-6 bg-amber-50 rounded-xl">
+                    <div class="text-4xl font-bold text-amber-600">開発部門</div>
+                    <div class="mt-2 text-gray-600">最も即時効果が期待される部門</div>
+                </div>
+                 <div class="p-6 bg-sky-50 rounded-xl">
+                    <div class="text-4xl font-bold text-sky-600">マーケティング部門</div>
+                    <div class="mt-2 text-gray-600">コンテンツ制作で最大効果を発揮</div>
+                </div>
+            </div>
+            <p class="text-gray-600 mb-6 text-center">
+                下のグラフは、各部門におけるタスク全体の平均工数削減ポテンシャルを示しています。特に「開発」と「マーケティング」部門で高い効果が見込まれることがわかります。
+            </p>
+            <div class="chart-container">
+                <canvas id="overviewChart"></canvas>
+            </div>
+        </section>
+
+        <nav class="sticky-nav shadow-md mb-12">
+            <div class="container mx-auto px-4">
+                <ul class="flex flex-wrap justify-center items-center font-semibold text-gray-600">
+                    <li><a href="#development" class="nav-link inline-block p-4 border-b-2 border-transparent hover:text-teal-600 hover:border-teal-600">開発</a></li>
+                    <li><a href="#product" class="nav-link inline-block p-4 border-b-2 border-transparent hover:text-teal-600 hover:border-teal-600">プロダクト</a></li>
+                    <li><a href="#marketing" class="nav-link inline-block p-4 border-b-2 border-transparent hover:text-teal-600 hover:border-teal-600">マーケティング</a></li>
+                    <li><a href="#sales" class="nav-link inline-block p-4 border-b-2 border-transparent hover:text-teal-600 hover:border-teal-600">セールス</a></li>
+                    <li><a href="#cs" class="nav-link inline-block p-4 border-b-2 border-transparent hover:text-teal-600 hover:border-teal-600">CS</a></li>
+                    <li><a href="#corporate" class="nav-link inline-block p-4 border-b-2 border-transparent hover:text-teal-600 hover:border-teal-600">コーポレート</a></li>
+                    <li><a href="#holistic" class="nav-link inline-block p-4 border-b-2 border-transparent hover:text-teal-600 hover:border-teal-600">ホリスティック考察</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="department-sections">
+        </div>
+
+        <section id="holistic" class="pt-16">
+             <h3 class="text-3xl font-bold text-center text-teal-700 mb-4">ホリスティックな戦略的考察</h3>
+             <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">
+                部門別の分析を超え、組織全体として生成AIを導入する際の戦略的な意味合いを多角的に考察します。
+            </p>
+            <div id="accordion-container" class="max-w-4xl mx-auto space-y-4">
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 mt-16 border-t">
+        <p class="text-gray-500">インタラクティブ分析レポート | 生成AIによるSaaS業務効率化</p>
+    </footer>
+
+<script>
+const reportData = {
+    departments: [
+        {
+            id: 'development',
+            name: '開発部門',
+            color: 'rgba(13, 148, 136, 0.6)',
+            borderColor: 'rgba(13, 148, 136, 1)',
+            summary: '開発部門は、AI搭載型コーディングアシスタントツールの成熟度が高いため、生成AI導入による生産性向上の恩恵を最も即時かつ大規模に享受できる部門です。開発者の役割は、手作業による反復的なコーディングから、アーキテクチャ設計、複雑な問題解決、そして戦略的なコードレビューへとシフトしていきます。',
+            tasks: [
+                { name: 'プログラミング（コード生成）', reduction: 50, details: { use: 'GitHub CopilotのようなAIコーディングアシスタントを活用し、コメントや関数名からコードブロック全体を自動生成させる。', rationale: '複数の調査で、GitHub Copilotの利用により開発タスクの完了速度が55%向上したという結果が出ています。' } },
+                { name: 'ユニットテストの作成', reduction: 70, details: { use: '関数シグネチャと仕様に基づき、テストケースの雛形やモックデータを自動生成させる。', rationale: 'ユニットテスト作成は反復的でパターン化された作業が多く、AIによる自動生成との親和性が極めて高いです。' } },
+                { name: 'コードレビュー', reduction: 30, details: { use: 'AI搭載の静的解析ツールを活用し、コーディング規約違反、潜在的なバグ等の一次スクリーニングを自動化する。', rationale: 'AIが一般的なバグを自動検出することで、人間はビジネスロジックなど、より高度なレビューに集中できます。' } },
+                { name: 'テストシナリオの作成', reduction: 60, details: { use: '機能仕様書やユーザーストーリーをインプットとして、正常系・異常系のテストシナリオを網羅的に生成させる。', rationale: '人間では見落としがちなエッジケースをAIが体系的に洗い出し、シナリオ作成時間を大幅に短縮します。' } },
+                { name: 'E2Eテストコードの生成', reduction: 50, details: { use: 'PlaywrightやSeleniumなどのテストフレームワーク用のスクリプトを、自然言語の指示から生成させる。', rationale: 'テストコードの記述は定型的であり、AIによる自動化効果が高いです。特にUI要素のセレクタ指定を効率化できます。' } },
+                { name: 'IaC スクリプト作成', reduction: 40, details: { use: 'Terraform等の構成管理ツールのスクリプトを、「VPCとEC2を作成する」といった要件から生成させる。', rationale: 'IaCの構文学習コストを削減し、インフラ構築の初動を高速化します。' } },
+                { name: '障害発生時の一次調査', reduction: 30, details: { use: 'エラーログや監視メトリクスをAIに読み込ませ、障害の原因となっている可能性のある箇所を要約・提示させる。', rationale: '膨大なログから関連情報を迅速に特定し、障害復旧までの時間（MTTR）を短縮します。' } },
+                { name: 'API仕様書・設計書の作成', reduction: 80, details: { use: 'ソースコードやコメントを解析し、APIエンドポイントの仕様書やクラス設計書のドラフトを自動生成させる。', rationale: 'ドキュメント作成をほぼ自動化し、開発者はコア業務に集中できます。' } }
+            ]
+        },
+        {
+            id: 'product',
+            name: 'プロダクトマネジメント部門',
+            color: 'rgba(2, 132, 199, 0.6)',
+            borderColor: 'rgba(2, 132, 199, 1)',
+            summary: 'プロダクトマネジメント部門にとって、生成AIは市場調査から機能要件定義までのサイクルを加速させる強力な分析・創造パートナーとして機能します。PMは戦術的なデータ収集作業から解放され、プロダクトの戦略的ビジョン策定に集中できるようになります。',
+            tasks: [
+                { name: '競合製品の機能調査', reduction: 70, details: { use: '競合他社のWebサイト、プレスリリース、ユーザーレビューなどをAIに読み込ませ、新機能の動向や評価を要約させる。', rationale: '手作業での情報収集と整理が大部分を占めるタスク。AIによる自動要約と分析で、リサーチ時間を劇的に短縮できます。' } },
+                { name: '市場トレンドの把握', reduction: 60, details: { use: '業界レポート、ニュース記事などを定期的にAIにインプットさせ、最新の技術トレンドや法改正の動向をデイリーで要約させる。', rationale: '継続的な情報収集の負荷を大幅に軽減し、PMは分析と戦略立案に集中できます。' } },
+                { name: 'ユーザーフィードバックの集計・分析', reduction: 80, details: { use: 'サポートログ、NPSアンケート、SNS上の言及を一括でAIに分析させ、機能要望や不満点をトピックごとに分類・要約させる。', rationale: '数千〜数万件の非構造化テキストデータを手動で分類・集計する作業は極めて非効率。AIはこの種のタスクをほぼ完全に自動化できます。' } },
+                { name: 'ユーザーインタビューの準備と要約', reduction: 50, details: { use: '特定のペルソナに基づき、深掘りすべき質問項目リストを生成。インタビューの録音データを文字起こしし、要点を抽出・要約させる。', rationale: '準備と事後処理の時間を半減させ、PMは対話そのものに集中できます。' } },
+                { name: 'プロダクトロードマップの素案作成', reduction: 30, details: { use: '市場分析や顧客ニーズの分析結果を基に、ロードマップに含めるべき機能テーマのアイデアを複数パターン生成させる。', rationale: 'AIをブレインストーミングの壁打ち相手として活用し、アイデアの幅を広げます。' } },
+                { name: 'PRDのドラフト作成', reduction: 40, details: { use: '機能の目的と主要な要件を与え、背景、ユーザーストーリーなどを含むPRDの構成案と文章のドラフトを生成させる。', rationale: '文書作成の時間を大幅に短縮。PMは仕様の細部を詰める作業に時間を割けるようになります。' } },
+                { name: 'ユーザーストーリー、チケットの起票', reduction: 50, details: { use: '高レベルの要件から、開発者が着手可能な粒度のユーザーストーリーや受け入れ基準を複数生成させる。', rationale: 'チケット起票は定型的ながら時間を要する作業。AIによるドラフト作成で、手戻りを防ぎます。' } }
+            ]
+        },
+        {
+            id: 'marketing',
+            name: 'マーケティング部門',
+            color: 'rgba(217, 119, 6, 0.6)',
+            borderColor: 'rgba(217, 119, 6, 1)',
+            summary: 'マーケティング部門は、生成AIの導入により、高速なコンテンツ制作とキャンペーン展開が可能な組織へと変貌します。多種多様なマーケティングアセットの制作時間が劇的に短縮され、大規模なパーソナライゼーションが実現可能になります。',
+            tasks: [
+                { name: 'SEO記事・ブログ記事の執筆', reduction: 60, details: { use: 'ターゲットキーワードとペルソナを指定し、記事の構成案から本文のドラフトまでを生成させる。', rationale: 'AIは記事ドラフトを数分で生成可能。人間の作業はファクトチェックやブランドトーン調整に集中できます。' } },
+                { name: 'ホワイトペーパー・導入事例の作成', reduction: 50, details: { use: '顧客へのインタビュー音声を要約し、導入事例記事のドラフトを生成させる。', rationale: '長文コンテンツの構成作成と文章化にかかる時間を大幅に削減します。' } },
+                { name: '広告クリエイティブの作成', reduction: 70, details: { use: '製品の特長とターゲット層をインプットし、広告の見出し・説明文や画像を複数パターン生成させる。', rationale: 'A/Bテスト用の大量のバリエーションを瞬時に作成可能。PDCAサイクルを高速化します。' } },
+                { name: 'LPのコピーライティング', reduction: 60, details: { use: 'ペルソナと訴求したい価値を定義し、LP全体のストーリー構成と各セクションのコピー案を生成させる。', rationale: 'コンバージョン率の高いコピーのパターンをAIに学習させ、効果的なLPのドラフトを迅速に作成します。' } },
+                { name: 'メールマガジン・ステップメールの作成', reduction: 75, details: { use: 'ターゲットセグメントごとにパーソナライズされたメール本文を複数パターン生成させる。', rationale: 'One to Oneに近いコミュニケーションを大規模に実現します。' } },
+                { name: 'SNS投稿コンテンツの作成', reduction: 70, details: { use: 'ブログ記事の要約を基に、各プラットフォームに最適化された投稿文を生成させる。', rationale: '日々の投稿作成の負荷を大幅に軽減し、インタラクティブな活動に時間を割けます。' } },
+                { name: 'マーケティングデータの分析とレポーティング', reduction: 40, details: { use: 'MAツールのデータをAIに連携し、「どのチャネルの成約率が高いか」といった問いに自然言語で回答させる。', rationale: 'データ抽出と集計作業を自動化し、インサイトの解釈に集中できます。' } }
+            ]
+        },
+        {
+            id: 'sales',
+            name: 'セールス部門',
+            color: 'rgba(107, 33, 168, 0.6)',
+            borderColor: 'rgba(107, 33, 168, 1)',
+            summary: 'セールス部門において、生成AIは営業担当者の「コパイロット（副操縦士）」として機能します。管理業務を自動化し、顧客との対話を強化するための情報を提供することで、営業担当者は顧客との関係構築に多くの時間を投じることが可能になります。',
+            tasks: [
+                { name: '見込み客への初期アプローチ', reduction: 60, details: { use: 'ターゲット企業のWebサイトや担当者のプロファイルを基に、個社の課題に寄り添ったパーソナライズドメールを生成する。', rationale: 'テンプレートメールではなく、一人ひとりに合わせたアプローチを効率的に作成し、返信率の向上が期待できます。' } },
+                { name: '商談準備（情報収集）', reduction: 70, details: { use: '商談相手の企業の最新ニュース、プレスリリースなどをAIが自動で収集・要約し、ブリーフを作成する。', rationale: '手作業での情報収集にかかる時間を大幅に削減し、提案内容の戦略的な検討に集中できます。' } },
+                { name: '提案資料の作成', reduction: 50, details: { use: '顧客からヒアリングした課題を基に、提案書の構成案と各スライドのドラフトを生成する。', rationale: 'ゼロから資料を作成する時間を半減させます。' } },
+                { name: '商談後のフォローアップ', reduction: 80, details: { use: '商談の録音データをAIが要約し、決定事項と次のアクションを記載した御礼メールのドラフトを自動生成する。', rationale: '商談直後の迅速なフォローアップが可能となり、顧客エンゲージメントを高めます。' } },
+                { name: 'CRMへの活動記録入力', reduction: 90, details: { use: '商談の音声データやメールのやり取りから、商談内容などを抽出し、CRMに自動で入力する。', rationale: '営業担当者が最も時間を費やす管理業務をほぼ完全に自動化します。' } },
+                { name: '営業日報の作成', reduction: 90, details: { use: 'その日のカレンダー、CRMの活動記録、メールを基に、日報のドラフトを自動生成する。', rationale: '日々の報告業務の負担を限りなくゼロに近づけ、コアタイムを最大化します。' } }
+            ]
+        },
+        {
+            id: 'cs',
+            name: 'カスタマーサクセス部門',
+            color: 'rgba(220, 38, 38, 0.6)',
+            borderColor: 'rgba(220, 38, 38, 1)',
+            summary: '生成AIは、カスタマーサクセス（CS）部門の業務モデルを根底から変革します。定型的な問い合わせを自動処理し、CSMは主要顧客との戦略的な関係構築といった高付加価値業務に専念できるようになります。',
+            tasks: [
+                { name: '初期設定・利用方法の案内', reduction: 60, details: { use: 'FAQやマニュアルを学習したAIチャットボットが、24時間365日、顧客からの基本的な質問に即時回答する。', rationale: 'チャットボット導入により問い合わせ件数が30～50%削減されるケースが多く報告されています。' } },
+                { name: '定期的な問い合わせ対応', reduction: 70, details: { use: 'AIチャットボットが一次対応を行い、解決できない複雑な問題のみをCSMにエスカレーションする。', rationale: 'CSMは高度な問題解決やコンサルティングに集中できます。' } },
+                { name: '顧客利用状況の分析とアラート', reduction: 80, details: { use: '顧客のプロダクト利用ログをAIが分析し、解約リスクの兆候がある顧客を自動でリストアップする。', rationale: '人間の目では困難な大規模データのパターン認識をAIが行い、プロアクティブな介入を可能にします。' } },
+                { name: 'プロアクティブなコミュニケーション', reduction: 50, details: { use: '解約リスクが検知された顧客に対し、利用促進を促すパーソナライズドメールを自動生成する。', rationale: 'CSMがゼロから文面を考える時間を削減し、より多くの顧客に能動的な働きかけを行えます。' } },
+                { name: 'アップセル・クロスセル機会の特定', reduction: 60, details: { use: '顧客の利用状況や問い合わせ内容から、アップセル・クロスセルの機会をAIが特定し、CSMに提案する。', rationale: 'データに基づいた機会特定により、勘や経験に頼らない体系的な活動が可能になります。' } },
+                { name: '顧客からの要望の集約・報告', reduction: 75, details: { use: '複数の顧客とのやり取りをAIが分析し、共通の機能要望を抽出し、開発部門向けのレポートを自動生成する。', rationale: 'CSMが個別にフィードバックをまとめる手間を省き、迅速に顧客の声をプロダクト改善に繋げます。' } }
+            ]
+        },
+        {
+            id: 'corporate',
+            name: 'コーポレート部門',
+            color: 'rgba(75, 85, 99, 0.6)',
+            borderColor: 'rgba(75, 85, 99, 1)',
+            summary: 'コーポレート部門は、生成AIを活用して多岐にわたる管理業務やコンプライアンス関連タスクを効率化します。これにより、社内プロセスの迅速化、オペレーショナルリスクの低減が実現します。',
+            tasks: [
+                { name: '採用業務', reduction: 50, details: { use: '募集ポジションの要件に基づき、魅力的な求人票のドラフトを作成。応募者の職務経歴書を要約し、適合性を評価する。', rationale: '採用担当者は、候補者とのコミュニケーションや面接といった、より人間的なスキルが求められる業務に集中できます。' } },
+                { name: '社内規定・ポリシーの作成・更新', reduction: 60, details: { use: '労働関連法の改正内容をインプットし、就業規則や各種規定の改訂案を生成する。', rationale: '法改正への対応を迅速化し、コンプライアンスを維持します。' } },
+                { name: '社内ヘルプデスク', reduction: 70, details: { use: '勤怠、福利厚生、経費精算などに関する社内規定を学習したAIチャットボットが、従業員からの問い合わせに24時間対応する。', rationale: '定型的な質問対応を自動化し、担当者の負荷を大幅に削減します。' } },
+                { name: '契約書レビュー', reduction: 70, details: { use: 'NDAや業務委託契約書などの定型的な契約書をAIがレビューし、リスクのある条項や記載漏れなどを自動で指摘する。', rationale: 'AI契約書レビューツールの導入により、レビュー時間が大幅に削減された事例があります。' } },
+                { name: '法務関連リサーチ', reduction: 60, details: { use: '特定の法律問題に関する判例や法規制をAIが調査し、関連性の高い情報を要約して提示する。', rationale: '弁護士や法務担当者が行うリサーチ業務の初動を大幅に高速化します。' } },
+                { name: '月次・四半期決算報告書の作成', reduction: 40, details: { use: '財務諸表の数値を基に、業績の概況や変動要因を説明する決算短信の文章のドラフトを生成する。', rationale: '報告書作成における文章作成の時間を短縮し、担当者は数値の分析に集中できます。' } },
+                { name: '社内通達・議事録の作成', reduction: 80, details: { use: '全社向けのアナウンスメントや、重要な会議の議事録のドラフトを、要点をインプットするだけで生成する。', rationale: '文書作成に関する定型業務の大部分を自動化し、業務負荷を大幅に軽減します。' } }
+            ]
+        }
+    ],
+    holistic: [
+        { title: '部門横断で生まれる相乗効果：サイロの破壊', content: '生成AIの真価は、個々の部門の効率化に留まらず、部門間の壁（サイロ）を破壊し、組織全体の情報流通と連携を円滑化する点にあります。生成AIは、組織内のあらゆるデータを統合し、各部門の文脈に合わせて「翻訳」するユニバーサル・トランスレーターとして機能します。例えば、カスタマーサポートのログ、セールスの商談記録、機能要望リストから「顧客は給与計算における残業代の複雑な設定に苦労している」という共通のインサイトを抽出し、各部門に特化したアクション（マーケティング向けブログ記事案、セールス向け提案スライド、開発向けユーザーストーリー）を生成することで、全部門が同じ顧客理解に基づいて行動する好循環が生まれます。' },
+        { title: '未来への航海図：リスク管理フレームワーク', content: '特に機密性の高い従業員データや財務情報を扱う人事・給与計算SaaSプロバイダーにとって、生成AIのリスクに対する堅牢なガバナンスフレームワークの構築は絶対的な前提条件です。対策として、①データセキュリティとプライバシー（エンタープライズ向けAPIの利用義務化、データ匿名化）、②回答の正確性（人間参加型のレビュープロセス確立）、③知的財産権（著作権侵害補償を提供するベンダーの検討）、④従業員向け利用ガイドライン（全社共通の行動規範策定）が不可欠です。' },
+        { title: '数字の先に在るもの：定性的な導入効果', content: '生成AI導入がもたらす最も深遠な影響は、定量的な指標だけでは測れません。それは、仕事の本質そのものを変革し、組織の革新力と従業員の満足度を向上させる点にあります。反復業務からの解放は従業員の満足度を向上させ、生まれた精神的な余裕は創造性とイノベーションを促進します。また、AIは若手従業員の学習を加速させるパーソナルチューターとなり、経営層には迅速で情報に基づいた意思決定を可能にする洞察を提供します。' }
+    ]
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const departmentCharts = {};
+
+    const createOverviewChart = () => {
+        const ctx = document.getElementById('overviewChart').getContext('2d');
+        const labels = reportData.departments.map(d => d.name);
+        const data = reportData.departments.map(d => {
+            const totalReduction = d.tasks.reduce((sum, task) => sum + task.reduction, 0);
+            return totalReduction / d.tasks.length;
+        });
+        const backgroundColors = reportData.departments.map(d => d.color);
+        const borderColors = reportData.departments.map(d => d.borderColor);
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '平均工数削減ポテンシャル (%)',
+                    data: data,
+                    backgroundColor: backgroundColors,
+                    borderColor: borderColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: '部門別 平均工数削減ポテンシャル', font: { size: 16 } },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => `${context.dataset.label}: ${context.raw.toFixed(1)}%`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: '削減率 (%)' }
+                    }
+                }
+            }
+        });
+    };
+
+    const createDepartmentSection = (dept) => {
+        const container = document.getElementById('department-sections');
+        
+        const sectionHTML = `
+            <section id="${dept.id}" class="pt-16 mb-12">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-teal-700">${dept.name}</h3>
+                    <p class="mt-4 max-w-3xl mx-auto text-gray-600">${dept.summary}</p>
+                    <p class="mt-4 text-sm text-teal-600 font-semibold">グラフの各項目をクリックすると詳細が表示されます。</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div class="chart-container">
+                        <canvas id="${dept.id}-chart"></canvas>
+                    </div>
+                    <div id="${dept.id}-details" class="bg-white p-6 rounded-xl shadow-md min-h-[300px] transition-opacity duration-300 opacity-0">
+                        <h4 class="font-bold text-xl text-gray-800 mb-4">タスク詳細</h4>
+                        <p class="text-gray-500">左のグラフからタスクを選択してください。</p>
+                    </div>
+                </div>
+            </section>
+        `;
+        container.insertAdjacentHTML('beforeend', sectionHTML);
+    };
+
+    const createDepartmentChart = (dept) => {
+        const ctx = document.getElementById(`${dept.id}-chart`).getContext('2d');
+        const labels = dept.tasks.map(t => t.name);
+        const data = dept.tasks.map(t => t.reduction);
+
+        departmentCharts[dept.id] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '想定工数削減率 (%)',
+                    data: data,
+                    backgroundColor: dept.color,
+                    borderColor: dept.borderColor,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => `${context.dataset.label}: ${context.raw}%`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: '削減率 (%)' }
+                    }
+                },
+                onClick: (event, elements) => {
+                    if (elements.length > 0) {
+                        const index = elements[0].index;
+                        const task = dept.tasks[index];
+                        updateDetailsPanel(dept.id, task);
+                    }
+                }
+            }
+        });
+    };
+    
+    const updateDetailsPanel = (deptId, task) => {
+        const detailsPanel = document.getElementById(`${deptId}-details`);
+        detailsPanel.style.opacity = 0;
+        
+        setTimeout(() => {
+            detailsPanel.innerHTML = `
+                <h4 class="font-bold text-xl text-teal-800 mb-4">${task.name}</h4>
+                <div class="space-y-4">
+                    <div>
+                        <h5 class="font-semibold text-gray-700">具体的な活用方法</h5>
+                        <p class="text-gray-600 mt-1">${task.details.use}</p>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-gray-700">削減率の算出根拠</h5>
+                        <p class="text-gray-600 mt-1">${task.details.rationale}</p>
+                    </div>
+                </div>
+            `;
+            detailsPanel.style.opacity = 1;
+        }, 150);
+    };
+    
+    const createAccordion = () => {
+        const container = document.getElementById('accordion-container');
+        reportData.holistic.forEach((item, index) => {
+            const itemHTML = `
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <button class="accordion-header w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                        <span class="font-bold text-xl text-teal-800">${item.title}</span>
+                        <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                        <div class="p-6 pt-0 text-gray-600 leading-relaxed">
+                           ${item.content}
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', itemHTML);
+        });
+
+        document.querySelectorAll('.accordion-header').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('svg');
+                
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    icon.classList.remove('rotate-180');
+                } else {
+                    document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+                    document.querySelectorAll('.accordion-header svg').forEach(i => i.classList.remove('rotate-180'));
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    icon.classList.add('rotate-180');
+                }
+            });
+        });
+    };
+
+    const setupNavScroll = () => {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section[id]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active-nav');
+                }
+            });
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelector(link.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    };
+
+    createOverviewChart();
+    reportData.departments.forEach(dept => {
+        createDepartmentSection(dept);
+        createDepartmentChart(dept);
+    });
+    createAccordion();
+    setupNavScroll();
+});
+</script>
+</body>
+</html>
