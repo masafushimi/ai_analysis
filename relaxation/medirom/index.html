@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>リラクゼーションサロンAI業務改革レポート</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Soft Teal -->
+    <!-- Application Structure Plan: ダッシュボード形式のSPAを採用。最初に全体像（総削減時間、優先度マトリクス）を提示し、ユーザーの関心を引く。左側のナビゲーションで各部門の詳細分析にドリルダウンできる構造。この設計は、まず経営層やマネージャーが全体的なインパクトを把握し、その後、各部門の担当者が自身の業務に関連する具体的な改善策を深掘りできるようにするため。情報の階層を明確にし、トップダウンでの理解とボトムアップでの活用を両立させることを目的としている。 -->
+    <!-- Visualization & Content Choices: 
+        - [全体サマリー] -> [目的: 全体のインパクトを即座に伝える] -> [Viz: ドーナツチャート、主要KPIカード] -> [Interaction: ホバーで詳細表示] -> [Justification: 視覚的に削減ポテンシャルを強調し、意思決定者に要点を素早く伝えるため] -> [Library: Chart.js]
+        - [優先度分析] -> [目的: どのタスクから着手すべきか示す] -> [Viz: バブルチャート] -> [Interaction: ホバーでタスク名表示] -> [Justification: 「削減時間（インパクト）」と「実現可能性」の2軸でタスクをマッピングし、戦略的な優先順位付けを支援するため] -> [Library: Chart.js]
+        - [部門別分析] -> [目的: 各部門の具体的な課題と解決策を提示] -> [Viz: HTMLテーブル、部門別ドーナツチャート] -> [Interaction: タスク行クリックで詳細（活用例）を展開] -> [Justification: 詳細なデータを整理して提示しつつ、アコーディオンUIで情報の過多を防ぎ、関心のある項目を深掘りできるようにするため] -> [Library: なし（HTML/CSS/JS）]
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: #FDFBF8; color: #4F4A45; }
+        .chart-container { position: relative; width: 100%; max-width: 400px; margin-left: auto; margin-right: auto; height: 300px; max-height: 350px; }
+        .bubble-chart-container { position: relative; width: 100%; height: 400px; max-height: 50vh; }
+        .nav-link { transition: all 0.2s ease-in-out; }
+        .nav-link.active, .nav-link:hover { background-color: #EADBC8; color: #4F4A45; transform: translateX(4px); }
+        .task-row { cursor: pointer; }
+        .task-detail { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; }
+        .task-row.open .task-detail { max-height: 500px; }
+        .gradient-bg { background: linear-gradient(135deg, #FDFBF8, #EADBC8); }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="min-h-screen flex flex-col">
+        <header class="p-6 shadow-md gradient-bg">
+            <h1 class="text-2xl md:text-3xl font-bold text-center text-[#675D50]">リラクゼーションサロン向け 生成AI業務改革レポート</h1>
+            <p class="text-center text-sm md:text-base text-gray-600 mt-2">株式会社クレール（想定）様の業務効率化とDX推進のご提案</p>
+        </header>
+
+        <div class="flex-grow flex flex-col md:flex-row">
+            <nav id="navigation" class="w-full md:w-64 bg-[#F3EFEA] p-4 md:p-6 space-y-2 shrink-0">
+            </nav>
+
+            <main class="flex-grow p-4 md:p-8 overflow-y-auto">
+                <div id="content-area">
+                </div>
+            </main>
+        </div>
+    </div>
+
+<script>
+const reportData = {
+    summary: {
+        name: "全体サマリー",
+        intro: "本レポートは、貴社（株式会社クレール）の各業務部門における生成AIの活用可能性を分析し、具体的な業務効率化の道筋を示すものです。最初に全体像として、AI導入による削減効果の全体像と、どの業務から着手すべきかの優先順位を可視化します。これにより、投資対効果の高いDX戦略を迅速に立案することが可能になります。",
+    },
+    therapist: {
+        name: "施術スタッフ部門",
+        intro: "セラピストの主な役割は質の高い施術を提供することです。しかし、実際にはカルテ記入や情報共有などの付帯業務に多くの時間を費やしています。このセクションでは、AIを活用してこれらの付帯業務を効率化し、セラピストが本来の専門業務に集中できる環境を構築する方法を探ります。",
+        tasks: [
+            { name: "施術後のカルテ記入・要約作成", hours: 25, ai: "◯", saving: 20, effect: "カルテ品質の標準化、記入漏れ防止、顧客理解の深化", example: "お客様との会話内容を音声入力し、AIが指定のフォーマットでカルテ文章を自動生成する。\n\n**プロンプト例:**\n「以下の顧客との会話ログを、SOAP形式のカルテにまとめてください。\n- 主訴: 肩こり、首の痛み\n- 会話内容: 最近デスクワークが増え、夕方になると特に辛い。週末はゴルフに行くが、スイング時に首が回りにくいことがある。睡眠は浅め。\n- 施術内容: 肩甲骨周りのストレッチと、首筋のアロママッサージを重点的に実施。」" },
+            { name: "顧客への個別アフターフォロー提案作成", hours: 10, ai: "◯", saving: 8, effect: "提案の質向上、顧客満足度・リピート率向上", example: "当日の施術内容と顧客の悩みに基づき、パーソナライズされたホームケアアドバイスや次回推奨メニューをAIが提案する。\n\n**プロンプト例:**\n「顧客情報（40代女性、悩み：足のむくみ、冷え性）と本日の施術（リフレクソロジー60分）に基づき、次回来店を促すためのLINEメッセージを作成して。自宅でできる簡単なストレッチと、次回おすすめのメニュー（例：アロマオイルトリートメント）を含めてください。」" },
+            { name: "最新の施術知識・トレンドの情報収集", hours: 8, ai: "△", saving: 4, effect: "効率的なスキルアップ、新メニュー開発のヒント発見", example: "関心のある分野（例：筋膜リリース、アロマセラピーの最新研究）を指定し、関連するウェブ記事や論文をAIに要約させる。\n\n**プロンプト例:**\n「『ヘッドスパの効果に関する最新の科学的エビデンス』について、信頼できる情報源から5つのポイントを要約して教えて。」" },
+        ]
+    },
+    front_desk: {
+        name: "フロント・受付部門",
+        intro: "フロントはサロンの「顔」であり、第一印象を決定づける重要な部門です。予約対応や会計業務に加え、お客様へのきめ細やかな対応が求められます。ここでは、AIチャットボットや自動化ツールを導入し、定型業務を削減することで、スタッフがより質の高い接客に集中できる環境を目指す方法を提案します。",
+        tasks: [
+            { name: "電話・メールでの予約・問い合わせ対応", hours: 30, ai: "◯", saving: 24, effect: "24時間対応可能、予約の取りこぼし防止、顧客満足度向上", example: "ウェブサイトやLINEにAIチャットボットを導入し、空き状況の案内、予約受付、簡単な質問への自動応答を行う。\n\n**プロンプト例（チャットボット設定）:**\n「ユーザーが『予約したい』と入力したら、希望日時、コース、指名セラピストを順に質問し、予約システムの空き状況と照合して予約を確定するシナリオを作成してください。」" },
+            { name: "来店時の問診票のデジタル化とカルテ入力支援", hours: 15, ai: "◯", saving: 12, effect: "情報入力の迅速化、ペーパーレス化、情報の標準化", example: "タブレットで入力された問診票データをAIが読み取り、カルテの該当項目に自動で転記・要約する。\n\n**プロンプト例:**\n「以下の問診票の回答から、特記事項を箇条書きで3点に要約してください。\n回答：[問診票のテキストデータ]」" },
+            { name: "会計・次回予約の案内", hours: 12, ai: "△", saving: 6, effect: "会計ミスの削減、次回予約率の向上", example: "顧客の過去の利用履歴や好みに基づき、AIが次回のおすすめメニューやキャンペーンを提示。スタッフはその提案を元に接客を行う。\n\n**プロンプト例:**\n「前回『アロマ60分』を利用した顧客で、本日『整体40分』を利用した場合、次回におすすめのセットコースを3つ提案してください。それぞれのコースの魅力も簡潔に添えて。」" },
+            { name: "備品・リネン類の在庫管理と発注業務", hours: 8, ai: "✕", saving: 0, effect: "AI単体での自動化は困難。物理的な確認が必要。", example: "物理的な在庫確認と品質チェックが必須なため、AIの直接的な活用は難しい。ただし、過去の消費データからAIが需要予測を行い、発注量の目安を提示することは可能（△レベル）。" }
+        ]
+    },
+    manager: {
+        name: "店舗マネジメント部門",
+        intro: "店長の業務は売上管理からスタッフ育成、顧客対応まで多岐にわたります。意思決定の質とスピードが店舗の業績に直結するため、データに基づいた的確な判断が不可欠です。AIを活用して日報分析やシフト作成を自動化し、店長がより戦略的な業務に時間を割けるようにする方策を検討します。",
+        tasks: [
+            { name: "スタッフのシフト作成・調整", hours: 12, ai: "◯", saving: 10, effect: "作成時間の短縮、希望・公休の反映ミス防止、公平性の担保", example: "各スタッフの希望休、勤務可能時間、スキルレベル、スタッフ間の相性などを条件として入力し、AIに最適なシフトパターンを複数提案させる。\n\n**プロンプト例:**\n「以下の条件で来月のシフト案を3パターン作成してください。\n- スタッフA: 月水金休み、土日出勤希望\n- スタッフB: 週3勤務希望、早番のみ\n- 週末は必ず3人以上配置\n- 新人Cは必ずベテランAか店長と組ませる」" },
+            { name: "日報・週報の集計と分析、報告資料作成", hours: 15, ai: "◯", saving: 12, effect: "データ分析の自動化、課題の早期発見、報告業務の効率化", example: "各スタッフの日報データをAIに読み込ませ、売上、客数、リピート率などの主要KPIを自動で集計・グラフ化し、傾向と課題を要約させる。\n\n**プロンプト例:**\n「添付の週報データから、売上の前週比、曜日別の客数の傾向を分析し、考察を3つのポイントでまとめてPowerPointの1枚目に記載するテキストを作成してください。」" },
+            { name: "スタッフの個人面談・目標設定の準備", hours: 10, ai: "△", saving: 5, effect: "面談の質向上、客観的なフィードバック支援", example: "対象スタッフの過去の売上データ、指名数、顧客からの口コミなどをAIに分析させ、強み・弱み、今後の育成方針に関する論点を整理させる。\n\n**プロンプト例:**\n「セラピストAの過去3ヶ月のデータ（売上、指名数、口コミ評価）を分析し、次の個人面談で話し合うべき『強み』と『成長課題』をそれぞれ3点ずつ挙げてください。」" },
+            { name: "クレーム・トラブルの一次対応と報告", hours: 5, ai: "△", saving: 2, effect: "対応の迅速化、感情的な対応の回避、報告の標準化", example: "顧客からのクレーム内容をAIに入力し、共感を示しつつ状況を整理するための返信メールの草案を作成させる。あくまで草案であり、最終判断は店長が行う。\n\n**プロンプト例:**\n「『予約したのに30分も待たされた』というクレームメールへの返信文（初動）を作成してください。まず謝罪と共感を示し、事実確認のために詳細をお伺いする丁寧な文章でお願いします。」" }
+        ]
+    },
+    marketing: {
+        name: "集客・販促・SNS部門",
+        intro: "新規顧客の獲得と既存顧客の維持には、効果的なマーケティング活動が欠かせません。この部門では、SNS投稿や広告文の作成といったクリエイティブな業務が多く発生します。生成AIを活用してコンテンツ制作を効率化し、より多様で魅力的な情報発信を実現する方法を考えます。",
+        tasks: [
+            { name: "Instagram、ブログ等のSNS投稿文作成", hours: 20, ai: "◯", saving: 16, effect: "投稿頻度の向上、コンテンツの多様化、ブランディング強化", example: "キャンペーン内容や伝えたいテーマを指示するだけで、ターゲット層に響くキャッチコピーや投稿文、ハッシュタグをAIが複数パターン生成する。\n\n**プロンプト例:**\n「リラクゼーションサロンのInstagram投稿を作成。\n- テーマ: 梅雨の時期のだるさ解消\n- ターゲット: 20-30代の働く女性\n- 内容: アロマオイルを使ったヘッドスパの効果を伝え、来店を促す\n- トーン: 優しく、共感的\n- ハッシュタグを10個つけてください。」" },
+            { name: "チラシ・ウェブ広告のキャッチコピー作成", hours: 10, ai: "◯", saving: 8, effect: "ABテストの効率化、クリック率・反応率の向上", example: "ターゲット顧客のペルソナと商品の特徴を伝え、広告効果の高いキャッチコピー案を大量に生成させ、その中から選定・テストする。\n\n**プロンプト例:**\n「ターゲット（40代男性、管理職、悩み：眼精疲労、ストレス）向けの整体コースの広告キャッチコピーを10個作成してください。『結果重視』『短時間』『贅沢な空間』といったキーワードを含めてください。」" },
+            { name: "キャンペーン・イベントの企画立案", hours: 12, ai: "△", saving: 6, effect: "アイデア創出の活性化、企画の多角的な検討", example: "季節やトレンド、店舗の課題（例：平日の客数増）といった条件を与え、AIにキャンペーンのアイデアをブレインストーミングさせる。\n\n**プロンプト例:**\n「夏枯れ肌対策と夏の疲れ解消をテーマにした、8月のリラクゼーションサロンのキャンペーン企画を5つ提案してください。新規顧客向けとリピーター向けの両方の視点を含めてください。」" }
+        ]
+    },
+    crm: {
+        name: "顧客管理・CRM部門",
+        intro: "顧客との長期的な関係構築は、サロン経営の安定に不可欠です。LINE公式アカウントやメルマガを通じて、一人ひとりに合った情報を提供することが重要になります。ここでは、AIを用いて顧客データを分析し、パーソナライズされたコミュニケーションを自動化・効率化する方法を探ります。",
+        tasks: [
+            { name: "LINE公式アカウントでの一斉・個別配信", hours: 15, ai: "◯", saving: 12, effect: "配信作業の高速化、開封率・反応率の向上、顧客との関係強化", example: "配信目的とターゲットセグメント（例：最終来店から3ヶ月経過した顧客）を指定し、AIにメッセージ文案を作成させる。\n\n**プロンプト例:**\n「しばらくご来店のないお客様向けのLINEメッセージを作成してください。最近のサロンのニュース（新メニューなど）を盛り込みつつ、再来店を促す特別なクーポンを提案する内容でお願いします。」" },
+            { name: "顧客アンケートの作成と回答の分析", hours: 10, ai: "◯", saving: 8, effect: "顧客ニーズの定量的・定性的把握、サービス改善点の抽出", example: "実施後のアンケートのフリーアンサーをAIに読み込ませ、ポジティブな意見とネガティブな意見を分類・要約させ、改善のヒントを抽出する。\n\n**プロンプト例:**\n「添付の顧客アンケートの自由回答テキストから、『改善すべき点』に関する意見を抽出し、内容ごとにグループ分けして要約してください。」" },
+            { name: "失客・休眠顧客の分析と掘り起こし施策", hours: 12, ai: "△", saving: 6, effect: "失客原因の仮説立案、効果的な再アプローチ", example: "休眠顧客の属性や過去の利用履歴データをAIで分析し、再来店率が高い可能性のあるセグメントと、そのセグメントに響くであろうアプローチ方法の仮説を立てさせる。\n\n**プロンプト例:**\n「過去に3回以上来店したが、直近6ヶ月来店がない顧客のデータです。この中で、特に『高単価なコース』を好んでいた顧客セグメントの特徴を分析し、再来店を促すためのDMの文面案を考えてください。」" }
+        ]
+    },
+    education: {
+        name: "教育・研修部門",
+        intro: "セラピストの技術力と接客力は、サロンの品質そのものです。新人研修から既存スタッフのスキルアップまで、教育体系の構築と運用は重要な業務です。AIを研修マニュアルの作成やロールプレイングの相手として活用し、教育の標準化と効率化を図る方法を提案します。",
+        tasks: [
+            { name: "新人研修マニュアル・動画コンテンツの作成", hours: 25, ai: "◯", saving: 20, effect: "マニュアル作成の高速化、内容の標準化、学習効果の向上", example: "教えたい手技や接客の流れを箇条書きでAIに渡し、分かりやすい構成のマニュアル文章や、動画撮影用の台本を作成させる。\n\n**プロンプト例:**\n「新人セラピスト向けの『受付から施術室へのご案内』に関する接客マニュアルを作成してください。5つのステップに分け、各ステップでの注意点と具体的なセリフ例を含めてください。」" },
+            { name: "接客ロールプレイングのシナリオ作成と評価", hours: 15, ai: "△", saving: 8, effect: "多様なケースへの対応力強化、客観的なフィードバック", example: "様々な顧客タイプ（例：お急ぎの方、お話好きの方、クレームを言いたい方）を想定したロールプレイングシナリオをAIに作成させる。練習相手としてAIチャットボットを使うことも可能。\n\n**プロンプト例:**\n「『コース内容に不満を持っているが、はっきりとは言えないお客様』との接客ロールプレイングシナリオを作成してください。お客様の隠れたニーズを引き出すための質問例も3つ含めてください。」" },
+            { name: "技術テストの評価基準作成とフィードバック補助", hours: 10, ai: "△", saving: 5, effect: "評価の公平性・客観性の向上、フィードバックの質向上", example: "技術チェックリストの項目に基づき、各段階（S, A, B, C評価）の具体的な状態を言語化させ、評価基準を明確にする。評価後のフィードバックコメントの草案作成も支援。\n\n**プロンプト例:**\n「オイルトリートメントの技術テストにおいて、『圧の安定性』という評価項目について、S評価からC評価までの具体的な基準を言語化してください。」" },
+            { name: "法令・コンプライアンス研修資料の作成", hours: 8, ai: "◯", saving: 6, effect: "最新情報の反映、分かりやすい資料作成", example: "景品表示法や個人情報保護法など、サロン運営に関わる法律の要点をAIにまとめさせ、スタッフ向けの研修資料を作成する。\n\n**プロンプト例:**\n「リラクゼーションサロンの広告で注意すべき景品表示法のポイントを、初心者にも分かるように5つにまとめて解説してください。」" }
+        ]
+    },
+    back_office: {
+        name: "本社管理・バックオフィス部門",
+        intro: "人事、経理、総務といったバックオフィス業務は、組織全体の土台を支える重要な機能です。煩雑な事務作業や定型的な書類作成が多く、効率化の余地が大きい領域でもあります。ここでは、AIを活用して採用業務や経費精算などを効率化し、組織運営の生産性を高める方法を探ります。",
+        tasks: [
+            { name: "求人票の作成と応募者への一次対応", hours: 20, ai: "◯", saving: 16, effect: "魅力的な求人票の作成、採用プロセスの迅速化", example: "求める人物像や労働条件をAIに伝え、複数の求人媒体に合わせた魅力的な求人票の文章を生成させる。応募者からの簡単な質問にはAIチャットボットが自動応答。\n\n**プロンプト例:**\n「リラクゼーションサロンのセラピスト（正社員）の求人票を作成してください。ターゲットは経験3年以上の即戦力。当社の魅力（充実した研修制度、ノルマなし、インセンティブあり）を強調した文章でお願いします。」" },
+            { name: "契約書・社内規定などの書類作成・修正", hours: 15, ai: "△", saving: 8, effect: "ドラフト作成の高速化、リーガルチェックの補助", example: "作成したい契約書の種類や盛り込みたい条件を指示し、AIにひな形を作成させる。最終確認は専門家（弁護士など）が行う。\n\n**プロンプト例:**\n「業務委託契約書のドラフトを作成してください。契約期間、報酬、業務内容、秘密保持義務の条項を含めてください。」" },
+            { name: "経費・請求書の処理と仕訳作業", hours: 25, ai: "✕", saving: 0, effect: "専門性と正確性が高くAI単体での代替は困難", example: "OCRと会計ソフトの連携による効率化が主であり、生成AIの直接的な活用は限定的。領収書の内容から勘定科目を推測する補助機能（△レベル）は考えられるが、最終的な確認は必須。" },
+            { name: "会議の議事録作成とタスク管理", hours: 10, ai: "◯", saving: 8, effect: "議事録作成の自動化、決定事項・TODOの明確化", example: "会議の音声をAI文字起こしツールでテキスト化し、その全文を生成AIに要約させ、決定事項と担当者、期限をリストアップさせる。\n\n**プロンプト例:**\n「以下の会議議事録テキストから、決定事項、担当者、期限を抽出し、テーブル形式でまとめてください。\n[文字起こしされたテキスト]」" }
+        ]
+    },
+};
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const navigation = document.getElementById('navigation');
+    const contentArea = document.getElementById('content-area');
+
+    function renderNavigation() {
+        const navItems = Object.keys(reportData).map(key => {
+            if (key === 'summary') {
+                return `<a href="#" data-key="summary" class="nav-link block p-3 rounded-md font-semibold text-[#675D50] active">${reportData[key].name}</a>`;
+            }
+            return `<a href="#" data-key="${key}" class="nav-link block p-3 rounded-md text-[#675D50]">${reportData[key].name}</a>`;
+        }).join('');
+        navigation.innerHTML = `<h2 class="text-lg font-bold mb-4 text-[#4F4A45]">分析部門</h2>${navItems}`;
+
+        navigation.addEventListener('click', e => {
+            e.preventDefault();
+            const link = e.target.closest('.nav-link');
+            if (link) {
+                const key = link.dataset.key;
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                if (key === 'summary') {
+                    renderSummary();
+                } else {
+                    renderDepartment(key);
+                }
+            }
+        });
+    }
+
+    function renderSummary() {
+        const summaryData = reportData.summary;
+        let totalHours = 0;
+        let totalSaving = 0;
+        const bubbleChartData = [];
+
+        Object.keys(reportData).forEach(key => {
+            if (key !== 'summary' && reportData[key].tasks) {
+                reportData[key].tasks.forEach(task => {
+                    totalHours += task.hours;
+                    totalSaving += task.saving;
+                    bubbleChartData.push({
+                        label: `[${reportData[key].name.substring(0,4)}] ${task.name}`,
+                        x: task.saving,
+                        y: task.ai === '◯' ? 3 : (task.ai === '△' ? 2 : 1),
+                        r: task.hours / 2,
+                    });
+                });
+            }
+        });
+        const totalSavingPercent = totalHours > 0 ? ((totalSaving / totalHours) * 100).toFixed(0) : 0;
+
+        const contentHTML = `
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <h2 class="text-2xl font-bold mb-2 text-[#675D50]">${summaryData.name}</h2>
+                <p class="text-gray-600 mb-6">${summaryData.intro}</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-center">
+                    <div class="bg-[#F3EFEA] p-4 rounded-lg">
+                        <h3 class="text-sm text-gray-600">対象業務の総時間</h3>
+                        <p class="text-3xl font-bold text-[#675D50]">${totalHours}<span class="text-lg ml-1">時間/月</span></p>
+                    </div>
+                    <div class="bg-[#EADBC8] p-4 rounded-lg">
+                        <h3 class="text-sm text-gray-700">AIによる削減見込み</h3>
+                        <p class="text-3xl font-bold text-[#4F4A45]">${totalSaving}<span class="text-lg ml-1">時間/月</span></p>
+                    </div>
+                    <div class="bg-[#DAC0A3] p-4 rounded-lg">
+                        <h3 class="text-sm text-gray-800">業務効率化率</h3>
+                        <p class="text-3xl font-bold text-white">${totalSavingPercent}<span class="text-lg ml-1">%</span></p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-[#FDFBF8] p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-bold text-center mb-4">全体工数 削減ポテンシャル</h3>
+                        <div class="chart-container">
+                            <canvas id="summaryDoughnutChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-[#FDFBF8] p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-bold text-center mb-4">タスク別 優先度マトリクス</h3>
+                         <div class="bubble-chart-container">
+                            <canvas id="priorityBubbleChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        contentArea.innerHTML = contentHTML;
+
+        const doughnutCtx = document.getElementById('summaryDoughnutChart').getContext('2d');
+        new Chart(doughnutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['AIによる削減可能時間', '残りの業務時間'],
+                datasets: [{
+                    data: [totalSaving, totalHours - totalSaving],
+                    backgroundColor: ['#10b981', '#f0f0f0'],
+                    borderColor: ['#10b981', '#d1d5db'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed !== null) {
+                                    label += context.parsed + ' 時間';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        const bubbleCtx = document.getElementById('priorityBubbleChart').getContext('2d');
+        new Chart(bubbleCtx, {
+            type: 'bubble',
+            data: {
+                datasets: [{
+                    label: '業務タスク',
+                    data: bubbleChartData,
+                    backgroundColor: 'rgba(103, 93, 80, 0.6)',
+                    borderColor: 'rgba(103, 93, 80, 1)',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.raw.label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: '工数削減の見込み (時間)' },
+                        min: 0,
+                    },
+                    y: {
+                        title: { display: true, text: 'AI活用可能性' },
+                        min: 0.5,
+                        max: 3.5,
+                        ticks: {
+                            stepSize: 1,
+                            callback: function(value, index, values) {
+                                switch (value) {
+                                    case 1: return '✕ 低';
+                                    case 2: return '△ 中';
+                                    case 3: return '◯ 高';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function renderDepartment(key) {
+        const deptData = reportData[key];
+        if (!deptData) return;
+
+        let totalDeptHours = 0;
+        let totalDeptSaving = 0;
+        deptData.tasks.forEach(t => {
+            totalDeptHours += t.hours;
+            totalDeptSaving += t.saving;
+        });
+
+        const tasksHTML = deptData.tasks.map((task, index) => {
+            const savingPercent = task.hours > 0 ? ((task.saving / task.hours) * 100).toFixed(0) : 0;
+            const aiClass = task.ai === '◯' ? 'bg-green-100 text-green-800' : (task.ai === '△' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800');
+            const savingColor = savingPercent > 70 ? 'text-green-600' : (savingPercent > 30 ? 'text-yellow-600' : 'text-gray-500');
+
+            return `
+                <tbody class="task-row" data-index="${index}">
+                    <tr class="border-b border-gray-200 hover:bg-gray-50">
+                        <td class="p-3 font-medium">${task.name}</td>
+                        <td class="p-3 text-center">${task.hours}h</td>
+                        <td class="p-3 text-center"><span class="px-2 py-1 text-sm font-semibold rounded-full ${aiClass}">${task.ai}</span></td>
+                        <td class="p-3 text-center font-bold ${savingColor}">${task.saving}h (${savingPercent}%)</td>
+                        <td class="p-3 text-sm text-gray-600">${task.effect}</td>
+                         <td class="p-3 text-center text-gray-400">▼</td>
+                    </tr>
+                    <tr class="task-detail-row">
+                        <td colspan="6" class="p-0">
+                            <div class="task-detail bg-[#F3EFEA] p-4">
+                                <h4 class="font-bold mb-2">推奨される活用方法・プロンプト例</h4>
+                                <pre class="whitespace-pre-wrap bg-white p-3 rounded text-sm text-gray-700 font-sans">${task.example}</pre>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            `;
+        }).join('');
+
+        const contentHTML = `
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <h2 class="text-2xl font-bold mb-2 text-[#675D50]">${deptData.name}</h2>
+                <p class="text-gray-600 mb-6">${deptData.intro}</p>
+
+                <div class="mb-8 p-4 bg-[#F3EFEA] rounded-lg">
+                    <h3 class="text-lg font-bold text-center mb-2">「${deptData.name}」の工数削減ポテンシャル</h3>
+                    <div class="chart-container">
+                        <canvas id="deptDoughnutChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[800px] text-left border-collapse">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="p-3 text-sm font-semibold">現在の業務内容・タスク詳細</th>
+                                <th class="p-3 text-sm font-semibold text-center w-24">月間工数</th>
+                                <th class="p-3 text-sm font-semibold text-center w-28">AI活用可否</th>
+                                <th class="p-3 text-sm font-semibold text-center w-36">削減見込</th>
+                                <th class="p-3 text-sm font-semibold w-64">定性的な効果</th>
+                                <th class="p-3 text-sm font-semibold text-center w-16">詳細</th>
+                            </tr>
+                        </thead>
+                        ${tasksHTML}
+                    </table>
+                </div>
+            </div>
+        `;
+        contentArea.innerHTML = contentHTML;
+
+        const deptDoughnutCtx = document.getElementById('deptDoughnutChart').getContext('2d');
+        new Chart(deptDoughnutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['AIによる削減可能時間', '残りの業務時間'],
+                datasets: [{
+                    data: [totalDeptSaving, totalDeptHours - totalDeptSaving],
+                    backgroundColor: ['#60A5FA', '#f0f0f0'],
+                    borderColor: ['#60A5FA', '#d1d5db'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.parsed} 時間`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        document.querySelectorAll('.task-row').forEach(row => {
+            row.addEventListener('click', (e) => {
+                // Prevent clicks on nested interactive elements if any
+                if(e.target.closest('a, button')) return;
+                
+                // Close all other open rows
+                document.querySelectorAll('.task-row.open').forEach(openRow => {
+                    if(openRow !== row) {
+                        openRow.classList.remove('open');
+                    }
+                });
+                
+                // Toggle the clicked row
+                row.classList.toggle('open');
+            });
+        });
+    }
+
+    renderNavigation();
+    renderSummary();
+});
+</script>
+
+</body>
+</html>
