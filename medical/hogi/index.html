@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ホギメディカル AI活用戦略ダッシュボード</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Neutrals & Trustworthy Blue -->
+    <!-- Application Structure Plan: A dashboard-style SPA with three main views: Strategic Summary, Departmental Analysis, and Implementation Strategy. The core interaction is a top-level navigation to switch between these views. The summary page features an interactive bubble chart to visualize the impact/feasibility matrix, allowing users to click and jump directly to detailed departmental analyses. This non-linear, task-oriented structure is chosen over a simple report scroll to empower users to explore high-priority areas first and drill down on demand, enhancing usability and decision-making speed. -->
+    <!-- Visualization & Content Choices: ROE Decline -> Goal: Inform -> Viz: Line Chart (Chart.js) -> Interaction: Hover -> Justification: Clearly shows the negative trend driving the need for action. AI Initiatives -> Goal: Compare/Organize -> Viz: Bubble Chart (Chart.js) -> Interaction: Hover/Click -> Justification: Translates the conceptual matrix into an interactive map for prioritizing and navigating to details. Departmental Tasks -> Goal: Inform/Compare -> Viz: Radar Chart & Interactive Table (Chart.js/HTML) -> Interaction: Hover/Expand -> Justification: Radar chart provides a quick visual summary of potential, while the expandable table offers detailed use cases without cluttering the initial view. Implementation Plan -> Goal: Organize/Inform -> Viz: HTML/CSS Process Flow -> Interaction: Hover -> Justification: Simple, clear visual representation of the strategic roadmap. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: #f8fafc; }
+        .chart-container { position: relative; width: 100%; max-width: 900px; margin-left: auto; margin-right: auto; height: 400px; max-height: 50vh; }
+        @media (max-width: 768px) { .chart-container { height: 350px; max-height: 60vh; } }
+        .nav-button { transition: all 0.3s ease; }
+        .nav-button.active { color: #2563eb; border-bottom-color: #2563eb; }
+        .nav-button:not(.active) { border-bottom-color: transparent; }
+        .dept-button { transition: all 0.3s ease; }
+        .dept-button.active { background-color: #3b82f6; color: white; }
+        .dept-button:not(.active) { background-color: #e5e7eb; color: #374151; }
+        .task-row { cursor: pointer; }
+        .task-details { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto px-4 py-8">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">株式会社ホギメディカル</h1>
+            <p class="text-xl md:text-2xl text-blue-600 font-semibold mt-1">生成AI活用戦略ダッシュボード</p>
+        </header>
+
+        <nav class="mb-8 border-b border-slate-200">
+            <div class="flex justify-center space-x-4 md:space-x-8">
+                <button id="nav-summary" class="nav-button active text-sm md:text-base font-medium py-3 px-2 border-b-2">戦略サマリー</button>
+                <button id="nav-departments" class="nav-button text-sm md:text-base font-medium py-3 px-2 border-b-2">部門別ポテンシャル</button>
+                <button id="nav-strategy" class="nav-button text-sm md:text-base font-medium py-3 px-2 border-b-2">全社導入戦略</button>
+            </div>
+        </nav>
+
+        <main>
+            <!-- Strategic Summary View -->
+            <section id="view-summary">
+                <div class="space-y-12">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h2 class="text-2xl font-bold mb-4 text-slate-900 text-center">経営課題：低下傾向にある資本効率性（ROE）</h2>
+                        <p class="text-center text-slate-600 mb-6 max-w-3xl mx-auto">過去10年間、事業規模は拡大したものの、ROEは低下傾向にあります。これは収益性の改善が追いついていないことを示唆しており、生成AIによる全社的な業務効率の抜本的見直しが、このトレンドを反転させる鍵となります。</p>
+                        <div class="chart-container" style="height: 300px; max-height: 40vh;">
+                            <canvas id="roeChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h2 class="text-2xl font-bold mb-4 text-slate-900 text-center">AI活用施策 インパクト・実現性マップ</h2>
+                        <p class="text-center text-slate-600 mb-6 max-w-3xl mx-auto">各部門のAI活用施策を「事業インパクト」と「導入実現性」で評価しました。右上に位置する施策ほど優先度が高くなります。バブルをクリックすると、該当部門の詳細分析へジャンプします。</p>
+                        <div class="chart-container">
+                            <canvas id="impactFeasibilityChart"></canvas>
+                        </div>
+                    </div>
+
+                     <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h2 class="text-2xl font-bold mb-4 text-slate-900 text-center">AI活用優先領域</h2>
+                        <p class="text-center text-slate-600 mb-6 max-w-3xl mx-auto">マップ分析に基づき、AI活用の優先度を「最優先領域」と「戦略的重点領域」に分類しました。短期的なROI創出と中長期的な競争優位性構築を両立させるアプローチが重要です。
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-8 mt-6">
+                            <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                                <h3 class="text-xl font-bold text-blue-800 mb-3">🚀 最優先領域 (短期ROI創出)</h3>
+                                <p class="text-slate-700 mb-4">既存技術で実現可能、低リスクかつ高インパクトな施策群。早期に成功体験を積み、全社的な機運を醸成します。</p>
+                                <ul class="space-y-2 list-disc list-inside text-slate-700">
+                                    <li><strong class="font-semibold">営業部:</strong> 提案書・見積書・御礼メール等の定型文書作成自動化</li>
+                                    <li><strong class="font-semibold">CS部門:</strong> FAQチャットボットとナレッジ検索システムの導入</li>
+                                    <li><strong class="font-semibold">管理部:</strong> 社内規定問合せチャットボットと定型契約書ドラフト作成</li>
+                                </ul>
+                            </div>
+                            <div class="bg-emerald-50 p-6 rounded-lg border border-emerald-200">
+                                <h3 class="text-xl font-bold text-emerald-800 mb-3">🎯 戦略的重点領域 (中長期の競争優位性)</h3>
+                                <p class="text-slate-700 mb-4">事業の根幹に関わるクリティカルな業務。慎重な計画と検証のもと、パイロットプロジェクトとして着手します。</p>
+                                <ul class="space-y-2 list-disc list-inside text-slate-700">
+                                    <li><strong class="font-semibold">品質保証/薬事:</strong> 薬事申請資料の整合性チェックとGVP文書分析</li>
+                                    <li><strong class="font-semibold">SCM部:</strong> AIによる高精度な需要予測モデルの構築</li>
+                                    <li><strong class="font-semibold">製品開発部:</strong> 技術文書（仕様書等）のドラフト作成支援</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Departmental Potential View -->
+            <section id="view-departments" class="hidden">
+                <div class="text-center mb-8">
+                     <h2 class="text-2xl font-bold mb-2 text-slate-900">部門別ポテンシャル分析</h2>
+                     <p class="text-slate-600 max-w-3xl mx-auto">部門を選択すると、AI活用ポテンシャルの概要と、具体的な業務タスクレベルでの活用例が表示されます。</p>
+                </div>
+                <div id="department-selector" class="flex flex-wrap justify-center gap-2 mb-8">
+                </div>
+                
+                <div id="department-content" class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 min-h-[600px]">
+                    <div id="department-details" class="grid lg:grid-cols-5 gap-8">
+                        <div class="lg:col-span-2">
+                             <h3 id="dept-name" class="text-2xl font-bold text-slate-900 mb-2"></h3>
+                             <p id="dept-role" class="text-slate-600 mb-4"></p>
+                             <div class="chart-container" style="height: 320px;">
+                                <canvas id="departmentRadarChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-3">
+                            <h4 class="text-xl font-bold text-slate-800 mb-4">主要業務とAI活用例</h4>
+                             <p class="text-sm text-slate-500 mb-4">業務名をクリックすると、具体的なタスクと活用例が表示されます。</p>
+                            <div id="task-list" class="space-y-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Company-Wide Strategy View -->
+            <section id="view-strategy" class="hidden">
+                 <div class="text-center mb-8">
+                     <h2 class="text-2xl font-bold mb-2 text-slate-900">全社導入戦略とリスク管理</h2>
+                     <p class="text-slate-600 max-w-3xl mx-auto">生成AIを安全かつ効果的に全社展開するための共通基盤、ツール、そして管理すべき主要リスクと対策を概説します。</p>
+                </div>
+                <div class="space-y-8">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h3 class="text-xl font-bold text-slate-900 mb-4">推奨AI基盤と共通ツール</h3>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="bg-slate-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-blue-700">1. セキュアなAIプラットフォーム</h4>
+                                <p class="text-sm text-slate-600 mt-1">Azure OpenAI Serviceなど、データが外部学習に利用されないエンタープライズ向けAI基盤を導入。情報漏洩リスクを根本から遮断します。</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-blue-700">2. RAGアーキテクチャの活用</h4>
+                                <p class="text-sm text-slate-600 mt-1">AIが社内の信頼できる文書（QMS文書、マニュアル等）のみを根拠に回答を生成する仕組み。ハルシネーション（嘘の生成）を防ぎ、回答の信頼性を担保します。</p>
+                            </div>
+                             <div class="bg-slate-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-blue-700">3. 全社共通ツールの展開</h4>
+                                <p class="text-sm text-slate-600 mt-1">AIナレッジ検索、会議アシスタント、Officeアドインなどを共通基盤上で提供し、全部門の生産性を底上げします。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h3 class="text-xl font-bold text-slate-900 mb-4">主要リスクと対策</h3>
+                         <div class="space-y-4">
+                            <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                                <h4 class="font-bold text-red-800">情報セキュリティと機密性</h4>
+                                <p class="text-sm text-slate-700 mt-1"><strong>対策:</strong> エンタープライズ向けAI基盤の導入、全社AI利用ガイドラインの策定、全従業員へのセキュリティ研修を実施。</p>
+                            </div>
+                            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                                <h4 class="font-bold text-amber-800">法規制コンプライアンス（医療機器規制）</h4>
+                                <p class="text-sm text-slate-700 mt-1"><strong>対策:</strong> AIは「アシスタント」と位置づけ、最終承認は人間が行うプロセスをQMSに定義。AIツールのバリデーションを実施し、記録を保管。</p>
+                            </div>
+                             <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                                <h4 class="font-bold text-amber-800">アウトプットの信頼性</h4>
+                                <p class="text-sm text-slate-700 mt-1"><strong>対策:</strong> クリティカルな業務ではAIの役割をドラフト作成に限定し、専門家によるファクトチェックを必須化。RAGアーキテクチャで根拠を明確化。</p>
+                            </div>
+                             <div class="bg-sky-50 border-l-4 border-sky-500 p-4 rounded-r-lg">
+                                <h4 class="font-bold text-sky-800">組織・人材へのインパクト</h4>
+                                <p class="text-sm text-slate-700 mt-1"><strong>対策:</strong> 経営層からのポジティブなメッセージ発信、実践的な教育プログラムの提供、現場の意見を尊重した段階的な導入を推進。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const reportData = {
+        departments: [
+            { id: 'keiei', name: '経営企画部', role: '全社経営戦略の策定、市場分析、IR活動といった企業経営の中枢を担います。課題は、膨大な内外情報の迅速かつ正確な分析と、質の高い戦略文書の効率的な作成です。', tasks: [
+                { name: '中期経営計画', impact: 4, feasibility: 4, details: '各部門計画の集約、経営指標シミュレーション、計画書ドラフト作成、実績差異分析。', use_case: '過去3年の中期経営計画と決算説明会資料を参照し、新計画の骨子案を作成。特にR-SUD事業の成長戦略とROE改善への貢献を記述せよ。' },
+                { name: '市場・競合分析', impact: 5, feasibility: 5, details: '業界ニュース・競合IR情報の収集・要約、医療制度の動向調査、特定市場の分析レポート作成。', use_case: '競合他社の決算短信が発表された際、要点を自動抽出し、自社業績との比較分析レポートを即時作成。' },
+                { name: 'IR資料作成', impact: 5, feasibility: 4, details: '決算短信・有価証券報告書のドラフト作成、決算説明会資料の作成、想定問答集の作成。', use_case: '添付の決算データと前四半期の資料を基に、今期の説明会資料ドラフトを作成。プレミアムキットの売上増の要因分析を強調せよ。' },
+                { name: '新規事業・M&A検討', impact: 4, feasibility: 3, details: 'ターゲットリスト作成、企業情報の初期分析、簡易的な事業性評価レポート作成。', use_case: '医療用ロボット分野で、過去5年以内に資金調達を実施したアジアの未上場企業をリストアップし、技術概要を要約せよ。' },
+                { name: 'ESG関連報告', impact: 4, feasibility: 4, details: 'ESG情報の収集整理、統合報告書ドラフト作成、ESG評価機関への回答案作成。', use_case: '社内文書から環境負荷低減に関する記述を全て抽出し、TCFD提言に沿った「リスクと機会」の項目を起案。' },
+            ]},
+            { id: 'eigyo', name: '営業部', role: '「医療安全」と「病院の収益改善」に貢献する高度なコンサルティング営業を展開。課題は、提案活動の属人化と資料作成の長時間化です。', tasks: [
+                { name: '新規顧客開拓', impact: 4, feasibility: 5, details: 'ターゲットリスト作成、初回訪問用情報収集、アプローチメール・スクリプト作成。', use_case: '関東の整形外科に強みを持つ300床以上の病院をリストアップし、理念を要約。業務効率化を訴求する初回訪問メール雛形を作成せよ。' },
+                { name: '既存顧客への深耕営業', impact: 5, feasibility: 5, details: '購買傾向分析、御礼メール・議事録送付、新製品・関連情報提供。', use_case: '顧客との商談音声を要約しCRMに登録。内容に基づき「〇〇先生が懸念の在庫管理について…」といったフォローメールを自動生成。' },
+                { name: '提案書・見積書作成', impact: 5, feasibility: 5, details: 'ヒアリング内容整理、提案ロジック構築、提案書・見積書作成。', use_case: '「手術準備時間の長さ」という課題に対し、CRMの会話ログと購買データを参照し、プレミアムキット導入による時間短縮効果を数値で示す提案書を作成。' },
+                { name: '手術立会いサポート', impact: 3, feasibility: 3, details: '立会い前準備、立会い後報告書作成、現場フィードバックの共有。', use_case: '立会い中の会話から医師の質問や要望を自動抽出し、タグ付けしてナレッジデータベースに蓄積。' },
+                { name: '販売実績報告', impact: 5, feasibility: 5, details: '週次・月次報告書作成、市場動向レポーティング、失注分析。', use_case: '今月の担当エリアの全営業活動をCRMから抽出し、週次報告フォーマットにまとめて。' },
+            ]},
+            { id: 'kaihatsu', name: '製品開発部', role: 'イノベーションの源泉。課題は、厳格な規制要件を満たす膨大な技術文書作成の負担軽減と、開発サイクルの迅速化です。', tasks: [
+                { name: '新製品企画', impact: 5, feasibility: 4, details: '市場ニーズ分析、関連技術・特許調査、製品コンセプト案作成。', use_case: '過去3年の製品改善要望と最新論文を要約し、次世代ドレープのコンセプト案を5つ提案せよ。' },
+                { name: '設計・開発', impact: 3, feasibility: 3, details: '設計インプット明確化、設計アウトプット作成支援、設計レビュー議事録作成。', use_case: '新規キット製品の要求仕様書から、ISO 14971に基づくハザード分析の初期リストを生成せよ。' },
+                { name: '技術文書作成', impact: 5, feasibility: 4, details: '製品仕様書、取扱説明書、V&V計画書・報告書のドラフト作成。', use_case: '製品Aの設計仕様書を基に、検証・バリデーション計画書のドラフトを作成せよ。' },
+                { name: 'R-SUD製品開発', impact: 4, feasibility: 3, details: '市場調査、洗浄・滅菌プロセスバリデーション計画、規制動向調査。', use_case: 'FDAと欧州MDRのR-SUDに関するガイダンスを比較し、主要要求事項の差異をまとめたレポートを作成。' },
+                { name: '製造部門への技術移管', impact: 3, feasibility: 4, details: '技術説明資料作成、移管ミーティング議事録作成、初期流動管理の問題分析。', use_case: '設計変更履歴から、製造工程に影響する変更点のみを抽出し、サマリーレポートを生成。' },
+            ]},
+            { id: 'hinsho', name: '品質保証部／薬事部門', role: '製品の品質と安全性を保証する最後の砦。課題は、絶えず更新される規制情報のキャッチアップと膨大なQMS文書の整合性維持です。', tasks: [
+                { name: 'QMS維持・管理', impact: 5, feasibility: 4, details: 'SOP作成・改訂、内部監査計画・報告書作成、CAPA記録作成。', use_case: '製造工程で逸脱が発生。関連文書を読み込み、根本原因分析のドラフトと是正・予防措置の選択肢をリストアップせよ。' },
+                { name: '製造販売後安全管理', impact: 4, feasibility: 4, details: '苦情・不具合情報の受付・評価、安全性情報収集、当局への報告書作成。', use_case: 'RAGを用い、社内DBと仕様書を参照させ、不具合が既知か未知か即座に判断。' },
+                { name: '薬事申請', impact: 5, feasibility: 3, details: '申請資料(STED)作成、整合性チェック、照会事項への回答書作成。', use_case: '添付のSTED一式を分析し、リスクと検証の対応が不明確な点をリストアップせよ。' },
+                { name: '規制・規格情報収集', impact: 5, feasibility: 5, details: '当局通知の監視、関連規格改訂の把握、変更点の要約と周知。', use_case: 'ISO 13485の最新改訂版ドラフトと現行版を比較し、差分と影響が大きい変更点をリストアップ。' },
+                { name: '内外監査対応', impact: 3, feasibility: 4, details: '要求資料準備、指摘事項記録、改善報告書作成。', use_case: '監査官から要求された際、AIが関連文書を瞬時に検索し、ファイルへのリンクを提示。' },
+            ]},
+            { id: 'scm', name: 'SCM・ロジスティクス部門', role: '原材料調達から生産、在庫、配送まで物理的な価値連鎖を担います。課題は、サプライチェーンリスクの管理とコスト抑制の両立です。', tasks: [
+                { name: '需要予測と生産計画', impact: 5, feasibility: 3, details: '販売実績分析、販売予測の集約、生産計画策定。', use_case: '過去5年の販売データ、流行予測等を基に、今後6ヶ月間の高機能マスクの需要を予測し、生産計画案を作成。' },
+                { name: '原材料・部材調達', impact: 4, feasibility: 4, details: '必要部材量算出、発注計画作成、サプライヤーとの交渉支援。', use_case: 'インドネシアのサプライヤー向けに納期前倒しを依頼する英文メールを作成。円安を考慮し価格据え置きを丁寧に伝える。' },
+                { name: '在庫最適化', impact: 5, feasibility: 3, details: '適正在庫レベル算出、倉庫配置最適化、滞留在庫分析。', use_case: 'サプライチェーンのデジタルツインで「船便が2週間遅延した場合の国内在庫への影響」をシミュレーション。' },
+                { name: '輸送・配送管理', impact: 3, feasibility: 4, details: '最適輸送ルート選定、配送状況トラッキング、輸送コスト分析。', use_case: '全国の支店への定期補充便について、積載効率とコストが最適なルートと車両の組み合わせを計算。' },
+                { name: 'サプライヤー管理', impact: 4, feasibility: 4, details: 'パフォーマンス評価、信用情報モニタリング、新規サプライヤー探索。', use_case: 'インドネシアの政治・経済ニュースをモニタリングし、ネガティブな兆候があれば要約レポートを自動送信。' },
+            ]},
+            { id: 'cs', name: 'カスタマーサポート／CS部門', role: '問い合わせ対応、トラブルシューティングを通じて顧客満足度を維持・向上。課題は、迅速かつ正確な回答の提供とナレッジの共有です。', tasks: [
+                { name: '製品問合せ対応', impact: 5, feasibility: 5, details: '一次対応をチャットボット化、マニュアル・過去事例からの回答作成支援。', use_case: '「メッキンバッグの推奨滅菌条件は？」という質問に対し、AIが製品マニュアルの該当箇所を即座に引用して回答。' },
+                { name: 'トラブルシューティング', impact: 4, feasibility: 4, details: '原因切り分け、解決策提示、エスカレーション。', use_case: 'エラーコードE001の連絡に対し、マニュアルと過去履歴から原因の可能性と解決策を提示せよ。' },
+                { name: 'FAQ・ナレッジベース構築', impact: 5, feasibility: 5, details: '頻出質問の特定、FAQコンテンツ作成、ナレッジ整理。', use_case: '毎週末に全問合せデータを分析させ、「FAQ化すべき新規質問トップ5」とその回答案をレポート。' },
+                { name: '顧客フィードバック分析', impact: 4, feasibility: 4, details: '満足度アンケート集計、製品要望・不満の抽出、開発部への報告。', use_case: '全対話記録を分析し、「『使いにくい』と言及されている製品機能」をランキングで抽出。' },
+                { name: '製品トレーニング支援', impact: 3, feasibility: 4, details: 'トレーニング資料作成、理解度テスト作成、質問回答支援。', use_case: '新製品の取扱説明書から、看護師向けの30分トレーニングの構成案とスライド原稿を作成。' },
+            ]},
+            { id: 'kanri', name: '管理部', role: '人事、総務、法務を通じて企業を支えます。課題は、正確性が求められる定型的な文書中心業務の効率化です。', tasks: [
+                { name: '採用業務', impact: 4, feasibility: 5, details: '職務記述書作成、書類スクリーニング、面接日程調整。', use_case: '「好奇心旺盛で挑戦できる人」という人物像に基づき、R-SUD開発担当者の職務記述書を作成。' },
+                { name: '人事評価・労務管理', impact: 3, feasibility: 4, details: '評価コメント作成支援、勤怠データ分析、労務手続案内。', use_case: '評価者が入力した箇条書きの評価ポイントから、具体的で建設的なフィードバック文章を生成。' },
+                { name: '社内規定問合せ対応', impact: 5, feasibility: 5, details: '就業規則に関する質問回答、福利厚生の案内、社内FAQ作成。', use_case: '従業員が「育休の取得条件は？」と入力すると、AIチャットボットが規定を引用し手続きを案内。' },
+                { name: '契約書作成・レビュー', impact: 5, feasibility: 4, details: 'NDA等雛形作成、提示された契約書のレビュー支援。', use_case: '受領したNDAをアップロードし、当社雛形と比較して不利な条項や欠落条項をチェックし修正案を提示。' },
+                { name: '株主総会関連業務', impact: 4, feasibility: 4, details: '招集通知・事業報告書作成、想定問答集作成、議事録作成。', use_case: '株主総会の音声データから、会社法に準拠した形式で議事録ドラフトを自動作成。' },
+            ]},
+            { id: 'it', name: '情報システム部門', role: '全社ITインフラとセキュリティを担い、AI導入をリードします。課題は、各部門のニーズに安全かつ効率的に応える共通基盤の構築です。', tasks: [
+                { name: 'ITインフラ運用・保守', impact: 4, feasibility: 4, details: '稼働監視、ログデータ分析と異常検知、パフォーマンスチューニング。', use_case: 'システムログを学習したAIが「通常と異なるDBアクセスが急増」と管理者にアラート送信。' },
+                { name: '情報セキュリティ管理', impact: 5, feasibility: 4, details: 'セキュリティアラート分析、脆弱性情報収集、従業員教育。', use_case: 'フィッシングメール訓練用に、時事ネタに合わせた巧妙なメール文面を複数パターン生成。' },
+                { name: '社内システム開発支援', impact: 5, feasibility: 5, details: 'コード生成・レビュー、テストケース自動生成、仕様書作成支援。', use_case: 'CRMから顧客データを抽出しExcel出力するPythonスクリプトを作成せよ。' },
+                { name: 'ヘルプデスク業務', impact: 5, feasibility: 5, details: 'IT関連問合せ対応、PCセットアップ、パスワードリセット。', use_case: '「PCがネットに繋がらない」等の定型問合せにチャットボットが自動回答。' },
+                { name: 'AI導入推進とガバナンス', impact: 5, feasibility: 4, details: 'AI利用ガイドライン策定、セキュアなAI共通基盤構築、各部門の技術支援。', use_case: '貴社データが外部学習されないプライベートなAI環境を構築し、各部門が安全に開発できる基盤を提供。' },
+            ]},
+        ],
+        roeData: {
+            labels: Array.from({length: 11}, (_, i) => `${2014 + i}年`),
+            values: [7.8, 7.5, 7.2, 6.8, 6.5, 6.0, 5.5, 4.8, 4.2, 3.8, 3.3]
+        }
+    };
+    
+    let departmentRadarChart;
+
+    const navButtons = document.querySelectorAll('.nav-button');
+    const views = document.querySelectorAll('main > section');
+
+    const roeCtx = document.getElementById('roeChart').getContext('2d');
+    const impactFeasibilityCtx = document.getElementById('impactFeasibilityChart').getContext('2d');
+
+    function switchView(targetId) {
+        views.forEach(view => {
+            view.classList.toggle('hidden', view.id !== `view-${targetId}`);
+        });
+        navButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.id === `nav-${targetId}`);
+        });
+    }
+
+    navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetId = button.id.split('-')[1];
+            switchView(targetId);
+        });
+    });
+    
+    function renderRoeChart() {
+        new Chart(roeCtx, {
+            type: 'line',
+            data: {
+                labels: reportData.roeData.labels,
+                datasets: [{
+                    label: 'ROE (%)',
+                    data: reportData.roeData.values,
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    fill: true,
+                    tension: 0.3,
+                    pointBackgroundColor: '#ef4444'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'ROE (%)' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `ROE: ${context.raw}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function renderImpactFeasibilityChart() {
+        const chartData = reportData.departments.flatMap(dept => 
+            dept.tasks.map(task => ({
+                x: task.feasibility,
+                y: task.impact,
+                r: 10,
+                label: `${dept.name}: ${task.name}`,
+                deptId: dept.id,
+            }))
+        );
+
+        new Chart(impactFeasibilityCtx, {
+            type: 'bubble',
+            data: {
+                datasets: [{
+                    label: 'AI活用施策',
+                    data: chartData,
+                    backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: { display: true, text: '導入実現性 →', font: { weight: 'bold' } },
+                        min: 2, max: 6,
+                        ticks: { stepSize: 1, callback: (val) => ['', '', '低', '中', '高', ''][val-1] }
+                    },
+                    y: {
+                        title: { display: true, text: '事業インパクト →', font: { weight: 'bold' } },
+                        min: 2, max: 6,
+                         ticks: { stepSize: 1, callback: (val) => ['', '', '低', '中', '高', ''][val-1] }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.raw.label;
+                            }
+                        }
+                    },
+                    legend: { display: false }
+                },
+                onClick: (event, elements) => {
+                    if (elements.length > 0) {
+                        const clickedElement = elements[0];
+                        const data = clickedElement.element.$context.raw;
+                        switchView('departments');
+                        renderDepartmentView(data.deptId);
+                    }
+                }
+            }
+        });
+    }
+    
+    function setupDepartmentSelector() {
+        const selector = document.getElementById('department-selector');
+        selector.innerHTML = '';
+        reportData.departments.forEach(dept => {
+            const button = document.createElement('button');
+            button.className = 'dept-button text-sm font-medium py-2 px-4 rounded-full';
+            button.textContent = dept.name;
+            button.dataset.deptId = dept.id;
+            button.addEventListener('click', () => renderDepartmentView(dept.id));
+            selector.appendChild(button);
+        });
+    }
+
+    function renderDepartmentView(deptId) {
+        const department = reportData.departments.find(d => d.id === deptId);
+        if (!department) return;
+
+        document.querySelectorAll('.dept-button').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.deptId === deptId);
+        });
+
+        document.getElementById('dept-name').textContent = department.name;
+        document.getElementById('dept-role').textContent = department.role;
+
+        renderDepartmentRadarChart(department);
+        renderTaskList(department.tasks);
+    }
+    
+    function renderDepartmentRadarChart(department) {
+        const ctx = document.getElementById('departmentRadarChart').getContext('2d');
+        if (departmentRadarChart) {
+            departmentRadarChart.destroy();
+        }
+        
+        departmentRadarChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: department.tasks.map(t => t.name.replace('・', '/')),
+                datasets: [{
+                    label: '事業インパクト',
+                    data: department.tasks.map(t => t.impact),
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    borderColor: 'rgb(59, 130, 246)',
+                    pointBackgroundColor: 'rgb(59, 130, 246)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(59, 130, 246)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(0,0,0,0.1)' },
+                        grid: { color: 'rgba(0,0,0,0.1)' },
+                        pointLabels: { 
+                            font: { size: 11 },
+                             callback: function(label) {
+                                if (label.length > 6) {
+                                    return label.slice(0, 6) + '...';
+                                }
+                                return label;
+                            }
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 5,
+                            stepSize: 1,
+                            backdropColor: 'rgba(0,0,0,0)',
+                            callback: (val) => ['', '低', '', '中', '', '高'][val]
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                     tooltip: {
+                        callbacks: {
+                            title: (tooltipItems) => {
+                                return department.tasks[tooltipItems[0].dataIndex].name;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function renderTaskList(tasks) {
+        const listContainer = document.getElementById('task-list');
+        listContainer.innerHTML = '';
+        tasks.forEach((task, index) => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'border border-slate-200 rounded-lg';
+
+            const header = document.createElement('div');
+            header.className = 'task-row p-4 flex justify-between items-center bg-slate-50 hover:bg-slate-100';
+            header.innerHTML = `
+                <h5 class="font-bold text-slate-800">${task.name}</h5>
+                <span class="text-blue-600 text-2xl transform transition-transform duration-300 ">+</span>
+            `;
+
+            const details = document.createElement('div');
+            details.className = 'task-details';
+            details.innerHTML = `
+                <div class="p-4 border-t border-slate-200">
+                    <p class="text-sm text-slate-600 mb-3"><strong class="font-semibold text-slate-700">タスク内容:</strong> ${task.details}</p>
+                    <div class="bg-blue-50 p-3 rounded-md">
+                      <p class="text-sm font-semibold text-blue-800">💡 活用例 (プロンプト)</p>
+                      <p class="text-sm text-blue-900 mt-1 font-mono">"${task.use_case}"</p>
+                    </div>
+                </div>
+            `;
+            
+            wrapper.appendChild(header);
+            wrapper.appendChild(details);
+            listContainer.appendChild(wrapper);
+
+            header.addEventListener('click', () => {
+                const isExpanded = details.style.maxHeight && details.style.maxHeight !== '0px';
+                document.querySelectorAll('.task-details').forEach(el => {
+                    el.style.maxHeight = '0px';
+                    el.previousElementSibling.querySelector('span').style.transform = 'rotate(0deg)';
+                });
+                
+                if (!isExpanded) {
+                    details.style.maxHeight = details.scrollHeight + "px";
+                    header.querySelector('span').style.transform = 'rotate(45deg)';
+                }
+            });
+        });
+    }
+
+    // Initial Render
+    switchView('summary');
+    renderRoeChart();
+    renderImpactFeasibilityChart();
+    setupDepartmentSelector();
+    renderDepartmentView('keiei'); // Default to first department
+});
+</script>
+
+</body>
+</html>
