@@ -2,30 +2,92 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Index of .</title>
+  <title>業種x企業別AI分析</title>
   <style>
-    body { font-family: sans-serif; line-height: 1.6; }
-    ul { list-style-type: none; padding-left: 0; }
-    li { margin: 4px 0; }
-    a { text-decoration: none; color: #0066cc; }
-    a:hover { text-decoration: underline; }
+    body {
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f7f9fc;
+      color: #333;
+    }
+
+    header {
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 1.8em;
+      margin: 0;
+    }
+
+    .breadcrumbs {
+      margin-top: 5px;
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 16px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .card a {
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1em;
+      color: #0066cc;
+    }
+
+    .card a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.8em;
+      color: #999;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
-  <h1>Index of .</h1>
+  <header>
+    <h1>業種x企業別AI分析</h1>
+    <div class="breadcrumbs">{breadcrumbs}</div>
+  </header>
+
+  <main class="grid">
   <ul>
-    <li><a href=".git/">.git</a></li>
-    <li><a href="cardealer/">cardealer</a></li>
-    <li><a href="construction/">construction</a></li>
-    <li><a href="delivery/">delivery</a></li>
-    <li><a href="financial/">financial</a></li>
-    <li><a href="generate_indexes.py">generate_indexes.py</a></li>
-    <li><a href="healthcheck/">healthcheck</a></li>
-    <li><a href="ma/">ma</a></li>
-    <li><a href="medical/">medical</a></li>
-    <li><a href="relaxation/">relaxation</a></li>
-    <li><a href="rental_house/">rental_house</a></li>
-    <li><a href="saas/">saas</a></li>
+    <li><a href="cardealer/">カーディーラー</a></li>
+    <li><a href="construction/">土木建築</a></li>
+    <li><a href="delivery/">運送</a></li>
+    <li><a href="financial/">ファイナンス（銀行・証券・保険・税務）</a></li>
+    <li><a href="healthcheck/">健康診断</a></li>
+    <li><a href="ma/">M&A</a></li>
+    <li><a href="medical/">メディカル・製薬</a></li>
+    <li><a href="relaxation/">リラクゼーション</a></li>
+    <li><a href="rental_house/">賃貸・仲介</a></li>
+    <li><a href="saas/">SaaS</a></li>
   </ul>
+  </main>
+
+  <footer>
+    Auto-generated index page
+  </footer>
 </body>
 </html>
