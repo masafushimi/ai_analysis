@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>株式会社M.A.C. 生成AI活用 インタラクティブ分析レポート</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Calm Harmony" - A warm neutral base (#F8F7F4), dark text (#333333), primary accent (#4A5568), and a subtle secondary color (#A0AEC0) with a highlight for charts (#63B3ED). This palette is professional, calm, and ensures high readability. -->
+    <!-- Application Structure Plan: The application is designed as a single-page interactive dashboard with three main sections: 1)サマリー (Summary), 2)事業部門別分析 (Divisional Analysis), and 3)全社的提言 (Strategic Recommendations). The user starts with a high-level overview on the Summary page, which features key metrics and a comparative chart of all business divisions. Clicking on the chart or the main navigation allows the user to drill down into the Divisional Analysis for a specific sector. This section uses tabs for navigation and presents data through an interactive chart linked to a detailed table, preventing information overload. Finally, the Strategic Recommendations section organizes the report's conclusions into actionable, digestible formats like timelines and risk-mitigation cards. This structure was chosen to transform the dense, linear report into an intuitive, non-linear exploration tool, allowing decision-makers to quickly grasp key insights and delve into details as needed, thus facilitating faster, data-driven decision-making. -->
+    <!-- Visualization & Content Choices: 
+    - Summary Page: Goal: Inform & Compare. Method: A horizontal bar chart (Chart.js) shows the average potential savings per division, providing an immediate comparative overview. Key findings are presented in "Key Metric" cards (HTML/Tailwind) for quick absorption. Interaction: Clicking a bar on the chart navigates to that division's detailed analysis. Justification: This immediately answers "Where is the biggest impact?" and guides the user's exploration.
+    - Divisional Analysis: Goal: Organize & Explore Details. Method: For each division, a vertical bar chart (Chart.js) visualizes the reduction potential for each specific task. This is linked to a detailed HTML table below. Interaction: Hovering over a bar highlights the corresponding row in the table, instantly connecting the visual data point to its underlying details (scenario, rationale). Justification: This interactive pairing makes complex data accessible without cluttering the screen, allowing users to explore the "why" behind the numbers.
+    - Strategic Recommendations: Goal: Organize & Guide Action. Method: A timeline-like layout (HTML/Tailwind with Unicode icons) is used for the implementation roadmap. Cards are used for prerequisites and risks. An accordion element presents the reallocation of saved hours. Interaction: The accordion allows users to show/hide detailed text. Justification: This structures qualitative strategic advice into a clear, actionable, and visually organized format, making it easier to digest than long paragraphs of text.
+    - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. All visuals are created with Chart.js (Canvas), Tailwind CSS, and Unicode characters. -->
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: #F8F7F4; color: #333333; }
+        .nav-button { transition: all 0.3s ease; }
+        .nav-button.active { background-color: #4A5568; color: white; }
+        .nav-button:not(.active):hover { background-color: #E2E8F0; }
+        .card { background-color: white; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); padding: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .tab-button.active { border-color: #4A5568; color: #4A5568; background-color: #EDF2F7; }
+        .tab-button:not(.active):hover { background-color: #F7FAFC; }
+        .chart-container { position: relative; width: 100%; height: 320px; max-height: 400px; }
+        @media (min-width: 640px) { .chart-container { height: 350px; } }
+        @media (min-width: 1024px) { .chart-container { height: 400px; } }
+        .table-highlight { background-color: #EBF8FF; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #E2E8F0; }
+        ::-webkit-scrollbar-thumb { background: #A0AEC0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #718096; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="min-h-screen flex flex-col">
+        <header class="bg-white shadow-md sticky top-0 z-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-xl sm:text-2xl font-bold text-gray-800">株式会社M.A.C. 生成AI活用 インタラクティブ分析レポート</h1>
+                    </div>
+                </div>
+                <nav class="flex space-x-2 sm:space-x-4 border-t border-gray-200 -mb-px">
+                    <button data-view="summary" class="nav-button active whitespace-nowrap py-3 px-3 sm:px-4 border-b-2 border-transparent font-medium text-sm sm:text-base text-gray-600 rounded-t-lg">📊 サマリー</button>
+                    <button data-view="analysis" class="nav-button whitespace-nowrap py-3 px-3 sm:px-4 border-b-2 border-transparent font-medium text-sm sm:text-base text-gray-600 rounded-t-lg">🏢 事業部門別分析</button>
+                    <button data-view="strategy" class="nav-button whitespace-nowrap py-3 px-3 sm:px-4 border-b-2 border-transparent font-medium text-sm sm:text-base text-gray-600 rounded-t-lg">🎯 全社的提言</button>
+                </nav>
+            </div>
+        </header>
+
+        <main id="app-container" class="flex-grow p-4 sm:p-6 lg:p-8">
+        </main>
+    </div>
+
+    <script>
+        const appData = {
+            divisions: {
+                real_estate: {
+                    name: "賃貸・不動産事業",
+                    color: "rgba(54, 162, 235, 0.8)",
+                    highlightColor: "rgba(54, 162, 235, 1)",
+                    description: "定型的な顧客コミュニケーションと報告業務が多く、AIによる自動化で即時的な効率化効果が最も高い事業。創出された時間は、オーナーへの資産価値向上提案など、高付加価値業務へ再配分すべきです。",
+                    tasks: [
+                        { major: "賃貸物件の仲介業務", task: "新規顧客からの問い合わせメール・電話への一次対応", reduction: 80, scenario: "問い合わせ内容をAIが解析し、定型的な質問に24時間365日自動で回答するチャットボットを導入。担当者は複雑な質問のみに対応。", rationale: "定型的な問い合わせが全体の8割を占めると仮定。担当者が直接対応する時間を大幅に削減できるため。" },
+                        { major: "賃貸物件の仲介業務", task: "物件紹介コンテンツ（ポータルサイト、SNS）の作成", reduction: 60, scenario: "物件データを基に、AIがターゲット顧客層に合わせた魅力的な紹介文やSNS投稿のドラフトを複数パターン自動生成する。", rationale: "担当者がゼロから文章を考案する時間が不要になり、AIが生成したドラフトの校正・修正に集中できるため。" },
+                        { major: "賃貸物件の仲介業務", task: "顧客への物件提案資料の作成", reduction: 50, scenario: "顧客の希望条件を入力すると、AIが該当物件を抽出し、比較表や地図付きの提案資料のドラフトを自動で作成する。", rationale: "物件情報の検索、コピー＆ペースト、レイアウト調整といった手作業が大幅に削減されるため。" },
+                        { major: "賃貸物件の仲介業務", task: "内見の日程調整と連絡", reduction: 70, scenario: "AIが担当者と物件の空き状況を照合し、最適な候補日時を自動で提案・仮押さえし、関係者への連絡メールを生成する。", rationale: "複数関係者間の往復連絡やカレンダー確認といった煩雑な調整業務を自動化できるため。" },
+                        { major: "賃貸物件の仲介業務", task: "賃貸借契約書のドラフト作成", reduction: 40, scenario: "契約者情報、物件情報、契約条件を入力すると、AIが標準テンプレートに情報を反映させ、ドラフト文書を自動生成する。", rationale: "転記ミスなどのヒューマンエラーを削減し、法務チェック前の文書作成時間を短縮できるため。" },
+                        { major: "賃貸物件の管理業務", task: "入居者からのクレーム・修繕依頼の受付と対応記録", reduction: 75, scenario: "クレーム内容をAIがテキストで受け付け、緊急度を判断。対応履歴をシステムに自動で要約・記録する。", rationale: "一次受付と記録作成を自動化することで、担当者は問題解決そのものに集中できるため。" },
+                        { major: "賃貸物件の管理業務", task: "家賃入金状況の確認と督促連絡", reduction: 80, scenario: "未入金者をAIが自動でリストアップし、初期段階の督促メールやSMSの文面を自動生成・送信予約する。", rationale: "定型的な確認作業と初期連絡を完全に自動化できるため。" },
+                        { major: "賃貸物件の管理業務", task: "物件オーナーへの月次報告書作成", reduction: 70, scenario: "家賃収支、空室状況、修繕履歴等のデータをAIが自動で集計・分析し、定型の月次報告書を生成する。", rationale: "データ収集、集計、グラフ作成、定型文入力といった一連の報告書作成プロセスを大幅に自動化できるため。" },
+                        { major: "市場調査・マーケティング", task: "周辺エリアの競合物件・家賃相場の調査", reduction: 80, scenario: "不動産ポータルサイトをAIが定期的に巡回し、新規物件情報、家賃の変動などを抽出し、サマリーレポートを自動生成する。", rationale: "手作業での情報収集とデータ入力が不要になり、担当者は分析と戦略立案に集中できるため。" }
+                    ]
+                },
+                energy: {
+                    name: "エネルギー事業",
+                    color: "rgba(255, 159, 64, 0.8)",
+                    highlightColor: "rgba(255, 159, 64, 1)",
+                    description: "競争が激しい市場で、AIはサービスによる差別化を実現する武器となります。特に法人顧客に対し、データに基づいた付加価値の高い省エネ提案などを自動生成することで、価格以外の強力な訴求点を創出します。",
+                    tasks: [
+                        { major: "営業・顧客獲得", task: "料金プランに関する問い合わせへの一次対応", reduction: 80, scenario: "ウェブサイトにAIチャットボットを設置し、料金プランのシミュレーションやFAQを24時間自動で提供する。", rationale: "顧客からの問い合わせの大部分を占める、定型的な質問を自動化できるため。" },
+                        { major: "営業・顧客獲得", task: "法人顧客向けの提案書・見積書の作成", reduction: 60, scenario: "顧客の電力使用量データから、AIが最適な料金プランを推奨し、コスト削減シミュレーションを含む提案書のドラフトを生成する。", rationale: "データ分析や資料作成時間を短縮し、顧客との対話に集中できるため。" },
+                        { major: "営業・顧客獲得", task: "見込み顧客リストの作成とアプローチ文面の生成", reduction: 50, scenario: "AIが業界ニュース等を分析し、ニーズが見込まれるリストを抽出。初期アプローチメールの文面も生成する。", rationale: "手作業によるリストアップ作業を自動化し、質の高いリストを効率的に作成できるため。" },
+                        { major: "営業・顧客獲得", task: "販促キャンペーンの企画・メールマガジン作成", reduction: 40, scenario: "市場動向や実績データを基に、AIがキャンペーンのアイデアやメルマガコンテンツを複数案生成する。", rationale: "企画のブレインストーミングやコンテンツ作成時間を短縮し、より創造的な施策検討に時間を割けるため。" },
+                        { major: "契約・顧客管理", task: "新規契約・プラン変更の申込処理", reduction: 70, scenario: "申込情報をAIが読み取り、システムへのデータ入力や不備確認メールの送信を自動化する。", rationale: "データ転記や定型連絡を自動化し、処理速度向上とヒューマンエラー削減を実現するため。" },
+                        { major: "契約・顧客管理", task: "顧客からの問い合わせ対応（メール・電話）", reduction: 75, scenario: "請求内容の確認や住所変更といった定型的な問い合わせに、AIがデータベースと連携して即座に回答する。", rationale: "コールセンターの定型業務を大幅に削減し、担当者は個別案件に専念できるため。" },
+                        { major: "契約・顧客管理", task: "顧客の電力使用量データの分析とレポート作成", reduction: 80, scenario: "AIが電力使用量データを分析し、具体的な省エネアドバイスを記載した月次レポートを自動生成し顧客に提供する。", rationale: "専門家が行っていた個別分析とレポート作成を自動化し、全顧客への付加価値サービスとして提供可能になるため。" },
+                        { major: "サービス開発・企画", task: "競合他社の料金プラン・サービスの動向調査", reduction: 90, scenario: "AIが競合他社のウェブサイトを定期的に監視し、新料金プラン等の情報を自動で収集・要約し、週次レポートを作成する。", rationale: "人手による定期的な情報収集・比較作業をほぼ完全に自動化できるため。" }
+                    ]
+                },
+                food: {
+                    name: "飲食事業",
+                    color: "rgba(255, 99, 132, 0.8)",
+                    highlightColor: "rgba(255, 99, 132, 1)",
+                    description: "接客という人間的な価値を維持しつつ、シフト作成、発注予測、売上報告といったバックオフィス業務をAIで効率化。創出された時間は、人材育成や店舗改善活動に再投資できます。",
+                    tasks: [
+                        { major: "店舗運営（バックオフィス）", task: "スタッフのシフト希望の収集とシフト表作成", reduction: 60, scenario: "AIがスタッフの希望を収集し、労働基準法や繁忙時間帯を考慮した最適なシフト表ドラフトを自動生成する。", rationale: "店長の複雑なシフト調整業務を大幅に効率化し、人材育成等に時間を割けるようにするため。" },
+                        { major: "店舗運営（バックオフィス）", task: "食材の在庫管理と発注予測", reduction: 50, scenario: "POSデータと連携し、AIが需要を予測し、最適な発注リストのドラフトを作成する。", rationale: "勘や経験に頼りがちだった発注業務をデータドリブン化し、過剰在庫や品切れリスクを低減するため。" },
+                        { major: "店舗運営（バックオフィス）", task: "日次・週次の売上報告書の作成", reduction: 80, scenario: "AIがPOSデータから売上報告書を自動生成。前週比や目標達成率の分析も自動で行う。", rationale: "閉店後の報告書作成業務を自動化し、店長の負担を大幅に軽減するため。" },
+                        { major: "店舗運営（バックオフィス）", task: "オンライン上の口コミ・レビューへの返信文作成", reduction: 70, scenario: "AIがレビューを分析し、内容に応じた適切な返信文のドラフトを複数パターン生成する。", rationale: "迅速かつ丁寧な返信対応の時間を短縮し、ブランドイメージを維持・向上するため。" },
+                        { major: "商品開発・販売促進", task: "新メニューのアイデア創出とコンセプト立案", reduction: 50, scenario: "AIが食トレンドや売上データを学習し、新しいメニューのコンセプトやレシピ案を複数提案させる。", rationale: "商品開発のブレインストーミングをAIがサポートし、開発サイクルを高速化するため。" },
+                        { major: "商品開発・販売促進", task: "メニューブックやPOPの紹介文作成", reduction: 60, scenario: "新メニューの情報を入力すると、AIが顧客の食欲をそそるキャッチコピーや説明文を生成する。", rationale: "クリエイティブな作業時間を短縮し、デザイン等の検討に集中できるようにするため。" },
+                        { major: "商品開発・販売促進", task: "SNSへの投稿コンテンツ作成", reduction: 70, scenario: "「本日の日替わりランチ」等の情報を入力するだけで、AIが投稿文やハッシュタグを自動で生成する。", rationale: "日々のSNS運用にかかる工数を大幅に削減し、質の高い情報発信を可能にするため。" },
+                        { major: "商品開発・販売促進", task: "顧客アンケートの作成と分析", reduction: 75, scenario: "AIがアンケートの設計から自由回答の分析まで行い、サービス改善のインサイトを抽出する。", rationale: "アンケートプロセス全体を大幅に自動化し、迅速なサービス改善に繋げるため。" }
+                    ]
+                },
+                overseas: {
+                    name: "海外事業",
+                    color: "rgba(75, 192, 192, 0.8)",
+                    highlightColor: "rgba(75, 192, 192, 1)",
+                    description: "言語、商習慣、法規制といった「壁」をAIが取り払います。多言語でのメール作成や海外市場の調査・要約を自動化し、専門知識を民主化。若手でも戦略的な業務への挑戦が可能になります。",
+                    tasks: [
+                        { major: "市場調査・事業開発", task: "海外市場のトレンド・競合情報の収集と要約", reduction: 80, scenario: "AIが多言語で海外ニュースサイト等を横断検索し、市場動向をまとめた日本語のサマリーレポートを生成する。", rationale: "専門家が数日かけていたリサーチと翻訳、要約作業を数分に短縮できるため。" },
+                        { major: "市場調査・事業開発", task: "海外の潜在パートナー企業への初期アプローチメール作成", reduction: 60, scenario: "AIがターゲット企業を分析し、相手国のビジネスマナーを考慮した提携提案メールを多言語で作成する。", rationale: "ネイティブレベルの自然な文章でのアプローチが可能となり、返信率向上に貢献するため。" },
+                        { major: "市場調査・事業開発", task: "海外展示会への出展準備（プレゼン資料作成）", reduction: 50, scenario: "AIが海外の聴衆に響く構成のプレゼンテーション資料（構成、要点、想定問答集）のドラフトを英語で作成する。", rationale: "ゼロからの資料作成時間を短縮し、より説得力のあるストーリー構築に集中できるため。" },
+                        { major: "貿易実務・交渉", task: "多言語でのビジネスメールの作成・翻訳", reduction: 70, scenario: "日本語で指示するだけで、AIが貿易実務に関する正確かつ丁寧なビジネスメールを相手の言語で作成。受信メールの要約も行う。", rationale: "翻訳ツールを使った不自然な表現を避け、円滑なコミュニケーションを実現するため。" },
+                        { major: "貿易実務・交渉", task: "英文契約書のドラフトチェックと要約", reduction: 40, scenario: "AIが英文契約書を読み込み、不利な条項やリスクが高い箇所をハイライトし、日本語で要約する。", rationale: "専門家レビューの前に担当者レベルでリスクを迅速に把握でき、コストと時間を削減できるため。" },
+                        { major: "貿易実務・交渉", task: "輸出入関連書類の作成支援", reduction: 50, scenario: "注文情報に基づき、AIが定型的な輸出入書類の必要項目を自動で埋め、ドラフトを作成する。", rationale: "煩雑でミスの許されない書類作成業務を効率化し、担当者の負担を軽減するため。" },
+                        { major: "リスク管理・コンプライアンス", task: "海外の法規制・コンプライアンスに関する調査", reduction: 75, scenario: "自然言語での質問に対し、AIが関連法規を調査し、要点を日本語で回答する。", rationale: "専門的な調査にかかる時間とコストを大幅に削減し、コンプライアンス違反リスクを低減するため。" },
+                        { major: "リスク管理・コンプライアンス", task: "地政学的・経済的リスク情報のモニタリング", reduction: 80, scenario: "AIが担当地域に関連する国際ニュース等を常時モニタリングし、リスク情報を検知してアラートを送信する。", rationale: "人手では不可能な広範囲かつリアルタイムな情報監視を実現するため。" }
+                    ]
+                },
+                travel: {
+                    name: "旅行事業",
+                    color: "rgba(153, 102, 255, 0.8)",
+                    highlightColor: "rgba(153, 102, 255, 1)",
+                    description: "AIはプランナーを真の「旅のデザイナー」へと進化させます。顧客の曖昧な要望から創造的な旅行プランを自動生成し、プランナーはAI案の洗練と人間ならではの付加価値創出に集中できます。",
+                    tasks: [
+                        { major: "旅行商品企画・造成", task: "顧客の要望に基づく「受注型企画旅行」のプラン作成", reduction: 70, scenario: "顧客の要望をAIに入力すると、航空券、ホテル、アクティビティを組み合わせた複数の旅程案（費用概算付き）を自動生成する。", rationale: "数日かかっていたリサーチ、空き状況確認、組み合わせ検討の時間を大幅に短縮できるため。" },
+                        { major: "旅行商品企画・造成", task: "パッケージツアーの魅力的な紹介文・日程表の作成", reduction: 60, scenario: "目的地やコンセプトを入力すると、AIが旅行者の心を動かすようなキャッチコピーや詳細な日程説明を自動生成する。", rationale: "パンフレットやウェブサイト用のコンテンツ作成時間を大幅に短縮できるため。" },
+                        { major: "旅行商品企画・造成", task: "新規旅行先の情報収集と分析", reduction: 80, scenario: "「次の秘境ツアー候補地をリストアップして」等の指示に対し、AIがブログ等を分析し、候補地とその魅力をまとめる。", rationale: "広範な情報源からの手作業リサーチが不要となり、商品企画の初期段階を高速化できるため。" },
+                        { major: "カウンターセールス・顧客対応", task: "既存ツアーに関する問い合わせへの一次対応", reduction: 80, scenario: "AIチャットボットが、ツアーの空き状況、料金、キャンセルポリシー等の定型質問に24時間対応する。", rationale: "カウンタースタッフが定型質問から解放され、コンサルティング業務に専念できるため。" },
+                        { major: "カウンターセールス・顧客対応", task: "顧客への旅行前最終案内資料の作成", reduction: 75, scenario: "予約情報に基づき、AIがフライト情報やホテルバウチャー等をまとめた「旅のしおり」をパーソナライズして自動生成する。", rationale: "手作業による書類作成時間をほぼゼロにし、丁寧なフォローアップに時間を充てられるため。" },
+                        { major: "カウンターセールス・顧客対応", task: "旅行後の顧客アンケート分析とフィードバック対応", reduction: 70, scenario: "AIがアンケートの自由回答を感情分析し、ポジティブ・ネガティブな意見を要約。サービス改善点を抽出する。", rationale: "大量のテキストデータを手作業で読む必要がなくなり、顧客の声を迅速に反映できるため。" },
+                        { major: "手配・添乗業務", task: "航空券・ホテル・レストラン等の予約手配", reduction: 50, scenario: "確定した旅程に基づき、AIが各予約サイトのAPIと連携し、予約手続きを半自動化する。", rationale: "煩雑な予約入力作業を効率化し、予約ミスを低減するため。" },
+                        { major: "手配・添乗業務", task: "添乗員向けマニュアル・スクリプトの作成", reduction: 60, scenario: "ツアー情報から、AIが添乗員向けの行動計画、案内スクリプト、緊急時対応フローのドラフトを生成する。", rationale: "経験の浅い添乗員でも質の高い案内ができるようサポートし、準備負担を軽減するため。" }
+                    ]
+                }
+            }
+        };
+
+        let currentChart = null;
+        let activeView = 'summary';
+        let activeDivision = 'real_estate';
+
+        const appContainer = document.getElementById('app-container');
+
+        const renderSummaryView = () => {
+            const averageReductions = Object.keys(appData.divisions).map(key => {
+                const division = appData.divisions[key];
+                const totalReduction = division.tasks.reduce((sum, task) => sum + task.reduction, 0);
+                const average = totalReduction / division.tasks.length;
+                return { id: key, name: division.name, average: parseFloat(average.toFixed(1)), color: division.color };
+            }).sort((a, b) => b.average - a.average);
+
+            const highestImpact = averageReductions[0];
+
+            appContainer.innerHTML = `
+                <div class="max-w-7xl mx-auto">
+                    <div class="mb-8">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">エグゼクティブサマリー</h2>
+                        <p class="text-lg text-gray-600">生成AIは定型業務を自動化し、従業員をより創造的で高付加価値な業務へシフトさせる戦略的基盤です。本分析では、全社平均で25〜40%の関連業務工数削減ポテンシャルが見込まれます。</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="card">
+                            <h3 class="text-lg font-bold text-gray-500 mb-2">最大インパクト領域</h3>
+                            <p class="text-3xl font-bold text-gray-800">${highestImpact.name}</p>
+                            <p class="text-gray-600">平均 <span class="text-xl font-bold">${highestImpact.average}%</span> の工数削減ポテンシャル</p>
+                        </div>
+                        <div class="card">
+                            <h3 class="text-lg font-bold text-gray-500 mb-2">全社的効率化</h3>
+                            <p class="text-xl font-bold text-gray-800">水平展開可能な業務</p>
+                            <ul class="list-disc list-inside text-gray-600 mt-2 text-sm">
+                                <li>顧客からの初期問い合わせ対応</li>
+                                <li>マーケティング用コンテンツ作成</li>
+                                <li>社内向け定例報告書の作成</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3 class="text-lg font-bold text-gray-500 mb-2">最優先の提言</h3>
+                            <p class="text-xl font-bold text-gray-800">Quick Wins (短期成果)</p>
+                            <p class="text-gray-600 mt-2 text-sm">全事業部門へのAIチャットボットとコンテンツ生成ツールの導入から着手し、短期で成果を創出します。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">事業部門別 工数削減ポテンシャル</h3>
+                        <p class="text-gray-600 mb-4">各事業部門でAIを活用した場合の、平均的な工数削減率のポテンシャルを示します。グラフの項目をクリックすると、詳細分析へ移動します。</p>
+                        <div class="chart-container">
+                            <canvas id="summaryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const ctx = document.getElementById('summaryChart').getContext('2d');
+            currentChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: averageReductions.map(d => d.name),
+                    datasets: [{
+                        label: '平均工数削減率 (%)',
+                        data: averageReductions.map(d => d.average),
+                        backgroundColor: averageReductions.map(d => d.color),
+                        borderColor: averageReductions.map(d => d.color.replace('0.8', '1')),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` 平均削減率: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: { display: true, text: '平均工数削減率 (%)' }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const clickedIndex = elements[0].index;
+                            const divisionId = averageReductions[clickedIndex].id;
+                            activeDivision = divisionId;
+                            switchView('analysis');
+                        }
+                    },
+                    onHover: (event, chartElement) => {
+                       event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+                    }
+                }
+            });
+        };
+        
+        const renderAnalysisView = () => {
+            const division = appData.divisions[activeDivision];
+            const uniqueMajorTasks = [...new Set(division.tasks.map(t => t.major))];
+
+            let tableHtml = '';
+            uniqueMajorTasks.forEach(major => {
+                tableHtml += `
+                    <tr class="bg-gray-100">
+                        <td colspan="4" class="py-3 px-4 text-lg font-bold text-gray-700">${major}</td>
+                    </tr>
+                `;
+                division.tasks.filter(t => t.major === major).forEach((task, index) => {
+                    const uniqueId = `${activeDivision}-${major.replace(/\s/g, '-')}-${index}`;
+                    tableHtml += `
+                        <tr id="task-row-${uniqueId}" class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="py-3 px-4 align-top text-sm">${task.task}</td>
+                            <td class="py-3 px-4 align-top text-sm">${task.scenario}</td>
+                            <td class="py-3 px-4 align-top text-center text-lg font-bold" style="color: ${division.highlightColor};">${task.reduction}%</td>
+                            <td class="py-3 px-4 align-top text-xs text-gray-500">${task.rationale}</td>
+                        </tr>
+                    `;
+                });
+            });
+
+            appContainer.innerHTML = `
+                <div class="max-w-7xl mx-auto">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">事業部門別 詳細分析</h2>
+                    <div class="flex flex-wrap -mx-1 mb-6">
+                        ${Object.keys(appData.divisions).map(key => `
+                            <div class="px-1 mb-2">
+                                <button data-division="${key}" class="tab-button w-full text-center py-2 px-4 border-b-2 font-medium rounded-md ${key === activeDivision ? 'active' : ''}">
+                                    ${appData.divisions[key].name}
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="card mb-8">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">${division.name}</h3>
+                        <p class="text-gray-600 mb-4">${division.description}</p>
+                        <div class="chart-container">
+                            <canvas id="divisionChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">業務タスク別 工数削減ポテンシャル</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full min-w-[800px] text-left">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="py-3 px-4 text-sm font-semibold text-gray-600 w-1/4">業務タスク</th>
+                                        <th class="py-3 px-4 text-sm font-semibold text-gray-600 w-2/5">生成AIの具体的な活用シナリオ</th>
+                                        <th class="py-3 px-4 text-sm font-semibold text-gray-600 text-center w-[10%]">削減率</th>
+                                        <th class="py-3 px-4 text-sm font-semibold text-gray-600 w-1/4">削減率の算出根拠</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${tableHtml}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            const tasksForChart = division.tasks;
+            const ctx = document.getElementById('divisionChart').getContext('2d');
+            currentChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: tasksForChart.map(t => t.task.length > 16 ? t.task.substring(0, 16) + '...' : t.task),
+                    datasets: [{
+                        label: '工数削減率 (%)',
+                        data: tasksForChart.map(t => t.reduction),
+                        backgroundColor: division.color,
+                        borderColor: division.highlightColor,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    return tasksForChart[context[0].dataIndex].task;
+                                },
+                                label: function(context) {
+                                    return `削減率: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: { display: true, text: '工数削減率 (%)' }
+                        },
+                        x: {
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        }
+                    },
+                    onHover: (event, chartElements) => {
+                        const tableRows = document.querySelectorAll('tbody > tr[id^="task-row-"]');
+                        tableRows.forEach(row => row.classList.remove('table-highlight'));
+                        if (chartElements.length > 0) {
+                            const index = chartElements[0].index;
+                            const task = tasksForChart[index];
+                            const uniqueId = `${activeDivision}-${task.major.replace(/\s/g, '-')}-${index}`;
+                            const row = document.getElementById(`task-row-${uniqueId}`);
+                            if(row) row.classList.add('table-highlight');
+                        }
+                    }
+                }
+            });
+            
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    activeDivision = e.currentTarget.dataset.division;
+                    render();
+                });
+            });
+        };
+        
+        const renderStrategyView = () => {
+             appContainer.innerHTML = `
+                <div class="max-w-7xl mx-auto">
+                    <div class="mb-8">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">全社横断的インサイトと戦略的提言</h2>
+                        <p class="text-lg text-gray-600">各事業部門の分析を踏まえ、全体の視点から生成AI導入戦略を統合的に考察し、具体的な実行計画とリスク管理策を提言します。</p>
+                    </div>
+
+                    <div class="card mb-8">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">導入ロードマップ：優先順位と実行計画</h3>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="border-l-4 border-blue-400 pl-6">
+                                <h4 class="text-xl font-bold mb-3 text-blue-800">フェーズ1：Quick Wins (導入後1～6ヶ月)</h4>
+                                <p class="text-gray-600 mb-4">費用対効果が高く、短期間で目に見える成果を実感できる施策に集中し、全社的な変革への機運を高めます。</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span><span><strong>顧客対応AIチャットボットの全社展開:</strong> 全事業部門のウェブサイトに導入。</span></li>
+                                    <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span><span><strong>マーケティングコンテンツ生成ツールの導入:</strong> 全部門の担当者向けに研修を実施。</span></li>
+                                    <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span><span><strong>AI議事録作成ツールの全社導入:</strong> 全従業員に提供し、管理業務の負担を軽減。</span></li>
+                                </ul>
+                            </div>
+                            <div class="border-l-4 border-purple-400 pl-6">
+                                <h4 class="text-xl font-bold mb-3 text-purple-800">フェーズ2：Strategic Imperatives (導入後6～18ヶ月)</h4>
+                                <p class="text-gray-600 mb-4">独自の競争優位性を構築するため、事業の核に関わる専門的なAIソリューションを開発・導入します。</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start"><span class="text-purple-500 mr-3 mt-1">✓</span><span><strong>不動産管理業務支援AI:</strong> オーナー向け報告書自動生成と空室対策提案ツールを開発。</span></li>
+                                    <li class="flex items-start"><span class="text-purple-500 mr-3 mt-1">✓</span><span><strong>旅行プランナー支援プラットフォーム:</strong> パーソナライズされた旅行プランを自動生成する独自PFを構築。</span></li>
+                                    <li class="flex items-start"><span class="text-purple-500 mr-3 mt-1">✓</span><span><strong>法人向けエネルギー提案AI:</strong> コスト・CO2削減の提案書を自動作成するツールを開発。</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-8">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">成功に向けた基盤構築：前提条件とリスク管理</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="text-xl font-bold mb-3">✔️ 導入成功の前提条件</h4>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><strong>データガバナンスと基盤整備:</strong> 散在するデータを統合・整理し、AIがアクセスできる基盤を構築。</li>
+                                    <li><strong>全社的なAIリテラシー教育:</strong> 「AIと協働する思考法」を醸成する研修プログラムを実施。</li>
+                                    <li><strong>セキュリティとプライバシーポリシーの策定:</strong> 機密情報の取り扱いに関する厳格なルールを策定・周知。</li>
+                                    <li><strong>部門横断AI推進タスクフォースの設置:</strong> 専門チームが導入計画を推進。</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-3">⚠️ 想定されるリスクと対策</h4>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><strong>情報漏洩:</strong> 機密性の高いデータはプライベートなAI環境で処理。アクセス権限を厳格に管理。</li>
+                                    <li><strong>AIの誤った回答:</strong> 顧客への提案書等では必ず人間がレビュー・承認するワークフローを確立。</li>
+                                    <li><strong>従業員の心理的抵抗:</strong> AIは能力を拡張する「副操縦士」であるというポジティブなビジョンを経営層が一貫して発信。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            `;
+        };
+        
+        const render = () => {
+            if (currentChart) {
+                currentChart.destroy();
+            }
+
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.classList.toggle('active', button.dataset.view === activeView);
+            });
+            
+            switch (activeView) {
+                case 'summary':
+                    renderSummaryView();
+                    break;
+                case 'analysis':
+                    renderAnalysisView();
+                    break;
+                case 'strategy':
+                    renderStrategyView();
+                    break;
+            }
+        };
+
+        const switchView = (view) => {
+            activeView = view;
+            window.scrollTo(0, 0);
+            render();
+        }
+
+        document.querySelectorAll('.nav-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                switchView(e.currentTarget.dataset.view);
+            });
+        });
+
+        render();
+
+    </script>
+</body>
+</html>
