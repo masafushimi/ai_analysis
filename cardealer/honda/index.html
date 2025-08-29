@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【インタラクティブ版】株式会社ホンダモビリティ南関東 AI業務改革レポート</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony (bg-slate-50, text-slate-800, accent-teal-500) -->
+    <!-- Application Structure Plan: A three-section SPA (Dashboard, Department Potential, Roadmap) is chosen over a linear report format to enhance usability. The Dashboard provides a high-level overview and key metrics for quick executive insight. The interactive "Department Potential" section with a department selector and dynamic charts allows users to explore specific areas of interest non-linearly, which is the primary user task. The "Roadmap" section visualizes the action plan clearly. This structure transforms the static report into an exploratory decision-making tool. -->
+    <!-- Visualization & Content Choices: 1. Overall AI Potential (Report Goal: Inform) -> Donut Chart (Chart.js/Canvas) -> Interactive tooltips -> Justification: Clearly shows proportions of AI-applicable tasks. 2. Department Task Analysis (Report Goal: Compare/Analyze) -> Dynamic Horizontal Bar Chart (Chart.js/Canvas) -> On-demand rendering via department selector, tooltips showing reduction % -> Justification: Effectively compares workload across tasks and visually highlights the potential savings for each. 3. Task Details (Report Goal: Inform) -> Interactive HTML Table -> Click-to-expand rows for details -> Justification: Keeps the UI clean while providing deep-dive information on demand. 4. Roadmap (Report Goal: Change/Plan) -> Styled HTML Flexbox Layout (Tailwind) -> Clear visual separation of phases -> Justification: More scannable and visually appealing than a list or table. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #f8fafc; 
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #0d9488;
+            border-bottom-color: #0d9488;
+        }
+        .detail-row {
+            display: none;
+        }
+        .task-row.open + .detail-row {
+            display: table-row;
+        }
+        .task-row {
+            cursor: pointer;
+        }
+        .task-row:hover {
+            background-color: #f1f5f9;
+        }
+        .kpi-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .roadmap-card::before {
+            content: attr(data-phase);
+            position: absolute;
+            top: -1.25rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #0d9488;
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-lg md:text-xl font-bold text-slate-900">AI業務改革レポート</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#dashboard" class="nav-link px-3 py-2 rounded-md text-sm font-medium">ダッシュボード</a>
+                        <a href="#departments" class="nav-link px-3 py-2 rounded-md text-sm font-medium">部門別ポテンシャル</a>
+                        <a href="#roadmap" class="nav-link px-3 py-2 rounded-md text-sm font-medium">導入ロードマップ</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <select id="mobile-nav" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md">
+                        <option value="#dashboard">ダッシュボード</option>
+                        <option value="#departments">部門別ポテンシャル</option>
+                        <option value="#roadmap">導入ロードマップ</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+
+        <section id="dashboard" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl">経営ダッシュボード</h2>
+                <p class="mt-4 text-lg text-slate-600">AI導入による全社的なインパクトと戦略的優先事項の全体像</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 text-center">
+                <div class="kpi-card">
+                    <h3 class="text-lg font-semibold text-slate-500">AIによる効率化ポテンシャル</h3>
+                    <p class="text-4xl font-bold text-teal-600 mt-2">20-30%</p>
+                    <p class="text-sm text-slate-500 mt-2">定型的な事務作業において</p>
+                </div>
+                <div class="kpi-card">
+                    <h3 class="text-lg font-semibold text-slate-500">創出可能な時間</h3>
+                    <p class="text-4xl font-bold text-teal-600 mt-2">数千時間/月</p>
+                    <p class="text-sm text-slate-500 mt-2">全社合計の見込み</p>
+                </div>
+                <div class="kpi-card">
+                    <h3 class="text-lg font-semibold text-slate-500">対象部門数</h3>
+                    <p class="text-4xl font-bold text-teal-600 mt-2">10部門</p>
+                    <p class="text-sm text-slate-500 mt-2">主要業務領域を網羅</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+                 <h3 class="text-xl font-bold text-slate-900 mb-4 text-center">全分析タスクにおけるAI活用可能性</h3>
+                 <p class="text-center text-slate-600 mb-6">レポートで分析された全業務タスクを、生成AIによる代替・支援の可能性で分類しました。これにより、AIがどの程度の業務範囲にインパクトを与えうるかを一目で把握できます。</p>
+                <div class="chart-container h-64 sm:h-80 max-w-sm">
+                    <canvas id="overallPotentialChart"></canvas>
+                </div>
+            </div>
+        </section>
+        
+        <hr class="my-16 border-slate-200">
+
+        <section id="departments" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl">部門別 業務効率化ポテンシャル</h2>
+                <p class="mt-4 text-lg text-slate-600">部門を選択して、具体的なタスク、削減可能な時間、AIの活用方法を確認できます。</p>
+            </div>
+
+            <div class="mb-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <label for="departmentSelector" class="font-semibold text-slate-700">分析対象の部門を選択:</label>
+                <select id="departmentSelector" class="mt-1 sm:mt-0 block w-full sm:w-auto pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md shadow-sm">
+                </select>
+            </div>
+
+            <div id="department-detail" class="space-y-12">
+                <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+                    <h3 id="department-title" class="text-2xl font-bold text-slate-900 mb-2"></h3>
+                    <p id="department-summary" class="text-slate-600 mb-6"></p>
+                    
+                    <h4 class="text-xl font-bold text-slate-800 mb-4 text-center">タスク別月間作業時間とAIによる削減ポテンシャル</h4>
+                    <div class="chart-container h-96 max-h-[60vh]">
+                        <canvas id="departmentTasksChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg overflow-x-auto">
+                    <h4 class="text-xl font-bold text-slate-800 mb-4">タスク詳細とAI活用例 (▼クリックで詳細表示)</h4>
+                    <table class="min-w-full divide-y divide-slate-200">
+                        <thead class="bg-slate-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">タスク名</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">月間作業時間</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">削減見込</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">定性的効果</th>
+                            </tr>
+                        </thead>
+                        <tbody id="department-tasks-table" class="bg-white divide-y divide-slate-200">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 border-slate-200">
+
+        <section id="roadmap" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 sm:text-4xl">導入に向けた戦略的ロードマップ</h2>
+                <p class="mt-4 text-lg text-slate-600">AI導入を段階的かつ効果的に進めるための3フェーズ実行計画</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
+                <div class="relative bg-white p-6 rounded-xl shadow-lg border-t-4 border-teal-500 roadmap-card" data-phase="Phase 1">
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-2">基盤構築とクイックウィン</h3>
+                    <p class="font-semibold text-slate-500 mb-4">(今後3～6ヶ月)</p>
+                    <p class="text-sm text-slate-600 mb-4">導入が容易で高い効果が見込める施策に集中し、早期に成功体験を積むことで、全社的な改革への機運を高めます。</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start"><span class="text-teal-500 mr-2">✔</span> 社内ナレッジベースAIの導入</li>
+                        <li class="flex items-start"><span class="text-teal-500 mr-2">✔</span> 会議議事録の自動作成</li>
+                        <li class="flex items-start"><span class="text-teal-500 mr-2">✔</span> マーケティングコンテンツ作成支援</li>
+                    </ul>
+                </div>
+                <div class="relative bg-white p-6 rounded-xl shadow-lg border-t-4 border-teal-600 roadmap-card" data-phase="Phase 2">
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-2">部門連携とプロセス変革</h3>
+                    <p class="font-semibold text-slate-500 mb-4">(6～18ヶ月)</p>
+                    <p class="text-sm text-slate-600 mb-4">部門間のデータ連携を必要とする複雑なソリューションを導入し、中核的な業務プロセスを根本から再設計します。</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start"><span class="text-teal-600 mr-2">✔</span> AI搭載コンタクトセンターの構築</li>
+                        <li class="flex items-start"><span class="text-teal-600 mr-2">✔</span> サービス部門の文書作成自動化</li>
+                        <li class="flex items-start"><span class="text-teal-600 mr-2">✔</span> AI査定ツールの全社標準化</li>
+                    </ul>
+                </div>
+                <div class="relative bg-white p-6 rounded-xl shadow-lg border-t-4 border-teal-700 roadmap-card" data-phase="Phase 3">
+                    <h3 class="text-xl font-bold text-slate-800 mt-8 mb-2">高度AI活用と未来事業</h3>
+                    <p class="font-semibold text-slate-500 mb-4">(18ヶ月以降)</p>
+                    <p class="text-sm text-slate-600 mb-4">予測分析や高度なカスタムAIを駆使し、新たな収益源を創出し、市場でのリーダーシップを確立します。</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start"><span class="text-teal-700 mr-2">✔</span> 予測保全エンジンの開発・展開</li>
+                        <li class="flex items-start"><span class="text-teal-700 mr-2">✔</span> ハイパーパーソナライズド・マーケティング</li>
+                        <li class="flex items-start"><span class="text-teal-700 mr-2">✔</span> カスタムAIセールスコーチの開発</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-white mt-16">
+        <div class="container mx-auto py-4 px-5 text-center">
+            <p class="text-sm text-slate-300">株式会社ホンダモビリティ南関東 | 生成AI活用 業務改革コンサルティングレポート</p>
+        </div>
+    </footer>
+
+    <script>
+        const reportData = {
+            "営業部門": {
+                summary: "営業スタッフは顧客対応以外の管理業務に多くの時間を費やしており、AIがこの負担を軽減し、データに基づいたインテリジェントな営業活動を支援します。",
+                tasks: [
+                    { name: '商談メモの記録とCRM入力', time: 80, reduction: 75, quality: '営業品質の均一化、入力漏れ・ミスの削減', example: '音声記録→AIで文字起こし＆要約→CRMの所定フォーマットで出力。プロンプト：「以下の商談内容を要約し、顧客の要望、提案内容、次回アクションを箇条書きで抽出して。」', ai: '◯' },
+                    { name: '営業日報（活動報告）の作成', time: 60, reduction: 80, quality: '報告業務の抜本的効率化', example: 'CRMデータ（当日のアポイント、電話履歴、メール送信履歴）を基に、AIが日報のドラフトを自動生成。プロンプト：「本日のCRM活動ログに基づき、営業日報を作成して。」', ai: '◯' },
+                    { name: '顧客へのフォローアップメール作成', time: 50, reduction: 60, quality: '応対品質の標準化、関係性強化', example: '顧客情報と商談内容に基づき、お礼メールや状況確認メールの文面をAIが生成。プロンプト：「[顧客名]様への[車種]の商談後のお礼メールを作成。特に[機能A]に関心を示していた点を盛り込んで。」', ai: '◯' },
+                    { name: '新規顧客向け提案書・見積書の作成', time: 40, reduction: 30, quality: '作成時間の短縮、提案の質の向上', example: '顧客のニーズ（家族構成、用途、予算）を入力すると、最適な車種・グレード・オプションを組み合わせた提案書の骨子と概算見積もりをAIが生成。', ai: '△' },
+                    { name: '法人向けフリート契約の提案資料作成', time: 30, reduction: 50, quality: '提案の迅速化、説得力向上', example: '企業の業種や規模、過去の導入実績データを基に、コスト削減効果や業務効率化メリットを訴求する提案スライドの構成案とテキストを生成。', ai: '◯' }
+                ]
+            },
+            "サービス部門": {
+                summary: "整備士の事務作業負担を軽減し、専門的な整備内容の顧客への説明を標準化・平易化します。将来的には予測保全への転換を目指します。",
+                tasks: [
+                    { name: '点検整備記録簿の作成', time: 120, reduction: 70, quality: '記入時間の大幅短縮、記入ミスの削減', example: '整備士が点検項目と結果を音声入力→AIが記録簿の所定欄に自動転記。写真撮影したメーターやタイヤ溝の数値をAI-OCRで読み取り自動入力。', ai: '◯' },
+                    { name: '顧客への点検結果説明書の作成', time: 80, reduction: 75, quality: '説明の分かりやすさ向上、顧客満足度向上', example: '整備記録簿の専門用語→平易な言葉に変換した説明文を自動生成。プロンプト：「以下の整備記録を基に、専門知識のないお客様向けに、交換した部品とその理由、今後の注意点を分かりやすく説明する文章を作成して。」', ai: '◯' },
+                    { name: '故障診断（トラブルシューティング）支援', time: 60, reduction: 30, quality: '診断時間の短縮、若手整備士のスキルアップ', example: '顧客からヒアリングした症状や車両データを入力すると、AIが過去の整備事例データベースから類似ケースを検索し、可能性の高い故障原因と推奨される点検手順を提示。', ai: '△' },
+                    { name: '部品の発注・在庫確認', time: 40, reduction: 40, quality: '発注ミスの削減、在庫管理の最適化', example: 'AIが整備予定と連携し、必要な部品を予測して発注リストを自動作成。画像認識AIで入荷部品の検品を支援。', ai: '△' },
+                    { name: 'リコール対象顧客への案内文作成', time: 20, reduction: 80, quality: '迅速な情報提供、パーソナライズ', example: '対象車種、作業内容、顧客データを基に、個々の顧客に合わせた案内状（DM、メール、SMS）の文面をAIが大量生成。', ai: '◯' }
+                ]
+            },
+            "ショールーム受付・接客部門": {
+                summary: "AIが「バーチャル受付」として定型業務を担うことで、スタッフは人間ならではの高度な「おもてなし」に集中できる環境を創出します。",
+                tasks: [
+                    { name: '電話での車検・点検予約受付', time: 70, reduction: 80, quality: '24時間予約受付可能、聞き間違い防止', example: 'AIボイスボットが電話応対。顧客の希望日時と整備工場の空き状況を照合し、予約を自動で確定。', ai: '◯' },
+                    { name: 'よくある質問への電話・対面回答', time: 40, reduction: 90, quality: 'スタッフの負担軽減、回答品質の均一化', example: '「営業時間は？」等の定型質問に、ウェブサイトやKIOSKのAIチャットボットが自動回答。', ai: '◯' },
+                    { name: '来店時の初期対応', time: 50, reduction: 20, quality: '待ち時間の短縮、スムーズな連携', example: '来店客がKIOSK端末で用件を選択すると、担当営業やサービスアドバイザーの端末に自動で通知。', ai: '△' },
+                    { name: '顧客データの入力・アンケート集計', time: 30, reduction: 80, quality: 'データ入力の自動化、迅速な分析', example: '来店客がタブレットで入力したアンケート内容をAIが自動で集計・分析。フリーテキストの意見も感情分析し要約。', ai: '◯' },
+                    { name: 'イベント時の装飾・案内コンテンツ作成', time: 20, reduction: 50, quality: 'アイデア創出支援、作成時間短縮', example: 'プロンプト：「『夏休みファミリー感謝祭』をテーマに、子供が喜ぶショールーム装飾のアイデアを5つ提案して。」', ai: '◯' }
+                ]
+            },
+            "保険・ローン事務部門": {
+                summary: "書類中心の定型業務をAI-OCRやチャットボットで自動化し、ミスを削減。将来的にはAIによるコンプライアンス遵守支援を目指します。",
+                tasks: [
+                    { name: 'ローン申込書の作成・不備チェック', time: 60, reduction: 70, quality: '記入ミスの削減、審査プロセスの迅速化', example: 'AI-OCRで免許証や車検証から情報を読み取り、申込書に自動入力。必要書類のチェックもAIが実施。', ai: '◯' },
+                    { name: '自動車保険の見積もり作成・比較説明', time: 50, reduction: 60, quality: '迅速な見積もり提示、提案の標準化', example: '顧客情報を入力すると、複数の保険会社プランをAIが自動で見積もり、補償内容の違いを比較表として生成。', ai: '◯' },
+                    { name: '契約内容（約款）の要約・説明資料作成', time: 30, reduction: 80, quality: '顧客の理解度向上、トラブル防止', example: '難解な保険約款のPDFをAIに読み込ませ、重要なポイントを箇条書きで要約。プロンプト：「この保険約款の重要事項を、初めて保険に入る人にも分かるように要約して。」', ai: '◯' },
+                    { name: '保険の更新手続きの案内・処理', time: 40, reduction: 50, quality: '案内漏れの防止、手続きの効率化', example: 'CRMと連携し、満期が近い顧客リストを自動抽出。AIが個々の顧客に合わせた更新案内状の文面を作成。', ai: '◯' }
+                ]
+            },
+            "納車・登録手続き部門": {
+                summary: "AIが「納車プロジェクトマネージャー」として機能し、複雑な進捗管理を自動化。顧客の納車体験を向上させます。",
+                tasks: [
+                    { name: '自動車登録関連書類の作成', time: 100, reduction: 60, quality: '書類作成の効率化、転記ミスの撲滅', example: '契約情報を基に、申請書や委任状などの登録書類一式をAIが自動で生成。OCRでのデータ抽出も可能。', ai: '◯' },
+                    { name: '納車前準備の進捗管理', time: 50, reduction: 50, quality: '準備漏れの防止、納車遅延リスクの低減', example: 'AIが納車日までのタスクリストを自動生成し、進捗を管理。遅延があれば担当者に自動でリマインド。', ai: '◯' },
+                    { name: '顧客への納車日程調整・連絡', time: 30, reduction: 70, quality: '調整業務の自動化、顧客満足度の向上', example: 'AIチャットボットが顧客に複数の納車可能日時を提示し、日程調整を完結させる。', ai: '◯' },
+                    { name: '納車後のサンキューレター作成', time: 15, reduction: 90, quality: 'パーソナルな感謝、ロイヤルティ向上', example: '顧客情報と納車時のエピソードを基に、パーソナライズされたお礼状の文面をAIが生成。', ai: '◯' }
+                ]
+            },
+            "中古車査定・仕入れ部門": {
+                summary: "AI査定プラットフォームを導入し、査定の属人性を排除し標準化。データ駆動型の在庫管理と収益最大化を実現します。",
+                tasks: [
+                    { name: '中古車査定価格の算出', time: 150, reduction: 50, quality: '査定の標準化・属人性の排除、収益性改善', example: '車両情報と写真を入力すると、AIが市場相場や過去データを分析し、適正な買取価格を算出。画像認識AIが傷や凹みを自動検出。', ai: '◯' },
+                    { name: '在庫車両のWeb掲載用コメント作成', time: 50, reduction: 80, quality: '作業の自動化、魅力的な紹介文による販促強化', example: '車両データを基に、その車の魅力を伝える紹介文をAIが自動生成。プロンプト：「このフィットのセールスポイントを3つ挙げ、ユーザーの心に響く紹介文を200字で作成して。」', ai: '◯' },
+                    { name: '査定結果説明資料の作成', time: 40, reduction: 70, quality: '説明の透明性向上、納得感の醸成', example: 'AIが算出した査定価格の根拠（市場トレンド、車両状態の評価点など）をまとめた、顧客向けの分かりやすい説明シートを自動生成。', ai: '◯' },
+                    { name: 'オークション情報の分析', time: 30, reduction: 60, quality: '仕入れ戦略の高度化、データに基づいた意思決定', example: '全国のオークションデータをAIが分析し、地域ごとの人気車種や価格トレンドをレポート。収益性の高い仕入れ対象をリストアップ。', ai: '◯' }
+                ]
+            },
+            "コールセンター／アフターサポート部門": {
+                summary: "AIボイスボットとCTI連携により、問い合わせ対応を効率化・自動化。コールセンターをコストセンターからプロフィットセンターへ転換させます。",
+                tasks: [
+                    { name: 'よくある質問（FAQ）への電話対応', time: 150, reduction: 80, quality: '24時間対応、オペレーター負担軽減、CX向上', example: 'AIボイスボットやチャットボットが、営業時間、店舗へのアクセスなどの定型的な質問に自動回答。', ai: '◯' },
+                    { name: '通話内容の記録・システム入力', time: 60, reduction: 80, quality: '後処理時間の短縮、記録の正確性向上', example: '全ての通話を自動で文字起こし＆要約。要約結果をCRMに自動登録。プロンプト：「この通話内容を要約し、問い合わせ種別、顧客の要望、対応結果を分類して。」', ai: '◯' },
+                    { name: '点検・車検時期の顧客への案内コール', time: 80, reduction: 60, quality: '案内業務の効率化、予約率向上', example: 'AIが対象顧客リストを基に、自動音声（IVR）やSMSで一斉に案内。SMSから直接Web予約できる仕組みを構築。', ai: '◯' },
+                    { name: '入電時の顧客情報特定・検索', time: 50, reduction: 95, quality: '応答時間の劇的短縮、スムーズな応対', example: 'CTIシステムと連携し、着信と同時に顧客情報をPC画面に表示。AIが用件を推測し関連情報をハイライト。', ai: '◯' },
+                    { name: 'オペレーターの応対品質モニタリング', time: 40, reduction: 50, quality: '客観的な評価、教育の効率化', example: 'AIが全通話録音を分析し、不適切な言葉遣いや長すぎる保留などを自動で検出。個々のオペレーターの改善点をレポート。', ai: '◯' }
+                ]
+            },
+            "店舗管理・マネジメント部門": {
+                summary: "AIが統合経営ダッシュボードを提供し、データに基づいたリアルタイムな店舗運営と、客観的なスタッフのコーチングを可能にします。",
+                tasks: [
+                    { name: '日次・週次・月次の実績報告書の作成', time: 50, reduction: 90, quality: 'レポート作成の完全自動化、リアルタイムな業績把握', example: '各システムのデータを自動収集し、定型フォーマットの経営レポートをAIが毎日自動生成・配信。', ai: '◯' },
+                    { name: '店舗会議の議事録作成とタスク管理', time: 25, reduction: 80, quality: '議事録作成の手間削減、決定事項の抜け漏れ防止', example: '会議の音声をAIがリアルタイムで文字起こし。会議終了後、決定事項と担当者を要約し、タスク管理ツールに自動登録。', ai: '◯' },
+                    { name: '競合店の動向・市場トレンドの調査', time: 30, reduction: 70, quality: '迅速な市場変化の察知、戦略立案の精度向上', example: 'AIが競合ディーラーのWebサイトやSNSを常時監視。価格変更やキャンペーン開始などを検知し、要約レポートを生成。', ai: '◯' },
+                    { name: 'スタッフの業績管理と評価面談資料準備', time: 40, reduction: 50, quality: 'データに基づいた客観的評価、面談の質向上', example: '個々のスタッフのKPIをAIが分析。目標達成度や特筆すべき点を抽出し、評価面談用のアジェンダ案を作成。', ai: '△' }
+                ]
+            },
+            "販促・マーケティング部門": {
+                summary: "生成AIを「コンテンツ制作エンジン」とし、SNS投稿やメールマガジンを効率的に作成。ハイパーパーソナライゼーションを実現します。",
+                tasks: [
+                    { name: 'SNSの投稿コンテンツ作成', time: 80, reduction: 60, quality: 'コンテンツ制作の高速化、エンゲージメント向上', example: 'プロンプト：「新型ヴェゼルの魅力を20代女性に伝えるInstagramリール動画のシナリオを3案作成して。ハッシュタグも10個提案して。」', ai: '◯' },
+                    { name: 'メールマガジン・DMの作成と配信', time: 50, reduction: 70, quality: 'パーソナライズによる開封率・クリック率向上', example: '顧客セグメントごとに、AIが最適な件名と本文を生成。顧客の名前や車種を自動で差し込み。', ai: '◯' },
+                    { name: '広告のキャッチコピー・デザイン案作成', time: 30, reduction: 80, quality: '多数のコピー案を短時間で生成、A/Bテストを容易に', example: 'プロンプト：「フリードの乗り換えを検討しているファミリー層向けのWeb広告バナーのキャッチコピーを10案作成して。」', ai: '◯' },
+                    { name: '販促キャンペーンの企画立案', time: 40, reduction: 50, quality: 'アイデア創出支援、データに基づいた企画', example: 'プロンプト：「Z世代をターゲットにしたWR-Vの試乗キャンペーンの企画案を5つ提案して。」', ai: '◯' },
+                    { name: '顧客アンケートやSNSコメントの分析', time: 25, reduction: 90, quality: '顧客の声を迅速に可視化、ネガティブ意見の早期発見', example: 'AIがフリーテキストのコメントを感情分析・トピック分類し、顧客の関心や不満をダッシュボードで可視化。', ai: '◯' }
+                ]
+            },
+            "人事・教育・バックオフィス部門": {
+                summary: "採用から評価、研修までの人事プロセスをAIで効率化・高度化。データ駆動型の戦略的な人材開発パートナーへと進化させます。",
+                tasks: [
+                    { name: '契約書・請求書等の書類ファイリング', time: 80, reduction: 80, quality: 'ペーパーレス化、検索性向上、保管コスト削減', example: 'スキャンした書類をAI-OCRでテキストデータ化し、内容に応じて自動で分類・タグ付けしてクラウドストレージに保存。', ai: '◯' },
+                    { name: '採用候補者の書類選考・面接日程調整', time: 60, reduction: 70, quality: '選考プロセスの迅速化、採用担当者の負担軽減', example: 'AIが応募書類をスキャンし、募集要件との適合度をスコアリング。候補者と面接官の空き時間を照合し、日程を自動調整。', ai: '◯' },
+                    { name: '新人・若手社員向け研修コンテンツ作成', time: 50, reduction: 60, quality: '研修のパーソナライズ、学習効果向上', example: '職種ごとに、基礎知識を学べるeラーニングコンテンツや、ロールプレイング用の対話シナリオをAIが生成。', ai: '◯' },
+                    { name: '社内向け通達・規定文書の作成', time: 30, reduction: 70, quality: '文書作成の迅速化、分かりやすさ向上', example: 'プロンプト：「全従業員向けの在宅勤務規定の改定に関する通知文を作成してください。主な変更点を箇条書きで分かりやすくまとめて。」', ai: '◯' }
+                ]
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let departmentChart;
+
+            const selector = document.getElementById('departmentSelector');
+            const departmentTitle = document.getElementById('department-title');
+            const departmentSummary = document.getElementById('department-summary');
+            const tasksTableBody = document.getElementById('department-tasks-table');
+
+            Object.keys(reportData).forEach(depName => {
+                const option = document.createElement('option');
+                option.value = depName;
+                option.textContent = depName;
+                selector.appendChild(option);
+            });
+
+            function updateDepartmentView(depName) {
+                const department = reportData[depName];
+                departmentTitle.textContent = depName;
+                departmentSummary.textContent = department.summary;
+
+                const sortedTasks = [...department.tasks].sort((a, b) => b.time - a.time);
+
+                const chartLabels = sortedTasks.map(task => task.name);
+                const chartDataCurrent = sortedTasks.map(task => task.time);
+                const chartDataReduced = sortedTasks.map(task => task.time * (1 - task.reduction / 100));
+
+                if (departmentChart) {
+                    departmentChart.destroy();
+                }
+
+                const ctx = document.getElementById('departmentTasksChart').getContext('2d');
+                departmentChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartLabels,
+                        datasets: [{
+                            label: '現在の作業時間',
+                            data: chartDataCurrent,
+                            backgroundColor: '#94a3b8',
+                            borderColor: '#64748b',
+                            borderWidth: 1
+                        }, {
+                            label: '削減後の作業時間',
+                            data: chartDataReduced,
+                            backgroundColor: '#2dd4bf',
+                            borderColor: '#0d9488',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                stacked: false,
+                                title: { display: true, text: '月間作業時間 (時間)' }
+                            },
+                            y: {
+                                stacked: false,
+                                ticks: {
+                                    autoSkip: false,
+                                    callback: function(value) {
+                                        const label = this.getLabelForValue(value);
+                                        return label.length > 16 ? label.substring(0, 15) + '…' : label;
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const task = sortedTasks[context.dataIndex];
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        label += `${context.raw}時間`;
+                                        if (context.datasetIndex === 0) {
+                                            label += ` (削減見込: ${task.reduction}%)`;
+                                        }
+                                        return label;
+                                    }
+                                }
+                            },
+                            legend: {
+                                position: 'bottom',
+                            }
+                        }
+                    }
+                });
+                
+                tasksTableBody.innerHTML = '';
+                department.tasks.forEach(task => {
+                    const savedTime = (task.time * task.reduction / 100).toFixed(0);
+                    const row = `
+                        <tr class="task-row">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">${task.name}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">${task.time}h</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-teal-600 font-semibold">▼ ${savedTime}h (${task.reduction}%)</td>
+                            <td class="px-6 py-4 text-sm text-slate-500">${task.quality}</td>
+                        </tr>
+                        <tr class="detail-row bg-slate-50">
+                            <td colspan="4" class="px-6 py-4">
+                                <p class="text-sm font-semibold text-slate-700">推奨されるAI活用方法:</p>
+                                <p class="mt-1 text-sm text-slate-600">${task.example}</p>
+                            </td>
+                        </tr>
+                    `;
+                    tasksTableBody.innerHTML += row;
+                });
+            }
+
+            selector.addEventListener('change', (e) => {
+                updateDepartmentView(e.target.value);
+            });
+
+            tasksTableBody.addEventListener('click', (e) => {
+                const row = e.target.closest('.task-row');
+                if (row) {
+                    row.classList.toggle('open');
+                }
+            });
+
+            function renderOverallPotentialChart() {
+                const tasks = Object.values(reportData).flatMap(d => d.tasks);
+                const counts = { '◯': 0, '△': 0, '✕': 0 };
+                tasks.forEach(task => {
+                    if (task.ai === '◯') counts['◯']++;
+                    else if (task.ai === '△') counts['△']++;
+                    else counts['✕']++;
+                });
+
+                const ctx = document.getElementById('overallPotentialChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: [
+                            `代替・支援が可能 (◯)`,
+                            `一部支援が可能 (△)`,
+                            `活用が困難 (✕)`
+                        ],
+                        datasets: [{
+                            data: [counts['◯'], counts['△'], counts['✕']],
+                            backgroundColor: ['#2dd4bf', '#facc15', '#fb7185'],
+                            borderColor: '#f8fafc',
+                            borderWidth: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    boxWidth: 20
+                                }
+                            },
+                             tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.label}: ${context.raw} タスク`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function smoothScroll() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if(targetElement) {
+                             targetElement.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+                document.getElementById('mobile-nav').addEventListener('change', function(e) {
+                    const targetId = this.value;
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+            
+            updateDepartmentView(Object.keys(reportData)[0]);
+            renderOverallPotentialChart();
+            smoothScroll();
+        });
+    </script>
+</body>
+</html>
