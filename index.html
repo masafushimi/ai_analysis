@@ -5,29 +5,37 @@
   <title>業種x企業別AI分析</title>
   <style>
     body {
-      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: "Helvetica Neue", Arial, sans-serif;
       margin: 0;
-      padding: 20px;
-      background: #f7f9fc;
+      padding: 0;
+      background: #f4f6f9;
       color: #333;
     }
 
     header {
-      margin-bottom: 30px;
+      background: linear-gradient(135deg, #0052D4, #4364F7, #6FB1FC);
+      color: #fff;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
 
-    h1 {
-      font-size: 1.8em;
+    header h1 {
       margin: 0;
+      font-size: 2em;
+      font-weight: bold;
     }
 
     .breadcrumbs {
-      margin-top: 5px;
+      margin-top: 10px;
       font-size: 0.9em;
-      color: #666;
+      color: #ddd;
     }
 
-    .grid {
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 20px;
@@ -35,33 +43,36 @@
 
     .card {
       background: #fff;
-      padding: 16px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      transition: all 0.25s ease;
     }
 
     .card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-6px);
       box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
 
     .card a {
       text-decoration: none;
-      font-weight: 500;
+      color: #0052d4;
       font-size: 1.1em;
-      color: #0066cc;
+      font-weight: 600;
+      display: block;
     }
 
-    .card a:hover {
-      text-decoration: underline;
+    .icon {
+      font-size: 2em;
+      margin-bottom: 10px;
     }
 
     footer {
-      margin-top: 40px;
-      font-size: 0.8em;
-      color: #999;
+      margin: 50px 0;
       text-align: center;
+      color: #999;
+      font-size: 0.8em;
     }
   </style>
 </head>
@@ -72,19 +83,56 @@
   </header>
 
   <main class="grid">
-  <ul>
-    <li><a href="cardealer/">カーディーラー</a></li>
-    <li><a href="construction/">土木建築</a></li>
-    <li><a href="delivery/">運送</a></li>
-    <li><a href="financial/">ファイナンス（銀行・証券・保険・税務）</a></li>
-    <li><a href="healthcheck/">健康診断</a></li>
-    <li><a href="ma/">M&A</a></li>
-    <li><a href="medical/">メディカル・製薬</a></li>
-    <li><a href="relaxation/">リラクゼーション</a></li>
-    <li><a href="rental_house/">賃貸・仲介</a></li>
-    <li><a href="saas/">SaaS</a></li>
-  </ul>
-  </main>
+  <div class="card">
+    <div class="icon">📁</div>
+    <a href="cardealer/">カーディーラー</a>
+  </div>
+
+  <div class="card">
+    <div class="icon">📁</div>
+    <a href="construction/">土木建築</a>
+  </div>
+
+  <div class="card">
+    <div class="icon">📁</div>
+    <a href="delivery/">運送</a>
+  </div>
+
+  <div class="card">
+    <div class="icon">📁</div>
+    <a href="financial/">ファイナンス（銀行・証券・保険・税務）</a>
+  </div>
+
+  <div class="card">
+    <div class="icon">📁</div>
+    <a href="healthcheck/">健康診断</a>
+  </div>
+
+  <div class="card">
+    <div class="icon">📁</div>
+    <a href="ma/">M&A</a>
+  </div>
+
+  <div class="card">
+    <div class="icon">📁</div>
+    <a href="medical/">メディカル・製薬</a>
+  </div>
+
+  <div class="card">
+    <div class="icon">📁</div>
+    <a href="relaxation/">リラクゼーション</a>
+  </div>
+
+  <div class="card">
+    <div class="icon">📁</div>
+    <a href="rental_house/">賃貸・仲介</a>
+  </div>
+
+  <div class="card">
+    <div class="icon">📁</div>
+    <a href="saas/">SaaS</a>
+  </div>
+</main>
 
   <footer>
     Auto-generated index page
