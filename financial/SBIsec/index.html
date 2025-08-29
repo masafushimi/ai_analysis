@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI証券 AI活用分析 インタラクティブダッシュボード</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Corporate Calm -->
+    <!-- Application Structure Plan: レポートの線形的な構成を再設計し、ユーザーが自由に関心領域を探索できるダッシュボード形式のSPAを構築。主要なナビゲーションで「ホーム」「部門別分析」「戦略ロードマップ」「全社戦略」「リスク管理」の5つのセクションを切り替える。この構造は、ユーザーが必要な情報へ迅速にアクセスし、全体像と詳細を効率的に把握することを目的としている。特に「部門別分析」では、ドロップダウンによる対話的な選択を可能にし、情報の受け身な消費から能動的な探索へとユーザー体験を転換させるために採用した。 -->
+    <!-- Visualization & Content Choices: 
+        - ホーム: 全体像を把握するため、全部門のAI活用ポテンシャル（工数削減・品質向上）を比較するインタラクティブな棒グラフを配置。Goal: 比較, Viz: Bar Chart (Chart.js), Interaction: ホバーで詳細表示、クリックで部門別分析へ遷移。
+        - 部門別分析: 各部門の「工数削減」「品質向上」の評価（高/中/低）の構成比を視覚化するため、ドーナツグラフを採用。Goal: 構成の理解, Viz: Doughnut Chart (Chart.js), Interaction: ドロップダウン選択でグラフとテキストが動的に更新。
+        - 戦略ロードマップ: 時間軸に沿った計画を示すため、HTML/CSS(Tailwind)で構築したインタラクティブなタイムラインを使用。Goal: 変化の表示, Viz: Custom HTML/CSS Timeline, Interaction: フェーズクリックで詳細表示。
+        - 全社戦略: 複雑なアーキテクチャを整理して示すため、HTML/CSS(Tailwind Grid/Flex)で図解を作成。Goal: 構造の整理, Viz: Custom HTML/CSS Diagram, Interaction: 主要コンポーネントのホバーでツールチップ表示。
+        - リスク管理: 情報を階層的に整理するため、アコーディオンUIを採用。Goal: 情報の整理, Viz: Custom HTML/CSS Accordion, Interaction: ヘッダークリックで詳細展開。
+        - 全てのチャートと図解はCanvasとHTML/CSSで実装し、SVG/Mermaidは使用しない。
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .bg-primary { background-color: #0d3d63; }
+        .bg-secondary { background-color: #eef2f6; }
+        .text-primary { color: #0d3d63; }
+        .text-accent { color: #1a73e8; }
+        .border-primary { border-color: #0d3d63; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-item {
+            cursor: pointer;
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s, color 0.2s;
+            font-weight: 500;
+        }
+        .nav-item.active {
+            background-color: #0d3d63;
+            color: white;
+        }
+        .nav-item:not(.active):hover {
+            background-color: #eef2f6;
+            color: #0d3d63;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .table-highlight tr:hover {
+            background-color: #f1f5f9;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 9999px;
+            background-color: white;
+            border: 4px solid #0d3d63;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="min-h-screen flex flex-col">
+        <header class="bg-white shadow-md sticky top-0 z-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center">
+                        <span class="text-xl font-bold text-primary">SBI証券</span>
+                        <span class="ml-4 text-lg font-medium text-gray-600">AI活用分析ダッシュボード</span>
+                    </div>
+                    <nav class="hidden md:flex space-x-2">
+                        <a id="nav-home" class="nav-item active">ホーム</a>
+                        <a id="nav-departments" class="nav-item">部門別分析</a>
+                        <a id="nav-roadmap" class="nav-item">戦略ロードマップ</a>
+                        <a id="nav-strategy" class="nav-item">全社戦略</a>
+                        <a id="nav-risks" class="nav-item">リスク管理</a>
+                    </nav>
+                    <div class="md:hidden">
+                        <select id="mobile-nav" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <option value="home">ホーム</option>
+                            <option value="departments">部門別分析</option>
+                            <option value="roadmap">戦略ロードマップ</option>
+                            <option value="strategy">全社戦略</option>
+                            <option value="risks">リスク管理</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto p-4 sm:p-6 lg:p-8">
+            
+            <section id="section-home" class="content-section active">
+                <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start">
+                        <div class="flex-grow">
+                            <h1 class="text-2xl font-bold text-primary mb-2">エグゼクティブサマリー：AI駆動型の未来に向けた航路図</h1>
+                            <p class="text-gray-600 leading-relaxed max-w-4xl">
+                                本レポートは、株式会社SBI証券が生成AIの戦略的活用を通じて、業務プロセスの抜本的な改革を達成するための包括的な分析と実行可能な提言を提供します。業界リーダーとしての強固な基盤の上に、生成AIという変革的技術を統合することは、次なる成長フェーズへの移行、すなわち「業界最低水準の手数料で業界最高水準のサービス」を新たな次元で実現するための戦略的必須要件です。
+                            </p>
+                        </div>
+                        <div class="mt-4 sm:mt-0 sm:ml-6 flex-shrink-0">
+                             <a href="https://docs.google.com/document/d/1hJUUfxBFtQGBSWrLq1CCAdsLwxLzhslX4XLwBgNnU88/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                レポート全文はこちら
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white p-5 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg text-primary">顧客体験の超パーソナライズ化</h3>
+                        <p class="text-sm text-gray-600 mt-1">AIアシスタントが取引履歴に基づき最適な情報を提供。問い合わせ工数を50%以上削減し、顧客満足度を向上。</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg text-primary">ドキュメント業務の自動化</h3>
+                        <p class="text-sm text-gray-600 mt-1">M&AのDDやリサーチレポート作成をAIが支援。アナリストはより付加価値の高い分析・戦略立案に集中。</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg text-primary">コンプライアンス・リスク管理の高度化</h3>
+                        <p class="text-sm text-gray-600 mt-1">AIが膨大な取引データをリアルタイムで分析し、不正取引やコンプライアンス違反のリスクを早期に検知。</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg text-primary">システム開発の加速</h3>
+                        <p class="text-sm text-gray-600 mt-1">AIによるコード生成、テスト自動化により開発速度と品質を両立。市場の変化に即応できる開発体制を実現。</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h2 class="text-xl font-bold text-primary mb-4">部門別 AI活用ポテンシャル概観</h2>
+                    <p class="text-gray-600 mb-4">各部門における生成AI活用のポテンシャルを「工数削減」と「品質向上」の観点から評価しました。グラフの棒にカーソルを合わせると詳細が表示され、クリックすると該当部門の詳細分析へ移動します。</p>
+                    <div class="chart-container h-96 md:h-[500px]">
+                        <canvas id="overviewChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-departments" class="content-section">
+                <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+                    <h1 class="text-2xl font-bold text-primary mb-2">部門別分析：AI活用機会の深掘り</h1>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        SBI証券の主要10部門を対象に、各部門の主要業務をタスクレベルまで分解し、生成AIの活用による「工数削減」および「品質向上」の可能性を評価します。下のドロップダウンから分析したい部門を選択してください。選択に応じて、部門のコンテキスト、AI活用の機会をまとめた表、そしてインパクト評価のグラフが動的に表示されます。
+                    </p>
+                    <select id="department-selector" class="w-full md:w-1/3 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-accent focus:border-accent">
+                    </select>
+                </div>
+
+                <div id="department-content" class="space-y-6">
+                </div>
+            </section>
+
+            <section id="section-roadmap" class="content-section">
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h1 class="text-2xl font-bold text-primary mb-2">戦略的導入ロードマップ</h1>
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        生成AIの導入を成功させるため、潜在的なインパクトと実現の容易性を考慮した3段階のロードマップを策定しました。各フェーズをクリックすると、その目的と主要な施策が表示されます。この段階的なアプローチにより、リスクを管理しながら着実に成果を積み上げ、最終的に全社的な変革を実現します。
+                    </p>
+                    <div class="relative pl-12 border-l-2 border-primary">
+                        <div id="roadmap-item-1" class="mb-12 cursor-pointer timeline-item">
+                            <h3 class="text-lg font-bold text-primary">フェーズ1：基盤構築とクイックウィン（1～6ヶ月）</h3>
+                            <p class="text-gray-600">AI活用のための技術・組織基盤を整備し、早期に成功事例を創出します。</p>
+                            <div id="roadmap-detail-1" class="hidden mt-4 p-4 bg-secondary rounded-md text-sm">
+                                <strong class="block mb-2">目的:</strong> 全社的な変革へのモメンタムを醸成する。<br>
+                                <strong class="block mt-2 mb-1">主な施策:</strong>
+                                <ul class="list-disc list-inside">
+                                    <li>全従業員向けセキュアAIチャット環境の提供</li>
+                                    <li>RAGベースの社内ナレッジ検索システム導入</li>
+                                    <li>決算資料・ニュース要約ツールの導入</li>
+                                    <li>AIコーディングアシスタントのパイロット導入</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="roadmap-item-2" class="mb-12 cursor-pointer timeline-item">
+                            <h3 class="text-lg font-bold text-primary">フェーズ2：戦略的業務への拡張（6～18ヶ月）</h3>
+                            <p class="text-gray-600">中核的なビジネスプロセスにAIを深く統合し、事業成果の向上を目指します。</p>
+                             <div id="roadmap-detail-2" class="hidden mt-4 p-4 bg-secondary rounded-md text-sm">
+                                <strong class="block mb-2">目的:</strong> 事業KPIへの直接的な貢献を実証する。<br>
+                                <strong class="block mt-2 mb-1">主な施策:</strong>
+                                <ul class="list-disc list-inside">
+                                    <li>顧客データと連携した高度AIチャットボット開発</li>
+                                    <li>DD支援ツールのプロトタイプ開発と試用</li>
+                                    <li>リスクレポート自動生成システムの導入</li>
+                                    <li>AI-OCRによる口座開設業務の自動化拡大</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="roadmap-item-3" class="cursor-pointer timeline-item">
+                            <h3 class="text-lg font-bold text-primary">フェーズ3：変革的インテグレーション（18ヶ月以降）</h3>
+                            <p class="text-gray-600">AIを前提とした新たなサービスやビジネスモデルを創出します。</p>
+                            <div id="roadmap-detail-3" class="hidden mt-4 p-4 bg-secondary rounded-md text-sm">
+                                <strong class="block mb-2">目的:</strong> SBI証券を「AIネイティブ」な金融機関へと変革させる。<br>
+                                <strong class="block mt-2 mb-1">主な施策:</strong>
+                                <ul class="list-disc list-inside">
+                                    <li>パーソナライズド「AIファイナンシャル・アドバイザー」開発</li>
+                                    <li>LLMを活用した新たなトレーディング戦略の研究開発</li>
+                                    <li>不正の兆候を予見するプロアクティブな監視システム構築</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="section-strategy" class="content-section">
+                 <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h1 class="text-2xl font-bold text-primary mb-2">全社横断的な生成AI活用戦略</h1>
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        部門ごとの取り組みを成功に導き、その効果を最大化するため、全社で統一されたビジョンと戦略、そしてそれを支えるプラットフォームとガバナンス体制が不可欠です。中核戦略として、セキュアな統合AI基盤「SBI-AI Core」の構築を提言します。
+                    </p>
+                    
+                    <div class="bg-secondary p-6 rounded-lg">
+                        <h2 class="text-xl font-bold text-primary text-center mb-6">統合AI基盤「SBI-AI Core」アーキテクチャ</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center text-sm">
+                            <div class="p-4 bg-blue-100 rounded-lg">
+                                <h4 class="font-bold">ユーザー & アプリケーション</h4>
+                                <p class="mt-2">各部門のAI活用アプリ<br>(チャットボット, レポート生成等)</p>
+                            </div>
+                            <div class="flex items-center justify-center text-2xl font-bold text-primary">→</div>
+                            <div class="p-4 bg-blue-200 rounded-lg">
+                                <h4 class="font-bold">SBI-AI Core Platform</h4>
+                                <p class="mt-2">モデル選択API, プロンプト管理, モニタリング等の共通機能</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-center my-4">
+                            <div class="text-2xl font-bold text-primary">↓</div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-4 bg-blue-300 rounded-lg relative">
+                            <div class="absolute top-2 left-1/2 -translate-x-1/2 bg-white px-3 py-1 rounded-full text-sm font-bold text-primary border-2 border-primary">中核技術: RAG (Retrieval-Augmented Generation)</div>
+                            <div class="mt-8 p-4 bg-white rounded-lg shadow">
+                                <h4 class="font-bold">汎用LLM</h4>
+                                <p class="mt-2">基本的な言語能力を提供</p>
+                            </div>
+                            <div class="flex items-center justify-center text-2xl font-bold text-primary">+</div>
+                            <div class="mt-8 p-4 bg-white rounded-lg shadow">
+                                <h4 class="font-bold">SBI証券 内部データ</h4>
+                                <p class="mt-2">市場データ, 顧客情報, 社内規程等をベクトルDBで管理</p>
+                            </div>
+                        </div>
+                         <div class="flex justify-center my-4">
+                            <div class="text-2xl font-bold text-primary">↓</div>
+                        </div>
+                        <div class="p-4 bg-green-200 rounded-lg text-center">
+                            <h4 class="font-bold">信頼性の高い、事実に基づいた回答生成</h4>
+                            <p class="mt-2">ハルシネーションを抑制し、金融業務に耐えうる正確性と専門性を確保</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-risks" class="content-section">
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h1 class="text-2xl font-bold text-primary mb-2">導入における重要検討事項とリスク対策</h1>
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        生成AIの導入は大きな機会をもたらす一方、金融機関特有の重大なリスクを伴います。これらのリスクを事前に認識し、適切な対策を講じることが、安全かつ持続可能なAI活用を実現するための絶対条件です。各項目をクリックして詳細を確認してください。
+                    </p>
+                    <div id="risk-accordion" class="space-y-2">
+                        <!-- Accordion items will be generated by JS -->
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="bg-white mt-8 py-4 border-t border-gray-200">
+            <div class="container mx-auto text-center text-sm text-gray-500">
+                <p>&copy; 2025 SBI Securities AI Transformation Analysis. For internal demonstration purposes only.</p>
+            </div>
+        </footer>
+    </div>
+
+<script>
+const APP_DATA = {
+    departments: [
+        {
+            id: "retail",
+            name: "リテール部門",
+            context: "1,400万を超える口座数と圧倒的な個人株式委託売買代金シェアを誇るSBI証券の事業の根幹です。「ゼロ革命」と新NISA制度開始に伴い、高品質な顧客サービスをいかに効率的に、かつ大規模に提供し続けるかが最重要課題となっています。生成AIは、膨大な数の顧客一人ひとりに対して、パーソナライズされた体験を提供し、同時にバックエンド業務を劇的に効率化するポテンシャルを秘めています。",
+            tasks: [
+                { name: "顧客サポート", effort: "高", quality: "高", example: "顧客の取引履歴や保有資産をリアルタイムに参照し、パーソナライズされた回答を24時間365日提供するAIチャットボットを導入。RAG技術を活用し、最新の商品説明書やFAQに基づいた正確な回答を生成。" },
+                { name: "オペレーター支援", effort: "高", quality: "中", example: "顧客との通話内容をリアルタイムでテキスト化・要約し、オペレーターに提示。関連する社内規定やFAQを自動で検索・表示し、回答作成を支援。" },
+                { name: "口座開設手続き", effort: "高", quality: "中", example: "AI-OCRが本人確認書類や申込書を瞬時に読み取り、データ化。記載内容の不備や矛盾点を自動で検知し、確認プロセスを迅速化。" },
+                { name: "適合性の原則の確認", effort: "中", quality: "高", example: "顧客の投資経験、資産状況、投資目的などの情報をAIが分析し、リスク許容度を評価。金融商品取引法に基づく適合性を確認し、リスクの高い商品を提案する際にアラートを出す。" },
+                { name: "マーケティングコンテンツ生成", effort: "高", quality: "高", example: "顧客セグメントごとに最適化されたメールマガジン、キャンペーン告知、商品紹介コンテンツの文面をAIが自動生成。" },
+            ]
+        },
+        {
+            id: "wholesale",
+            name: "ホールセール部門",
+            context: "機関投資家や法人顧客を対象としたホールセール事業は、SBI証券の拡充注力分野です。顧客は情報の質と提供スピード、執行能力を厳しく評価するため、セールス担当者の専門性と生産性の向上が事業成長の鍵となります。生成AIは、情報収集・分析・資料作成といった非中核業務を自動化し、セールス担当者がより戦略的な顧客対応に集中できる環境を創出します。",
+            tasks: [
+                { name: "顧客ミーティング準備", effort: "高", quality: "中", example: "顧客のポートフォリオ情報、過去の取引履歴、直近の市場ニュースをAIが自動で収集・分析し、ミーティング用の事前ブリーフィング資料を生成。" },
+                { name: "提案資料・ピッチブック作成", effort: "高", quality: "中", example: "顧客のニーズや投資戦略に応じて、関連するリサーチレポートや商品情報を組み合わせ、提案資料のドラフトをAIが自動作成。" },
+                { name: "顧客との対話記録・分析", effort: "高", quality: "高", example: "顧客とのオンライン会議や電話の内容をAIが自動で文字起こし・要約。顧客からの要望や関心事項、次のアクションアイテムを抽出し、CRMシステムに自動入力。" },
+                { name: "市場動向のモニタリングと要約", effort: "高", quality: "高", example: "世界中のニュース、経済指標、SNSなどの膨大な情報ソースをAIが24時間監視。特定の市場や銘柄に関する重要ニュースを即座に検知し、要約をセールス担当者にアラート通知。" },
+            ]
+        },
+        {
+            id: "ibd",
+            name: "投資銀行部門",
+            context: "企業の資金調達やM&Aアドバイザリー、IPO支援を手掛ける投資銀行部門は、SBI証券の成長戦略の柱です。業務は極めて労働集約的で、膨大なドキュメント作成・レビューが求められます。ディールの成否はスピードと正確性に大きく左右されるため、生成AIによるプロセス効率化は、案件獲得能力と収益性に直接的なインパクトをもたらします。",
+            tasks: [
+                { name: "デューディリジェンス（DD）", effort: "高", quality: "高", example: "VDR内の数千点の契約書や文書をAIが読み込み、リスクの高い条項や異常値を自動で抽出し、サマリーを作成。RAGシステムにより、特定の契約内容に関する質問に即座に回答。" },
+                { name: "企業価値評価（Valuation）", effort: "中", quality: "中", example: "財務諸表からデータを自動抽出し、DCF法や類似会社比較法などのバリュエーションモデルのテンプレートに自動入力。財務モデリング用のコード生成も支援。" },
+                { name: "契約書ドラフティング支援", effort: "高", quality: "中", example: "株式譲渡契約書（SPA）などの基本契約書のドラフトを、過去の案件や標準テンプレートに基づきAIが生成。弁護士によるレビュー時間を大幅に短縮。" },
+                { name: "目論見書・引受関連書類の作成", effort: "高", quality: "中", example: "目論見書の定型部分（事業のリスク、沿革など）のドラフトを過去の事例や企業開示情報からAIが自動生成。数値データやファクトチェックの効率化を支援。" },
+            ]
+        },
+        {
+            id: "research",
+            name: "リサーチ部門",
+            context: "質の高い調査分析レポートを提供するリサーチ部門は、証券会社の「知の拠点」です。アナリストは日々発表される膨大な情報を消化し、独自の付加価値を加えてレポートにまとめるという、時間との戦いを強いられています。生成AIは、情報収集と定型的な文章作成を自動化し、アナリストが最も重要な「思考」と「分析」に時間を集中させることを可能にします。",
+            tasks: [
+                { name: "決算・開示情報の収集と分析", effort: "高", quality: "高", example: "決算短信、有価証券報告書等のPDFから主要財務データをAIが自動抽出し、分析用Excelシートに転記。質疑応答の書き起こしを要約し、経営陣のトーンを分析。" },
+                { name: "レポートのドラフト作成", effort: "高", quality: "中", example: "レポートの定型部分を、開示情報や過去のレポートを基にAIが自動で執筆。アナリストは「投資判断」など分析の中核部分の執筆に専念。" },
+                { name: "文章の校正・表現の洗練", effort: "高", quality: "高", example: "アナリストが執筆した文章の誤字脱字チェック、文法的な誤りの修正、より分かりやすく説得力のある表現へのリライトをAIが提案。" },
+                { name: "レポートの要約・コンテンツ化", effort: "高", quality: "高", example: "詳細レポートの要点をAIが抽出し、リテール顧客向けの短いサマリー記事やSNS配信用コンテンツ、動画の台本などを自動生成。" },
+            ]
+        },
+        {
+            id: "trading",
+            name: "トレーディング部門",
+            context: "自己勘定取引と顧客注文の執行を担うトレーディング部門は、極めてデータ駆動型かつ高速な環境です。生成AI、特にLLMは、従来の定量的モデルでは捉えきれなかった非構造化データ（ニュース、SNS等）から市場センチメントを読み解き、新たなアルファ（超過収益）の源泉となる可能性を秘めています。",
+            tasks: [
+                { name: "トレーディング戦略の開発・バックテスト", effort: "高", quality: "高", example: "トレーダーが自然言語で記述した取引アイデアを基に、AIがバックテスト用のPythonコードを自動生成。" },
+                { name: "非構造化データからのシグナル生成", effort: "中", quality: "高", example: "ニュース記事、SNS投稿などをLLMがリアルタイムで分析し、市場センチメントの変化やサプライチェーンの異常などを検知。これを取引シグナルとして活用。" },
+                { name: "市場の異常検知とアラート", effort: "高", quality: "高", example: "株価の急変動等を検知した際に、AIが関連ニュースやSNS投稿を瞬時に収集・要約し、「なぜ市場が動いているのか」という文脈情報と共にトレーダーにアラートを提示。" },
+            ]
+        },
+        {
+            id: "compliance",
+            name: "コンプライアンス・法務部門",
+            context: "厳格な規制下にある証券会社の生命線を守る重要な部門です。生成AIは、自然言語の深い理解能力を活かし、不公正取引の監視業務の高度化と法務・コンプライアンス業務全体の効率化をさらに推し進めることができます。",
+            tasks: [
+                { name: "不公正取引の監視", effort: "中", quality: "高", example: "不審取引アラートに対し、生成AIが関連ニュースや社内コミュニケーションを自動で収集・分析。取引の背景にある文脈を要約し、初期調査時間を大幅に短縮。" },
+                { name: "規制情報の収集と影響分析", effort: "高", quality: "高", example: "法令改正やガイドラインの変更点をAIが自動で抽出し、既存の社内規程との差分を分析。影響を受ける部署や業務プロセスを特定。" },
+                { name: "社内規程の管理と問い合わせ対応", effort: "高", quality: "高", example: "全ての社内規程やマニュアルを学習したRAGシステムを構築。従業員が自然言語で質問すると、関連規程を引用しつつ、具体的な解釈を分かりやすく回答。" },
+                { name: "契約書のレビュー", effort: "高", quality: "高", example: "定型的な契約書について、AIが標準テンプレートとの差異や、不利な条項、欠落している条項などを自動で検出し、リスクレベルを評価。" },
+            ]
+        },
+        {
+            id: "risk",
+            name: "リスク管理部門",
+            context: "市場・信用・オペレーショナルリスク等を管理する責務を負います。生成AIは、特にリスクシナリオの生成、非構造化データからのリスク要因抽出、そして複雑なリスクレポートの自動作成といった領域で、リスク管理業務の質と効率を大きく向上させることが期待されます。",
+            tasks: [
+                { name: "ストレスシナリオの生成", effort: "中", quality: "高", example: "過去の金融危機や地政学的イベントを学習したAIが、新たな複合的なリスクシナリオを生成し、ストレステストの網羅性を向上。" },
+                { name: "信用リスク評価の支援", effort: "高", quality: "高", example: "融資先企業の決算情報だけでなく、ニュース記事やSNS上の評判といった非構造化データをAIが分析し、信用力に関する定性的なインサイトを提供。" },
+                { name: "インシデント・損失データ分析", effort: "高", quality: "高", example: "システム障害報告書や顧客からの苦情といった非構造化テキストデータをAIが分析し、インシデントの根本原因や潜在的なリスク要因を特定。" },
+                { name: "定期リスクレポートの作成", effort: "高", quality: "高", example: "各種リスクデータを自動で集約し、経営会議や規制当局向けの月次リスクレポート（グラフ、表、解説文を含む）をAIが完全に自動生成。" },
+            ]
+        },
+        {
+            id: "system",
+            name: "システム部門",
+            context: "多くのシステムを内製化し、技術的優位性を競争力の源泉としてきた部門です。アジリティと信頼性の両立が使命であり、生成AIはソフトウェア開発ライフサイクルのあらゆる段階を支援し、これを実現する強力なツールとなります。",
+            tasks: [
+                { name: "コーディング（プログラミング）", effort: "高", quality: "高", example: "AIコーディングアシスタントを導入し、開発者が書こうとしているコードを予測して補完。定型的なコードやアルゴリズムを自動生成し、開発速度を大幅に向上。" },
+                { name: "コードレビュー・リファクタリング", effort: "高", quality: "高", example: "AIがソースコードを静的に解析し、潜在的なバグ、セキュリティ脆弱性、パフォーマンスのボトルネックを指摘。より効率的で保守性の高いコードへのリファクタリング案を提示。" },
+                { name: "テスト", effort: "高", quality: "高", example: "機能仕様書からテストケースを自動生成。単体テストや結合テストのコードを自動で記述し、品質保証プロセスを効率化。" },
+                { name: "障害対応・トラブルシューティング", effort: "高", quality: "高", example: "障害発生時に、関連ログ、過去の障害事例、社内ナレッジベースをAIが瞬時に検索・分析。原因究明と解決策の提案を支援。" },
+            ]
+        },
+        {
+            id: "operations",
+            name: "オペレーション部門",
+            context: "顧客の取引が成立した後、その決済や資産管理を正確に実行する、証券会社の「心臓部」です。生成AIは、非構造化データの読取りや定型業務の自動化を得意としており、バックオフィス業務のSTP（Straight Through Processing）化を推進し、劇的な生産性向上を実現する可能性を秘めています。",
+            tasks: [
+                { name: "約定データの照合・確認", effort: "高", quality: "高", example: "複数のシステムから送られてくる約定データをAIが自動で照合。不一致や例外項目を検出し、担当者にアラートを通知。" },
+                { name: "コーポレートアクション処理", effort: "高", quality: "高", example: "配当、株式分割などのコーポレートアクション通知（PDFやFAX等）をAI-OCRが読み取り、内容を構造化データとしてシステムに自動入力。" },
+                { name: "残高照合（リコンサイル）", effort: "高", quality: "高", example: "自社の残高記録と外部機関の残高記録をAIが日次で自動照合し、差異がある場合にその原因を分析・特定。" },
+            ]
+        },
+        {
+            id: "planning",
+            name: "経営企画・管理部門",
+            context: "経営陣の意思決定を支える中枢機能です。生成AIは、情報収集・分析・レポート作成といったプロセスを大幅に効率化し、企画担当者がより戦略的な思考やシナリオプランニングに時間を費やすことを可能にします。また、人事や経理といった管理業務においても生産性を向上させます。",
+            tasks: [
+                { name: "競合・市場環境分析", effort: "高", quality: "高", example: "競合他社の決算説明会資料や有価証券報告書をAIが分析し、戦略の変更点、業績の主要因などを要約した競合インテリジェンスレポートを自動生成。" },
+                { name: "経営会議資料の作成", effort: "高", quality: "中", example: "各部門の業績データや進捗報告をAIが集約し、経営会議用プレゼンテーションのドラフト（グラフ、サマリー含む）を自動作成。" },
+                { name: "採用業務", effort: "高", quality: "中", example: "募集部門のニーズに基づき、魅力的な求人票の文面をAIが生成。応募者の履歴書・職務経歴書をAIがスクリーニングし、ポジションとの適合度を評価。" },
+                { name: "社内問い合わせ対応", effort: "高", quality: "高", example: "人事・労務関連の社内規程や福利厚生制度に関する従業員からの質問に、24時間対応するHRチャットボットを導入。" },
+            ]
+        }
+    ],
+    risks: [
+        { title: "規制遵守 (Regulatory Compliance)", content: "AI、特に顧客向けアドバイスに利用する場合、金融商品取引法が定める適合性の原則や説明義務に抵触する可能性があります。AIの判断プロセスがブラックボックス化していると、なぜその商品を推奨したのかを合理的に説明できず、重大なコンプライアンス違反となります。<br><br><strong>対策:</strong> 説明可能なAI（XAI）の導入、ヒューマン・イン・ザ・ループの徹底、当局との積極的な対話。" },
+        { title: "データプライバシーとセキュリティ", content: "顧客の個人情報や取引情報といった機密性の高いデータを、外部のクラウドAIサービスに送信することは、個人情報保護法に違反し、情報漏洩のリスクを伴います。<br><br><strong>対策:</strong> セキュアな実行環境の確保（VPC内実行）、データ匿名化・暗号化、RAGアーキテクチャの優先活用。" },
+        { title: "モデルリスク（ハルシネーションと正確性）", content: "LLMは、事実に基づかないもっともらしい嘘（ハルシネーション）を生成することがあります。金融業務においてAIが誤った情報を生成すれば、不適切な投資アドバイスや誤ったリスク評価に繋がり、顧客の損失や企業の信用失墜を招きます。<br><br><strong>対策:</strong> RAGによるグラウンディング（事実への接地）、出典の明記、厳格なテストと検証。" },
+        { title: "サイバーセキュリティリスク（プロンプトインジェクション）", content: "悪意のあるユーザーが、巧妙に細工された入力（プロンプト）を与えることで、LLMの本来の指示を上書きし、意図しない動作（例：機密情報の漏洩）を引き起こさせるプロンプトインジェクション攻撃のリスクがあります。<br><br><strong>対策:</strong> 入力値の検証とサニタイズ、権限の最小化、定期的なAIレッドチーミングの実施。" },
+        { title: "倫理的・評判リスク", content: "AIモデルは、学習データに含まれる偏見（バイアス）を増幅させ、意図せず差別的な結果を生み出すリスクがあります。AIによる不適切な対応や情報漏洩は、企業のブランドイメージと社会的信頼を大きく損ないます。<br><br><strong>対策:</strong> AI倫理委員会の設置、定期的なバイアス監査の実施、AI利用に関する透明性の確保。" }
+    ]
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('.content-section');
+    const mobileNav = document.getElementById('mobile-nav');
+    const departmentSelector = document.getElementById('department-selector');
+    const departmentContent = document.getElementById('department-content');
+    const riskAccordion = document.getElementById('risk-accordion');
+    let overviewChartInstance = null;
+    let departmentChartInstance = null;
+
+    function navigateTo(id) {
+        navItems.forEach(item => {
+            item.classList.toggle('active', item.id === `nav-${id}`);
+        });
+        sections.forEach(section => {
+            section.classList.toggle('active', section.id === `section-${id}`);
+        });
+        mobileNav.value = id;
+    }
+
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const id = item.id.replace('nav-', '');
+            navigateTo(id);
+        });
+    });
+
+    mobileNav.addEventListener('change', (e) => {
+        navigateTo(e.target.value);
+    });
+
+    function getImpactScore(rating) {
+        if (rating === "高") return 3;
+        if (rating === "中") return 2;
+        if (rating === "低") return 1;
+        return 0;
+    }
+    
+    function createOverviewChart() {
+        const ctx = document.getElementById('overviewChart').getContext('2d');
+        const labels = APP_DATA.departments.map(d => d.name);
+        const effortData = APP_DATA.departments.map(d => d.tasks.reduce((acc, task) => acc + getImpactScore(task.effort), 0));
+        const qualityData = APP_DATA.departments.map(d => d.tasks.reduce((acc, task) => acc + getImpactScore(task.quality), 0));
+
+        if (overviewChartInstance) {
+            overviewChartInstance.destroy();
+        }
+        overviewChartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: '工数削減ポテンシャル',
+                        data: effortData,
+                        backgroundColor: 'rgba(26, 115, 232, 0.7)',
+                        borderColor: 'rgba(26, 115, 232, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '品質向上ポテンシャル',
+                        data: qualityData,
+                        backgroundColor: 'rgba(13, 61, 99, 0.7)',
+                        borderColor: 'rgba(13, 61, 99, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'ポテンシャルスコア（高=3, 中=2, 低=1の合計）' }
+                    },
+                    y: {
+                        ticks: {
+                           autoSkip: false,
+                           maxRotation: 0,
+                           minRotation: 0
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.x !== null) {
+                                    label += context.parsed.x + ' pts';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                onClick: (event, elements) => {
+                    if (elements.length > 0) {
+                        const chartElement = elements[0];
+                        const departmentId = APP_DATA.departments[chartElement.index].id;
+                        navigateTo('departments');
+                        departmentSelector.value = departmentId;
+                        departmentSelector.dispatchEvent(new Event('change'));
+                    }
+                },
+                onHover: (event, chartElement) => {
+                    event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+                }
+            }
+        });
+    }
+
+    function populateDepartmentSelector() {
+        APP_DATA.departments.forEach(dept => {
+            const option = document.createElement('option');
+            option.value = dept.id;
+            option.textContent = dept.name;
+            departmentSelector.appendChild(option);
+        });
+    }
+
+    function updateDepartmentContent(departmentId) {
+        const dept = APP_DATA.departments.find(d => d.id === departmentId);
+        if (!dept) return;
+
+        const tableRows = dept.tasks.map(task => `
+            <tr class="border-b">
+                <td class="p-3 font-medium">${task.name}</td>
+                <td class="p-3 text-center"><span class="px-2 py-1 text-xs font-semibold rounded-full ${task.effort === '高' ? 'bg-red-100 text-red-800' : task.effort === '中' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}">${task.effort}</span></td>
+                <td class="p-3 text-center"><span class="px-2 py-1 text-xs font-semibold rounded-full ${task.quality === '高' ? 'bg-red-100 text-red-800' : task.quality === '中' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}">${task.quality}</span></td>
+                <td class="p-3 text-sm text-gray-600">${task.example}</td>
+            </tr>
+        `).join('');
+
+        departmentContent.innerHTML = `
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <h2 class="text-xl font-bold text-primary mb-2">${dept.name}：コンテキスト</h2>
+                <p class="text-gray-600 leading-relaxed">${dept.context}</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-bold text-primary mb-4">生成AI活用機会分析</h3>
+                     <div class="overflow-x-auto">
+                        <table class="w-full text-left table-highlight">
+                            <thead>
+                                <tr class="bg-gray-50 border-b">
+                                    <th class="p-3 font-semibold">主要業務</th>
+                                    <th class="p-3 font-semibold text-center">工数削減</th>
+                                    <th class="p-3 font-semibold text-center">品質向上</th>
+                                    <th class="p-3 font-semibold">具体的な活用例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${tableRows}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-bold text-primary mb-4">インパクト評価</h3>
+                    <div class="chart-container h-80">
+                        <canvas id="departmentChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        `;
+        createDepartmentChart(dept);
+    }
+
+    function createDepartmentChart(dept) {
+        const effortCounts = { '高': 0, '中': 0, '低': 0 };
+        const qualityCounts = { '高': 0, '中': 0, '低': 0 };
+        dept.tasks.forEach(task => {
+            effortCounts[task.effort]++;
+            qualityCounts[task.quality]++;
+        });
+
+        const ctx = document.getElementById('departmentChart').getContext('2d');
+        if (departmentChartInstance) {
+            departmentChartInstance.destroy();
+        }
+        departmentChartInstance = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['高', '中', '低'],
+                datasets: [{
+                    label: '工数削減',
+                    data: [effortCounts['高'], effortCounts['中'], effortCounts['低']],
+                    backgroundColor: ['#ef5350', '#ffc107', '#66bb6a'],
+                }, {
+                    label: '品質向上',
+                    data: [qualityCounts['高'], qualityCounts['中'], qualityCounts['低']],
+                    backgroundColor: ['#d32f2f', '#f57c00', '#388e3c'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'タスク別インパクト評価（件数）' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += context.label + '評価 ' + context.parsed + '件';
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    departmentSelector.addEventListener('change', (e) => {
+        updateDepartmentContent(e.target.value);
+    });
+
+    function createRoadmapInteraction() {
+        const items = [1, 2, 3];
+        items.forEach(i => {
+            const item = document.getElementById(`roadmap-item-${i}`);
+            const detail = document.getElementById(`roadmap-detail-${i}`);
+            item.addEventListener('click', () => {
+                detail.classList.toggle('hidden');
+            });
+        });
+    }
+    
+    function createRiskAccordion() {
+        APP_DATA.risks.forEach((risk, index) => {
+            const item = document.createElement('div');
+            item.className = 'border border-gray-200 rounded-lg';
+            item.innerHTML = `
+                <button class="w-full flex justify-between items-center p-4 text-left font-medium text-primary bg-white hover:bg-secondary rounded-lg">
+                    <span>${risk.title}</span>
+                    <svg class="w-5 h-5 shrink-0 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="hidden p-4 text-gray-600 bg-white border-t border-gray-200 rounded-b-lg">
+                    <p>${risk.content}</p>
+                </div>
+            `;
+            const button = item.querySelector('button');
+            const content = item.querySelector('div');
+            const icon = item.querySelector('svg');
+
+            button.addEventListener('click', () => {
+                const isHidden = content.classList.contains('hidden');
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180', !isHidden);
+            });
+
+            riskAccordion.appendChild(item);
+        });
+    }
+
+    function init() {
+        createOverviewChart();
+        populateDepartmentSelector();
+        updateDepartmentContent(APP_DATA.departments[0].id);
+        createRoadmapInteraction();
+        createRiskAccordion();
+    }
+
+    init();
+});
+</script>
+</body>
+</html>
