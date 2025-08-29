@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健診業務AI変革 インタラクティブダッシュボード</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Tech (Background: #F8F7F4, Main Text: #3C3C3B, Primary UI: #6D8299, Accent: #0F766E, Highlight: #F0EAD6) -->
+    <!-- Application Structure Plan: A dashboard-centric SPA. The main view provides a high-level overview with a comparative bar chart of savings per department. Users click on a department to dynamically load a detailed view. This detailed view uses a 'before/after' grouped bar chart for task-level efficiency gains and interactive cards for qualitative data. This hub-and-spoke model avoids overwhelming the user with a long scroll, promotes exploration, and makes complex data digestible by moving from summary to detail. An interactive timeline for the implementation roadmap is also included. -->
+    <!-- Visualization & Content Choices: Report Info: Overall savings -> Goal: Inform -> Viz: Big stat card -> Interaction: Animation -> Justification: Immediate impact. Report Info: Departmental savings % -> Goal: Compare -> Viz: Horizontal Bar Chart (Chart.js) -> Interaction: Hover tooltips -> Justification: Easy comparison. Report Info: Task-level hours -> Goal: Compare/Analyze -> Viz: Grouped Bar Chart (Chart.js) -> Interaction: Click on bars/labels to show details -> Justification: Clear before/after comparison. Report Info: Task details -> Goal: Inform/Organize -> Viz: Interactive Cards/Accordion (HTML/JS) -> Interaction: Click to reveal -> Justification: Progressive disclosure, avoids clutter. Report Info: Implementation Plan -> Goal: Organize/Change -> Viz: CSS Timeline -> Interaction: Click to expand -> Justification: Visualizes process over time. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #F8F7F4;
+            color: #3C3C3B;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px;
+                max-height: 60vh;
+            }
+        }
+        .nav-card.active {
+            background-color: #0F766E;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .tab-button.active {
+            border-color: #0F766E;
+            background-color: #0F766E;
+            color: white;
+        }
+        .task-card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .task-card.open .task-card-content {
+            max-height: 1000px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-20 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <h1 class="text-2xl font-bold text-gray-800">健診業務AI変革ダッシュボード</h1>
+                <p class="text-gray-500 mt-2 md:mt-0">AI導入による業務効率化の可能性を探る</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        
+        <!-- Executive Summary -->
+        <section id="summary" class="mb-12 md:mb-16 bg-white p-6 rounded-xl shadow-lg">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-teal-800 mb-2">AIによる業務変革のインパクト</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">生成AIおよび自動化技術の体系的な導入により、管理部門全体の業務工数を大幅に削減し、受診者満足度の向上とヒューマンエラーの撲滅を実現します。</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div class="bg-teal-50 p-6 rounded-lg">
+                    <p class="text-4xl font-bold text-teal-700">30-40%</p>
+                    <p class="text-gray-600 mt-2">管理部門全体の想定工数削減率</p>
+                </div>
+                <div class="bg-sky-50 p-6 rounded-lg">
+                    <p class="text-4xl font-bold text-sky-700">90%<span class="text-2xl ml-1">超</span></p>
+                    <p class="text-gray-600 mt-2">定型業務におけるヒューマンエラー削減</p>
+                </div>
+                <div class="bg-amber-50 p-6 rounded-lg">
+                    <p class="text-4xl font-bold text-amber-700">24/7</p>
+                    <p class="text-gray-600 mt-2">予約・問い合わせ自動対応体制</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Department Overview Chart -->
+        <section id="overview" class="mb-12 md:mb-16">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">部門別 業務工数削減ポテンシャル</h2>
+            <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg">
+                <div class="chart-container" style="height: 450px; max-height: 70vh;">
+                    <canvas id="overviewChart"></canvas>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Department Navigation -->
+        <section id="navigation" class="mb-12 md:mb-16">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">部門別 詳細分析</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">各部門のアイコンをクリックして、AI導入による具体的な業務変革シナリオと効果をご覧ください。</p>
+            <div id="departmentNav" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6">
+                <!-- Navigation Cards will be inserted here by JS -->
+            </div>
+        </section>
+
+        <!-- Department Detail View -->
+        <section id="departmentDetail" class="mb-12 md:mb-16 bg-white p-6 md:p-8 rounded-xl shadow-lg min-h-[500px]">
+            <!-- Department specific content will be loaded here -->
+        </section>
+
+        <!-- Implementation Roadmap -->
+        <section id="roadmap">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">段階的導入ロードマップ</h2>
+            <div class="relative wrap overflow-hidden p-10 h-full">
+                <div class="border-2-2 absolute border-opacity-20 border-gray-700 h-full border" style="left: 50%"></div>
+                <!-- Phases will be inserted here by JS -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2025 AI-Powered Health Screening Transformation. All Rights Reserved.</p>
+            <p class="mt-1 text-gray-400">このダッシュボードは分析レポートを基に生成されたインタラクティブな可視化データです。</p>
+        </div>
+    </footer>
+
+    <script>
+        const reportData = {
+            departments: [
+                { id: 'reception', name: '1. 受付・予約', icon: '📞', reduction: 58, summary: '最初の接点として、問い合わせから予約、来院受付までを管理。AI導入で機会損失を防ぎ、スタッフを高付加価値業務へシフトさせます。', roleChange: { from: 'トランザクション処理係', to: 'ペイシェント・エクスペリエンス・コーディネーター' }, tasks: [
+                    { name: '電話予約対応', current: 200, reduced: 40, ai: 'AIボイスボットによる24時間365日の自動予約受付', effect: '機会損失防止、応対品質均一化' },
+                    { name: 'WEB予約内容確認', current: 80, reduced: 20, ai: 'RPAによる予約データの自動システム登録と不備確認', effect: 'ヒューマンエラー撲滅、予約確定の迅速化' },
+                    { name: '窓口での本人確認', current: 180, reduced: 90, ai: 'AI-OCRによる保険証・問診票の自動データ化', effect: '待ち時間削減、データ入力精度向上' },
+                    { name: '問診票発送', current: 100, reduced: 60, ai: 'RPAによる宛名データ抽出とラベル印刷の自動化', effect: '誤発送リスク低減、作業迅速化' },
+                    { name: '問い合わせ対応', current: 120, reduced: 36, ai: 'FAQを学習したAIチャットボットによる自動応答', effect: 'スタッフの単純作業からの解放、24時間対応' }
+                ]},
+                { id: 'operation', name: '2. 健診オペレーション', icon: '🏃', reduction: 72, summary: '施設内の動線をリアルタイムで管理し、待ち時間を最小化。AIが受診者一人ひとりに最適化された「パーソナライズド・ジャーニー」を実現します。', roleChange: { from: '案内係', to: 'エクスペリエンス・オーケストレーター' }, tasks: [
+                    { name: '検査順序案内', current: 250, reduced: 100, ai: 'AIナビゲーションシステムが最適な検査順路を動的に指示', effect: '待ち時間の大幅短縮、満足度向上' },
+                    { name: '混雑状況把握', current: 100, reduced: 20, ai: 'Bluetoothビーコン等で受診者の位置情報を自動把握', effect: 'リアルタイムな状況把握、スタッフ巡回業務削減' },
+                    { name: '検査の進捗管理', current: 120, reduced: 24, ai: 'NFCやBluetoothで進捗を自動記録し、ステータスを可視化', effect: '手動管理の撲滅、正確なトラッキング' },
+                    { name: '検査漏れの確認', current: 50, reduced: 5, ai: 'AIシステムが未実施検査を自動照合し、即時アラート', effect: '検査漏れの撲滅、クレーム防止' }
+                ]},
+                { id: 'nursing', name: '3. 看護・採血', icon: '🩸', reduction: 67, summary: '採血や各種測定、記録業務を担当。AIが記録業務を自動化し、看護師が本来の臨床ケアに集中できる環境を構築します。', roleChange: { from: '記録者', to: '臨床ケア専門家' }, tasks: [
+                    { name: '血圧・身長・体重測定', current: 150, reduced: 30, ai: 'Bluetooth対応機器から電子カルテへ測定値を自動転送', effect: '転記ミス撲滅、記録業務の完全自動化' },
+                    { name: '検査前後の注意事項説明', current: 100, reduced: 60, ai: '生成AIが標準化された多言語対応の説明スクリプトを生成', effect: '説明品質の均一化、外国人対応力向上' },
+                    { name: '看護記録の作成', current: 130, reduced: 26, ai: 'AI音声認識が処置中の発話をリアルタイムでカルテに自動入力', effect: '記録業務からの解放、患者ケアへの集中' }
+                ]},
+                { id: 'radiology', name: '4. 放射線・画像検査', icon: '☢️', reduction: 31, summary: '各種画像診断装置を操作し、診断価値の高い画像を生成。AIが撮影条件の最適化や品質管理を支援し、診断精度と安全性を高めます。', roleChange: { from: '撮影技術者', to: 'AI協働型イメージング専門家' }, tasks: [
+                    { name: '検査の実施・撮影', current: 350, reduced: 280, ai: 'AI搭載装置が最適な撮影位置や範囲を自動設定', effect: '撮影時間短縮、技師の負担軽減' },
+                    { name: '撮影条件の最適化', current: 80, reduced: 40, ai: 'AIが個々の受診者に最適な撮影プロトコルを提案', effect: '撮影品質の標準化、不要な被ばくの低減' },
+                    { name: '画像の品質管理（QC）', current: 60, reduced: 30, ai: 'AIが撮影画像を自動解析し、品質問題を検出', effect: '客観的かつ迅速な品質評価、再撮影判断支援' }
+                ]},
+                { id: 'doctor', name: '5. 医師診察・結果判定', icon: '🩺', reduction: 48, summary: '診察、検査結果の統合評価、総合判定を担当。AIが文書作成業務を劇的に削減し、医師が受診者と向き合う時間を創出します。', roleChange: { from: 'データ入力者', to: '臨床判断と対話の専門家' }, tasks: [
+                    { name: '対面診察・問診', current: 200, reduced: 100, ai: 'AIクラークが診察中の会話をカルテ下書きとして自動生成', effect: '医師の対話時間増加、信頼関係構築' },
+                    { name: '検査結果の統合的レビュー', current: 250, reduced: 150, ai: 'AIが異常値や経年変化をハイライトするダッシュボードを生成', effect: '判定業務の迅速化、見落としリスク低減' },
+                    { name: '総合判定・所見の作成', current: 300, reduced: 120, ai: '生成AIが検査データと問診内容から所見ドラフトを自動作成', effect: '医師の文書作成負担を劇的に削減、燃え尽き防止' },
+                    { name: '結果説明・保健指導', current: 150, reduced: 105, ai: '生成AIが平易な言葉で書かれた結果説明の要約を作成', effect: '受診者の理解度向上、指導のパーソナライズ化' }
+                ]},
+                { id: 'reporting', name: '6. 結果レポート作成・発送', icon: '✉️', reduction: 88, summary: '結果データを集約し、報告書を作成・発送。RPAとデジタルポータル導入で、ヒューマンエラーとコストをほぼゼロにします。', roleChange: { from: '印刷・発送係', to: '健康情報ハブ管理者' }, tasks: [
+                    { name: 'データ集約とレイアウト', current: 200, reduced: 20, ai: 'RPAが全データを自動抽出し、テンプレートに自動流し込み', effect: '手作業による転記・レイアウト業務の完全自動化' },
+                    { name: '医師所見の転記・入力', current: 150, reduced: 8, ai: '医師が承認した所見データをRPAが自動連携', effect: '転記ミスのリスクゼロ、時間短縮' },
+                    { name: '報告書の印刷・封入・発送', current: 180, reduced: 36, ai: '結果をデジタル配信するPHRアプリ/ポータルを導入', effect: '印刷・郵送コストの大幅削減、結果通知の迅速化' },
+                    { name: '企業向け集計レポート作成', current: 90, reduced: 18, ai: '生成AIが企業担当者向けの要約レポートを自動生成', effect: 'レポート作成の迅速化と質の向上' }
+                ]},
+                { id: 'sales', name: '7. 企業契約・渉外', icon: '💼', reduction: 53, summary: '団体健診の営業と契約管理。AIが提案書作成を自動化し、担当者をデータに基づく「戦略的ヘルスコンサルタント」へと進化させます。', roleChange: { from: '営業担当', to: '戦略的ヘルスコンサルタント' }, tasks: [
+                    { name: '提案書・見積書作成', current: 120, reduced: 36, ai: '生成AIが顧客情報に基づき、提案書ドラフトを自動生成', effect: '提案書作成時間を劇的に短縮、品質の標準化' },
+                    { name: '契約後のフォローアップ', current: 130, reduced: 65, ai: 'AIが健診結果データを分析し、企業の健康課題を可視化・提案', effect: 'データドリブンな付加価値提案、契約維持率向上' },
+                    { name: '問い合わせ対応', current: 80, reduced: 32, ai: '企業担当者専用のAIチャットボットによる24時間自動回答', effect: '渉外担当の負担軽減、顧客満足度向上' }
+                ]},
+                { id: 'mobile', name: '8. 巡回健診支援', icon: '🚌', reduction: 80, summary: '健診バスでの出張健診。クラウド型システム導入で、現場でのリアルタイムデータ入力を実現し、帰所後の事務作業をゼロにします。', roleChange: { from: 'データ運搬・入力係', to: '現場完結型オペレーター' }, tasks: [
+                    { name: '事前準備（名簿・機材）', current: 100, reduced: 20, ai: 'クラウド型巡回健診システムによるWEB問診とペーパーレス化', effect: '事前準備の大幅な簡素化、コスト削減' },
+                    { name: '現場での受付・検査実施', current: 200, reduced: 100, ai: 'タブレット端末で検査結果をリアルタイムで直接入力', effect: '手書き作業の撲滅、入力ミス防止' },
+                    { name: '帰所後のデータ入力・照合', current: 180, reduced: 0, ai: 'クラウド経由でデータがリアルタイム同期され、入力作業がゼロに', effect: 'リードタイムの劇的な短縮、残業時間削減' },
+                    { name: '検査漏れ・不備の確認', current: 80, reduced: 8, ai: 'タブレット上で必須項目がリスト化され、未了項目を即時アラート', effect: '現場での検査漏れを完全に防止、データ品質向上' }
+                ]},
+                { id: 'accounting', name: '9. 事務・会計・請求', icon: '💰', reduction: 75, summary: '請求書発行や入金管理など。RPA導入で請求から入金消込までの収益サイクル全体を自動化し、キャッシュフローを改善します。', roleChange: { from: '手動データ処理係', to: '収益サイクル管理者' }, tasks: [
+                    { name: '請求データ作成', current: 150, reduced: 30, ai: 'RPAがカルテから請求情報を自動抽出し、会計システムに転記', effect: '請求データ作成の完全自動化、ヒューマンエラー撲滅' },
+                    { name: '請求書発行・送付', current: 120, reduced: 24, ai: 'RPAが請求書PDFを自動生成し、電子請求書を自動送付', effect: '印刷・郵送コスト削減、業務迅速化' },
+                    { name: 'レセプト業務', current: 100, reduced: 40, ai: 'RPAとAIによるレセプトデータ自動作成とエラーチェック', effect: '返戻率の低下、専門スタッフの負担軽減' },
+                    { name: '入金消込・未収金管理', current: 130, reduced: 39, ai: 'RPAによる自動消込処理とAIによる督促メール自動送信', effect: '消込業務の大幅効率化、未収金の早期回収' }
+                ]},
+                { id: 'admin', name: '10. 総務・教育・品質', icon: '📈', reduction: 68, summary: '職員の教育や品質管理。AIがマニュアル作成やインシデント分析を支援し、組織をプロアクティブな継続的改善プロセスへと導きます。', roleChange: { from: '事後対応管理者', to: 'プロアクティブ改善推進者' }, tasks: [
+                    { name: '規程・マニュアル作成', current: 80, reduced: 24, ai: '生成AIが要点から体裁の整ったマニュアルドラフトを自動生成', effect: '作成リードタイムを大幅短縮、常に最新の状態を維持' },
+                    { name: '新人・職員研修の企画', current: 100, reduced: 50, ai: '生成AIが対話形式のeラーニングコンテンツを自動作成', effect: '研修コンテンツの多様化と質の向上、教育コスト削減' },
+                    { name: 'インシデントレポート分析', current: 90, reduced: 27, ai: 'AIの自然言語処理が大量のレポートを解析し、傾向を可視化', effect: '隠れたリスク要因の早期発見、客観的な再発防止策' },
+                    { name: '品質指標（KPI）モニタリング', current: 50, reduced: 15, ai: 'RPAとAIがKPIレポートを定期的に完全自動生成', effect: 'リアルタイムでの品質状況把握、迅速な経営判断支援' }
+                ]}
+            ],
+            roadmap: [
+                { phase: 1, title: 'バックオフィスの基盤整備', duration: '0-6ヶ月', content: '紙ベースの定型業務をRPAとAI-OCRで自動化。ROIを早期に実証し、変革への機運を醸成します。', focus: 'レポート作成, 会計, 総務' },
+                { phase: 2, title: '臨床の中核業務の革新', duration: '6-18ヶ月', content: 'AI音声認識を導入し、医師・看護師を文書作成業務から解放。医療の質に直結するコア業務を変革します。', focus: '医師診察, 看護' },
+                { phase: 3, title: '受診者体験の全体最適化', duration: '18-30ヶ月', content: '予約から検査終了までをAIでシームレスに連携。待ち時間を劇的に短縮し、受診者満足度を最大化します。', focus: '受付・予約, オペレーション, 巡回' },
+                { phase: 4, title: 'データ駆動型サービスへの進化', duration: '30ヶ月以降', content: '蓄積されたデータを活用し、パーソナライズド健診や健康経営コンサルなど高付加価値サービスを展開します。', focus: '企業契約, 全部門' },
+            ]
+        };
+
+        let overviewChartInstance = null;
+        let departmentChartInstance = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateDepartmentNav();
+            populateRoadmap();
+            createOverviewChart();
+            // Load the first department's detail view initially
+            updateDepartmentView(reportData.departments[0].id);
+        });
+
+        function createOverviewChart() {
+            const ctx = document.getElementById('overviewChart').getContext('2d');
+            const data = {
+                labels: reportData.departments.map(d => d.name.split('. ')[1]),
+                datasets: [{
+                    label: '想定業務工数削減率 (%)',
+                    data: reportData.departments.map(d => d.reduction),
+                    backgroundColor: 'rgba(15, 118, 110, 0.6)',
+                    borderColor: 'rgba(15, 118, 110, 1)',
+                    borderWidth: 1,
+                    hoverBackgroundColor: 'rgba(15, 118, 110, 0.9)'
+                }]
+            };
+
+            if (overviewChartInstance) {
+                overviewChartInstance.destroy();
+            }
+
+            overviewChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: '削減率 (%)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                autoSkip: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${context.dataset.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const departmentId = reportData.departments[index].id;
+                            updateDepartmentView(departmentId);
+                            document.getElementById('departmentDetail').scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                }
+            });
+        }
+
+        function populateDepartmentNav() {
+            const navContainer = document.getElementById('departmentNav');
+            navContainer.innerHTML = reportData.departments.map(d => `
+                <div id="nav-${d.id}" data-id="${d.id}" class="nav-card cursor-pointer bg-white p-4 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 text-center">
+                    <div class="text-4xl mb-2">${d.icon}</div>
+                    <p class="font-semibold text-sm">${d.name.split('. ')[1]}</p>
+                </div>
+            `).join('');
+
+            navContainer.addEventListener('click', (e) => {
+                const card = e.target.closest('.nav-card');
+                if (card) {
+                    updateDepartmentView(card.dataset.id);
+                }
+            });
+        }
+        
+        function updateDepartmentView(departmentId) {
+            const department = reportData.departments.find(d => d.id === departmentId);
+            if (!department) return;
+
+            // Update active state for navigation
+            document.querySelectorAll('.nav-card').forEach(card => {
+                card.classList.toggle('active', card.dataset.id === departmentId);
+            });
+
+            const detailContainer = document.getElementById('departmentDetail');
+            detailContainer.innerHTML = `
+                <div class="text-center mb-8">
+                    <h3 class="text-3xl font-bold text-gray-800">${department.name}</h3>
+                    <p class="text-gray-600 mt-2 max-w-2xl mx-auto">${department.summary}</p>
+                    <div class="mt-4 inline-block bg-amber-100 text-amber-800 px-4 py-2 rounded-full">
+                        <span class="font-semibold">役割変革:</span> ${department.roleChange.from} → <span class="font-bold">${department.roleChange.to}</span>
+                    </div>
+                </div>
+
+                <div class="mb-10">
+                    <h4 class="text-xl font-bold text-center text-gray-700 mb-6">タスク別 工数削減効果</h4>
+                    <div class="chart-container">
+                        <canvas id="departmentChart"></canvas>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold text-center text-gray-700 mb-6">AI活用シナリオ詳細</h4>
+                    <div id="task-details-container" class="space-y-4">
+                        ${department.tasks.map((task, index) => `
+                        <div class="task-card border border-gray-200 rounded-lg overflow-hidden">
+                            <button data-task-index="${index}" class="task-card-header w-full text-left p-4 bg-gray-50 hover:bg-gray-100 transition flex justify-between items-center">
+                                <span class="font-semibold">${task.name}</span>
+                                <span class="text-teal-600 font-bold">▼ 詳細</span>
+                            </button>
+                            <div class="task-card-content">
+                                <div class="p-4 border-t border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-blue-50 p-3 rounded-md">
+                                        <p class="font-semibold text-blue-800">💡 AI活用方法</p>
+                                        <p class="text-sm text-blue-900 mt-1">${task.ai}</p>
+                                    </div>
+                                    <div class="bg-green-50 p-3 rounded-md">
+                                        <p class="font-semibold text-green-800">✨ 定性的効果</p>
+                                        <p class="text-sm text-green-900 mt-1">${task.effect}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners for task cards
+            document.querySelectorAll('.task-card-header').forEach(header => {
+                header.addEventListener('click', (e) => {
+                    const card = e.currentTarget.closest('.task-card');
+                    card.classList.toggle('open');
+                });
+            });
+
+
+            createDepartmentChart(department);
+        }
+
+        function createDepartmentChart(department) {
+            const ctx = document.getElementById('departmentChart').getContext('2d');
+            const data = {
+                labels: department.tasks.map(t => t.name),
+                datasets: [
+                    {
+                        label: '現状の月間工数 (時間)',
+                        data: department.tasks.map(t => t.current),
+                        backgroundColor: 'rgba(156, 163, 175, 0.5)',
+                        borderColor: 'rgba(156, 163, 175, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'AI導入後の工数 (時間)',
+                        data: department.tasks.map(t => t.reduced),
+                        backgroundColor: 'rgba(15, 118, 110, 0.6)',
+                        borderColor: 'rgba(15, 118, 110, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            };
+
+            if (departmentChartInstance) {
+                departmentChartInstance.destroy();
+            }
+
+            departmentChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '月間工数 (時間)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    const label = this.getLabelForValue(value);
+                                    return label.length > 10 ? label.substring(0, 10) + '...' : label;
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    }
+                }
+            });
+        }
+        
+        function populateRoadmap() {
+            const container = document.querySelector('#roadmap > .relative');
+            const roadmapHtml = reportData.roadmap.map((phase, index) => {
+                const isLeft = index % 2 === 0;
+                return `
+                <div class="mb-8 flex justify-between ${isLeft ? '' : 'flex-row-reverse'} items-center w-full left-timeline">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-10 flex items-center order-1 bg-teal-700 shadow-xl w-12 h-12 rounded-full">
+                        <h1 class="mx-auto font-semibold text-lg text-white">${phase.phase}</h1>
+                    </div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="font-bold text-gray-800 text-xl">${phase.title}</h3>
+                        <p class="text-sm font-medium text-teal-600">${phase.duration}</p>
+                        <p class="text-sm leading-snug tracking-wide text-gray-600 text-opacity-100 mt-2">${phase.content}</p>
+                        <p class="text-xs text-gray-500 mt-2"><strong>焦点部門:</strong> ${phase.focus}</p>
+                    </div>
+                </div>
+                `;
+            }).join('');
+            container.innerHTML += roadmapHtml;
+        }
+
+    </script>
+</body>
+</html>
