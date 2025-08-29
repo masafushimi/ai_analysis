@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI活用 推進メンバー選抜アンケート</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        h1, h2 {
+            border-bottom: 2px solid #4a90e2;
+            padding-bottom: 10px;
+            color: #333;
+        }
+        h1 {
+            font-size: 24px;
+            text-align: center;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 40px;
+        }
+        .question {
+            margin-bottom: 25px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        .radio-group label {
+            font-weight: normal;
+            margin-right: 15px;
+        }
+        .likert-scale {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 10px 0;
+        }
+        .likert-scale div {
+            text-align: center;
+        }
+        .likert-scale label {
+             font-weight: normal;
+        }
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .submit-button:hover {
+            background-color: #357abd;
+        }
+        .note {
+            font-size: 14px;
+            color: #777;
+            margin-top: 5px;
+        }
+        .optional-badge {
+            background-color: #777;
+            color: white;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: normal;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>生成AI活用 推進メンバー選抜アンケート</h1>
+        <p>このアンケートは、生成AIを活用してご自身の部署の業務効率化を推進する「生成AI精鋭部隊」の選抜を目的としています。皆様の知識、ご経験、そして未来へのアイデアをお聞かせください。</p>
+
+        <form id="selectionForm">
+
+            <h2>セクション1：基本情報</h2>
+            <div class="question">
+                <label for="name">1. お名前（姓・名）：</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="question">
+                <label for="department">2. ご所属（部署・チーム名）：</label>
+                <input type="text" id="department" name="department" required>
+            </div>
+            <div class="question">
+                <label for="title">3. 役職：</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div class="question">
+                <label for="years">4. 勤続年数：</label>
+                <input type="number" id="years" name="years" required min="0">
+            </div>
+
+            <h2>セクション2：業務理解と課題認識</h2>
+            <div class="question">
+                <label>5. あなたの部署の業務内容について、どの程度全体像を把握していますか？</label>
+                <div class="likert-scale">
+                    <div><input type="radio" id="grasp1" name="grasp" value="1"><br><label for="grasp1">ほとんど<br>把握していない</label></div>
+                    <div><input type="radio" id="grasp2" name="grasp" value="2"><br><label for="grasp2">一部しか<br>把握していない</label></div>
+                    <div><input type="radio" id="grasp3" name="grasp" value="3" checked><br><label for="grasp3">半分くらい<br>把握している</label></div>
+                    <div><input type="radio" id="grasp4" name="grasp" value="4"><br><label for="grasp4">ほぼ<br>把握している</label></div>
+                    <div><input type="radio" id="grasp5" name="grasp" value="5"><br><label for="grasp5">完全に<br>把握している</label></div>
+                </div>
+            </div>
+            <div class="question">
+                <label for="mission">6. あなたの部署が担っている最も重要なミッション（役割）は何だとお考えですか？</label>
+                <textarea id="mission" name="mission" required></textarea>
+            </div>
+            <div class="question">
+                <label for="issues">7. あなたの担当業務、または部署全体の業務の中で、「非効率だと感じる」「もっと改善できるはずだ」と感じている課題やボトルネックを、具体的に2〜3点挙げてください。</label>
+                <textarea id="issues" name="issues" required></textarea>
+            </div>
+
+            <h2>セクション3：生成AIの理解度と実践</h2>
+            <div class="question">
+                <label for="活用シーン">8. 生成AIの基本研修で学んだ内容を、ご自身の業務でどのように活かせると感じましたか？具体的な活用シーンを交えてお答えください。</label>
+                <textarea id="活用シーン" name="活用シーン" required></textarea>
+            </div>
+            <div class="question">
+                <label for="試した経験">9. 研修後、実際に生成AIを業務（または業務に関連する自己学習）で試した経験について、具体的な事例を教えてください。（目的、使用ツール、結果・感想など）</label>
+                <textarea id="試した経験" name="試した経験" required></textarea>
+            </div>
+            <div class="question">
+                <label>10. これまでに研修内容を周囲のメンバーと共有したことはありますか？</label>
+                <div class="radio-group">
+                    <input type="radio" id="share_yes" name="share" value="yes"> <label for="share_yes">はい</label>
+                    <input type="radio" id="share_no" name="share" value="no"> <label for="share_no">いいえ</label>
+                    <input type="radio" id="share_pending" name="share" value="pending"> <label for="share_pending">共有したいがまだできていない</label>
+                </div>
+            </div>
+            <div class="question">
+                <label for="share_details">11. （設問10で「はい」または「共有したいがまだできていない」と回答した方へ）どのような内容を共有しましたか？（または共有したいと考えていますか？）</label>
+                <textarea id="share_details" name="share_details"></textarea>
+            </div>
+
+            <h2>セクション4：AI活用による課題解決の構想力</h2>
+            <div class="question">
+                <label for="bottleneck">12. 所属チームにおけるAI活用のボトルネックは何だと感じますか？また、それをどう改善したいですか？</label>
+                <textarea id="bottleneck" name="bottleneck" required></textarea>
+            </div>
+            <div class="question">
+                <label for="idea">13. （セクション2で回答した課題のうち1つを選び）その課題を解決するために、生成AIをどのように活用できるか、具体的なアイデアを自由に記述してください。（解決したい課題、具体的なAI活用アイデア、期待される効果）</label>
+                <textarea id="idea" name="idea" required></textarea>
+            </div>
+            
+            <h2>セクション5：【実践課題】プロンプト作成能力（最重要）</h2>
+            <div class="question">
+                 <label for="prompt_task">14. 以下のシナリオに基づき、生成AIへの指示（プロンプト）を作成してください。</label>
+                 <p class="note"><b>シナリオ：</b>あなたは、ある消費財メーカーのマーケティング部門に所属するマネージャーです。来週、役員向けに「Z世代をターゲットにした新商品のプロモーション戦略」について30分でプレゼンテーションを行う必要があります。<br>
+                 <b>課題：</b>役員が納得し、かつ斬新で実行可能性の高い戦略立案に繋がるような「最初のたたき台」を出力させるため、あなたは生成AIにどのようなプロンプトを入力しますか？</p>
+                <textarea id="prompt_task" name="prompt_task" placeholder="ここに、あなたが最適と考えるプロンプトを記述してください..." required></textarea>
+            </div>
+
+            <h2>セクション6：推進力とビジョン</h2>
+            <div class="question">
+                <label for="導入経験">15. これまでの業務で、新しいツールや業務プロセスをチームや部署に導入し、定着させた経験はありますか？その際、最も工夫した点や、苦労した点は何でしたか？</label>
+                <textarea id="導入経験" name="導入経験" required></textarea>
+            </div>
+            <div class="question">
+                <label for="働きかけ">16. もしあなたが精鋭部隊のメンバーになった場合、生成AIの活用に協力的でない、あるいは懐疑的な同僚や部下に対して、どのように働きかけ、協力を得ていきますか？</label>
+                <textarea id="働きかけ" name="働きかけ" required></textarea>
+            </div>
+            <div class="question">
+                <label for="vision">17. あなたが精鋭部隊に選ばれた場合、どのような価値を組織にもたらしたいですか？あなたのビジョンをお聞かせください。<span class="optional-badge">任意</span></label>
+                <textarea id="vision" name="vision"></textarea>
+            </div>
+
+            <h2>セクション7：意思確認とコミットメント</h2>
+            <div class="question">
+                <label>18. 生成AI活用推進メンバーに、立候補されますか？</label>
+                <div class="radio-group">
+                    <input type="radio" id="apply_yes" name="apply" value="yes" required> <label for="apply_yes">はい</label>
+                    <input type="radio" id="apply_considering" name="apply" value="considering"> <label for="apply_considering">検討中</label>
+                    <input type="radio" id="apply_no" name="apply" value="no"> <label for="apply_no">いいえ</label>
+                </div>
+            </div>
+            <div class="question">
+                <label>19. あなたは、AI活用推進メンバーとして現場に良い影響を与えられる自信がありますか？</label>
+                <div class="likert-scale">
+                    <div><input type="radio" name="confidence" value="1"><br><label>全く<br>思わない</label></div>
+                    <div><input type="radio" name="confidence" value="2"><br><label>あまり<br>思わない</label></div>
+                    <div><input type="radio" name="confidence" value="3" checked><br><label>どちらとも<br>言えない</label></div>
+                    <div><input type="radio" name="confidence" value="4"><br><label>まあ<br>そう思う</label></div>
+                    <div><input type="radio" name="confidence" value="5"><br><label>非常に<br>そう思う</label></div>
+                </div>
+            </div>
+            <div class="question">
+                <label>20. 本プログラムの期間中（約X年間）、退職・長期休職・大幅な職務変更などの予定は現時点でありませんか？</label>
+                <div class="radio-group">
+                    <input type="radio" id="commit_yes" name="commitment" value="yes" required> <label for="commit_yes">はい</label>
+                    <input type="radio" id="commit_no" name="commitment" value="no"> <label for="commit_no">いいえ</label>
+                    <input type="radio" id="commit_consult" name="commitment" value="consult"> <label for="commit_consult">わからない／相談したいことがある</label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">回答を送信する</button>
+        </form>
+    </div>
+
+    <script>
+        // フォームが送信されたときの処理
+        document.getElementById('selectionForm').addEventListener('submit', function(event) {
+            // 実際の送信をキャンセル
+            event.preventDefault();
+            
+            // ユーザーに注意を促すアラートを表示
+            alert('ご入力ありがとうございます。\n\n【注意】これはデモ画面です。入力いただいた回答は保存・送信されません。\n実際のアンケート実施には、Googleフォームなどの専用ツールをご利用ください。');
+        });
+    </script>
+</body>
+</html>
