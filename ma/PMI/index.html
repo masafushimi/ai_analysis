@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M&A業務効率化 AI活用インタラクティブダッシュボード</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral (Stone) with Sky Blue Accent -->
+    <!-- Application Structure Plan: A dashboard-style SPA featuring a main navigation bar to switch between different M&A consulting departments. This tab-based structure allows users to quickly access specific areas of interest (e.g., DD, PMI) without overwhelming them with a long, single-page scroll. Each section presents an interactive bar chart for quantitative comparison of efficiency gains, supplemented by detailed cards for qualitative insights. This design choice prioritizes user-driven exploration and makes complex information digestible and engaging, which is more effective than a static report format. -->
+    <!-- Visualization & Content Choices: 
+        - Overall Comparison: Report's department-level savings -> Goal: Compare -> Viz: Horizontal Bar Chart -> Interaction: Serves as a static, high-level overview -> Justification: Provides an immediate, at-a-glance understanding of where AI has the biggest impact across the firm -> Library/Method: Chart.js.
+        - Department-Specific Tasks: Per-task savings data -> Goal: Compare/Inform -> Viz: Vertical Bar Chart -> Interaction: Dynamically updates when a user clicks a department tab -> Justification: Allows for a granular comparison of AI's impact on specific tasks within a single department -> Library/Method: Chart.js.
+        - Qualitative Details: Task descriptions, AI use cases, benefits -> Goal: Inform/Organize -> Viz: Styled HTML Cards with Tailwind CSS -> Interaction: Dynamically populated alongside the chart -> Justification: Presents textual information in a structured, highly readable format that is superior to a dense table, enhancing comprehension of the "why" and "how" behind the numbers -> Library/Method: HTML/CSS/JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f5f5f4; /* stone-100 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        .nav-btn {
+            transition: all 0.3s ease;
+        }
+        .nav-btn.active {
+            background-color: #0284c7; /* sky-600 */
+            color: white;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .nav-btn:not(.active):hover {
+            background-color: #e7e5e4; /* stone-200 */
+        }
+        .card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-stone-100 text-stone-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-5xl font-bold text-stone-900">M&A業務効率化AI活用ダッシュボード</h1>
+            <p class="mt-4 text-md md:text-lg text-stone-600 max-w-4xl mx-auto">生成AIがM&Aコンサルティングの各業務領域に与える影響をインタラクティブに分析します。部門を選択して、具体的なタスクレベルでの工数削減効果と定性的なメリットをご確認ください。</p>
+        </header>
+
+        <main>
+            <section id="summary-section" class="mb-8 md:mb-12 bg-white p-6 rounded-xl shadow-md">
+                <h2 class="text-2xl font-bold text-center mb-4 text-stone-800">部門別・AIによる平均工数削減ポテンシャル</h2>
+                <div class="chart-container h-96 md:h-[450px]">
+                    <canvas id="summaryChart"></canvas>
+                </div>
+                 <p class="mt-4 text-sm text-stone-500 text-center">このチャートは、各部門のタスク全体にわたるAI導入による平均的な工数削減見込みを示しており、投資対効果の高い領域を特定するのに役立ちます。</p>
+            </section>
+            
+            <section id="department-detail-section" class="bg-white p-4 sm:p-6 md:p-8 rounded-xl shadow-lg">
+                <h2 class="text-2xl font-bold text-center mb-6 text-stone-800">部門別・業務タスク詳細分析</h2>
+                <nav id="department-nav" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
+                </nav>
+
+                <div id="content-container">
+                    <h3 id="department-title" class="text-2xl font-bold text-sky-700 mb-2 text-center"></h3>
+                    <p id="department-intro" class="text-stone-600 mb-6 max-w-3xl mx-auto text-center"></p>
+                    
+                    <div class="chart-container mb-8 h-80 md:h-96">
+                        <canvas id="department-chart"></canvas>
+                    </div>
+
+                    <div id="department-tasks" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-12 py-4">
+            <p class="text-sm text-stone-500">本ダッシュボードは提供されたレポートに基づき生成されました。</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reportData = {
+                departments: [
+                    {
+                        id: 'strategy',
+                        name: '戦略部門',
+                        intro: 'M&Aライフサイクルの最上流に位置する戦略部門では、AIが膨大な情報収集・分析作業を自動化し、コンサルタントがより高度な戦略的思考に集中できるよう支援します。',
+                        tasks: [
+                            { category: 'M&A戦略・スキーム設計', name: '市場・競合分析レポートの初稿自動生成、PEST・SWOT分析の基礎データ整理、プレゼン資料のドラフト作成', reduction: 30, effect: '思考の補助、リサーチ時間の短縮、戦略オプションの網羅的検討支援' },
+                            { category: 'ターゲット・スクリーニング', name: '非構造化データ（ニュース、ウェブサイト）を解析し、戦略的適合性の高い潜在ターゲットのロング/ショートリストを生成', reduction: 50, effect: '従来手法では見逃していたユニークな投資機会の発掘、ソーシングの質の向上' },
+                        ]
+                    },
+                    {
+                        id: 'dd',
+                        name: 'DD部門',
+                        intro: '時間と労力を最も要するデューデリジェンス（DD）は、AI活用による変革効果が最大級の領域です。AIはリスク発見の精度と速度を飛躍的に向上させ、コンサルタントを知的労働集約的な分析・判断業務へシフトさせます。',
+                        tasks: [
+                            { category: 'ビジネスDD', name: '外部環境分析（市場、競合）レポートの自動生成、内部資料に基づくSWOT分析の初期ドラフト作成', reduction: 40, effect: '分析の迅速化、客観的データの網羅性向上、コンサルタントの考察時間確保' },
+                            { category: '財務DD', name: '財務諸表データ抽出・整理の自動化、EBITDA等の主要指標の自動計算、異常値・非経常項目の初期スクリーニング', reduction: 60, effect: 'データ入力・加工作業の撲滅、分析精度の向上、ヒューマンエラーの削減' },
+                            { category: '法務DD', name: 'VDR内の契約書・議事録をAIが網羅的にレビューし、リスク条項や欠落条項を自動でリストアップ', reduction: 80, effect: 'レビュー時間の大幅短縮、リスク検知の精度向上と標準化、属人性の排除' },
+                            { category: 'DDレポート作成', name: '各DDチームの調査結果を統合し、企業テンプレートに基づきDDレポートのドラフトを自動生成', reduction: 50, effect: 'レポート作成の高速化、品質・フォーマットの均質化、コンサルタントの分析・考察への集中' },
+                        ]
+                    },
+                    {
+                        id: 'valuation',
+                        name: 'バリュエーション部門',
+                        intro: '高度な定量分析が求められるバリュエーション業務において、AIはデータ収集を自動化し、より多くのシナリオ分析を可能にすることで、分析の精度と深さを増強します。',
+                        tasks: [
+                            { category: '企業価値評価', name: '類似企業・類似取引データの自動収集・整理、DCFモデルの前提条件に関するリサーチ支援', reduction: 35, effect: 'データ収集作業の効率化、より多くのシナリオ分析・感応度分析の実施が可能に' },
+                            { category: 'バリュエーションレポート作成', name: '評価モデルの前提条件と結果を入力し、評価手法やサマリー部分のドラフトを自動生成', reduction: 40, effect: '定型的な記述作業の削減、レポート品質の標準化、クライアントへの説明ロジック構築支援' },
+                        ]
+                    },
+                    {
+                        id: 'pmi',
+                        name: 'PMI支援部門',
+                        intro: 'M&Aの成否を決定づけるPMIフェーズでは、AIが統合計画の複雑性を管理し、タスクの抜け漏れ防止やリスクの早期警告を通じて、意図されたシナジーの実現を強力に後押しします。',
+                        tasks: [
+                            { category: '統合計画設計（100日プラン）', name: 'DD結果と過去の成功事例に基づき、機能領域ごとの統合タスクリストと100日プランの初期ドラフトを生成', reduction: 40, effect: '計画策定の迅速化、タスクの抜け漏れ防止、ベストプラクティスの活用' },
+                            { category: 'PMO・タスク管理', name: '統合計画から詳細なWBSやガントチャートを自動生成、進捗報告の要約と遅延リスクの早期警告', reduction: 30, effect: 'プロジェクト管理の効率化、リスクの予兆管理、PMOの戦略的機能強化' },
+                            { category: '組織・文化統合', name: '従業員サーベイの感情分析によるカルチャーギャップの可視化、社内コミュニケーション案の作成支援', reduction: 25, effect: '定性的な課題のデータに基づく把握、一貫性のあるメッセージング支援' },
+                        ]
+                    },
+                    {
+                        id: 'it',
+                        name: 'IT統合支援部門',
+                        intro: '技術的に複雑で失敗の主要因となりがちなIT統合において、AIは現状のIT資産を正確に可視化し、統合計画の策定を高度化することで、プロジェクトのリスクを大幅に低減します。',
+                        tasks: [
+                            { category: 'IT資産・現状分析（As-Is）', name: 'システム構成図や設定ファイルからITランドスケープを自動マッピングし、重複システムやコスト削減機会を特定', reduction: 60, effect: '調査の網羅性と正確性の向上、手作業では困難な依存関係の可視化' },
+                            { category: 'IT統合計画策定', name: '複数の統合シナリオのコスト・リスクをモデル化し、詳細な移行計画のドラフトを自動生成', reduction: 50, effect: '計画策定の高度化と迅速化、IT統合リスクの定量的評価' },
+                        ]
+                    },
+                    {
+                        id: 'km',
+                        name: 'ナレッジマネジメント',
+                        intro: 'コンサルティングファームの生命線である「知」の活用を、AIが根底から変革します。過去の全案件データを学習した社内AIは、属人化を解消し、ファーム全体の品質と生産性を向上させます。',
+                        tasks: [
+                            { category: 'ナレッジの蓄積・活用', name: '過去案件の全資料を学習した社内AIに自然言語で質問し、必要な情報を即座に要約・抽出', reduction: 70, effect: '属人化の解消、若手コンサルタントの学習曲線加速、全社的な品質の標準化' },
+                            { category: '提案書・レポート作成支援', name: 'クライアント情報やスコープを入力し、ナレッジベースから最適なテンプレートと文例を用いて提案書のドラフトを自動生成', reduction: 50, effect: '提案活動のスピードアップ、過去の成功ナレッジの再利用促進' },
+                        ]
+                    }
+                ]
+            };
+            
+            const navContainer = document.getElementById('department-nav');
+            const departmentTitle = document.getElementById('department-title');
+            const departmentIntro = document.getElementById('department-intro');
+            const departmentTasksContainer = document.getElementById('department-tasks');
+            const departmentChartCtx = document.getElementById('department-chart').getContext('2d');
+            const summaryChartCtx = document.getElementById('summaryChart').getContext('2d');
+            
+            let departmentChartInstance;
+            let summaryChartInstance;
+
+            function renderDepartmentNav() {
+                reportData.departments.forEach(dept => {
+                    const button = document.createElement('button');
+                    button.textContent = dept.name;
+                    button.className = 'nav-btn text-sm md:text-base font-semibold py-2 px-4 rounded-lg bg-stone-100 text-stone-700';
+                    button.dataset.id = dept.id;
+                    button.addEventListener('click', () => {
+                        renderDepartmentView(dept.id);
+                    });
+                    navContainer.appendChild(button);
+                });
+            }
+
+            function renderDepartmentView(departmentId) {
+                const department = reportData.departments.find(d => d.id === departmentId);
+                if (!department) return;
+
+                departmentTitle.textContent = department.name;
+                departmentIntro.textContent = department.intro;
+
+                document.querySelectorAll('#department-nav .nav-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.id === departmentId);
+                });
+                
+                departmentTasksContainer.innerHTML = '';
+                department.tasks.forEach(task => {
+                    const card = document.createElement('div');
+                    card.className = 'card bg-white rounded-lg shadow-md p-5 flex flex-col border border-stone-200';
+                    card.innerHTML = `
+                        <h4 class="font-bold text-lg text-sky-800 mb-2">${task.category}</h4>
+                        <p class="text-sm text-stone-600 flex-grow mb-4"><span class="font-semibold text-stone-700">活用例：</span>${task.name}</p>
+                        <div class="mt-auto pt-4 border-t border-stone-200">
+                           <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-bold text-stone-700">工数削減見込</span>
+                                <span class="text-2xl font-bold text-sky-600">${task.reduction}%</span>
+                            </div>
+                            <p class="text-sm text-stone-600"><span class="font-semibold text-stone-700">定性的効果：</span>${task.effect}</p>
+                        </div>
+                    `;
+                    departmentTasksContainer.appendChild(card);
+                });
+
+                renderDepartmentChart(department);
+            }
+
+            function renderDepartmentChart(department) {
+                if (departmentChartInstance) {
+                    departmentChartInstance.destroy();
+                }
+
+                const labels = department.tasks.map(t => t.category.length > 16 ? t.category.substring(0, 16) + '...' : t.category);
+                const data = department.tasks.map(t => t.reduction);
+                const fullLabels = department.tasks.map(t => t.category);
+
+                departmentChartInstance = new Chart(departmentChartCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: '工数削減見込 (%)',
+                            data: data,
+                            backgroundColor: 'rgba(56, 189, 248, 0.6)', // sky-400
+                            borderColor: 'rgba(2, 132, 199, 1)', // sky-600
+                            borderWidth: 2,
+                            borderRadius: 5,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'x',
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: '#e7e5e4' // stone-200
+                                },
+                                ticks: {
+                                    color: '#57534e' // stone-600
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: '#57534e' // stone-600
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: `${department.name} のタスク別工数削減見込み`,
+                                font: { size: 16, weight: 'bold' },
+                                color: '#44403c' // stone-700
+                            },
+                             tooltip: {
+                                callbacks: {
+                                    title: function(context) {
+                                        return fullLabels[context[0].dataIndex];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function renderSummaryChart() {
+                 const summaryData = reportData.departments.map(dept => {
+                    const avgReduction = dept.tasks.reduce((sum, task) => sum + task.reduction, 0) / dept.tasks.length;
+                    return {
+                        name: dept.name,
+                        reduction: avgReduction
+                    };
+                });
+                
+                summaryData.sort((a,b) => a.reduction - b.reduction);
+                
+                const labels = summaryData.map(d => d.name);
+                const data = summaryData.map(d => d.reduction);
+
+                summaryChartInstance = new Chart(summaryChartCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: '平均工数削減見込 (%)',
+                            data: data,
+                            backgroundColor: 'rgba(14, 165, 233, 0.6)', // sky-500
+                            borderColor: 'rgba(2, 132, 199, 1)', // sky-600
+                            borderWidth: 2,
+                            borderRadius: 5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: '平均工数削減見込 (%)',
+                                    color: '#57534e' // stone-600
+                                },
+                                grid: {
+                                    color: '#e7e5e4' // stone-200
+                                },
+                                ticks: {
+                                    color: '#57534e' // stone-600
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: '#57534e' // stone-600
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false
+                            },
+                        }
+                    }
+                });
+            }
+
+            renderDepartmentNav();
+            renderSummaryChart();
+            if (reportData.departments.length > 0) {
+                renderDepartmentView(reportData.departments[0].id);
+            }
+        });
+    </script>
+</body>
+</html>
