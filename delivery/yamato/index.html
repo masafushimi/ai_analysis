@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI物流変革 インタラクティブダッシュボード</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral with Professional Blue -->
+    <!-- Application Structure Plan: A dashboard-style SPA with two-level navigation. Level 1 selects the main department (Operations vs. Back Office). Level 2 selects the specific sub-department (e.g., Delivery, Customer Service). This selection filters a central Chart.js bar chart showing efficiency gains per task. Clicking a bar populates an adjacent detail panel with the AI use case, benefits, and rationale. This hierarchical structure allows users to systematically explore the full, detailed dataset from the source report, making the comprehensive information manageable and easy to navigate. -->
+    <!-- Visualization & Content Choices: Report data on efficiency gains is ideal for a comparative visualization. A dynamic bar chart (Chart.js/Canvas) is chosen for this goal, allowing users to compare potential impacts across various tasks within a selected sub-department. The interaction of clicking a bar to reveal detailed text in a separate panel (HTML/JS) addresses the "Organize" and "Inform" goals. The two-tier button navigation (HTML/JS) directly reflects the report's structure, making it intuitive. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            max-height: 600px;
+        }
+        .nav-button-main, .nav-button-sub {
+            transition: all 0.3s ease;
+        }
+        .nav-button-main.active {
+            background-color: #1e3a8a; /* blue-900 */
+            color: white;
+        }
+        .nav-button-sub.active {
+            background-color: #2563eb; /* blue-600 */
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .detail-card {
+            transition: all 0.5s ease-in-out;
+            min-height: 400px;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">生成AIによる物流変革戦略</h1>
+            <p class="text-sm sm:text-base text-gray-600 mt-1">インタラクティブ・ダッシュボード</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        
+        <section id="intro" class="mb-12">
+            <h2 class="text-3xl font-bold text-blue-600 mb-4">未来の物流を創造する。</h2>
+            <p class="text-lg text-gray-700 leading-relaxed max-w-4xl">
+                物流業界は今、「2024年問題」に代表される労働力不足、コスト高騰、そしてEC市場拡大に伴う需要増という、かつてない構造的課題に直面しています。本ダッシュボードは、生成AIがこれらの複合的な課題に対し、いかにして業務効率を飛躍的に向上させ、持続可能な物流ネットワークを構築する鍵となるかを探求します。
+            </p>
+        </section>
+        
+        <section id="dashboard" class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg">
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">部門別ポテンシャル分析</h3>
+                <p class="text-gray-600">分析したい部門を選択してください。グラフが更新され、各業務の効率化ポテンシャルが表示されます。グラフの棒をクリックすると詳細を確認できます。</p>
+            </div>
+            
+            <div id="department-nav-main" class="flex flex-wrap gap-2 sm:gap-4 mb-4"></div>
+            <div id="department-nav-sub" class="flex flex-wrap gap-2 sm:gap-4 mb-8 min-h-[40px]"></div>
+
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="w-full">
+                    <h4 id="chart-title" class="text-xl font-bold text-center mb-4 min-h-[2.5rem]"></h4>
+                    <div class="chart-container">
+                        <canvas id="efficiencyChart"></canvas>
+                    </div>
+                </div>
+                
+                <div id="detail-view" class="bg-slate-50 border border-slate-200 rounded-xl p-6 detail-card flex items-center justify-center">
+                    <div id="initial-message" class="text-center text-gray-500">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        <h3 class="mt-2 text-sm font-medium text-gray-900">詳細を表示</h3>
+                        <p class="mt-1 text-sm text-gray-500">左のグラフの項目をクリックしてください。</p>
+                    </div>
+                    <div id="detail-content" class="w-full hidden">
+                        <h5 id="detail-task" class="text-xl font-bold text-blue-700 mb-3"></h5>
+                        <div class="space-y-4 text-sm">
+                            <div>
+                                <h6 class="font-semibold text-gray-700">💡 AI活用例</h6>
+                                <p id="detail-ai-use" class="text-gray-600 leading-relaxed"></p>
+                            </div>
+                            <div>
+                                <h6 class="font-semibold text-gray-700">📈 期待される効果</h6>
+                                <p id="detail-effect" class="text-gray-600 leading-relaxed"></p>
+                            </div>
+                             <div>
+                                <h6 class="font-semibold text-gray-700">📊 推定工数削減率</h6>
+                                <p id="detail-reduction-rate" class="text-2xl font-bold text-green-600"></p>
+                            </div>
+                            <div>
+                                <h6 class="font-semibold text-gray-700">📝 根拠</h6>
+                                <p id="detail-basis" class="text-gray-600 leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="strategy" class="mt-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">戦略的提言</h2>
+             <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">生成AIの導入を成功に導くためには、技術的な側面に加え、組織的・運用的な視点が不可欠です。ここでは主要な留意点をまとめます。</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="font-bold text-blue-600 mb-2">データ連携とリアルタイム性</h3>
+                    <p class="text-sm text-gray-600">動態管理、倉庫管理、顧客情報など、各システムとのAPI連携が成功の鍵。リアルタイムのデータがAIの判断精度を最大化します。</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="font-bold text-blue-600 mb-2">現場従業員の受容性</h3>
+                    <p class="text-sm text-gray-600">AIを「仕事を奪う脅威」ではなく「能力を拡張するパートナー」と位置づける文化醸成が重要。現場を巻き込んだ導入プロセスを設計します。</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="font-bold text-blue-600 mb-2">安全管理との両立</h3>
+                    <p class="text-sm text-gray-600">効率化の追求が安全を疎かにしてはなりません。安全基準をAIの絶対的な制約条件とし、AIによる危険予知でむしろ安全性を向上させます。</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="font-bold text-blue-600 mb-2">情報セキュリティ</h3>
+                    <p class="text-sm text-gray-600">荷主や届け先の機密情報・個人情報を厳格に管理。データの暗号化、アクセス権限の最小化、定期的な監査が不可欠です。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="bg-gray-800 text-white mt-12 py-6">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <p>&copy; 2024 生成AI物流変革戦略レポート. このダッシュボードは分析レポートを基に生成されました。</p>
+        </div>
+    </footer>
+
+    <script>
+        const reportData = {
+            'オペレーション部門（現場）': {
+                '集荷・配達': [
+                    { task: '日々の配達ルート計画策定', reduction: 40, use: 'リアルタイム交通情報、天候、荷物量、ドライバー習熟度等を統合分析し、AIが最適ルートと訪問順を動的生成・提案。状況変化に応じたリアルタイム再計算も行う。', effect: '計画策定時間の短縮、走行距離削減による総労働時間削減、配送効率向上、CO2排出量削減。', basis: 'UPSはAIシステム「ORION」で年間約1.6億kmの走行距離削減。OKIとロンコ・ジャパンの実証実験で走行距離1日340km削減、コスト年間700万円削減。' },
+                    { task: '日報作成・報告', reduction: 80, use: '音声入力やスマホアプリでの簡単な操作で、日報の定型部分や特記事項を構造化して自動生成。画像認識で車両点検結果も記録。', effect: '事務作業時間の大幅削減、報告内容の標準化・データ化促進。', basis: '佐川急便のAI-OCRによる伝票入力自動化の応用。生成AIによる自由記述の構造化。' },
+                    { task: '集荷先での荷物受領・伝票作成', reduction: 70, use: 'AI-OCRと生成AI連携。荷送人情報、品名などを音声入力や画像認識で取得し、伝票情報を自動生成・デジタル化。基幹システムへ自動入力。', effect: '伝票作成時間の大幅削減、入力ミス削減、データ化の迅速化。', basis: '佐川急便のAI-OCR導入事例（年間8400時間削減）。生成AIによる情報補完で精度向上。' },
+                    { task: '不在票の作成・持ち戻り荷物処理', reduction: 60, use: 'AI-OCR連携で不在票情報を自動入力・デジタル化。持ち戻り荷物の情報を自動でシステム登録し、再配達計画と連携。', effect: '事務作業削減、情報入力ミス削減、再配達効率向上。', basis: '佐川急便のAI-OCRによる伝票入力自動化事例の応用。' },
+                    { task: '再配達依頼の受付・調整', reduction: 50, use: 'AIチャットボット/ボイスボットによる24時間自動受付。AIが既存ルートとの兼ね合いを考慮し、最適な再配達日時とルートを提案・調整。', effect: 'オペレーター負荷軽減、再配達調整の効率化、顧客利便性向上。', basis: 'AIチャットボットによる顧客対応自動化事例。' },
+                ],
+                'ターミナル・仕分けセンター': [
+                    { task: 'トラックへの積付け計画・実行', reduction: 30, use: '荷物情報（サイズ、重量、宛先等）とトラック庫内情報を基に、AIが三次元で最適な積付けプランを自動生成・可視化。', effect: '積載率向上（燃料費削減）、荷崩れによる破損防止、積み込み時間短縮。', basis: 'AmazonのAIロボット活用事例。佐川急便はAI搭載荷積みロボットを実証。' },
+                    { task: '手仕分け作業支援', reduction: 25, use: 'AI搭載スマートグラスやプロジェクションマッピングで、作業員に最適な仕分け先を視覚的に指示。新人でも迷わないように支援。', effect: '作業効率向上、誤仕分け削減、新人教育期間短縮。', basis: '画像認識とAR技術の連携。Amazonの倉庫内作業員支援技術の応用。' },
+                    { task: '作業進捗管理・報告', reduction: 25, use: 'AIカメラやセンサーで作業員の動きや荷物の流れを把握し、作業進捗をリアルタイムでダッシュボードに可視化。遅延箇所を自動特定。', effect: '生産性向上、問題点の早期発見・改善、人員配置の最適化。', basis: '倉庫実行システム(WES)による作業量予測やスタッフ配置最適化の考え方。' },
+                    { task: '仕分け機器のメンテナンス管理', reduction: 20, use: '機器の稼働データやセンサー情報をAIが分析し、故障の予兆を検知。最適なメンテナンス時期と内容を提案（予知保全）。', effect: '設備稼働率向上、メンテナンスコスト最適化、大規模障害の未然防止。', basis: 'AIによる予知保全サービス。三井物産グローバルロジスティクスの事例。' },
+                ],
+                '倉庫管理・ロジスティクス': [
+                    { task: '顧客（荷主）への報告書作成', reduction: 60, use: '倉庫内の在庫状況、入出庫実績、KPI達成度などのデータを基に、生成AIが顧客向けの月次報告書や改善提案書のドラフトを自動生成。', effect: 'レポート作成時間の大幅削減、報告内容の質向上・標準化。', basis: '生成AIの高度な文書生成能力とデータ分析能力の活用。' },
+                    { task: '入庫検品・保管場所割当', reduction: 40, use: 'AIカメラが商品やラベルを自動認識し、数量・品番を照合。商品の特性と倉庫内状況に基づき、AIが最適な保管ロケーションを指示。', effect: '検品精度向上、入庫作業時間短縮、保管効率向上。', basis: 'NTTロジスコはAI画像認識で検品ミスゼロを実現。AIによる在庫配置最適化。' },
+                    { task: '在庫管理・需要予測', reduction: 35, use: 'AIが過去の入出庫データ、季節変動、市場トレンド等を統合分析し、品目ごとの需要を高精度に予測。最適な在庫レベルを維持。', effect: '在庫精度向上、廃棄ロス削減、キャッシュフロー改善。', basis: 'ロジスティードはAI在庫管理で在庫量最大15%削減。AI需要予測で発注業務を半自動化。' },
+                ],
+                 '国際物流・通関': [
+                    { task: '輸出入書類作成・チェック', reduction: 50, use: 'AI-OCRで貿易帳票をデータ化し、生成AIが内容の整合性チェック、必須項目の抜け漏れ確認、多言語翻訳支援を行う。', effect: '書類作成・チェック時間の大幅削減、ヒューマンエラー削減、通関リードタイム短縮。', basis: '住友倉庫・安田倉庫はAI-OCR導入で書類作成工数最大50%削減。' },
+                    { task: '関税計算・HSコード特定', reduction: 40, use: '商品情報（品名、材質、用途等）を基に、生成AIが関連法規や過去事例を学習し、適切なHSコード候補と根拠を提示。', effect: 'HSコード特定作業の効率化・標準化、分類ミスのリスク低減、専門家依存の軽減。', basis: '生成AIの高度な情報検索能力と推論能力。' },
+                    { task: '輸送状況のトラッキングと顧客への情報提供', reduction: 40, use: '複数キャリアの追跡情報をAIがAPI経由で集約・統合。顧客からの問い合わせに対し、AIチャットボットがリアルタイムで状況を自然言語で回答。', effect: '輸送状況の可視性向上、顧客問い合わせ対応工数削減、顧客満足度向上。', basis: '生成AIのデータ統合能力と自然言語応答能力。' },
+                    { task: '最適な輸送ルート・手段の選定', reduction: 35, use: '荷物の特性、納期、予算、環境制約等に基づき、生成AIが最適な輸送モードとルートの組み合わせを複数提案。リスク評価も提示。', effect: '輸送計画策定の高度化・迅速化、輸送コスト最適化、リードタイム短縮、環境負荷低減。', basis: '生成AIによる複雑な意思決定支援。' },
+                ],
+            },
+            '管理・支援部門（バックオフィス）': {
+                '配車計画・運行管理': [
+                    { task: 'ドライバーの労務管理', reduction: 50, use: 'デジタコ等のデータから運転・休憩時間を自動記録・分析。AIが法令違反リスクを事前に警告し、管理者に通知。', effect: '労務管理業務の自動化、コンプライアンス徹底、管理者の負担軽減。', basis: '生成AIによるデータ分析とレコメンデーション能力。2024年問題対応に不可欠。' },
+                    { task: '中長距離の幹線輸送計画策定', reduction: 45, use: '荷物量予測、車両情報、ドライバー勤務状況等を統合し、AIが法令遵守を前提とした最適な幹線輸送計画を自動生成。', effect: '計画策定時間の大幅短縮、輸送コスト削減、コンプライアンス遵守。', basis: 'ヤマト運輸はAI活用で生産性最大20%向上。三井物産はAIで配送計画作成時間を数日から1時間に短縮。' },
+                    { task: '緊急時（事故、故障、災害）の対応指示', reduction: 35, use: '緊急事態発生時、AIが状況を即座に把握し、最適な初動対応（警察・消防への連絡、代替輸送手配等）を管理者に提案。', effect: '緊急時対応の迅速化・標準化、被害の最小化、事業継続性の向上。', basis: '生成AIの状況認識能力と情報生成能力。' },
+                ],
+                'カスタマーサービス': [
+                    { task: 'VOC（顧客の声）分析', reduction: 80, use: 'コールログ、メール、SNS等のテキストデータを分析し、顧客の不満や要望の傾向を自動で要約・レポート化。', effect: '手作業での分析業務を自動化し、サービス改善の迅速化に貢献。', basis: '生成AIの高度な自然言語理解、感情分析、要約能力。' },
+                    { task: '問い合わせ対応（メール・チャット）', reduction: 70, use: '「荷物はどこ？」「再配達したい」等の定型的な問い合わせにAIチャットボットが自動応答。複雑な案件のみオペレーターに転送。', effect: 'オペレーターの負荷軽減と24時間対応の実現。', basis: '京王電鉄や小田急電鉄のAIチャットボット導入事例。ヤマト運輸はAIオペレータによる自動化実績あり。' },
+                    { task: 'クレーム対応支援', reduction: 30, use: 'AIが顧客の言葉から感情を分析し、オペレーターに対応のトーンや共感の言葉を提案。過去の類似クレーム事例と解決策をAIがリアルタイムで提示。', effect: 'クレーム対応の品質向上・標準化、オペレーターの精神的負担軽減。', basis: '生成AIの感情分析能力とナレッジ検索能力。' },
+                ],
+                '安全・品質管理': [
+                    { task: 'ドライブレコーダー映像の確認・分析', reduction: 70, use: 'AIが映像を自動解析し、急ブレーキ等の危険運転イベントを自動抽出・分類。リスクの高い事象を管理者に通知。', effect: '危険運転の網羅的な把握、分析作業の大幅な効率化。', basis: 'AIドラレコの危険運転検知機能。' },
+                    { task: '事故・ヒヤリハット報告書の分析', reduction: 60, use: 'ドライブレコーダー映像や報告書の内容を生成AIが多角的に分析し、事故の共通パターンや特定の危険箇所を特定。', effect: '膨大なデータからのインサイト抽出自動化、予防安全対策の精度向上。', basis: 'AIドラレコ導入で事故率30-40%減少の事例あり。' },
+                    { task: '安全教育・研修の企画・実施', reduction: 40, use: '各ドライバーの運転傾向をAIが分析し、個別化された安全教育コンテンツを生成AIが作成・配信。', effect: '教育コンテンツ作成の効率化、教育効果の最大化、安全意識の向上。', basis: 'DHLはAIで従業員スキルを分析し教育計画を作成。生成AIによる個別最適化教材。' },
+                ],
+                '営業・ソリューション提案': [
+                    { task: '法人向け提案書・見積書作成', reduction: 50, use: '顧客企業の課題に基づき、生成AIが最適な物流ソリューションの提案書・見積書の高品質な草案を自動生成。', effect: '資料作成時間を大幅短縮し、より高度なコンサルティング活動に注力。', basis: '三菱総合研究所が生成AI提案書作成支援ツールを開発。' },
+                    { task: '新規顧客開拓・リード獲得', reduction: 30, use: '公開情報や社内データをAIが分析し、自社に適合する可能性の高い見込み顧客をリストアップし、アプローチ方法を提案。', effect: 'リード獲得効率向上、ターゲティング精度向上、成約率向上。', basis: '生成AIによる見込み顧客のターゲティング。' }
+                ],
+                '経営企画・マーケティング': [
+                    { task: '市場動向・競合分析', reduction: 60, use: 'ニュース記事、業界レポート、SNS投稿等の外部データと社内データをAIが継続的に収集・分析し、包括的な分析レポートを自動生成・更新。', effect: '情報収集・分析時間の大幅削減、意思決定の迅速化・高度化。', basis: 'AIによる市場規模予測や需要予測の応用。' },
+                    { task: '中長期経営戦略の策定支援', reduction: 40, use: 'AIによる市場予測等を基に、複数の成長シナリオを生成AIが提示。各シナリオのメリット・デメリット、リスク等を分析し、議論を支援。', effect: '戦略策定プロセスの効率化、データドリブンな意思決定支援。', basis: '生成AIのシナリオ生成能力と分析能力。' },
+                    { task: '経営会議資料作成', reduction: 50, use: '業績データ、市場分析結果等に基づき、生成AIが経営会議用のプレゼンテーション資料のドラフトを自動生成。', effect: '資料作成時間の大幅削減、報告内容の質の向上・標準化。', basis: '生成AIのデータ可視化能力と文書生成能力。' },
+                ],
+                '人事・労務': [
+                    { task: '採用計画・募集・選考', reduction: 40, use: '履歴書のAIスクリーニング、AI動画面接評価で一次選考を省力化。ターゲット人材に響く求人広告文案を生成AIが作成。', effect: '採用担当者の業務負荷軽減、選考期間短縮、採用の質向上。', basis: 'ソフトバンクはAI動画面接評価で選考時間70%削減。' },
+                    { task: '人事評価・配置転換支援', reduction: 30, use: '従業員の業績、スキル、キャリア希望と、部門の要件をAIがマッチングし、最適な異動・配置案を複数シミュレーション・提案。', effect: '評価プロセスの効率化・公平性向上、戦略的な人材配置の実現。', basis: '福島市の実証実験で異動案作成時間17%減、チェック時間92%減。' },
+                    { task: '従業員エンゲージメント向上施策', reduction: 30, use: '従業員サーベイの自由記述などを生成AIが分析し、組織の潜在的な課題や従業員の不満・要望の傾向を特定。', effect: '従業員のホンネの可視化、エンゲージメント低下要因の早期発見。', basis: 'AIが本音を引き出す質問を作成するサーベイの事例など。' },
+                ],
+                '経理・財務': [
+                    { task: '請求書処理（発行・受領・支払）', reduction: 80, use: 'AI-OCRで請求書をデータ化後、生成AIが内容を検証し、仕訳・支払処理まで連携。', effect: '請求書処理工数の大幅削減、入力ミス防止、インボイス制度対応。', basis: '経理AI導入で請求書処理工数80%以上削減の事例あり。' },
+                    { task: '仕訳入力・帳簿作成', reduction: 60, use: 'AIが取引データの内容を理解し、適切な勘定科目を推論して仕訳候補を自動生成。', effect: '仕訳入力作業の自動化・効率化、月次処理の迅速化。', basis: 'AI-OCRによる請求書データ化と仕訳自動化。' },
+                    { task: '月次・年次決算業務', reduction: 40, use: '生成AIが各システムからデータを収集・集計し、決算報告書の概要や分析のドラフトを自動生成。', effect: '決算業務の早期化、手作業ミス削減、分析の質の向上。', basis: '生成AIのデータ分析能力と高度な文章生成能力。' },
+                ]
+            }
+        };
+
+        let myChart;
+        let currentMainDept = 'オペレーション部門（現場）';
+        let currentSubDept = '集荷・配達';
+
+        const mainNav = document.getElementById('department-nav-main');
+        const subNav = document.getElementById('department-nav-sub');
+        const detailView = document.getElementById('detail-view');
+        const initialMessage = document.getElementById('initial-message');
+        const detailContent = document.getElementById('detail-content');
+        const chartTitleEl = document.getElementById('chart-title');
+
+        function createMainDeptNav() {
+            Object.keys(reportData).forEach(dept => {
+                const button = document.createElement('button');
+                button.textContent = dept;
+                button.className = 'nav-button-main px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-200 border border-gray-300 rounded-lg shadow-sm hover:bg-gray-300';
+                if (dept === currentMainDept) {
+                    button.classList.add('active');
+                }
+                button.onclick = () => {
+                    currentMainDept = dept;
+                    updateActiveMainButton();
+                    createSubDeptNav();
+                };
+                mainNav.appendChild(button);
+            });
+        }
+        
+        function createSubDeptNav() {
+            subNav.innerHTML = '';
+            const subDepts = Object.keys(reportData[currentMainDept]);
+            currentSubDept = subDepts[0];
+
+            subDepts.forEach(subDept => {
+                const button = document.createElement('button');
+                button.textContent = subDept;
+                button.className = 'nav-button-sub px-3 py-1.5 text-xs font-semibold text-gray-700 bg-white border border-gray-300 rounded-full shadow-sm hover:bg-gray-50';
+                if (subDept === currentSubDept) {
+                     button.classList.add('active');
+                }
+                button.onclick = () => {
+                    currentSubDept = subDept;
+                    updateActiveSubButton();
+                    renderChart();
+                    resetDetailView();
+                };
+                subNav.appendChild(button);
+            });
+            renderChart();
+            resetDetailView();
+        }
+
+        function updateActiveMainButton() {
+            const buttons = mainNav.querySelectorAll('.nav-button-main');
+            buttons.forEach(btn => btn.classList.toggle('active', btn.textContent === currentMainDept));
+        }
+
+        function updateActiveSubButton() {
+             const buttons = subNav.querySelectorAll('.nav-button-sub');
+            buttons.forEach(btn => btn.classList.toggle('active', btn.textContent === currentSubDept));
+        }
+        
+        function getChartData() {
+            const tasks = reportData[currentMainDept][currentSubDept] || [];
+            return tasks.sort((a, b) => b.reduction - a.reduction);
+        }
+
+        function formatLabel(str, maxLen = 16) {
+             if (str.length <= maxLen) return str;
+             return str.match(new RegExp(`.{1,${maxLen}}`, 'g'));
+        }
+
+        function renderChart() {
+            if (!currentMainDept || !currentSubDept) return;
+
+            const ctx = document.getElementById('efficiencyChart').getContext('2d');
+            const dataForChart = getChartData();
+
+            chartTitleEl.textContent = `${currentSubDept} - 業務別工数削減ポテンシャル`;
+
+            const chartData = {
+                labels: dataForChart.map(d => formatLabel(d.task)),
+                datasets: [{
+                    label: '推定工数削減率 (%)',
+                    data: dataForChart.map(d => d.reduction),
+                    backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                    borderColor: 'rgba(37, 99, 235, 1)',
+                    borderWidth: 1,
+                    hoverBackgroundColor: 'rgba(37, 99, 235, 1)'
+                }]
+            };
+
+            if (myChart) {
+                myChart.destroy();
+            }
+
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: '削減率 (%)'
+                            }
+                        },
+                        y: {
+                           ticks: {
+                                autoSkip: false,
+                                font: { size: 11 }
+                           }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `削減率: ${context.parsed.x}%`;
+                                }
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const taskData = dataForChart[index];
+                            updateDetailView(taskData);
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateDetailView(data) {
+            initialMessage.classList.add('hidden');
+            detailContent.classList.remove('hidden');
+            detailContent.classList.add('fade-in');
+
+            document.getElementById('detail-task').textContent = data.task;
+            document.getElementById('detail-ai-use').textContent = data.use;
+            document.getElementById('detail-effect').textContent = data.effect;
+            document.getElementById('detail-reduction-rate').textContent = `${data.reduction}%`;
+            document.getElementById('detail-basis').textContent = data.basis;
+            
+            detailContent.addEventListener('animationend', () => {
+                detailContent.classList.remove('fade-in');
+            }, { once: true });
+        }
+        
+        function resetDetailView() {
+            initialMessage.classList.remove('hidden');
+            detailContent.classList.add('hidden');
+        }
+
+        window.onload = () => {
+            createMainDeptNav();
+            createSubDeptNav();
+        };
+    </script>
+</body>
+</html>
