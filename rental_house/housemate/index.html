@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ハウスメイトグループ：生成AIによる業務効率化分析インフォグラフィック</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: #f0f4f8; }
+        .kpi-value { font-size: 4rem; font-weight: 700; line-height: 1; color: #0079FF; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); }
+        .kpi-unit { font-size: 1.5rem; font-weight: 500; margin-left: 0.5rem; color: #004AAD; }
+        .flowchart-arrow { position: relative; width: 100%; height: 20px; display: flex; align-items: center; justify-content: center; }
+        .flowchart-arrow::after { content: '\25BC'; font-size: 24px; color: #0079FF; }
+        .timeline-item { position: relative; padding-bottom: 2rem; padding-left: 2.5rem; border-left: 4px solid #00D2FF; }
+        .timeline-item::before { content: ''; position: absolute; left: -12px; top: 0; width: 20px; height: 20px; background-color: #0079FF; border-radius: 50%; border: 2px solid #fff; }
+        .ai-action-btn { background-color: #0079FF; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.3s; cursor: pointer; }
+        .ai-action-btn:hover { background-color: #005bb5; }
+        .ai-demo-btn { background-color: #00c4ff; color: white; padding: 0.25rem 0.75rem; border-radius: 0.375rem; font-size: 0.8rem; font-weight: 500; transition: background-color 0.3s; cursor: pointer; display: inline-block; margin-top: 8px; }
+        .ai-demo-btn:hover { background-color: #00a8e8; }
+        .ai-result-container { background-color: #f0f8ff; border-left: 4px solid #0079FF; padding: 1rem; margin-top: 1rem; border-radius: 0.25rem; }
+        .loader { text-align: center; padding: 1rem; font-style: italic; color: #555; }
+        .custom-table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+        .custom-table th, .custom-table td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; vertical-align: top; }
+        .custom-table th { background-color: #eef2ff; font-weight: 600; color: #334155; }
+        .custom-table tbody tr:nth-child(even) { background-color: #fafbff; }
+        .custom-table tbody tr:hover { background-color: #f0f4f8; }
+        .rate-cell { font-weight: 700; font-size: 1.1em; color: #0079FF; text-align: center !important; white-space: nowrap; vertical-align: middle; }
+        #ai-modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center; }
+        #ai-modal-content { background-color: #fefefe; padding: 20px; border: 1px solid #888; width: 80%; max-width: 600px; border-radius: 8px; position: relative; }
+        #ai-modal-close { color: #aaa; position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; }
+
+        .tabs-container { border-bottom: 2px solid #ccc; margin-bottom: 1.5rem; }
+        .tab-btn { padding: 0.75rem 1.5rem; cursor: pointer; background-color: transparent; border: none; border-bottom: 3px solid transparent; font-size: 1rem; font-weight: 500; color: #666; transition: all 0.3s ease; }
+        .tab-btn.active { color: #0079FF; border-bottom-color: #0079FF; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div id="ai-modal">
+        <div id="ai-modal-content">
+            <span id="ai-modal-close">&times;</span>
+            <h3 id="ai-modal-title" class="text-xl font-bold text-[#004AAD] mb-4">AI生成デモ</h3>
+            <div id="ai-modal-body" class="ai-result-container"></div>
+        </div>
+    </div>
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-[#004AAD] mb-2">ハウスメイトグループ：生成AIによる業務効率化</h1>
+            <p class="text-lg md:text-xl text-gray-600">データが示す、次世代の生産性革命へのロードマップ</p>
+        </header>
+
+        <div class="tabs-container flex flex-wrap">
+            <button class="tab-btn active" data-tab="summary">サマリー</button>
+            <button class="tab-btn" data-tab="scenarios">部門別シナリオ</button>
+            <button class="tab-btn" data-tab="ai-features">AI分析機能</button>
+            <button class="tab-btn" data-tab="strategy">戦略 & ロードマップ</button>
+        </div>
+
+        <main>
+            <div id="summary" class="tab-content active space-y-12">
+                <section class="bg-white rounded-xl shadow-lg p-6 md:p-8 flex flex-col md:flex-row items-center justify-center text-center">
+                    <div>
+                        <h2 class="text-2xl font-bold text-[#004AAD] mb-2">期待される全社的インパクト</h2>
+                        <p class="text-gray-600 max-w-2xl mx-auto mb-4">生成AIの戦略的導入により、ハウスメイトグループは全社レベルで大幅な業務工数削減を実現し、創出された時間をより高付加価値な業務へ再投資することが可能です。</p>
+                    </div>
+                    <div class="flex items-baseline justify-center mt-4 md:mt-0 md:ml-10">
+                        <span class="kpi-value">25-35</span>
+                        <span class="kpi-unit">%</span>
+                        <span class="text-xl font-medium text-gray-700 ml-4">業務工数削減</span>
+                    </div>
+                </section>
+
+                <section class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-[#004AAD] text-center mb-2">部門別・業務工数削減ポテンシャル</h2>
+                    <p class="text-gray-600 text-center max-w-3xl mx-auto mb-6">各部門の主要タスクにおいて、生成AIは定型業務を大幅に自動化します。特に反復的なコミュニケーションやレポート作成業務で高い削減効果が見込まれます。</p>
+                    <div class="relative h-96 md:h-[450px]">
+                        <canvas id="departmentSavingsChart"></canvas>
+                    </div>
+                </section>
+            </div>
+
+            <div id="scenarios" class="tab-content space-y-8">
+                <h2 class="text-2xl font-bold text-[#004AAD] text-center">部門別・AI活用シナリオ詳細</h2>
+                
+                <!-- 賃貸仲介事業部 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-[#004AAD] mb-4">賃貸仲介事業部</h3>
+                    <div class="overflow-x-auto">
+                        <table class="custom-table">
+                            <thead><tr><th>主要業務</th><th>分解タスク</th><th>AI活用シナリオ</th><th class="text-center">想定削減率</th></tr></thead>
+                            <tbody>
+                                <tr><td>集客・広告活動</td><td>物件情報のポータルサイトへの登録・掲載文作成</td><td>物件の基本データと写真から、ターゲット顧客に合わせた魅力的でSEOを意識した物件紹介コピーを複数パターン自動生成する。<button class="ai-demo-btn" data-task="ad-copy">✨ 文案生成デモ</button></td><td class="rate-cell">60%</td></tr>
+                                <tr><td>集客・広告活動</td><td>物件紹介チラシ（マイソク）のコメント作成</td><td>マイソクの定型フォーマットに、物件のセールスポイントを簡潔にまとめたキャッチコピーやコメントを自動生成する。</td><td class="rate-cell">50%</td></tr>
+                                <tr><td>顧客対応（初期）</td><td>物件問い合わせメールへの一次返信</td><td>問い合わせ内容をAIが解析し、適切な物件情報を含む返信メールのドラフトを24時間365日体制で自動生成する。<button class="ai-demo-btn" data-task="inquiry-reply">✨ 文案生成デモ</button></td><td class="rate-cell">70%</td></tr>
+                                <tr><td>顧客対応（初期）</td><td>電話での問い合わせ内容の要約・記録</td><td>通話内容をリアルタイムでテキスト化し、通話終了後に要点をまとめたサマリーを自動生成。CRMに自動で入力する。</td><td class="rate-cell">40%</td></tr>
+                                <tr><td>顧客対応（接客・提案）</td><td>来店顧客のヒアリング内容の要約とCRM入力</td><td>対面でのヒアリング内容を音声認識でテキスト化し、顧客の要望を構造化データとして要約・抽出する。</td><td class="rate-cell">50%</td></tr>
+                                <tr><td>顧客対応（接客・提案）</td><td>提案物件リストのコメント作成</td><td>顧客に提案する複数物件リストに対し、それぞれの物件が顧客のどの要望に合致しているかを説明する個別コメントを自動生成する。</td><td class="rate-cell">60%</td></tr>
+                                <tr><td>内見・契約プロセス</td><td>内見後のフォローアップメール作成</td><td>内見時の顧客の反応メモを基に、次回の提案やクロージングに向けたパーソナライズされたフォローアップメールを複数パターン作成する。<button class="ai-demo-btn" data-task="follow-up-email">✨ 文案生成デモ</button></td><td class="rate-cell">70%</td></tr>
+                                <tr><td>内見・契約プロセス</td><td>重要事項説明書・賃貸借契約書のドラフト作成補助</td><td>契約者情報、物件情報、契約条件をインプットし、標準的な契約書フォーマットの該当箇所に自動でデータを入力。</td><td class="rate-cell">30%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 賃貸管理事業部 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-[#004AAD] mb-4">賃貸管理事業部</h3>
+                    <div class="overflow-x-auto">
+                        <table class="custom-table">
+                             <thead><tr><th>主要業務</th><th>分解タスク</th><th>AI活用シナリオ</th><th class="text-center">想定削減率</th></tr></thead>
+                            <tbody>
+                                <tr><td>オーナーコミュニケーション</td><td>月次収支報告書（PMレポート）の作成・送付</td><td>会計システムの収支データをインプットし、報告書の定型部分（所感、市況概況）を自動生成。</td><td class="rate-cell">40%</td></tr>
+                                <tr><td>オーナーコミュニケーション</td><td>修繕・リフォーム提案書の作成</td><td>過去の類似案件データや現在の部材価格を基に、修繕・リフォーム工事の提案書ドラフトを自動生成する。</td><td class="rate-cell">35%</td></tr>
+                                <tr><td>オーナーコミュニケーション</td><td>定期的な周辺賃料相場・市況レポートの作成</td><td>公開市場データをAIが定期的に収集・分析し、担当エリアの市況レポートを自動生成。</td><td class="rate-cell">60%</td></tr>
+                                <tr><td>入居者対応</td><td>問い合わせ・クレームの一次対応（メール・チャット）</td><td>入居者専用ポータルにAIチャットボットを設置し、定型的な問い合わせに24時間自動で回答する。</td><td class="rate-cell">75%</td></tr>
+                                <tr><td>入居者対応</td><td>トラブル内容の記録と担当部署へのエスカレーション</td><td>入居者からの問い合わせ内容をAIが解析し、適切な担当部署に自動で振り分ける。</td><td class="rate-cell">50%</td></tr>
+                                <tr><td>契約・金銭管理</td><td>家賃滞納者への督促状のドラフト作成</td><td>滞納日数や履歴に応じて、文面のトーンを調整した督促状のドラフトを自動生成する。<button class="ai-demo-btn" data-task="reminder-draft">✨ 文案生成デモ</button></td><td class="rate-cell">80%</td></tr>
+                                <tr><td>契約・金銭管理</td><td>契約更新案内の作成と送付</td><td>契約満了が近い入居者リストに基づき、更新案内書と送付状をパーソナライズして自動作成する。</td><td class="rate-cell">70%</td></tr>
+                                <tr><td>退去・原状回復</td><td>退去立会日の日程調整</td><td>入居者からの退去連絡に対し、担当者の空きスケジュールと連携した日程調整用URLをAIが自動返信する。</td><td class="rate-cell">60%</td></tr>
+                                <tr><td>退去・原状回復</td><td>原状回復費用の見積書・精算書ドラフト作成</td><td>退去立会時のチェックリストと写真データを基に、貸主・借主の負担割合を算出し、見積書ドラフトを自動作成する。</td><td class="rate-cell">40%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- 法人営業部 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-[#004AAD] mb-4">法人営業部</h3>
+                    <div class="overflow-x-auto">
+                        <table class="custom-table">
+                            <thead><tr><th>主要業務</th><th>分解タスク</th><th>AI活用シナリオ</th><th class="text-center">想定削減率</th></tr></thead>
+                            <tbody>
+                                <tr><td>新規顧客開拓</td><td>新規法人顧客への提案書作成</td><td>ターゲット企業の情報を基に、ニーズに合わせた社宅代行サービスの提案書ドラフトを自動生成する。<button class="ai-demo-btn" data-task="proposal-draft">✨ 文案生成デモ</button></td><td class="rate-cell">40%</td></tr>
+                                <tr><td>契約・運用プロセス</td><td>社宅規定と賃貸借契約書の照合・精査</td><td>クライアント企業の社宅規定をAIに学習させ、契約書の内容が準拠しているかを自動でチェックする。</td><td class="rate-cell">80%</td></tr>
+                                <tr><td>契約・運用プロセス</td><td>複数物件の請求書の一括処理と支払調書作成</td><td>様々なフォーマットの請求書をAI-OCRで読み取り、月次一括請求書と支払調書を自動で生成する。</td><td class="rate-cell">75%</td></tr>
+                                <tr><td>クライアントサポート</td><td>法人担当者からの問い合わせ対応（専用ポータル）</td><td>法人クライアント専用ポータルにAIチャットボットを設置し、定型的な質問に24時間リアルタイムで回答する。</td><td class="rate-cell">70%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- マーケティング部 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-[#004AAD] mb-4">マーケティング部</h3>
+                    <div class="overflow-x-auto">
+                        <table class="custom-table">
+                            <thead><tr><th>主要業務</th><th>分解タスク</th><th>AI活用シナリオ</th><th class="text-center">想定削減率</th></tr></thead>
+                            <tbody>
+                                <tr><td>コンテンツマーケティング</td><td>ブログ記事・SEOコンテンツの企画・作成</td><td>指定したSEOキーワードに基づき、読者の検索意図を満たすブログ記事の構成案と本文ドラフトを自動生成する。<button class="ai-demo-btn" data-task="blog-draft">✨ 文案生成デモ</button></td><td class="rate-cell">60%</td></tr>
+                                <tr><td>広告・プロモーション</td><td>物件広告コピー（リスティング広告、SNS広告）の生成</td><td>一つの物件情報から、各広告媒体の特性に合わせた広告見出しと説明文を数十パターン自動生成する。</td><td class="rate-cell">70%</td></tr>
+                                <tr><td>分析・リサーチ</td><td>市場トレンド分析レポートの要約</td><td>長文の市況レポートを読み込ませ、経営層や関連部署向けの要約サマリーを自動で作成する。</td><td class="rate-cell">80%</td></tr>
+                                <tr><td>分析・リサーチ</td><td>顧客アンケート（自由記述）の分析</td><td>アンケートの自由記述欄をAIが分析し、意見の分類や頻出キーワードを抽出し、改善点の特定を支援する。</td><td class="rate-cell">75%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- カスタマーサポート部 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-[#004AAD] mb-4">カスタマーサポート部</h3>
+                    <div class="overflow-x-auto">
+                        <table class="custom-table">
+                            <thead><tr><th>主要業務</th><th>分解タスク</th><th>AI活用シナリオ</th><th class="text-center">想定削減率</th></tr></thead>
+                            <tbody>
+                                <tr><td>問い合わせ一次対応</td><td>WebサイトからのFAQ対応（チャットボット）</td><td>WebサイトにAIチャットボットを導入し、頻出する質問に24時間自動で回答する。</td><td class="rate-cell">80%</td></tr>
+                                <tr><td>オペレーター支援</td><td>オペレーター向け回答文案のサジェスト</td><td>問い合わせ内容に応じて、社内マニュアルから最適な回答文の候補をリアルタイムで画面に表示する。</td><td class="rate-cell">40%</td></tr>
+                                <tr><td>事後処理・分析</td><td>対応履歴の要約とCRM入力</td><td>顧客とのやり取りをAIが自動で要約し、CRMの対応履歴欄に簡潔に記録する。</td><td class="rate-cell">70%</td></tr>
+                                <tr><td>事後処理・分析</td><td>問い合わせデータの分析とVOC（顧客の声）抽出</td><td>蓄積された問い合わせログをAIが定期的に分析し、「急増したトピック」などを抽出しレポート化する。</td><td class="rate-cell">75%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="ai-features" class="tab-content space-y-12">
+                <section class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-[#004AAD] text-center mb-4">✨ AIによる市場トレンド分析（デモ）</h2>
+                    <p class="text-gray-600 text-center max-w-3xl mx-auto mb-6">関心のあるエリアを入力すると、AIが賃貸市場のトレンドを簡易的に分析・要約します。</p>
+                    <div class="max-w-xl mx-auto flex flex-col sm:flex-row gap-2">
+                        <input type="text" id="market-analysis-input" placeholder="例：東京都渋谷区" class="flex-grow p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <button id="market-analysis-btn" class="ai-action-btn">分析開始</button>
+                    </div>
+                    <div id="market-analysis-container" class="ai-result-container mt-6" style="display: none;"></div>
+                </section>
+                <section class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-[#004AAD] text-center mb-4">✨ AIによる潜在的リスクと対策の分析</h2>
+                    <p class="text-gray-600 text-center max-w-3xl mx-auto mb-6">AI導入は大きな機会をもたらしますが、潜在的リスクへの備えも不可欠です。AIにリアルタイムで分析させ、具体的な対策を検討しましょう。</p>
+                    <div class="text-center">
+                        <button id="risk-analysis-btn" class="ai-action-btn max-w-sm mx-auto">✨ 最新のリスクと対策をAIが分析</button>
+                    </div>
+                    <div id="risk-analysis-container" class="ai-result-container mt-6" style="display: none;"></div>
+                </section>
+            </div>
+
+            <div id="strategy" class="tab-content space-y-12">
+                <section class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-[#004AAD] text-center mb-6">部門間連携による相乗効果</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div><div class="p-4 bg-blue-50 border-2 border-[#00D2FF] rounded-lg h-full"><p class="font-bold text-[#004AAD] mb-2">1. 顧客の声（VOC）の集約</p><p class="text-sm text-gray-600">カスタマーサポートのAIが問い合わせ内容を分析・蓄積。</p></div></div>
+                        <div class="flex items-center justify-center"><div class="flowchart-arrow transform md:rotate-[-90deg]"></div></div>
+                        <div><div class="p-4 bg-blue-50 border-2 border-[#00D2FF] rounded-lg h-full"><p class="font-bold text-[#004AAD] mb-2">2. インサイトの自動連携</p><p class="text-sm text-gray-600">「特定の設備の不具合」等のトレンドをAIが検知し、関連部署へ自動通知。</p></div></div>
+                    </div>
+                    <div class="flex justify-center my-4"><div class="flowchart-arrow"></div></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="p-4 bg-blue-50 border-2 border-[#0079FF] rounded-lg"><h4 class="font-bold text-[#004AAD] mb-2">賃貸仲介事業部</h4><p class="text-sm text-gray-600">顧客への事前説明で満足度向上</p></div>
+                        <div class="p-4 bg-blue-50 border-2 border-[#0079FF] rounded-lg"><h4 class="font-bold text-[#004AAD] mb-2">賃貸管理事業部</h4><p class="text-sm text-gray-600">オーナーへの迅速な改善提案</p></div>
+                        <div class="p-4 bg-blue-50 border-2 border-[#0079FF] rounded-lg"><h4 class="font-bold text-[#004AAD] mb-2">メンテナンス事業部</h4><p class="text-sm text-gray-600">予防保全・迅速な修繕対応</p></div>
+                    </div>
+                    <p class="text-center mt-6 text-gray-600">AIを共通基盤とすることで、これまでサイロ化していた情報が連携し、全社的なサービス品質の向上を実現します。</p>
+                </section>
+                <section class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-[#004AAD] text-center mb-6">導入に向けた推奨ロードマップ</h2>
+                    <div>
+                        <div class="timeline-item">
+                            <h3 class="text-xl font-bold text-[#004AAD]">フェーズ1: 基盤構築とパイロット導入 (1〜3ヶ月)</h3>
+                            <ul class="list-disc list-inside mt-2 text-gray-600 space-y-1">
+                                <li>AI推進タスクフォースの設置と社内ガイドライン策定</li>
+                                <li>セキュアなAIプラットフォームの選定・契約</li>
+                                <li>マーケティング部にて広告コピー生成等のパイロット実施</li>
+                            </ul>
+                        </div>
+                        <div class="timeline-item">
+                            <h3 class="text-xl font-bold text-[#004AAD]">フェーズ2: 特定部門での本格展開と効果測定 (4〜9ヶ月)</h3>
+                            <ul class="list-disc list-inside mt-2 text-gray-600 space-y-1">
+                                <li>カスタマーサポート部へAIチャットボットを導入</li>
+                                <li>導入効果(ROI)の測定とナレッジの蓄積</li>
+                                <li>全従業員向けのAI活用トレーニングを開始</li>
+                            </ul>
+                        </div>
+                         <div class="timeline-item border-l-transparent pb-0">
+                            <h3 class="text-xl font-bold text-[#004AAD]">フェーズ3: 全社展開と継続的改善 (10ヶ月目以降)</h3>
+                            <ul class="list-disc list-inside mt-2 text-gray-600 space-y-1">
+                                <li>賃貸管理・法人営業部など基幹業務へAIを本格展開</li>
+                                <li>基幹システム(CRM等)とのAPI連携強化</li>
+                                <li>専門組織「AI CoE」を設立し、AI戦略を恒久的に推進</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="text-center mt-12">
+            <p class="text-sm text-gray-500">本インフォグラフィックは、提供された分析レポートに基づき作成されたものです。試算値は論理的推論に基づくものであり、実際の導入効果を保証するものではありません。</p>
+        </footer>
+    </div>
+
+<script>
+    const COLORS = { deepBlue: '#004AAD', brightBlue: '#0079FF', cyan: '#00D2FF', lightCyan: '#e0f7ff', text: '#333333' };
+    const FONT_OPTIONS = { font: { family: "'Noto Sans JP', sans-serif", size: 12 } };
+    
+    const tooltipTitleCallback = (tooltipItems) => {
+        const item = tooltipItems[0];
+        let label = item.chart.data.labels[item.dataIndex];
+        return Array.isArray(label) ? label.join(' ') : label;
+    };
+
+    const SHARED_OPTIONS = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { labels: { color: COLORS.text, ...FONT_OPTIONS } },
+            tooltip: { callbacks: { title: tooltipTitleCallback }, titleFont: FONT_OPTIONS.font, bodyFont: FONT_OPTIONS.font }
+        },
+        scales: {
+            x: { ticks: { color: COLORS.text, ...FONT_OPTIONS }, grid: { display: false } },
+            y: { ticks: { color: COLORS.text, ...FONT_OPTIONS }, grid: { color: '#e0e0e0' } }
+        }
+    };
+    
+    let departmentChart = null;
+    function renderDepartmentChart() {
+        const ctx = document.getElementById('departmentSavingsChart');
+        if (!ctx) return;
+        if (departmentChart) {
+            departmentChart.destroy();
+        }
+        departmentChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['マーケティング部', '法人営業部', 'カスタマーサポート部', '賃貸管理事業部', '賃貸仲介事業部'],
+                datasets: [{
+                    label: '平均工数削減ポテンシャル (%)',
+                    data: [65, 62, 62, 57, 55],
+                    backgroundColor: [COLORS.deepBlue, COLORS.brightBlue, '#00A8E8', '#00C4FF', COLORS.cyan],
+                    borderColor: '#ffffff',
+                    borderWidth: 2,
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                ...SHARED_OPTIONS,
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuart'
+                },
+                plugins: { ...SHARED_OPTIONS.plugins, legend: { display: false }, },
+                scales: {
+                    x: { ...SHARED_OPTIONS.scales.x },
+                    y: { ...SHARED_OPTIONS.scales.y, beginAtZero: true, title: { display: true, text: '平均工数削減ポテンシャル (%)', color: COLORS.text, ...FONT_OPTIONS }, }
+                }
+            }
+        });
+    }
+
+    async function callGemini(prompt) {
+        let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+        const payload = { contents: chatHistory };
+        const apiKey = ""; 
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!response.ok) {
+                const errorBody = await response.text();
+                console.error("API Error Response:", errorBody);
+                throw new Error(`API request failed with status ${response.status}`);
+            }
+            const result = await response.json();
+             if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts.length > 0) {
+                return result.candidates[0].content.parts[0].text;
+            } else {
+                console.error("Unexpected API response structure:", result);
+                if (result.candidates && result.candidates[0].finishReason === 'SAFETY') {
+                    return "AIの安全基準により、応答を生成できませんでした。プロンプトを変更して再度お試しください。";
+                }
+                return "AIからの応答形式が予期しないものです。";
+            }
+        } catch (error) {
+            console.error("Error calling Gemini API:", error);
+            return "AIの呼び出し中にエラーが発生しました。しばらくしてからもう一度お試しください。";
+        }
+    }
+
+    function showLoading(container) {
+        container.style.display = 'block';
+        container.innerHTML = `<div class="loader">AIが分析中です...</div>`;
+    }
+
+    const PROMPTS = {
+        'ad-copy': {
+            title: '広告コピー生成デモ',
+            prompt: `あなたはハウスメイトグループのマーケティング担当AIです。以下の条件で、ターゲット顧客（20代のカップル）に響くような、魅力的でSEOを意識した物件紹介コピーを生成してください。\n\n物件情報:\n- 場所: 東京都目黒区自由が丘\n- 間取り: 2LDK\n- 特徴: 駅徒歩5分、南向き、リノベーション済み、ペット可`
+        },
+        'inquiry-reply': {
+            title: '問い合わせ返信メール生成デモ',
+            prompt: `あなたはハウスメイトグループの営業担当AIです。お客様から「Webで見た自由が丘の2LDKの物件について、もっと詳しく知りたい」という問い合わせが来ました。丁寧でプロフェッショナルな初回の返信メールを生成してください。内見の提案を含めてください。`
+        },
+        'follow-up-email': {
+            title: '内見後フォローメール生成デモ',
+            prompt: `あなたはハウスメイトグループの営業担当AIです。本日、お客様に自由が丘の2LDKの物件を内見していただきました。お客様は「日当たりと周辺環境はとても気に入ったが、家賃が少し予算オーバー」と話していました。この状況を踏まえ、お客様の気持ちに寄り添いつつ、次のアクションを促すようなフォローアップメールを生成してください。`
+        },
+        'reminder-draft': {
+            title: '督促状ドラフト生成デモ',
+            prompt: `あなたはハウスメイトグループの賃貸管理担当AIです。入居者様が家賃を1ヶ月滞納しています。丁寧かつ毅然とした態度で、支払いを促すための督促状のドラフトを生成してください。`
+        },
+        'proposal-draft': {
+            title: '法人提案書ドラフト生成デモ',
+            prompt: `あなたはハウスメイトグループの法人営業担当AIです。ターゲット企業（従業員500名、全国に拠点を持つIT企業）に対し、社宅代行サービスの導入を提案するメールのドラフトを作成してください。企業の成長フェーズと人事総務部門の負担軽減という視点から、メリットを訴求してください。`
+        },
+        'blog-draft': {
+            title: 'ブログ記事ドラフト生成デモ',
+            prompt: `あなたはハウスメイトグループのコンテンツマーケティング担当AIです。「初めての一人暮らし、部屋探しの完全ガイド」というテーマで、SEOを意識したブログ記事のドラフトを作成してください。読者が知りたいであろう「予算設定」「エリア選定」「内見のポイント」などの要素を含んだ構成案と、冒頭の文章を生成してください。`
+        }
+    };
+
+    const modal = document.getElementById('ai-modal');
+    const modalTitle = document.getElementById('ai-modal-title');
+    const modalBody = document.getElementById('ai-modal-body');
+    const modalClose = document.getElementById('ai-modal-close');
+
+    document.querySelectorAll('.ai-demo-btn').forEach(button => {
+        button.addEventListener('click', async (e) => {
+            const task = e.target.dataset.task;
+            const taskInfo = PROMPTS[task];
+            if (!taskInfo) return;
+
+            modalTitle.textContent = taskInfo.title;
+            modalBody.innerHTML = '<div class="loader">AIが文案を生成中です...</div>';
+            modal.style.display = 'flex';
+            
+            const aiResponse = await callGemini(taskInfo.prompt);
+            modalBody.innerHTML = aiResponse.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/^\* /gm, '<br>・');
+        });
+    });
+
+    modalClose.onclick = () => { modal.style.display = 'none'; };
+    window.onclick = (event) => {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+
+    const riskAnalysisBtn = document.getElementById('risk-analysis-btn');
+    if (riskAnalysisBtn) {
+        riskAnalysisBtn.addEventListener('click', async () => {
+            const resultContainer = document.getElementById('risk-analysis-container');
+            showLoading(resultContainer);
+            const prompt = `あなたは不動産事業（賃貸仲介、賃貸管理、法人向け社宅サービス）におけるAI導入を専門とするリスク管理コンサルタントです。ハウスメイトグループが生成AIを全社的に導入する際に考慮すべき、最も重要な潜在的リスクを3つ挙げてください。そして、それぞれのリスクに対して、具体的で実行可能な軽減策を提案してください。回答は、各リスクと対策が明確にわかるように、番号付きリストで構造化してください。各リスクは太字の見出しで始めてください。`;
+            const aiResponse = await callGemini(prompt);
+            resultContainer.innerHTML = aiResponse.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/^\* /gm, '<br>・');
+        });
+    }
+
+    const marketAnalysisBtn = document.getElementById('market-analysis-btn');
+    if (marketAnalysisBtn) {
+        marketAnalysisBtn.addEventListener('click', async () => {
+            const input = document.getElementById('market-analysis-input');
+            const location = input.value.trim();
+            if (!location) {
+                alert('分析したいエリアを入力してください。');
+                return;
+            }
+            const resultContainer = document.getElementById('market-analysis-container');
+            showLoading(resultContainer);
+            const prompt = `あなたは不動産テックを専門とするマーケットアナリストです。日本の「${location}」における賃貸市場の最新トレンドについて、簡潔なレポートを作成してください。レポートには以下の要素を含めてください。\n1. 全体的な需要の傾向（例：単身者向け、ファミリー向けなど）\n2. 人気のある間取りや設備\n3. 賃料相場の動向\n4. 今後の展望\n\n一般に公開されている情報に基づいて、経営層向けの分かりやすい言葉で要約してください。`;
+            const aiResponse = await callGemini(prompt);
+            resultContainer.innerHTML = aiResponse.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/^\* /gm, '<br>・');
+        });
+    }
+    
+    // Tab functionality
+    const tabs = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(item => item.classList.remove('active'));
+            tab.classList.add('active');
+
+            const target = document.getElementById(tab.dataset.tab);
+            tabContents.forEach(content => content.classList.remove('active'));
+            target.classList.add('active');
+
+            if (tab.dataset.tab === 'summary') {
+                 setTimeout(renderDepartmentChart, 50);
+            }
+        });
+    });
+
+    // Initial chart render
+    renderDepartmentChart();
+
+</script>
+</body>
+</html>
