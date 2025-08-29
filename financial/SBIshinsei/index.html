@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI新生銀行 AI活用ポテンシャル分析 インタラクティブ・レポート</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Neutrals with Corporate Blue Accent -->
+    <!-- Application Structure Plan: The application is designed as a top-down interactive dashboard. It starts with a high-level summary (Hero), then allows deep exploration through an interactive chart for departmental analysis (Dashboard). This is followed by structured, digestible sections for the strategic roadmap and risk management, using visual diagrams and accordions to simplify complex information. This structure guides the user from a broad overview to specific details, facilitating better understanding and retention than a linear report. -->
+    <!-- Visualization & Content Choices: 1. Departmental Analysis: Report's large table -> Goal: Compare/Explore -> Viz: Interactive Bubble Chart (Chart.js) -> Interaction: Filter by department, click bubble for details -> Justification: Visually represents the two key metrics (cost reduction, quality improvement) for quick comparison and reduces initial cognitive load. Drill-down provides details on demand. 2. AI Strategy: Report's 3-tier strategy text -> Goal: Organize/Explain -> Method: HTML/Tailwind CSS diagram -> Interaction: Static visual -> Justification: A visual flowchart makes the strategic tiers and their relationship much clearer than bullet points. 3. Risk Factors: Report's list of risks -> Goal: Organize/Inform -> Method: HTML/Tailwind accordion -> Interaction: Click to expand/collapse -> Justification: Prevents overwhelming the user with a long list of text, allowing them to focus on one risk category at a time. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+        .impact-high { background-color: #3b82f6; color: white; } /* blue-600 */
+        .impact-medium { background-color: #93c5fd; color: #1e3a8a; } /* blue-300 */
+        .impact-low { background-color: #e0f2fe; color: #1e40af; } /* sky-100 */
+        .quality-high { border-color: #3b82f6; } /* blue-600 */
+        .quality-medium { border-color: #93c5fd; } /* blue-300 */
+        .quality-low { border-color: #e0f2fe; } /* sky-100 */
+        .tab-active {
+            background-color: #1d4ed8; /* blue-700 */
+            color: white;
+            border-color: #1d4ed8;
+        }
+        .tab-inactive {
+            background-color: white;
+            color: #374151; /* gray-700 */
+            border-color: #d1d5db; /* gray-300 */
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        .accordion-content.open {
+            max-height: 1000px; 
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl md:text-2xl font-bold text-blue-800">SBI新生銀行</span>
+                    <span class="text-lg md:text-xl font-medium text-gray-600 ml-2 hidden sm:inline">AI変革ロードマップ</span>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#summary" class="text-gray-600 hover:text-blue-700 transition">要旨</a>
+                    <a href="#analysis" class="text-gray-600 hover:text-blue-700 transition">部門別分析</a>
+                    <a href="#strategy" class="text-gray-600 hover:text-blue-700 transition">全社戦略</a>
+                    <a href="#risks" class="text-gray-600 hover:text-blue-700 transition">懸念事項</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <div class="mb-8 p-4 bg-blue-100 border border-blue-300 rounded-lg text-center shadow-sm">
+            <a href="https://docs.google.com/document/d/1PDsG40bmDFRS4rgUQelp8BwGp_mqmzFL2CRJWZrM-yA/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-700 hover:text-blue-900 transition-colors inline-flex items-center text-lg">
+                <span class="text-2xl mr-3">📄</span>
+                詳細レポート全文（Googleドキュメント）はこちら
+            </a>
+            <p class="text-sm text-blue-600 mt-1">より詳細な背景、分析、参考文献はこちらのドキュメントでご確認いただけます。</p>
+        </div>
+
+        <section id="summary" class="mb-12 bg-white p-6 rounded-lg shadow-sm">
+            <h1 class="text-2xl md:text-3xl font-bold text-center mb-4 text-gray-900">生成AIによる業務変革ロードマップ</h1>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-6">本レポートは、SBI新生銀行の全部門を対象に生成AI活用の可能性を分析し、業務効率化と品質向上を実現するための具体的な戦略を提言するものです。対話的なデータ探索を通じて、変革の核心をご理解ください。</p>
+            
+            <div class="grid md:grid-cols-3 gap-4 text-center">
+                <div class="border border-blue-200 bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-blue-800">🎯 最優先領域１：審査部門</h3>
+                    <p class="text-sm text-blue-700 mt-1">融資稟議書作成の自動化による、審査プロセスの劇的な迅速化と品質標準化。</p>
+                </div>
+                <div class="border border-blue-200 bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-blue-800">🎯 最優先領域２：法務・コンプライアンス</h3>
+                    <p class="text-sm text-blue-700 mt-1">契約書レビューや規制遵守チェックの高度化による、ガバナンス体制の強化。</p>
+                </div>
+                <div class="border border-blue-200 bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-blue-800">🎯 最優先領域３：営業部門</h3>
+                    <p class="text-sm text-blue-700 mt-1">提案書やEメール作成支援による、顧客対話への集中と付加価値向上。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="analysis" class="mb-12">
+            <h2 class="text-2xl font-bold text-center mb-2">部門別AI活用ポテンシャル分析</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-6">下のドロップダウンから部門を選択し、AI導入による「工数削減」と「品質向上」のポテンシャルを可視化してください。各円（業務タスク）をクリックすると詳細が表示されます。</p>
+
+            <div class="flex justify-center mb-6">
+                <select id="department-selector" class="block w-full max-w-xs p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </select>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-6">
+                <div class="lg:col-span-3 bg-white p-4 rounded-lg shadow-sm">
+                    <div class="chart-container">
+                        <canvas id="impactChart"></canvas>
+                    </div>
+                </div>
+                <div id="task-details" class="lg:col-span-2 bg-white p-6 rounded-lg shadow-sm min-h-[300px] flex flex-col justify-center">
+                    <p class="text-center text-gray-500">チャート上の円をクリックして詳細を表示</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="strategy" class="mb-12 bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-2xl font-bold text-center mb-2">全社的なAI活用戦略：「Co-Pilot先行」アプローチ</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">個別の業務効率化に留まらず、AIを全社的な変革のエンジンとするため、AIを人間の能力を拡張する「パートナー」として位置づける3階層の戦略を提案します。</p>
+            
+            <div class="relative flex flex-col items-center space-y-8 md:space-y-0">
+                <div class="absolute top-0 left-1/2 w-0.5 h-full bg-blue-200 hidden md:block"></div>
+                
+                <div class="relative z-10 w-full p-6 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg rounded-l-lg md:rounded-l-none">
+                    <div class="md:flex items-center">
+                        <div class="flex-shrink-0 w-16 h-16 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-2xl mb-4 md:mb-0">1</div>
+                        <div class="md:ml-6">
+                            <h3 class="text-xl font-bold text-blue-800">第1階層（基盤）：全行員向け「新生AI Co-Pilot」</h3>
+                            <p class="mt-2 text-gray-700">行内情報を学習したセキュアなAIアシスタントを提供。全行員の生産性向上とAIリテラシーの底上げを図ります。情報検索時間の短縮や部門間の知識のサイロ化を解消します。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative z-10 w-full p-6 bg-sky-50 border-l-4 border-sky-500 rounded-r-lg rounded-l-lg md:rounded-l-none">
+                    <div class="md:flex items-center">
+                        <div class="flex-shrink-0 w-16 h-16 bg-sky-500 text-white rounded-full flex items-center justify-center font-bold text-2xl mb-4 md:mb-0">2</div>
+                        <div class="md:ml-6">
+                            <h3 class="text-xl font-bold text-sky-800">第2階層（特化）：特定業務向け「専門AIモジュール」</h3>
+                            <p class="mt-2 text-gray-700">高インパクト業務（稟議書作成、契約レビュー等）に特化した専門機能を開発。特定業務の生産性を飛躍的に向上させ、専門人材をより創造的な業務にシフトさせます。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative z-10 w-full p-6 bg-indigo-50 border-l-4 border-indigo-500 rounded-r-lg rounded-l-lg md:rounded-l-none">
+                     <div class="md:flex items-center">
+                        <div class="flex-shrink-0 w-16 h-16 bg-indigo-500 text-white rounded-full flex items-center justify-center font-bold text-2xl mb-4 md:mb-0">3</div>
+                        <div class="md:ml-6">
+                            <h3 class="text-xl font-bold text-indigo-800">第3階層（展開）：顧客体験（CX）を進化させる外部向けAI活用</h3>
+                            <p class="mt-2 text-gray-700">行内で培った技術とガバナンスを基盤に、FAQチャットボットの高度化やパーソナライズ提案など、顧客向けのAIサービスを段階的に展開し、新たな価値を提供します。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="risks" class="mb-12">
+            <h2 class="text-2xl font-bold text-center mb-2">導入時の懸念事項と対策</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">生成AIの導入は大きな機会をもたらす一方、金融機関として看過できないリスクを伴います。主要なリスクと対策を理解することが、安全なAI活用の前提条件となります。</p>
+            <div class="max-w-4xl mx-auto">
+                <div class="accordion-item border-b">
+                    <button class="accordion-header w-full text-left p-4 text-lg font-semibold flex justify-between items-center hover:bg-gray-100 transition">
+                        <span>⚖️ 法規制・コンプライアンスリスク</span>
+                        <span class="transform transition-transform duration-300">▼</span>
+                    </button>
+                    <div class="accordion-content bg-gray-50">
+                        <div class="p-4 text-gray-700">
+                            <p class="mb-2"><strong>課題:</strong> 個人情報保護法、金融商品取引法、AML/CFT等の厳格な規制遵守。AIの判断プロセスにおける説明責任の確保。</p>
+                            <p><strong>対策:</strong> AIガバナンス委員会の設置、個人情報・機微情報をAIに入力させない厳格なデータハンドリング規程の策定、人間による最終判断を必須とするハイリスク領域のプロセス構築。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item border-b">
+                    <button class="accordion-header w-full text-left p-4 text-lg font-semibold flex justify-between items-center hover:bg-gray-100 transition">
+                        <span>🛡️ サイバーセキュリティ・情報保護リスク</span>
+                        <span class="transform transition-transform duration-300">▼</span>
+                    </button>
+                    <div class="accordion-content bg-gray-50">
+                        <div class="p-4 text-gray-700">
+                            <p class="mb-2"><strong>課題:</strong> プロンプト経由での情報漏洩、AIを悪用した攻撃（フィッシングメール等）の高度化、AIシステム自体への攻撃（データポイズニング等）。</p>
+                            <p><strong>対策:</strong> 外部から隔離されたセキュアなAIアーキテクチャの採用、機密情報を含むプロンプトの監視とフィルタリング、AIを活用した脅威検知・対応ソリューションの導入。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item border-b">
+                    <button class="accordion-header w-full text-left p-4 text-lg font-semibold flex justify-between items-center hover:bg-gray-100 transition">
+                        <span>⚙️ オペレーショナル・倫理リスク</span>
+                        <span class="transform transition-transform duration-300">▼</span>
+                    </button>
+                    <div class="accordion-content bg-gray-50">
+                        <div class="p-4 text-gray-700">
+                            <p class="mb-2"><strong>課題:</strong> ハルシネーション（もっともらしい嘘）による誤判断、学習データに含まれるバイアスの再生産、AI専門人材の不足。</p>
+                            <p><strong>対策:</strong> AIの生成物は「ドラフト」と位置づけ、重要判断は人間が行う「Human-in-the-Loop」の徹底、回答の根拠を明示するRAGアーキテクチャの採用、専門人材の採用と全行員向けリテラシー教育の推進。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center text-gray-500 text-sm mt-12">
+            <p>&copy; 2025 SBI Shinsei Bank AI Transformation Initiative. All rights reserved.</p>
+            <p>このレポートは提供された情報に基づく分析であり、投資勧誘等を目的とするものではありません。</p>
+        </footer>
+
+    </main>
+
+<script>
+const reportData = [
+    {
+        department: "リテール営業部門",
+        tasks: [
+            { name: "顧客への金融商品提案・販売", task: "顧客の属性、取引履歴、ライフプランに関するデータ分析", cost: "中", quality: "高", details: "AIが人間では気づきにくい潜在ニーズや相関関係を発見し、提案のパーソナライズ精度を向上。", example: "顧客データ（年齢、年収、家族構成、取引履歴、Web行動履歴）を分析し、最適な金融商品（投資信託、保険、ローン）の組み合わせを提案する。", prompt: "「顧客ID: XXXXのデータに基づき、ライフステージ（例：住宅購入、子の教育資金準備）に合わせた最適な金融商品のポートフォリオを3案提案し、各案の根拠を説明してください。」" },
+            { name: "顧客への金融商品提案・販売", task: "提案資料（商品説明、シミュレーション）の作成", cost: "高", quality: "中", details: "テンプレートに基づき、一貫性のある高品質な資料を迅速に作成。誤記や計算ミスを防止。", example: "商品情報と顧客ニーズを入力し、パーソナライズされた提案書やプレゼンテーション資料のドラフトを自動生成する。", prompt: "「商品A（投資信託）について、顧客B（リスク許容度：中）向けの提案書を作成。特にメリット、リスク、過去のパフォーマンスを分かりやすく図示し、将来の資産形成シミュレーションを含めてください。」" },
+            { name: "顧客への金融商品提案・販売", task: "顧客へのアポイント調整・フォローアップEメール作成", cost: "高", quality: "中", details: "顧客の状況に応じた適切な文面を複数パターン生成し、コミュニケーションの質を維持。", example: "過去のやり取りや顧客の状況を踏まえ、キャンペーン案内や定期的なフォローアップのEメール文案を生成する。", prompt: "「前回の面談から3ヶ月経過した顧客C様宛に、近況を伺うフォローアップメールを作成。新NISA制度に関する簡単な情報と、個別相談会のご案内を盛り込んでください。」" },
+            { name: "住宅ローン・教育ローン等の相談・受付", task: "ローン申込者の事前ヒアリング内容の要約・記録", cost: "高", quality: "高", details: "要点を網羅し、構造化されたフォーマットで記録することで、後続の審査部門への情報伝達の正確性と網羅性を向上。", example: "顧客との面談音声をテキスト化し、要点（借入希望額、年収、物件情報、資金使途等）を抽出し、所定のフォーマットに要約する。", prompt: "「添付の面談音声（テキスト化したもの）から、住宅ローン申込に関する重要項目（年収、勤務先、物件価格、自己資金、希望借入額、懸念事項）を抽出し、箇条書きで要約してください。」" },
+            { name: "住宅ローン・教育ローン等の相談・受付", task: "必要書類の案内・不備チェック", cost: "中", quality: "中", details: "顧客の状況に応じた必要書類リストを正確に生成し、提出書類の不備を減らす。", example: "顧客の申込内容に基づき、必要な提出書類のリストと注意事項を記載した案内文を自動生成する。", prompt: "" }
+        ]
+    },
+    {
+        department: "法人営業部門",
+        tasks: [
+            { name: "取引先企業の財務状況・資金需要の分析", task: "決算書（BS/PL/CF）データの入力・整理", cost: "高", quality: "高", details: "OCRとAIの組み合わせにより、転記ミスを撲滅し、データの正確性を飛躍的に向上させる。", example: "複数年度の決算書PDFファイルをアップロードし、勘定科目ごとの数値を抽出し、指定のExcelフォーマットに自動転記する。", prompt: "「添付の3期分の決算書PDFから、貸借対照表、損益計算書、キャッシュフロー計算書の主要項目を抽出し、時系列で比較可能なテーブル形式で出力してください。」" },
+            { name: "取引先企業の財務状況・資金需要の分析", task: "財務指標（収益性、安全性等）の算出と分析コメント生成", cost: "高", quality: "高", details: "算出ミスの防止と、多角的な指標に基づいた網羅的な一次分析コメントを生成。分析の属人性を排除し、品質を標準化。", example: "整理された財務データから主要な財務指標を自動計算し、前期比較や業界平均との比較に基づいた分析コメントの初稿を生成する。", prompt: "「入力された財務データに基づき、収益性、安全性、効率性の各指標を算出し、それぞれの指標の時系列での変化と、それが示す企業の財務状況について、ポジティブな点と注意すべき点を箇条書きで解説してください。」" },
+            { name: "取引先企業の財務状況・資金需要の分析", task: "業界動向や競合他社との比較分析レポート作成", cost: "高", quality: "高", details: "広範な情報源から網羅的に情報を収集・分析し、人間では見落としがちなトレンドやリスク要因を特定。分析の深度と客観性を向上。", example: "対象企業の業界と競合他社を指定し、関連する最新ニュース、市場レポート、プレスリリースを収集・要約し、SWOT分析のインプットとなる情報を整理する。", prompt: "「[対象企業]が属する[業界]の最新動向と、競合である[競合A社]、の直近1年間の主要なプレスリリースを要約し、市場における[対象企業]の強みと弱みを考察してください。」" },
+            { name: "融資・ソリューション提案", task: "融資提案書・稟議書のドラフト作成", cost: "高", quality: "高", details: "記載漏れを防ぎ、行内規定に準拠した一貫性のあるフォーマットで作成することで、稟議の品質と手戻りを改善。", example: "財務分析データ、事業計画、面談記録、担保情報などをインプットとして、融資稟議書の主要セクションのドラフトを生成する。", prompt: "「添付の財務分析レポートと面談議事録に基づき、株式会社Yへの運転資金1億円の融資稟議書を作成してください。特に、同社の強みである技術力と、懸念点である海外市場への依存度について、客観的な事実を基に記述してください。」" },
+        ]
+    },
+    {
+        department: "市場部門",
+        tasks: [
+            { name: "市場動向の分析・レポート作成", task: "経済指標、金融ニュース、アナリストレポートの収集・要約", cost: "高", quality: "高", details: "24時間365日、グローバルな情報源を監視し、重要情報を網羅的に抽出。情報の見落としリスクを低減。", example: "毎朝、主要な経済ニュースサイトや金融情報ベンダーのフィードから、特定の市場に関する重要ニュースを抽出し、500字程度のサマリーを生成する。", prompt: "「昨晩の米国市場における主要な出来事を3つ挙げ、それぞれが金利、為替、株式市場に与えた影響を簡潔に要約してください。」" },
+            { name: "市場動向の分析・レポート作成", task: "定期的な市場環境レポートの作成", cost: "高", quality: "中", details: "データに基づいた客観的な記述を生成し、レポート作成の標準化と迅速化に貢献。", example: "週次・月次の市場データを入力し、定型レポートのグラフ作成と、市況概況部分のドラフトを自動生成する。", prompt: "" },
+            { name: "ALM・資金繰り", task: "資金繰り状況のモニタリングと日次報告", cost: "中", quality: "中", details: "過去の資金フローのパターンを分析し、将来の資金需要の異常検知モデル構築を支援。", example: "日々の資金繰りデータを基に、日次報告書の概況部分のドラフトを作成する。", prompt: "" }
+        ]
+    },
+    {
+        department: "審査部門",
+        tasks: [
+            { name: "与信審査", task: "申込書類（決算書、事業計画書等）の読み込みとデータ抽出", cost: "高", quality: "高", details: "データの正確性を担保し、審査の第一段階における品質を向上させる。", example: "営業部門から提出された融資案件の関連書類一式（PDF）を読み込ませ、審査システムに必要なデータを自動で抽出し、入力する。", prompt: "" },
+            { name: "与信審査", task: "財務分析および事業性評価のコメント生成", cost: "高", quality: "高", details: "標準化された評価基準に基づき、網羅的かつ客観的な分析コメントを生成。審査員の判断を補助し、審査品質のばらつきを抑制。", example: "財務分析結果と事業計画書の内容を基に、企業の返済能力、成長性、競争優位性に関する評価コメントのドラフトを作成する。", prompt: "「この企業の財務データと事業計画に基づき、事業の継続性に関するリスクを3点挙げ、それぞれの根拠を記述してください。」" },
+            { name: "稟議書内容の検証・決裁", task: "稟議書に記載された内容のファクトチェック", cost: "中", quality: "高", details: "過去の類似案件、行内規定、外部の信用情報データベース等と照合し、記述の矛盾やリスク要因の見落としを指摘。審査の精度を向上。", example: "稟議書をAIに読み込ませ、過去の類似案件データベースや行内審査基準と照らし合わせ、注意すべき点や追加で確認すべき事項をリストアップさせる。", prompt: "「この融資稟議書を、当行の審査マニュアルと過去の同業種向け融資事例に照らしてレビューし、潜在的なリスクや審査上の論点を5つ指摘してください。」" }
+        ]
+    },
+    {
+        department: "リスク管理部門",
+        tasks: [
+            { name: "市場・信用リスクの計測・モニタリング", task: "リスク関連の規制・報告書の変更点の把握と要約", cost: "高", quality: "高", details: "変更点を網羅的に把握し、自行への影響分析の初動を迅速化。", example: "BIS、金融庁などから公表される新規制案や報告書を読み込ませ、主要な変更点と、銀行のリスク管理業務に与える影響を要約させる。", prompt: "「最新のバーゼルIII最終化に関する文書から、信用リスク計測手法に関する変更点を抽出し、当行の現行モデルへの影響について考察してください。」" },
+            { name: "市場・信用リスクの計測・モニタリング", task: "ストレステストのシナリオ作成支援", cost: "中", quality: "高", details: "過去の金融危機や地政学リスクイベントの事例を分析し、従来想定されていなかった複合的なリスクシナリオのアイデアを生成。", example: "「地政学リスクの高まりと急激なインフレが同時に発生した場合」など、複雑なマクロ経済シナリオを設定し、それが銀行のポートフォリオに与える影響に関する定性的なストーリーラインを作成する。", prompt: "" },
+            { name: "オペレーショナルリスク管理", task: "過去のシステム障害や事務ミスの報告書分析", cost: "高", quality: "高", details: "部門横断で発生しているインシデントの共通原因や根本的な問題を特定し、再発防止策の策定に貢献。", example: "過去5年間のオペレーショナルリスク事象の報告書データを分析し、発生頻度の高い事象、影響の大きい事象のトップ5を抽出し、その傾向を分析する。", prompt: "" }
+        ]
+    },
+    {
+        department: "コンプライアンス・法務部門",
+        tasks: [
+            { name: "契約書の作成・レビュー", task: "契約書ドラフトの作成", cost: "高", quality: "中", details: "最新の法令や判例を反映した、標準的な条項を含むドラフトを生成。", example: "取引の種類、当事者、主要な条件などを入力し、行内テンプレートに準拠した契約書のドラフトを生成する。", prompt: "" },
+            { name: "契約書の作成・レビュー", task: "契約書のリスクチェック", cost: "高", quality: "高", details: "行内の法務基準や過去の判例に基づき、不利な条項、欠落している条項、曖昧な表現などを網羅的に洗い出し、リスクの見落としを防止。", example: "相手方から提示された契約書案をアップロードし、自社にとってリスクとなりうる条項をハイライトし、修正案を提示させる。", prompt: "「添付の業務委託契約書案を、当社の法務ガイドラインに基づきレビューしてください。特に、知的財産権の帰属、損害賠償責任の上限、契約解除条項について、リスクが高い箇所を指摘し、代替の文案を提案してください。」" },
+            { name: "法令・規制に関する照会応答", task: "行内からの法令に関する問い合わせ対応", cost: "高", quality: "高", details: "銀行法、金商法、個人情報保護法などの関連法規や行内規程を学習したAIが、正確かつ迅速に回答。回答品質の標準化と、ガバナンス強化に貢献。", example: "行内規程や関連法令データベースを学習させたチャットボットを構築し、営業部門などからの問い合わせに24時間対応する。", prompt: "「顧客の同意なく、グループ会社間で個人情報を共有することは可能ですか？関連する個人情報保護法の条文と、当行の内部規程における具体的な手続きを教えてください。」" },
+            { name: "AML/CFT（マネロン対策）関連業務", task: "疑わしい取引のモニタリングレポートの分析・要約", cost: "中", quality: "高", details: "過去の不正事例のパターンを学習し、新たな手口や人間が見落としがちな異常な取引パターンを検知する能力を向上。", example: "疑わしい取引として検知されたアラートの内容を分析し、取引の背景や関係者を要約し、調査担当者が確認すべきポイントを提示する。", prompt: "" }
+        ]
+    },
+    {
+        department: "経営企画部門",
+        tasks: [
+            { name: "中期経営計画の策定支援", task: "外部環境（経済動向、競合分析）のリサーチと分析", cost: "高", quality: "中", details: "多角的な視点からの情報を網羅的に収集し、戦略策定のインプットの質を向上。", example: "複数の調査会社のレポートやニュース記事を基に、金融業界における今後3年間の主要な事業機会と脅威を分析し、PEST分析の形で整理する。", prompt: "" },
+            { name: "中期経営計画の策定支援", task: "経営会議資料の作成支援", cost: "高", quality: "中", details: "要点を的確にまとめた資料や議事録を迅速に作成し、経営層の意思決定をサポート。", example: "各部門からの業績報告データを集約し、経営会議用のサマリーレポートとプレゼンテーション資料のドラフトを作成する。", prompt: "「先月の全社業績データを基に、経営会議向けの報告スライドを作成してください。予算対比での進捗、好調な部門と不振な部門の要因分析、今後の見通しについて、それぞれ1枚のスライドでまとめてください。」" },
+            { name: "IR活動支援", task: "決算説明会における想定問答集の作成", cost: "高", quality: "高", details: "投資家が関心を持つであろうトピックを網羅的に予測し、一貫性のある質の高い回答を準備。", example: "最新の決算内容とアナリストレポートを読み込ませ、決算説明会でアナリストから出そうな質問を20個予測し、それぞれに対する回答の骨子を作成する。", prompt: "「当社の最新の決算発表と、主要な証券アナリストのレポートを分析し、今回の決算における最大のポジティブサプライズとネガティブサプライズについて、投資家からどのような質問が想定されるか、その回答案と共に示してください。」" }
+        ]
+    },
+    {
+        department: "システム部門",
+        tasks: [
+            { name: "システム開発・保守", task: "プログラムコードの生成・レビュー・リファクタリング", cost: "高", quality: "高", details: "バグの少ない高品質なコードを生成し、セキュリティ脆弱性のチェックも自動化。コードの品質と保守性を向上。", example: "仕様書やコメントに基づき、特定の機能を持つプログラムコードを生成する。既存のコードのバグを検出したり、より効率的なコードに書き直す提案を行う。", prompt: "「Javaで、顧客の取引履歴から月間の平均取引額を計算するメソッドを作成してください。入力は顧客ID、出力は平均取引額とします。例外処理も考慮してください。」" },
+            { name: "システム開発・保守", task: "システム仕様書・設計書・テスト仕様書の作成", cost: "高", quality: "高", details: "ドキュメントの記載漏れや矛盾を防ぎ、開発プロセス全体の一貫性と品質を向上。", example: "ビジネス要件を自然言語で入力し、それに基づいたシステム要件定義書、基本設計書、詳細なテストシナリオのドラフトを生成する。", prompt: "" },
+            { name: "サイバーセキュリティ対策", task: "セキュリティインシデントに関する報告書の分析と脅威情報の収集", cost: "中", quality: "高", details: "新たな攻撃手口や脆弱性情報を迅速に把握し、プロアクティブな対策立案に貢献。", example: "最新のサイバーセキュリティ脅威レポートを要約し、金融業界を標的とする新たな攻撃手法とその対策について報告書を作成する。", prompt: "" }
+        ]
+    },
+    {
+        department: "事務統括部・オペレーション部門",
+        tasks: [
+            { name: "各種事務処理の効率化", task: "手書き帳票やFAX等のOCR処理とデータ入力", cost: "高", quality: "高", details: "AI-OCRの活用により、読み取り精度を向上させ、転記ミスを削減。データ品質を根本的に改善。", example: "顧客から郵送される各種申込書や変更届を手書き文字に強いAI-OCRで読み取り、基幹システムへ自動でデータ連携する。", prompt: "" },
+            { name: "各種事務処理の効率化", task: "行内マニュアルの整備・改訂", cost: "中", quality: "高", details: "法令改正や業務フローの変更点を自動で検出し、関連するマニュアルの改訂箇所を指摘。マニュアルの正確性と最新性を維持。", example: "法令改正の概要をインプットし、行内のどの事務マニュアルを修正する必要があるかをリストアップし、修正箇所の文案を提案させる。", prompt: "" },
+            { name: "問い合わせ対応（行内・顧客）", task: "FAQの作成とメンテナンス", cost: "高", quality: "高", details: "顧客や行員の真の疑問点を反映した、実用的なFAQを構築。自己解決率を向上。", example: "コールセンターの応対履歴や社内問い合わせログを分析し、頻出する質問とその回答を抽出し、FAQコンテンツのドラフトを作成する。", prompt: "" }
+        ]
+    },
+    {
+        department: "人事・総務部門",
+        tasks: [
+            { name: "採用・人材育成", task: "職務経歴書のスクリーニング", cost: "高", quality: "中", details: "募集要件とのマッチ度を客観的に評価し、有望な候補者の見落としを防ぐ。", example: "募集ポジションの要件を定義し、応募者の職務経歴書を読み込ませて、要件とのマッチ度をスコアリングし、面接に進むべき候補者を推薦する。", prompt: "" },
+            { name: "採用・人材育成", task: "研修コンテンツの作成", cost: "高", quality: "中", details: "多様な学習スタイルに合わせたコンテンツ（動画、クイズ、要約資料）を容易に作成。", example: "コンプライアンス研修のテーマについて、専門知識のない社員にも分かりやすい説明資料と、理解度を確認するためのクイズを10問作成する。", prompt: "" },
+            { name: "労務管理・社内規程管理", task: "社員からの人事・労務に関する問い合わせ対応", cost: "高", quality: "高", details: "社内規程や労働関連法規に基づき、正確な情報を24時間提供。", example: "人事関連規程を学習させたチャットボットを導入し、「育児休業の取得手続きについて教えてください」といった社員からの質問に自動で回答する。", prompt: "" }
+        ]
+    }
+];
+
+document.addEventListener('DOMContentLoaded', () => {
+    const selector = document.getElementById('department-selector');
+    const taskDetailsContainer = document.getElementById('task-details');
+    const ctx = document.getElementById('impactChart').getContext('2d');
+    let impactChart;
+
+    const impactMapping = { '高': 3, '中': 2, '低': 1 };
+    const colorMapping = {
+        '高': 'rgba(59, 130, 246, 0.7)', // blue-500
+        '中': 'rgba(147, 197, 253, 0.7)', // blue-300
+        '低': 'rgba(224, 242, 254, 0.7)' // sky-100
+    };
+    const borderColorMapping = {
+        '高': 'rgba(29, 78, 216, 1)', // blue-700
+        '中': 'rgba(59, 130, 246, 1)', // blue-500
+        '低': 'rgba(147, 197, 253, 1)' // blue-300
+    };
+
+    function populateSelector() {
+        reportData.forEach(dept => {
+            const option = document.createElement('option');
+            option.value = dept.department;
+            option.textContent = dept.department;
+            selector.appendChild(option);
+        });
+    }
+
+    function updateChart(departmentName) {
+        const department = reportData.find(d => d.department === departmentName);
+        if (!department) return;
+
+        const chartData = {
+            datasets: department.tasks.map(task => ({
+                label: task.task,
+                data: [{
+                    x: impactMapping[task.cost],
+                    y: impactMapping[task.quality],
+                    r: (impactMapping[task.cost] + impactMapping[task.quality]) * 4,
+                    taskData: task
+                }],
+                backgroundColor: colorMapping[task.cost],
+                borderColor: borderColorMapping[task.quality],
+                borderWidth: 2,
+                hoverBackgroundColor: colorMapping[task.cost].replace('0.7', '1'),
+                hoverBorderColor: borderColorMapping[task.quality],
+                hoverBorderWidth: 3,
+            }))
+        };
+        
+        if (impactChart) {
+            impactChart.destroy();
+        }
+
+        impactChart = new Chart(ctx, {
+            type: 'bubble',
+            data: chartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ' ';
+                                }
+                                const task = context.dataset.data[0].taskData;
+                                return `${label}(工数削減: ${task.cost}, 品質向上: ${task.quality})`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: '工数削減インパクト',
+                            font: { size: 14 }
+                        },
+                        min: 0.5,
+                        max: 3.5,
+                        ticks: {
+                            stepSize: 1,
+                            callback: value => ['', '低', '中', '高'][value] || ''
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '品質向上余地',
+                            font: { size: 14 }
+                        },
+                        min: 0.5,
+                        max: 3.5,
+                        ticks: {
+                            stepSize: 1,
+                            callback: value => ['', '低', '中', '高'][value] || ''
+                        }
+                    }
+                },
+                onClick: (event, elements) => {
+                    if (elements.length > 0) {
+                        const element = elements[0];
+                        const dataset = impactChart.data.datasets[element.datasetIndex];
+                        const taskData = dataset.data[0].taskData;
+                        displayTaskDetails(taskData);
+                    }
+                }
+            }
+        });
+        
+        // Display details for the first task by default
+        if(department.tasks.length > 0) {
+            displayTaskDetails(department.tasks[0]);
+        } else {
+            taskDetailsContainer.innerHTML = `<p class="text-center text-gray-500">この部門には分析対象のタスクがありません。</p>`;
+        }
+    }
+
+    function displayTaskDetails(task) {
+        taskDetailsContainer.innerHTML = `
+            <h3 class="text-lg font-bold text-blue-800 mb-2">${task.task}</h3>
+            <p class="text-sm text-gray-500 mb-4"><strong>主要業務:</strong> ${task.name}</p>
+            <div class="flex space-x-4 mb-4">
+                <span class="text-sm font-medium px-3 py-1 rounded-full impact-${task.cost.toLowerCase()}">工数削減: ${task.cost}</span>
+                <span class="text-sm font-medium px-3 py-1 rounded-full border-2 quality-${task.quality.toLowerCase()}">品質向上: ${task.quality}</span>
+            </div>
+            <div class="space-y-3 text-sm">
+                <div>
+                    <h4 class="font-semibold text-gray-700">詳細</h4>
+                    <p class="text-gray-600">${task.details}</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700">具体的活用例</h4>
+                    <p class="text-gray-600">${task.example}</p>
+                </div>
+                ${task.prompt ? `
+                <div>
+                    <h4 class="font-semibold text-gray-700">プロンプト案</h4>
+                    <p class="text-gray-600 bg-gray-100 p-2 rounded text-xs leading-relaxed font-mono">${task.prompt}</p>
+                </div>` : ''}
+            </div>
+        `;
+    }
+
+    selector.addEventListener('change', (e) => {
+        updateChart(e.target.value);
+    });
+
+    populateSelector();
+    updateChart(selector.value);
+
+    // Accordion logic
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('span:last-child');
+            
+            // Close other open accordions
+            document.querySelectorAll('.accordion-content.open').forEach(openContent => {
+                if (openContent !== content) {
+                    openContent.classList.remove('open');
+                    openContent.previousElementSibling.querySelector('span:last-child').classList.remove('rotate-180');
+                }
+            });
+
+            content.classList.toggle('open');
+            icon.classList.toggle('rotate-180');
+        });
+    });
+
+    // Smooth scrolling for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+});
+</script>
+
+</body>
+</html>
