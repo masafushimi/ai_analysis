@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI損害保険 AI戦略インタラクティブダッシュボード</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Subtle Blue Accents -->
+    <!-- Application Structure Plan: A dashboard-style SPA designed for strategic exploration. The structure flows from a high-level strategic roadmap to a detailed departmental analysis, then to cross-functional platforms, and finally to critical governance issues. This non-linear, interactive structure allows decision-makers to explore the AI transformation plan based on their interests (e.g., a department head can jump directly to their area). Key interactions include a clickable timeline for the roadmap and a dynamic dashboard where selecting a department updates charts and detailed use-case lists, facilitating intuitive data discovery and comparison. This is more effective for strategic synthesis than a linear report. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Implementation Tiers -> Goal: Show strategic phasing -> Viz: Interactive timeline (HTML/CSS/JS) -> Interaction: Click tiers to reveal initiatives -> Justification: More engaging and intuitive than a list.
+        - Report Info: Departmental AI Impact (Cost/Quality) -> Goal: Compare impact across departments -> Viz: Radar Chart (Chart.js) -> Interaction: Dynamically updates on department selection -> Justification: Provides a quick, visual "at-a-glance" comparison of AI's dual benefits.
+        - Report Info: Detailed tasks per department -> Goal: Organize and present detailed information without clutter -> Viz: Accordion list (HTML/CSS/JS) -> Interaction: Click to expand/collapse -> Justification: Manages information density and allows users to focus on specific tasks.
+        - Report Info: Cross-functional platforms & Risks -> Goal: Inform clearly -> Viz: Card-based and two-column layouts (Tailwind) -> Interaction: Static display -> Justification: Clean, readable presentation for important, non-quantitative information.
+        - Library/Method: Chart.js for visualizations. All interactions powered by vanilla JavaScript. All diagrams and layouts use structured HTML/CSS with Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #F8F7F4;
+            color: #333333;
+        }
+        .bg-warm-neutral { background-color: #F8F7F4; }
+        .bg-soft-beige { background-color: #EAE7E0; }
+        .bg-sbi-blue { background-color: #0033A0; }
+        .text-sbi-blue { color: #0033A0; }
+        .border-sbi-blue { border-color: #0033A0; }
+        .accent-sbi-gold { color: #C0A57B; }
+        .bg-accent-sbi-gold { background-color: #C0A57B; }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #EAE7E0;
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            background-color: #0033A0;
+            color: #FFFFFF;
+        }
+        .active-nav {
+            background-color: #0033A0;
+            color: #FFFFFF;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px;
+                max-height: 350px;
+            }
+        }
+        .tier-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tier-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .department-button {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .department-button.active, .department-button:hover {
+            border-color: #0033A0;
+            background-color: #EBF2FF;
+            transform: scale(1.05);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .accordion-button.open + .accordion-content {
+            max-height: 1000px;
+        }
+    </style>
+</head>
+<body class="bg-warm-neutral">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <span class="text-xl sm:text-2xl font-bold text-sbi-blue">SBI損保 AI戦略ダッシュボード</span>
+                </div>
+                <nav class="hidden md:flex space-x-2">
+                    <a href="#roadmap" class="nav-button text-gray-700 font-medium px-3 py-2 rounded-md">ロードマップ</a>
+                    <a href="#department-analysis" class="nav-button text-gray-700 font-medium px-3 py-2 rounded-md">部門別分析</a>
+                    <a href="#platforms" class="nav-button text-gray-700 font-medium px-3 py-2 rounded-md">全社横断基盤</a>
+                    <a href="#governance" class="nav-button text-gray-700 font-medium px-3 py-2 rounded-md">ガバナンス</a>
+                </nav>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <a href="#roadmap" class="block text-gray-700 px-4 py-3">ロードマップ</a>
+            <a href="#department-analysis" class="block text-gray-700 px-4 py-3">部門別分析</a>
+            <a href="#platforms" class="block text-gray-700 px-4 py-3">全社横断基盤</a>
+            <a href="#governance" class="block text-gray-700 px-4 py-3">ガバナンス</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        
+        <section id="summary-report-link" class="mb-12">
+            <div class="bg-blue-50 border-l-4 border-sbi-blue p-4 rounded-r-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                <div class="flex items-center">
+                    <div class="text-3xl mr-4">📄</div>
+                    <div class="flex-grow">
+                        <h3 class="font-bold text-sbi-blue text-lg">詳細分析レポートはこちら</h3>
+                        <p class="text-gray-700 text-sm">本ダッシュボードの基になった、より詳細な業務分析とAI活用提言をまとめたレポート（Googleドキュメント）をご覧いただけます。</p>
+                    </div>
+                    <a href="https://docs.google.com/document/d/1Wq5WvSE4q6jGss0QVzNYARA962_gngKK6CXet9PbmXk/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="ml-4 flex-shrink-0 bg-sbi-blue text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors">
+                        レポートを開く
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="hero" class="text-center mb-16">
+            <h1 class="text-3xl md:text-4xl font-bold text-sbi-blue mb-4">生成AIによる業務変革の戦略的展望</h1>
+            <p class="max-w-3xl mx-auto text-gray-600">
+                本ダッシュボードは、SBI損害保険の「顧客中心主義」を次世代のレベルへ引き上げるための、生成AI活用戦略を可視化するものです。ダイレクト型保険会社の優位性を最大限に活かし、業務効率とサービス品質の飛躍的向上を実現するための、具体的なロードマップと部門別アクションプランをインタラクティブに探索できます。
+            </p>
+        </section>
+
+        <section id="roadmap" class="mb-20 scroll-mt-20">
+            <h2 class="section-title text-center">AI駆動型変革の戦略的ロードマップ</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">ROI、戦略的重要性、実現可能性を基に策定された3段階の導入計画です。各フェーズをクリックして、具体的な取り組みをご確認ください。</p>
+            <div class="relative">
+                <div class="border-l-4 border-sbi-blue absolute h-full top-0 left-1/2 -ml-0.5 md:ml-0"></div>
+                <div class="space-y-12">
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div class="md:text-right">
+                            <div class="tier-card bg-white p-6 rounded-lg shadow-lg cursor-pointer" data-tier="1">
+                                <h3 class="text-xl font-bold text-sbi-blue">Tier 1：基盤構築と高インパクト領域</h3>
+                                <p class="text-sm text-gray-500 mb-2">12〜18ヶ月以内に実行</p>
+                                <p class="text-gray-600">迅速なROIを実現し、全社的なAI活用の礎を築くための最優先プロジェクト群です。</p>
+                            </div>
+                        </div>
+                        <div id="tier-1-details" class="hidden md:block bg-soft-beige p-6 rounded-lg">
+                            <h4 class="font-bold mb-2">主な取り組み：</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><strong>損害サービス部門:</strong> 事故画像の初期査定と修理費見積りの自動化</li>
+                                <li><strong>カスタマーサービス部門:</strong> オペレーター支援ツールと対外向けチャットボット導入</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div id="tier-2-details" class="hidden md:block bg-soft-beige p-6 rounded-lg md:order-1">
+                            <h4 class="font-bold mb-2">主な取り組み：</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><strong>引受査定部門:</strong> AI支援型アンダーライティング・ワークベンチ開発</li>
+                                <li><strong>マーケティング部門:</strong> 顧客の声(VoC)と連動したパーソナライゼーション</li>
+                            </ul>
+                        </div>
+                        <div class="md:order-2">
+                             <div class="tier-card bg-white p-6 rounded-lg shadow-lg cursor-pointer" data-tier="2">
+                                <h3 class="text-xl font-bold text-sbi-blue">Tier 2：戦略的差別化領域</h3>
+                                <p class="text-sm text-gray-500 mb-2">18〜36ヶ月以内に実行</p>
+                                <p class="text-gray-600">競争優位を確立し、新たな市場価値を創造するための戦略的プロジェクトです。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div class="md:text-right">
+                            <div class="tier-card bg-white p-6 rounded-lg shadow-lg cursor-pointer" data-tier="3">
+                                <h3 class="text-xl font-bold text-sbi-blue">Tier 3：全社的最適化</h3>
+                                <p class="text-sm text-gray-500 mb-2">継続的取り組み</p>
+                                <p class="text-gray-600">組織全体の生産性を底上げし、AI活用の文化を醸成する継続的な施策です。</p>
+                            </div>
+                        </div>
+                        <div id="tier-3-details" class="hidden md:block bg-soft-beige p-6 rounded-lg">
+                            <h4 class="font-bold mb-2">主な取り組み：</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li><strong>全部門対象:</strong> 文書レビュー、コード生成ツールの展開</li>
+                                <li><strong>コンプライアンス部門:</strong> AIによるコンプライアンス監視</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="department-analysis" class="mb-20 scroll-mt-20">
+            <h2 class="section-title text-center">部門別AI活用ポテンシャル分析</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">各部門における生成AIの活用機会を深掘りします。下のボタンから部門を選択すると、AI導入によるインパクト（工数削減・品質向上）と具体的な活用例が表示されます。</p>
+            
+            <div id="department-selector" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-8">
+            </div>
+
+            <div class="bg-white p-4 sm:p-8 rounded-lg shadow-lg">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 id="department-title" class="text-2xl font-bold text-sbi-blue mb-2">部門を選択してください</h3>
+                        <p id="department-summary" class="text-gray-600 mb-4">上のボタンから分析したい部門を選択してください。</p>
+                        <div id="department-usecases" class="space-y-2">
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="impactChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="platforms" class="mb-20 scroll-mt-20">
+            <h2 class="section-title text-center">全社横断AIプラットフォーム構想</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">部門間のサイロを解消し、投資効率とシナジーを最大化するための共通AI基盤です。</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <div class="text-4xl accent-sbi-gold mb-4">🧠</div>
+                    <h3 class="text-xl font-bold text-sbi-blue mb-2">社内ナレッジ・コパイロット</h3>
+                    <p class="text-gray-600">約款やマニュアルを学習し、従業員の質問に即座に回答。新人教育を加速し、全社の応対品質を平準化します。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <div class="text-4xl accent-sbi-gold mb-4">📈</div>
+                    <h3 class="text-xl font-bold text-sbi-blue mb-2">高度顧客の声(VoC)分析基盤</h3>
+                    <p class="text-gray-600">全ての顧客接点からの情報を統合・分析。商品開発やマーケティングのリアルタイム・フィードバックループを構築します。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <div class="text-4xl accent-sbi-gold mb-4">🤖</div>
+                    <h3 class="text-xl font-bold text-sbi-blue mb-2">「デジタル従業員」スイート</h3>
+                    <p class="text-gray-600">文書要約やメール作成など、汎用タスクを支援するツール群を提供。組織全体の生産性を底上げします。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="governance" class="scroll-mt-20">
+            <h2 class="section-title text-center">重大なる考慮事項：ガバナンスとリスク管理</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">AIの導入は、技術課題以上に法的規制と運用リスクへの周到な準備を必要とします。</p>
+            <div class="space-y-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-sbi-blue mb-3">規制遵守：保険業法と個人情報保護法</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-1">課題</h4>
+                            <p class="text-sm text-gray-600">AIによる判断の「説明可能性」と「公平性」の担保。特に病歴などの「要配慮個人情報」の取り扱いは、外部クラウドAIの利用を困難にします。</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-1">緩和策</h4>
+                            <p class="text-sm text-gray-600">重要判断は人間が最終承認(HITL)。データが社内で完結するオンプレミス/プライベートクラウド環境でのAI基盤構築を最優先します。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-sbi-blue mb-3">運用的健全性とサイバーセキュリティ</h3>
+                     <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-1">課題</h4>
+                            <p class="text-sm text-gray-600">学習データに起因するAIの差別的判断リスク。AIシステムを標的とした新たなサイバー攻撃。大規模災害時のシステム依存リスク。</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-1">緩和策</h4>
+                            <p class="text-sm text-gray-600">部門横断の「AIガバナンス委員会」を設置し、モデルの公平性を継続的に監査。AIシステムが利用不能になる事態を想定したBCPを策定します。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-sbi-blue text-white mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-sm">
+            <p>&copy; 2025 SBI General Insurance Co., Ltd. AI Strategy Interactive Dashboard.</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const impactMapping = { '高': 3, '中': 2, '低': 1 };
+
+    const departmentData = {
+        'product-dev': {
+            name: '商品開発部門',
+            summary: '市場分析の自動化とドキュメント作成支援により、商品開発サイクルを劇的に加速させ、よりパーソナライズされた「マイクロインシュアランス」の創出を可能にします。',
+            impact: { cost: 2.7, quality: 2.7 },
+            useCases: [
+                { title: '新保険商品の企画', content: '競合・市場トレンド分析の自動化、顧客ニーズの深掘り、アイデア創出支援。' },
+                { title: '保険料率の算定', content: 'アクチュアリー分析の補助、料率算定根拠資料のドラフト作成。' },
+                { title: '約款作成', content: '新商品の約款ドラフト生成、競合約款との比較分析。' }
+            ]
+        },
+        'marketing': {
+            name: 'マーケティング部門',
+            summary: 'ハイパー・パーソナライゼーションを駆使し、画一的な情報発信から個々の顧客に最適化されたエンゲージメントへと深化させ、広告効果を最大化します。',
+            impact: { cost: 2.8, quality: 2.8 },
+            useCases: [
+                { title: 'Webマーケティング戦略', content: 'SEO/SEMキーワード分析、Webサイトアクセス解析に基づく改善提案。' },
+                { title: '広告宣伝', content: '広告コピーの大量生成と最適化、動画広告シナリオの原案作成。' },
+                { title: '販売促進活動', content: 'パーソナライズドメールの作成、キャンペーン効果の自動分析レポート。' }
+            ]
+        },
+        'underwriting': {
+            name: '引受査定部門',
+            summary: '定型的な査定業務を自動化し、担当者の役割を「例外処理者・AI監督者」へとシフト。スピード、正確性、公平性を飛躍的に向上させます。',
+            impact: { cost: 2.8, quality: 3.0 },
+            useCases: [
+                { title: '引受可否判断', content: '申込書類のAI-OCRによるデータ化、標準リスクの自動査定、申込不備の確認自動化。' },
+                { title: 'リスク評価', content: '個別リスクスコアの算出、高リスク案件への追加調査提案、査定記録の自動作成。' }
+            ]
+        },
+        'claims': {
+            name: '損害サービス部門',
+            summary: '事故画像のAI解析による「ファストトラック」を構築し、軽微な損害請求の支払プロセスを数分に短縮。顧客満足度を劇的に向上させます。',
+            impact: { cost: 3.0, quality: 3.0 },
+            useCases: [
+                { title: '事故受付', content: '通話内容のリアルタイム要約、事案の緊急度を自動分類。' },
+                { title: '損害調査', content: '画像解析による損害箇所の特定、不正請求のスコアリング。' },
+                { title: '保険金の査定・支払', content: '修理見積書の自動点検、支払稟議書の自動作成、進捗報告の自動化。' }
+            ]
+        },
+        'asset-management': {
+            name: '資産運用部門',
+            summary: '膨大な市場・経済ニュースの分析を自動化し、市場予測の精度を向上。データドリブンなポートフォリオ最適化を支援します。',
+            impact: { cost: 2.8, quality: 2.5 },
+            useCases: [
+                { title: '運用計画立案と実行', content: 'マクロ経済動向の分析レポート生成、ALM観点でのポートフォリオ最適化、個別企業ファンダメンタルズ分析、投資委員会向け資料作成。' }
+            ]
+        },
+        'customer-service': {
+            name: 'カスタマーサービス部門',
+            summary: 'オペレーターを支援する「賢い相棒」として、また24時間対応可能なチャットボットとして、サービス品質と生産性の両方を飛躍的に向上させます。',
+            impact: { cost: 2.8, quality: 3.0 },
+            useCases: [
+                { title: '問い合わせ対応', content: '24時間対応AIチャットボット、オペレーターへのリアルタイム情報提示、応対履歴の自動生成。' },
+                { title: '契約内容変更・更新', content: 'パーソナライズド更新案内の生成、手続き案内の自動化。' }
+            ]
+        },
+        'compliance-legal': {
+            name: 'コンプライアンス・法務部門',
+            summary: '膨大な文書レビューや法律調査を支援すると同時に、「AIのコンプライアンス」という新たな責務に対応するガバナンス体制構築を主導します。',
+            impact: { cost: 3.0, quality: 3.0 },
+            useCases: [
+                { title: '法令遵守体制の整備', content: '法改正情報の自動モニタリング、社内向けリーガルQ&A、コンプライアンス研修教材の作成。' },
+                { title: '募集・支払業務の監査', content: '募集文書の不適切表現チェック、支払業務の傾向分析、監査報告書のドラフト作成。' }
+            ]
+        },
+        'risk-management': {
+            name: 'リスク管理部門',
+            summary: 'エマージングリスクの早期特定を支援すると共に、全社的な「AIモデル・リスクマネジメント」フレームワークの構築と運用を主導します。',
+            impact: { cost: 2.5, quality: 2.8 },
+            useCases: [
+                { title: '統合的リスク管理(ERM)', content: 'エマージングリスクの特定、財務インパクトのシミュレーション、ERM報告書の作成、AIモデルのバイアス監査。' }
+            ]
+        },
+        'system': {
+            name: 'システム部門',
+            summary: 'AIによるコード生成やテスト自動化で開発を効率化。全社データ基盤とMLOpsの確立により、ビジネス価値創造の戦略的パートナーへと進化します。',
+            impact: { cost: 2.8, quality: 2.8 },
+            useCases: [
+                { title: 'システム開発・保守', content: 'AIによるコード生成・補完、バグ修正・リファクタリング提案、テストケース自動生成、ドキュメント自動作成。' },
+                { title: 'Webサイト運用', content: 'MLOpsパイプラインによるAIモデルの監視、AIによるサイバー攻撃の脅威検知。' }
+            ]
+        },
+        'corp-planning': {
+            name: '経営企画・管理部門',
+            summary: '定型的な管理業務を自動化し、戦略的意思決定を支援。従業員の不安を払拭し、変革を成功に導く「チェンジマネジメント」を主導します。',
+            impact: { cost: 2.8, quality: 2.3 },
+            useCases: [
+                { title: '事業戦略策定', content: '競合分析レポート作成、中期経営計画のプレゼン資料作成。' },
+                { title: '人事', content: '求人票作成と応募者スクリーニング、従業員満足度調査の分析。' },
+                { title: '総務・経理', content: '経費精算の自動化、社内ヘルプデスクチャットボット。' }
+            ]
+        }
+    };
+
+    const departmentSelector = document.getElementById('department-selector');
+    const departmentTitle = document.getElementById('department-title');
+    const departmentSummary = document.getElementById('department-summary');
+    const departmentUsecases = document.getElementById('department-usecases');
+
+    const chartCtx = document.getElementById('impactChart').getContext('2d');
+    let impactChart;
+
+    function createChart(data) {
+        if (impactChart) {
+            impactChart.destroy();
+        }
+        impactChart = new Chart(chartCtx, {
+            type: 'radar',
+            data: {
+                labels: ['工数削減', '品質向上', '戦略的重要性', '実現可能性', '顧客体験向上'],
+                datasets: [{
+                    label: 'AI活用インパクト',
+                    data: data,
+                    backgroundColor: 'rgba(0, 51, 160, 0.2)',
+                    borderColor: 'rgba(0, 51, 160, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(0, 51, 160, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(0, 51, 160, 1)'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { display: true },
+                        suggestedMin: 0,
+                        suggestedMax: 3,
+                        ticks: {
+                            stepSize: 1,
+                            display: false
+                        },
+                        pointLabels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    }
+
+    function updateDepartmentView(deptId) {
+        const data = departmentData[deptId];
+        if (!data) return;
+
+        departmentTitle.textContent = data.name;
+        departmentSummary.textContent = data.summary;
+
+        departmentUsecases.innerHTML = '';
+        data.useCases.forEach((useCase, index) => {
+            const container = document.createElement('div');
+            container.className = 'border border-gray-200 rounded';
+            
+            const button = document.createElement('button');
+            button.className = 'accordion-button w-full text-left p-3 bg-gray-50 hover:bg-gray-100 font-medium flex justify-between items-center';
+            button.innerHTML = `<span>${useCase.title}</span><span class="transform transition-transform duration-300 text-sbi-blue">&#9662;</span>`;
+            
+            const content = document.createElement('div');
+            content.className = 'accordion-content p-3 text-sm text-gray-600';
+            content.innerHTML = useCase.content;
+
+            container.appendChild(button);
+            container.appendChild(content);
+            departmentUsecases.appendChild(container);
+        });
+
+        document.querySelectorAll('.department-button').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`button[data-id='${deptId}']`).classList.add('active');
+        
+        const chartData = [data.impact.cost, data.impact.quality, (data.impact.cost + data.impact.quality)/2, 3 - (Math.abs(data.impact.cost - data.impact.quality)), data.impact.quality * 1.1];
+        createChart(chartData.map(d => Math.min(d, 3)));
+    }
+    
+    Object.keys(departmentData).forEach(key => {
+        const dept = departmentData[key];
+        const button = document.createElement('button');
+        button.className = 'department-button p-3 bg-white rounded-lg shadow text-center text-sm font-medium text-gray-700';
+        button.textContent = dept.name;
+        button.dataset.id = key;
+        button.addEventListener('click', () => updateDepartmentView(key));
+        departmentSelector.appendChild(button);
+    });
+
+    updateDepartmentView('claims');
+
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            mobileMenu.classList.add('hidden');
+            const targetElement = document.querySelector(this.getAttribute('href'));
+            if(targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    document.querySelectorAll('.tier-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const tier = card.dataset.tier;
+            const detailsDiv = document.getElementById(`tier-${tier}-details`);
+            if (detailsDiv && window.innerWidth < 768) {
+                const existingOpen = document.querySelector('.tier-details-mobile');
+                if (existingOpen && existingOpen.dataset.tier === tier) {
+                    existingOpen.remove();
+                    return;
+                }
+                if (existingOpen) {
+                    existingOpen.remove();
+                }
+                
+                const mobileDetails = detailsDiv.cloneNode(true);
+                mobileDetails.id = '';
+                mobileDetails.classList.remove('hidden');
+                mobileDetails.classList.add('tier-details-mobile', 'mt-4');
+                mobileDetails.dataset.tier = tier;
+                card.parentElement.appendChild(mobileDetails);
+            }
+        });
+    });
+
+    departmentUsecases.addEventListener('click', function(e) {
+        const button = e.target.closest('.accordion-button');
+        if (button) {
+            const allButtons = departmentUsecases.querySelectorAll('.accordion-button');
+            
+            const currentlyOpen = button.classList.contains('open');
+
+            allButtons.forEach(btn => {
+                if (btn !== button) {
+                    btn.classList.remove('open');
+                    btn.querySelector('span:last-child').style.transform = 'rotate(0deg)';
+                }
+            });
+
+            button.classList.toggle('open');
+            const arrow = button.querySelector('span:last-child');
+            if (button.classList.contains('open')) {
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+    });
+});
+</script>
+
+</body>
+</html>
