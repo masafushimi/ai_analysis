@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>美容・エステサロン向けAI研修スライド (Pro Design)</title>
+    <title>エステサロン向けAI研修スライド (Pro Design)</title>
     <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* サロン向け：洗練されたグレージュ×ネイビー */
-            --primary-color: #4a4e69; /* ダークネイビー（知性・信頼） */
-            --accent-color: #c9a66b;  /* シャンパンゴールド（高級感） */
+            /* エステ向け：ラグジュアリーで落ち着いた「グレージュ×シャンパンゴールド」 */
+            --primary-color: #5d5c61; /* ダークグレー（上品・本物志向） */
+            --accent-color: #d4af37;  /* 濃いゴールド（高級感・成約） */
             --text-color: #333333;
             --light-text: #666666;
-            --bg-color: #f3f4f6;
+            --bg-color: #fcfcfc;
             --slide-bg: #ffffff;
             
             /* Step Colors */
-            --step1-bg: #fff0f5; --step1-border: #d81b60; /* Input: 課題・顧客 (ピンク) */
-            --step2-bg: #f0f8ff; --step2-border: #1e88e5; /* Process: AI (ブルー) */
-            --step3-bg: #f1f8e9; --step3-border: #43a047; /* Output: 解決 (グリーン) */
+            --step1-bg: #fff5f7; --step1-border: #d4879c; /* Input: 悩み・課題 (Soft Pink) */
+            --step2-bg: #f5f7fa; --step2-border: #7b8fab; /* Process: AI分析 (Cool Blue) */
+            --step3-bg: #f0f7f4; --step3-border: #7fa898; /* Output: 解決・成約 (Sage Green) */
         }
 
         body {
@@ -55,7 +55,7 @@
         }
 
         button.download-btn {
-            background: linear-gradient(135deg, var(--primary-color), #22223b);
+            background: linear-gradient(135deg, var(--primary-color), #2b2b2b);
             color: white;
             border: none;
             padding: 16px 36px;
@@ -68,12 +68,12 @@
             align-items: center;
             gap: 12px;
             font-family: 'Montserrat', sans-serif;
-            box-shadow: 0 4px 10px rgba(74, 78, 105, 0.3);
+            box-shadow: 0 4px 10px rgba(93, 92, 97, 0.3);
         }
 
         button.download-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(74, 78, 105, 0.4);
+            box-shadow: 0 6px 15px rgba(93, 92, 97, 0.4);
         }
 
         /* Slide Preview Styles */
@@ -97,7 +97,7 @@
             border-radius: 4px;
         }
 
-        /* 上部のアクセントライン */
+        /* アクセントライン */
         .slide::before {
             content: '';
             position: absolute;
@@ -250,7 +250,7 @@
 <body>
 
 <div class="container">
-    <h1 class="page-title">美容サロンAI研修スライド生成</h1>
+    <h1 class="page-title">エステサロンAI研修スライド生成</h1>
     <div class="controls">
         <p>以下のボタンで、PowerPoint (.pptx) をダウンロードできます。</p>
         <button class="download-btn" onclick="generatePPTX()">
@@ -262,79 +262,82 @@
 </div>
 
 <script>
-    // --- スライドデータ定義 ---
+    // --- スライドデータ定義（エステサロン特化版） ---
     const slidesData = [
         {
             type: "title",
-            title: "美容・エステサロンにおける\n生成AI活用実践トレーニング",
-            sub: "接客の「質」、集客の「数」、組織の「絆」を\nAIパートナーと共に最大化する"
+            title: "エステティックサロンにおける\n生成AI活用実践トレーニング",
+            sub: "高額契約の「クロージング」、規制を守る「発信」、\n顧客を離さない「伴走」をAIで強化する"
         },
         {
             type: "concept",
-            title: "本研修の目的：3つの「現場力」向上",
+            title: "エステ特有の3大課題をAIで解決",
             content: [
-                "**1. 接客・技術力:** AIとのロールプレイングで、クロージングとクレーム対応を仕組化。",
-                "**2. 集客・発信力:** Hotpepper/SNS運用の時間を1/5にし、ターゲットに刺さる文章へ。",
-                "**3. 組織・経営力:** 採用ミスマッチを防ぎ、内装やカルテ管理の効率を劇的改善。",
-                "AIは「手を動かす」時間を減らし、「お客様に触れる」時間を創出します。"
+                "**1. コース契約率の向上:** 「考えます」を「やりたい」に変える、ベテランのトークを再現。",
+                "**2. コンプライアンス遵守:** 薬機法（旧薬事法）・景表法に抵触しない、安全で魅力的な広告作成。",
+                "**3. 施術外のサポート:** 食事指導やホームケア提案をAIで自動化し、結果を出させる。",
+                "AIは「トップカウンセラー」であり「専属の管理栄養士」です。"
             ]
         },
+        // --- 接客・クロージング ---
         {
             type: "case",
-            title: "【接客】カウンセリング & クロージング",
-            subTitle: "「売り込み」ではなく「未来の提案」へ。成約率を高めるシミュレーション",
-            step1: { label: "Input (顧客情報・悩み)", text: "・悩み：乾燥とたるみ、予算重視\n・性格：慎重派\n・反応：「夫に相談しないと...」" },
-            step2: { label: "Process (AI: ChatGPT音声対話)", text: "練習：「あなたは予算を気にする40代主婦です。高額コースを迷いながら断ってください」\n\n思考：「夫に相談」に対する、角が立たず、かつ価値が伝わる切り返しトークを3パターン生成して。" },
-            step3: { label: "Output (実践トーク)", text: "AI相手に何度も練習し、最適な切り返しを体得。\n例：「ご主人様も〇〇様が綺麗になるのは嬉しいはず。まずは体験だけでも...」" }
+            title: "【成約】クロージング研修 & 答えの用意",
+            subTitle: "高額コース契約の「断り文句」を突破するロールプレイング",
+            step1: { label: "Input (顧客属性・NG理由)", text: "・対象：30代独身、痩身希望\n・性格：優柔不断\n・断り文句：「高いので一度持ち帰って親に相談します」" },
+            step2: { label: "Process (AI: ChatGPT音声対話)", text: "ロールプレイング：「私は月々1万円なら払えると考えている顧客です。総額30万円のコースを提示し、私が断った後に『分割払い』と『未来のベネフィット』で切り返す練習をさせて」" },
+            step3: { label: "Output (自信)", text: "AI相手に何度も練習し、震えずにクロージング可能に。\n成約率の大幅アップ。" }
         },
         {
             type: "case",
-            title: "【接客】クレーム対応 & 答えの用意",
-            subTitle: "恐怖心を自信に変える。想定外をなくすリスク管理",
-            step1: { label: "Input (トラブル状況)", text: "・状況：予約時間から15分待たせてしまい、常連様が激怒。\n・背景：お客様はこの後予定がある。" },
-            step2: { label: "Process (AI: Claude/ChatGPT)", text: "分析：「この状況でお客様が最も求めている『解決策』と、怒りを鎮める『謝罪の言葉』は？」\n作成：新人スタッフでも使える、失礼のない謝罪メールの文面を作成して。" },
-            step3: { label: "Output (解決)", text: "感情的にならず、論理的かつ誠実な対応が可能に。\n2次クレームを防ぎ、信頼回復につなげる。" }
+            title: "【顧客】食事・生活習慣の指導",
+            subTitle: "知識がなくても「専属トレーナー」並みのアドバイスを",
+            step1: { label: "Input (食事写真・生活)", text: "・お客様からLINEで届いたコンビニ弁当の写真\n・生活：デスクワーク、夜型、むくみが悩み" },
+            step2: { label: "Process (AI: GPT-4o 画像解析)", text: "解析：「この写真の食事のカロリーと栄養バランスを計算し、むくみ解消のために『コンビニで追加すべき1品』と、寝る前にベッドでできるストレッチを提案して」" },
+            step3: { label: "Output (信頼)", text: "プロフェッショナルな食事指導返信が一瞬で完成。\n「ここまでしてくれるの？」という感動を生む。" }
+        },
+        // --- 広告・集客 ---
+        {
+            type: "case",
+            title: "【集客】Hotpepper/SNS & 薬機法対策",
+            subTitle: "「治る」「痩せる」を使わずに、魅力を伝える表現技術",
+            step1: { label: "Input (伝えたい効果)", text: "・施術：ハイパーナイフ＋ハンド\n・言いたいこと：1回で激痩せ、脂肪が消える（※そのまま書くとNG）" },
+            step2: { label: "Process (AI: Claude/Gemini)", text: "校正：「エステサロンの広告として、薬機法・景表法に違反しない範囲で、最大限効果が伝わる魅力的なキャッチコピーに書き換えて」\n例：『脂肪燃焼』→『ボディラインを整える』等" },
+            step3: { label: "Output (安全な集客)", text: "媒体審査落ち（掲載NG）を防ぎつつ、\nクリック率の高いクーポン名・本文を作成。" }
         },
         {
             type: "case",
-            title: "【集客】SNS・Hotpepper・DM作成",
-            subTitle: "「何を書けばいいかわからない」からの脱却。反応率の高い文章生成",
-            step1: { label: "Input (ターゲット・写真)", text: "・ターゲット：30代働く女性\n・訴求：時短で決まるボブ\n・媒体：Hotpepperブログ、Instagram" },
-            step2: { label: "Process (AI: Gemini/ChatGPT)", text: "指示：「30代女性がクリックしたくなるHotpepperのタイトルを5案出して」\n「この施術のメリットを、親しみやすいDMの文章（絵文字あり）にして」" },
-            step3: { label: "Output (投稿)", text: "キャッチーなコピーと本文が一瞬で完成。\n執筆時間 60分→10分。更新頻度が上がり集客増。" }
+            title: "【販促】DM作成 & 店販への誘導",
+            subTitle: "「売り込み」と感じさせずに、ホームケア商品を買ってもらう",
+            step1: { label: "Input (顧客情報・商品)", text: "・顧客：フェイシャルコース終了間近\n・課題：冬の乾燥\n・売りたい商品：高保湿クリーム(1.5万円)" },
+            step2: { label: "Process (AI: ChatGPT)", text: "作成：「コース終了後も綺麗でいたいという気持ちに寄り添い、冬の乾燥対策としてこのクリームが必要な理由を、親しみやすいLINEメッセージにして（絵文字あり）」" },
+            step3: { label: "Output (LTV向上)", text: "来店がない期間も商品が売れる仕組み化。\nスタッフの文章作成ストレスをゼロに。" }
+        },
+        // --- 事務・管理 ---
+        {
+            type: "case",
+            title: "【管理】電子カルテ & 音声入力",
+            subTitle: "施術直後の「熱い情報」を逃さず資産化する",
+            step1: { label: "Input (音声メモ)", text: "施術後のバックヤードで発話\n「〇〇様、太もものセルライト硬め。痛み弱いので出力下げた。夏までに水着着たい目標あり」" },
+            step2: { label: "Process (AI: Whisper/Notion AI)", text: "構造化：「音声から【施術内容】【身体の状態】【会話のネタ】【次回の目標】を抽出してカルテに登録して」" },
+            step3: { label: "Output (共有)", text: "担当が変わっても、前回の痛みの強さや会話を完璧に引き継ぎ。\n顧客の安心感につなげる。" }
         },
         {
             type: "case",
-            title: "【事務】カルテ作成 & 顧客管理",
-            subTitle: "施術の合間に「話すだけ」。詳細な記録を資産化する",
-            step1: { label: "Input (音声メモ)", text: "施術直後にスマホへ入力\n「〇〇さん、転職でストレスあり。頭皮硬め。次回はスパ提案が良さそう」" },
-            step2: { label: "Process (AI: Whisper/ChatGPT)", text: "整理：「今の音声をカルテ形式（会話内容、施術詳細、次回提案）にまとめて」\n分析：「このお客様の過去3回の来店傾向から、喜ばれそうな店販商品は？」" },
-            step3: { label: "Output (資産化)", text: "詳細なカルテが自動完成。\n担当が変わっても質の高い引き継ぎが可能に。" }
-        },
-        {
-            type: "case",
-            title: "【採用・組織】離職防止 & 採用マッチング",
-            subTitle: "「こんなはずじゃなかった」を減らす。定着する人材採用",
-            step1: { label: "Input (自社の強み・弱み)", text: "・強み：技術教育が手厚い\n・弱み：帰宅が遅くなりがち\n・求める人物：コツコツ努力型" },
-            step2: { label: "Process (AI: Claude)", text: "作成：「この条件に合う人が魅力を感じる求人票を作って。逆に合わない人が応募しないよう、厳しさも正直に伝えて」\n相談：「最近元気がないスタッフへの面談での質問リストを作って」" },
-            step3: { label: "Output (定着)", text: "ミスマッチのない応募者の獲得。\nメンタル不調の早期発見とフォロー。" }
-        },
-        {
-            type: "case",
-            title: "【経営】客層に応じた内装レコメンド",
-            subTitle: "イメージを視覚化し、工務店とのズレをなくす",
-            step1: { label: "Input (コンセプト)", text: "・客層：40代〜50代富裕層\n・テーマ：都会の隠れ家、オーガニック、落ち着き" },
-            step2: { label: "Process (AI: Midjourney/DALL-E)", text: "画像生成：「高級感のあるダークブラウンを基調とし、緑（植物）を配置した、個室エステサロンの内装イメージ図を生成して」" },
-            step3: { label: "Output (視覚化)", text: "具体的なイメージ画像（ムードボード）が完成。\n内装業者への指示が明確になり、理想通りの空間へ。" }
+            title: "【経営】採用 & 内装レコメンド",
+            subTitle: "サロンの「世界観」を可視化し、マッチする人を集める",
+            step1: { label: "Input (コンセプト)", text: "・ターゲット：40代〜50代富裕層\n・テーマ：非日常、バリのリゾート、完全個室" },
+            step2: { label: "Process (AI: Midjourney/DALL-E)", text: "画像生成：「高級感のあるダークウッドと間接照明を使い、バリのリゾート風リラクゼーションサロンの個室イメージを生成して」\n求人：「この世界観で働きたい、おもてなし重視のエステティシャンに響く求人票を書いて」" },
+            step3: { label: "Output (ブランディング)", text: "内装業者への指示書用イメージ画像と、\nミスマッチのない求人原稿の完成。" }
         },
         {
             type: "concept",
-            title: "まとめ：AIはサロンワークの「黒子」",
+            title: "まとめ：AIで「手」と「心」を空ける",
             content: [
-                "接客中（On Stage）は、目の前のお客様に100%集中する。",
-                "準備・事務・練習（Back Stage）で、AIを徹底的に使い倒す。",
-                "",
-                "**Next Action:** まずは「明日のブログのタイトル出し」と「苦手なクロージングの練習相手」からAIを使ってみましょう。"
+                "**手:** 事務作業やカルテ入力は、音声とAIに任せる。",
+                "**脳:** 広告規制や栄養計算は、AIの知識を借りる。",
+                "**心:** 空いた余裕で、お客様のコンプレックスに寄り添う。",
+                "Next Action: 「苦手なクロージングの練習」と「薬機法チェック」から始めましょう。"
             ]
         }
     ];
@@ -399,82 +402,7 @@
         let pres = new PptxGenJS();
         pres.layout = 'LAYOUT_16x9';
 
-        const colorPrimary = '4a4e69';
-        const colorAccent = 'c9a66b';
-        const colorText = '333333';
-        const colorLightText = '666666';
-        
-        // Step Colors
-        const colorStep1Bg = 'fff0f5'; const colorStep1Border = 'd81b60';
-        const colorStep2Bg = 'f0f8ff'; const colorStep2Border = '1e88e5';
-        const colorStep3Bg = 'f1f8e9'; const colorStep3Border = '43a047';
-
-        const fontTitle = 'Montserrat';
-        const fontBody = 'Noto Sans JP';
-
-        // Master
-        pres.defineSlideMaster({
-            title: 'MASTER',
-            background: { color: 'FFFFFF' },
-            objects: [
-                { rect: { x: 0, y: 0, w: '100%', h: 0.1, fill: { type: 'linear', color1: colorPrimary, color2: colorAccent, angle: 90 } } },
-            ],
-            slideNumber: { x: 12.8, y: 7.0, color: colorLightText, fontSize: 12, fontFace: fontTitle }
-        });
-
-        pres.defineSlideMaster({
-            title: 'TITLE_MASTER',
-            background: { color: 'FFFFFF' },
-            slideNumber: { x: 12.8, y: 7.0, color: colorLightText, fontSize: 12, fontFace: fontTitle }
-        });
-
-        slidesData.forEach((slideData) => {
-            let slide = pres.addSlide({ masterName: slideData.type === 'title' ? 'TITLE_MASTER' : 'MASTER' });
-
-            if (slideData.type === 'title') {
-                slide.addText(slideData.title, { x: 0.8, y: 2.0, w: '85%', h: 2.5, fontSize: 44, color: colorPrimary, bold: true, fontFace: fontTitle, align: 'left', lineSpacing:48 });
-                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 4.8, w: 0.1, h: 1.5, fill: colorAccent });
-                slide.addText(slideData.sub, { x: 1.0, y: 4.8, w: '80%', h: 1.5, fontSize: 20, color: colorText, align: 'left', fontFace: fontBody, lineSpacing: 32 });
-            } else if (slideData.type === 'concept') {
-                slide.addText(slideData.title, { x: 0.8, y: 0.8, w: '90%', h: 0.8, fontSize: 32, color: colorPrimary, bold: true, fontFace: fontTitle, valign:'bottom' });
-                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 1.65, w: 1.2, h: 0.05, fill: colorAccent });
-                let contentText = slideData.content.map(t => t.replace(/\*\*/g, '')).join('\n\n');
-                slide.addText(contentText, { x: 0.8, y: 2.2, w: '85%', h: 4.5, fontSize: 20, color: colorText, lineSpacing: 36, bullet: { color: colorAccent }, fontFace: fontBody });
-            } else if (slideData.type === 'case') {
-                slide.addText(slideData.title, { x: 0.8, y: 0.6, w: '90%', h: 0.8, fontSize: 30, color: colorPrimary, bold: true, fontFace: fontTitle, valign:'bottom' });
-                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 1.45, w: 1.2, h: 0.05, fill: colorAccent });
-                slide.addText(slideData.subTitle, { x: 0.8, y: 1.6, w: '90%', h: 0.5, fontSize: 16, color: colorLightText, fontFace: fontBody });
-
-                const yPos = 2.5; const boxW = 3.8; const boxH = 4.0; const arrowW = 0.6;
-                // Step 1
-                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: yPos, w: boxW, h: 0.1, fill: colorStep1Border });
-                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep1Bg });
-                slide.addText("STEP-1", { x: 1.0, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
-                slide.addText(slideData.step1.label, { x: 1.0, y: yPos + 0.6, w: boxW-0.4, fontSize: 14, bold: true, color: colorPrimary, fontFace: fontTitle });
-                slide.addText(slideData.step1.text, { x: 1.0, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
-                // Arrow
-                slide.addText("▶", { x: 4.7, y: yPos + 1.8, w: arrowW, fontSize: 24, color: colorAccent, align:'center' });
-                // Step 2
-                slide.addShape(pres.ShapeType.rect, { x: 5.4, y: yPos, w: boxW, h: 0.1, fill: colorStep2Border });
-                slide.addShape(pres.ShapeType.rect, { x: 5.4, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep2Bg });
-                slide.addText("STEP-2", { x: 5.6, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
-                slide.addText(slideData.step2.label, { x: 5.6, y: yPos + 0.6, w: boxW-0.4, fontSize: 14, bold: true, color: colorPrimary, fontFace: fontTitle });
-                slide.addText(slideData.step2.text, { x: 5.6, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
-                // Arrow
-                slide.addText("▶", { x: 9.3, y: yPos + 1.8, w: arrowW, fontSize: 24, color: colorAccent, align:'center' });
-                // Step 3
-                slide.addShape(pres.ShapeType.rect, { x: 10.0, y: yPos, w: boxW, h: 0.1, fill: colorStep3Border });
-                slide.addShape(pres.ShapeType.rect, { x: 10.0, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep3Bg });
-                slide.addText("STEP-3", { x: 10.2, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
-                slide.addText(slideData.step3.label, { x: 10.2, y: yPos + 0.6, w: boxW-0.4, fontSize: 14, bold: true, color: colorPrimary, fontFace: fontTitle });
-                slide.addText(slideData.step3.text, { x: 10.2, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
-            }
-        });
-
-        pres.writeFile({ fileName: 'Salon_AI_Training.pptx' });
-    }
-
-    renderPreview();
-</script>
-</body>
-</html>
+        // エステ向けカラー定義
+        const colorPrimary = '5d5c61'; // ダークグレー
+        const colorAccent = 'd4af37';  // ゴールド
+        const colorText
