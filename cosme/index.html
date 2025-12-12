@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>化粧品メーカー生成AI活用スライド (Pro Design)</title>
+    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 化粧品業界向けに少しエレガントさを意識したカラーパレット */
+            --primary-color: #1a237e; /* ディープネイビー（信頼） */
+            --accent-color: #c5a572;  /* シャンパンゴールド（高級感） */
+            --text-color: #333333;
+            --light-text: #666666;
+            --bg-color: #f0f2f5;
+            --slide-bg: #ffffff;
+            
+            /* Step Colors */
+            --step1-bg: #f8f9fa; --step1-border: #5c6bc0;
+            --step2-bg: #fdfbf7; --step2-border: #8d6e63; /* AI思考プロセスは少し温かみのある色へ */
+            --step3-bg: #f1f8e9; --step3-border: #66bb6a;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 40px 20px;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1.page-title {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .controls {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            display: inline-block;
+        }
+
+        button.download-btn {
+            background: linear-gradient(135deg, var(--primary-color), #283593);
+            color: white;
+            border: none;
+            padding: 16px 36px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 4px 10px rgba(26, 35, 126, 0.3);
+        }
+
+        button.download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(26, 35, 126, 0.4);
+        }
+
+        .slide-preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .slide {
+            width: 960px; /* 16:9 */
+            height: 540px;
+            background: var(--slide-bg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            padding: 50px;
+            box-sizing: border-box;
+            text-align: left;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        /* アクセントライン */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color) 60%, var(--accent-color) 100%);
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 15px;
+            right: 25px;
+            color: var(--light-text);
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .slide-title {
+            font-size: 32px;
+            color: var(--primary-color);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        .slide-sub-title {
+            font-size: 18px;
+            color: var(--light-text);
+            font-weight: 500;
+            margin-top: -15px;
+            margin-bottom: 25px;
+        }
+
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            height: 300px;
+            margin-top: 10px;
+            gap: 15px;
+        }
+
+        .step-box {
+            flex: 1;
+            border-radius: 8px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            font-size: 14px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            background-color: white;
+        }
+
+        .step-box h3 {
+            margin-top: 5px;
+            font-size: 16px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 8px;
+        }
+
+        .step-1 { background-color: var(--step1-bg); border-top: 4px solid var(--step1-border); }
+        .step-2 { background-color: var(--step2-bg); border-top: 4px solid var(--step2-border); }
+        .step-3 { background-color: var(--step3-bg); border-top: 4px solid var(--step3-border); }
+
+        .arrow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+        }
+        
+        .arrow {
+            font-size: 20px;
+            color: var(--accent-color);
+        }
+
+        .step-content {
+            flex-grow: 1;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+        
+        .step-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 4px;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        /* Title Slide specific */
+        .title-slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            padding-left: 20px;
+        }
+        .slide.title-type::before { background: none; }
+        .main-title { 
+            font-size: 46px; 
+            color: var(--primary-color); 
+            margin-bottom: 25px; 
+            font-weight: 800; 
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.2;
+        }
+        .sub-title { 
+            font-size: 22px; 
+            color: var(--text-color); 
+            line-height: 1.6;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 25px;
+        }
+
+        /* List styles */
+        .bullet-list { padding-left: 30px; margin-top: 20px; }
+        .bullet-list li { 
+            margin-bottom: 18px; 
+            font-size: 20px; 
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+        .bullet-list li strong { color: var(--primary-color); }
+        .bullet-list li::marker { color: var(--accent-color); }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="page-title">化粧品メーカー事例スライド生成 (Pro Design)</h1>
+    <div class="controls">
+        <p>以下のボタンで、PowerPoint (.pptx) をダウンロードできます。</p>
+        <button class="download-btn" onclick="generatePPTX()">
+            📥 PowerPoint (.pptx) をダウンロード
+        </button>
+    </div>
+
+    <div class="slide-preview-container" id="previewArea"></div>
+</div>
+
+<script>
+    // --- スライドデータ定義（化粧品メーカー事例） ---
+    const slidesData = [
+        {
+            type: "title",
+            title: "化粧品メーカーにおける\n生成AI活用と業務変革",
+            sub: "「薬機法」と「クリエイティブ」を両立させ、\n企画から店頭までを一気通貫で加速する"
+        },
+        {
+            type: "concept",
+            title: "AI活用における3つのボトルネック解消",
+            content: [
+                "**1. 薬事・法務の壁:** 厳格な規制と、魅力的な表現の板挟みを解消。\nAIが「言える範囲の最大限」を提案。",
+                "**2. トレンド分析の壁:** 移り変わりの早い美容トレンドを捕捉。\nホワイトスペース（未開拓領域）をデータで発見。",
+                "**3. 専門知識の壁:** R&Dや規制情報の属人化を打破。\nNotebookLM等で技術情報を社内ナレッジ化。",
+            ]
+        },
+        {
+            type: "case",
+            title: "【ボトルネック解消】薬機法 vs マーケティング",
+            subTitle: "法務チェックの差し戻しを減らし、クリエイティブを止めない",
+            step1: { label: "Input (課題)", text: "マーケ担当「効果を強く言いたい」\n法務担当「薬機法違反になる」\n\n結果：修正の往復でローンチが遅れる。" },
+            step2: { label: "Process (AI: Claude/ChatGPT)", text: "指示：「化粧品で言える効能範囲内で、ターゲット（30代乾燥肌）に刺さる魅力的な言い換え表現を10個提案して」\n\n機能：ペルソナ（法務基準）の設定" },
+            step3: { label: "Output (解決)", text: "法務チェックを通過しやすい「言い換えの引き出し」を即座に獲得。\n\n効果：表現調整コストの大幅削減と、迅速な広告展開。" }
+        },
+        {
+            type: "case",
+            title: "【商品企画・R&D】トレンド分析と研究の加速",
+            subTitle: "感覚に頼らない「売れる」企画と、研究データの高速処理",
+            step1: { label: "Input (データ)", text: "・Perplexityで市場の「隙間」を検索\n・NotebookLMに数百の論文・特許文書を投入" },
+            step2: { label: "Process (AI: Perplexity/NotebookLM)", text: "分析：「競合がいないホワイトスペースはどこか？」\n抽出：「この成分の配合禁忌と特許リスクを要約して」" },
+            step3: { label: "Output (成果)", text: "根拠ある企画書の作成と、規格値設定（安定性予測）の迅速化。\n\n効果：リサーチ時間80%削減、研究者の時間を実験に集中。" }
+        },
+        {
+            type: "case",
+            title: "【薬事・品質保証】複雑な規制対応の自動化",
+            subTitle: "海外展開（NMPA/CPNP）や届出業務のミスゼロへ",
+            step1: { label: "Input (規制情報)", text: "・全成分表示リスト\n・各国の最新規制データ（NMPA等）" },
+            step2: { label: "Process (AI: Claude/Perplexity)", text: "作成：「GQP手順書に基づき、変更届のドラフトを作成して」\n調査：「中国の最新規制で禁止された成分が含まれていないかチェック」" },
+            step3: { label: "Output (品質)", text: "正確な法的文書のドラフト完成と、コンプライアンスリスクの検知。\n\n効果：申請業務の工数削減と、法規制調査の漏れ防止。" }
+        },
+        {
+            type: "case",
+            title: "【営業・販促】POSデータ分析と棚割り提案",
+            subTitle: "データに基づいた「売れる売り場」を小売店へ提案",
+            step1: { label: "Input (POSデータ)", text: "・店舗ごとの売上推移データ\n・競合商品の配荷状況" },
+            step2: { label: "Process (AI: Gemini/ChatGPT)", text: "分析：「在庫回転率が悪い要因と、是正するための棚割り（プラノグラム）案を作成して」\n\nツール：Excel/Slides統合機能" },
+            step3: { label: "Output (商談)", text: "店舗ごとのカスタム提案資料を自動生成。\n\n効果：商談準備時間の大幅短縮と、配荷率の向上。" }
+        },
+        {
+            type: "case",
+            title: "【ナレッジ・教育】埋もれた技術を資産化",
+            subTitle: "新人教育と現場記録（ラウンダー業務）の効率化",
+            step1: { label: "Input (音声・文書)", text: "・ラウンダーの店頭ヒアリング音声\n・膨大な技術マニュアル" },
+            step2: { label: "Process (AI: Whisper/NotebookLM)", text: "文字起こし：Whisperで会議・商談をテキスト化\n学習：「この技術仕様書の内容を、新人が理解できるよう音声解説（ポッドキャスト）にして」" },
+            step3: { label: "Output (共有)", text: "議事録作成ゼロ化と、わかりやすい教育コンテンツの生成。\n\n効果：情報の透明化と学習コストの削減。" }
+        },
+        {
+            type: "concept",
+            title: "まとめ：AIは「専門性」を民主化する",
+            content: [
+                "**Input (専門知識):** 研究データ、法規制、POSデータは人間が管理。",
+                "**Process (AI):** 複雑な分析、要約、ドラフト作成、言い換えを担当。",
+                "**Output (価値):** 人間は「意思決定」と「お客様への情緒的価値」に集中。",
+                "Next Step: まずは「薬機法チェック」と「議事録」からスモールスタートを。"
+            ]
+        }
+    ];
+
+    // --- HTMLプレビュー描画 ---
+    function renderPreview() {
+        const container = document.getElementById('previewArea');
+        container.innerHTML = "";
+        
+        slidesData.forEach((slide, index) => {
+            const slideDiv = document.createElement('div');
+            slideDiv.className = 'slide';
+            if (slide.type === 'title') slideDiv.classList.add('title-type');
+            
+            slideDiv.innerHTML += `<div class="slide-number">${index + 1}</div>`;
+
+            if (slide.type === 'title') {
+                slideDiv.innerHTML += `
+                    <div class="title-slide-content">
+                        <div class="main-title">${slide.title.replace(/\n/g, '<br>')}</div>
+                        <div class="sub-title">${slide.sub.replace(/\n/g, '<br>')}</div>
+                    </div>`;
+            } else if (slide.type === 'concept') {
+                slideDiv.innerHTML += `<div class="slide-title">${slide.title}</div>`;
+                let ul = `<ul class="bullet-list">`;
+                slide.content.forEach(item => {
+                    // Bold処理 (**text**)
+                    const formatted = item.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    ul += `<li>${formatted.replace(/\n/g, '<br>')}</li>`;
+                });
+                ul += `</ul>`;
+                slideDiv.innerHTML += ul;
+            } else if (slide.type === 'case') {
+                slideDiv.innerHTML += `<div class="slide-title">${slide.title}</div>`;
+                slideDiv.innerHTML += `<div class="slide-sub-title">${slide.subTitle}</div>`;
+                slideDiv.innerHTML += `
+                    <div class="process-flow">
+                        <div class="step-box step-1">
+                            <div class="step-label">Step-1</div>
+                            <h3>${slide.step1.label}</h3>
+                            <div class="step-content">${slide.step1.text.replace(/\n/g, '<br>')}</div>
+                        </div>
+                        <div class="arrow-container"><div class="arrow">▶</div></div>
+                        <div class="step-box step-2">
+                            <div class="step-label">Step-2</div>
+                            <h3>${slide.step2.label}</h3>
+                            <div class="step-content">${slide.step2.text.replace(/\n/g, '<br>')}</div>
+                        </div>
+                        <div class="arrow-container"><div class="arrow">▶</div></div>
+                        <div class="step-box step-3">
+                            <div class="step-label">Step-3</div>
+                            <h3>${slide.step3.label}</h3>
+                            <div class="step-content">${slide.step3.text.replace(/\n/g, '<br>')}</div>
+                        </div>
+                    </div>`;
+            }
+            container.appendChild(slideDiv);
+        });
+    }
+
+    // --- PPTX生成処理 ---
+    function generatePPTX() {
+        let pres = new PptxGenJS();
+        pres.layout = 'LAYOUT_16x9';
+
+        // Colors & Fonts
+        const colorPrimary = '1A237E'; 
+        const colorAccent = 'C5A572';
+        const colorText = '333333';
+        const colorLightText = '666666';
+        
+        // Step Box Colors
+        const colorStep1Bg = 'F8F9FA'; const colorStep1Border = '5C6BC0';
+        const colorStep2Bg = 'FDFBF7'; const colorStep2Border = '8D6E63';
+        const colorStep3Bg = 'F1F8E9'; const colorStep3Border = '66BB6A';
+
+        const fontTitle = 'Montserrat';
+        const fontBody = 'Noto Sans JP';
+
+        // Master Slide
+        pres.defineSlideMaster({
+            title: 'MASTER_SLIDE',
+            background: { color: 'FFFFFF' },
+            objects: [
+                { rect: { x: 0, y: 0, w: '100%', h: 0.1, fill: { type: 'linear', color1: colorPrimary, color2: colorAccent, angle: 90 } } },
+            ],
+            slideNumber: { x: 12.8, y: 7.0, color: colorLightText, fontSize: 12, fontFace: fontTitle }
+        });
+
+        pres.defineSlideMaster({
+            title: 'TITLE_SLIDE_MASTER',
+            background: { color: 'FFFFFF' },
+            slideNumber: { x: 12.8, y: 7.0, color: colorLightText, fontSize: 12, fontFace: fontTitle }
+        });
+
+        slidesData.forEach((slideData) => {
+            let slide = pres.addSlide({ masterName: slideData.type === 'title' ? 'TITLE_SLIDE_MASTER' : 'MASTER_SLIDE' });
+
+            if (slideData.type === 'title') {
+                slide.addText(slideData.title, { 
+                    x: 0.8, y: 2.0, w: '85%', h: 2.5, 
+                    fontSize: 44, color: colorPrimary, bold: true, fontFace: fontTitle, align: 'left', lineSpacing:48
+                });
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 4.8, w: 0.1, h: 1.5, fill: colorAccent });
+                slide.addText(slideData.sub, { 
+                    x: 1.0, y: 4.8, w: '80%', h: 1.5, 
+                    fontSize: 20, color: colorText, align: 'left', fontFace: fontBody, lineSpacing: 32
+                });
+
+            } else if (slideData.type === 'concept') {
+                slide.addText(slideData.title, { 
+                    x: 0.8, y: 0.8, w: '90%', h: 0.8, 
+                    fontSize: 32, color: colorPrimary, bold: true, fontFace: fontTitle, valign:'bottom'
+                });
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 1.65, w: 1.2, h: 0.05, fill: colorAccent });
+
+                let contentText = slideData.content.map(t => t.replace(/\*\*/g, '')).join('\n\n');
+                slide.addText(contentText, {
+                    x: 0.8, y: 2.2, w: '85%', h: 4.5,
+                    fontSize: 20, color: colorText, lineSpacing: 36, bullet: { color: colorAccent }, fontFace: fontBody
+                });
+
+            } else if (slideData.type === 'case') {
+                // Title
+                slide.addText(slideData.title, { 
+                    x: 0.8, y: 0.6, w: '90%', h: 0.8, 
+                    fontSize: 32, color: colorPrimary, bold: true, fontFace: fontTitle, valign:'bottom'
+                });
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 1.45, w: 1.2, h: 0.05, fill: colorAccent });
+                // Subtitle
+                slide.addText(slideData.subTitle, {
+                    x: 0.8, y: 1.6, w: '90%', h: 0.5,
+                    fontSize: 18, color: colorLightText, fontFace: fontBody
+                });
+
+                const yPos = 2.5;
+                const boxW = 3.8;
+                const boxH = 4.0;
+                const arrowW = 0.6;
+                
+                // Step 1
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: yPos, w: boxW, h: 0.1, fill: colorStep1Border });
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep1Bg });
+                slide.addText("STEP-1", { x: 1.0, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
+                slide.addText(slideData.step1.label, { x: 1.0, y: yPos + 0.6, w: boxW-0.4, fontSize: 14, bold: true, color: colorPrimary, fontFace: fontTitle });
+                slide.addText(slideData.step1.text, { x: 1.0, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
+
+                // Arrow
+                slide.addText("▶", { x: 4.7, y: yPos + 1.8, w: arrowW, fontSize: 24, color: colorAccent, align:'center' });
+
+                // Step 2
+                slide.addShape(pres.ShapeType.rect, { x: 5.4, y: yPos, w: boxW, h: 0.1, fill: colorStep2Border });
+                slide.addShape(pres.ShapeType.rect, { x: 5.4, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep2Bg });
+                slide.addText("STEP-2", { x: 5.6, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
+                slide.addText(slideData.step2.label, { x: 5.6, y: yPos + 0.6, w: boxW-0.4, fontSize: 14, bold: true, color: colorPrimary, fontFace: fontTitle });
+                slide.addText(slideData.step2.text, { x: 5.6, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
+
+                // Arrow
+                slide.addText("▶", { x: 9.3, y: yPos + 1.8, w: arrowW, fontSize: 24, color: colorAccent, align:'center' });
+
+                // Step 3
+                slide.addShape(pres.ShapeType.rect, { x: 10.0, y: yPos, w: boxW, h: 0.1, fill: colorStep3Border });
+                slide.addShape(pres.ShapeType.rect, { x: 10.0, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep3Bg });
+                slide.addText("STEP-3", { x: 10.2, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
+                slide.addText(slideData.step3.label, { x: 10.2, y: yPos + 0.6, w: boxW-0.4, fontSize: 14, bold: true, color: colorPrimary, fontFace: fontTitle });
+                slide.addText(slideData.step3.text, { x: 10.2, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
+            }
+        });
+
+        pres.writeFile({ fileName: 'Cosmetics_AI_Case_Study.pptx' });
+    }
+
+    renderPreview();
+</script>
+</body>
+</html>
