@@ -256,7 +256,12 @@
             📥 PowerPoint (.pptx) をダウンロード
         </button>
     </div>
-
+            <div class="controls">
+        <p>以下のボタンで、サマリーDocsをダウンロードできます。</p>
+<a href="https://docs.google.com/document/d/168ycwZWeut4_xPLQ6uIE_om1iQ11S684E5gFuRDEl1g/edit?usp=sharing">
+    医療機器メーカーにおける生成AI活用と効率改善度合
+</a>
+    </div>
     <div class="slide-preview-container" id="previewArea"></div>
 </div>
 
@@ -425,7 +430,7 @@
             } else if (slideData.type === 'concept') {
                 slide.addText(slideData.title, { x: 0.8, y: 0.8, w: '90%', h: 0.8, fontSize: 32, color: colorPrimary, bold: true, fontFace: fontTitle, valign:'bottom' });
                 slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 1.65, w: 1.2, h: 0.05, fill: colorAccent });
-                let contentText = slideData.content.map(t => t.replace(/\*\*/g, '').replace(/\/g, '')).join('\n\n');
+                let contentText = slideData.content.map(t => t.replace(/\*\*/g, '')).join('\n\n');
                 slide.addText(contentText, { x: 0.8, y: 2.2, w: '85%', h: 4.5, fontSize: 20, color: colorText, lineSpacing: 36, bullet: { color: colorAccent }, fontFace: fontBody });
             } else if (slideData.type === 'case') {
                 slide.addText(slideData.title, { x: 0.8, y: 0.6, w: '90%', h: 0.8, fontSize: 30, color: colorPrimary, bold: true, fontFace: fontTitle, valign:'bottom' });
@@ -434,15 +439,12 @@
 
                 const yPos = 2.5; const boxW = 3.8; const boxH = 4.0; const arrowW = 0.6;
                 
-                // Helper to strip citations for PPTX display
-                const stripCite = (txt) => txt.replace(/\/g, '');
-
                 // Step 1
                 slide.addShape(pres.ShapeType.rect, { x: 0.8, y: yPos, w: boxW, h: 0.1, fill: colorStep1Border });
                 slide.addShape(pres.ShapeType.rect, { x: 0.8, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep1Bg });
                 slide.addText("STEP-1", { x: 1.0, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
                 slide.addText(slideData.step1.label, { x: 1.0, y: yPos + 0.6, w: boxW-0.4, fontSize: 14, bold: true, color: colorPrimary, fontFace: fontTitle });
-                slide.addText(stripCite(slideData.step1.text), { x: 1.0, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
+                slide.addText(slideData.step1.text, { x: 1.0, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
                 // Arrow
                 slide.addText("▶", { x: 4.7, y: yPos + 1.8, w: arrowW, fontSize: 24, color: colorAccent, align:'center' });
                 // Step 2
@@ -450,7 +452,7 @@
                 slide.addShape(pres.ShapeType.rect, { x: 5.4, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep2Bg });
                 slide.addText("STEP-2", { x: 5.6, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
                 slide.addText(slideData.step2.label, { x: 5.6, y: yPos + 0.6, w: boxW-0.4, fontSize: 14, bold: true, color: colorPrimary, fontFace: fontTitle });
-                slide.addText(stripCite(slideData.step2.text), { x: 5.6, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
+                slide.addText(slideData.step2.text, { x: 5.6, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
                 // Arrow
                 slide.addText("▶", { x: 9.3, y: yPos + 1.8, w: arrowW, fontSize: 24, color: colorAccent, align:'center' });
                 // Step 3
@@ -458,7 +460,7 @@
                 slide.addShape(pres.ShapeType.rect, { x: 10.0, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep3Bg });
                 slide.addText("STEP-3", { x: 10.2, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
                 slide.addText(slideData.step3.label, { x: 10.2, y: yPos + 0.6, w: boxW-0.4, fontSize: 14, bold: true, color: colorPrimary, fontFace: fontTitle });
-                slide.addText(stripCite(slideData.step3.text), { x: 10.2, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
+                slide.addText(slideData.step3.text, { x: 10.2, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
             }
         });
 
