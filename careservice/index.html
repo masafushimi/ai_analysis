@@ -3,101 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生成AI活用研修スライド生成</title>
+    <title>生成AI活用研修スライド生成 (Pro Design)</title>
     <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0056b3; /* 濃い青 */
-            --accent-color: #2e7d32;  /* 緑（成功・解決） */
-            --bg-color: #f4f6f8;
+            --primary-color: #1a237e; /* ディープネイビー */
+            --accent-color: #c5a572;  /* マットゴールド */
+            --text-color: #333333;
+            --light-text: #757575;
+            --bg-color: #e8eaf6;
             --slide-bg: #ffffff;
-            --step1-bg: #e3f2fd; /* Input: 薄い青 */
-            --step2-bg: #f3e5f5; /* Process: 薄い紫（AI） */
-            --step3-bg: #e8f5e9; /* Output: 薄い緑（解決） */
+            /* Step Colors (より落ち着いたトーン) */
+            --step1-bg: #f5f7fa; 
+            --step1-border: #c5cae9;
+            --step2-bg: #fafafa;
+            --step2-border: #e0e0e0;
+            --step3-bg: #f1f8e9;
+            --step3-border: #c8e6c9;
         }
 
         body {
-            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            font-family: 'Noto Sans JP', sans-serif;
             background-color: var(--bg-color);
             margin: 0;
-            padding: 20px;
-            color: #333;
+            padding: 40px 20px;
+            color: var(--text-color);
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             text-align: center;
         }
 
-        h1 {
-            color: #333;
-            margin-bottom: 10px;
+        h1.page-title {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.05em;
         }
 
         .controls {
-            margin-bottom: 30px;
-            padding: 20px;
+            margin-bottom: 40px;
+            padding: 25px;
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            display: inline-block;
         }
 
         button.download-btn {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), #283593);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 16px 36px;
             font-size: 18px;
-            font-weight: bold;
-            border-radius: 5px;
+            font-weight: 700;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 4px 10px rgba(26, 35, 126, 0.3);
         }
 
         button.download-btn:hover {
-            background-color: #003d82;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(26, 35, 126, 0.4);
         }
 
         /* スライドプレビューのスタイル */
         .slide-preview-container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 30px;
             align-items: center;
         }
 
         .slide {
-            width: 800px; /* 16:9比率のベース */
-            height: 450px;
+            width: 960px; /* 16:9比率 */
+            height: 540px;
             background: var(--slide-bg);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             position: relative;
-            padding: 40px;
+            padding: 50px;
             box-sizing: border-box;
             text-align: left;
             overflow: hidden;
-            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* スライドの装飾線 */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color) 70%, var(--accent-color) 100%);
         }
 
         .slide-number {
             position: absolute;
-            bottom: 10px;
-            right: 20px;
-            color: #999;
-            font-size: 12px;
+            bottom: 15px;
+            right: 25px;
+            color: var(--light-text);
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .slide-title {
-            font-size: 28px;
+            font-size: 32px;
             color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        .slide-sub-title {
+            font-size: 20px;
+            color: var(--light-text);
+            font-weight: 500;
+            margin-top: -20px;
+            margin-bottom: 30px;
         }
 
         /* 3ステップレイアウト */
@@ -105,77 +152,120 @@
             display: flex;
             justify-content: space-between;
             align-items: stretch;
-            height: 280px;
-            margin-top: 10px;
+            height: 300px;
+            margin-top: 20px;
+            gap: 20px;
         }
 
         .step-box {
             flex: 1;
-            border-radius: 8px;
-            padding: 15px;
+            border-radius: 10px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            font-size: 14px;
+            font-size: 15px;
             position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .step-box:hover {
+            transform: translateY(-3px);
         }
 
         .step-box h3 {
-            margin-top: 0;
-            font-size: 16px;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding-bottom: 8px;
-            margin-bottom: 10px;
+            margin-top: 5px;
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
         }
 
-        .step-1 { background-color: var(--step1-bg); border: 1px solid #90caf9; }
-        .step-2 { background-color: var(--step2-bg); border: 1px solid #ce93d8; }
-        .step-3 { background-color: var(--step3-bg); border: 1px solid #a5d6a7; }
+        .step-1 { background-color: var(--step1-bg); border-top: 4px solid #5c6bc0; }
+        .step-2 { background-color: var(--step2-bg); border-top: 4px solid #bdbdbd; }
+        .step-3 { background-color: var(--step3-bg); border-top: 4px solid #66bb6a; }
 
-        .arrow {
+        .arrow-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            color: #999;
-            font-size: 30px;
+            width: 30px;
+        }
+        
+        .arrow {
+            font-size: 24px;
+            color: var(--accent-color);
             font-weight: bold;
         }
 
         .step-content {
             flex-grow: 1;
+            line-height: 1.6;
         }
         
         .step-label {
-            font-size: 10px;
+            font-size: 12px;
             text-transform: uppercase;
-            color: #666;
+            color: var(--light-text);
             margin-bottom: 5px;
-            font-weight: bold;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.05em;
         }
 
         /* タイトルスライド用 */
-        .title-slide {
+        .title-slide-content {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
+            align-items: flex-start;
+            text-align: left;
             height: 100%;
+            padding-left: 20px;
         }
-        .main-title { font-size: 42px; color: var(--primary-color); margin-bottom: 20px; font-weight: bold; }
-        .sub-title { font-size: 24px; color: #555; }
+        
+        .slide.title-type::before {
+             background: none; /* タイトルスライドは上部の線を消す */
+        }
+
+        .main-title { 
+            font-size: 48px; 
+            color: var(--primary-color); 
+            margin-bottom: 25px; 
+            font-weight: 800; 
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.2;
+        }
+        .sub-title { 
+            font-size: 24px; 
+            color: var(--text-color); 
+            line-height: 1.5;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 20px;
+        }
 
         /* 通常リスト用 */
-        .bullet-list li { margin-bottom: 10px; font-size: 18px; }
+        .bullet-list {
+            padding-left: 30px;
+        }
+        .bullet-list li { 
+            margin-bottom: 15px; 
+            font-size: 20px; 
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+        .bullet-list li::marker {
+            color: var(--accent-color);
+        }
 
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>研修スライド プレビュー</h1>
+    <h1 class="page-title">研修スライド プレビュー (Pro Design)</h1>
     <div class="controls">
-        <p>以下のボタンを押すと、このデザイン内容でPowerPointファイル(.pptx)がダウンロードされます。</p>
+        <p style="margin-bottom: 20px; color: var(--light-text);">以下のボタンを押すと、このプロフェッショナルデザインでPowerPointファイル(.pptx)がダウンロードされます。</p>
         <button class="download-btn" onclick="generatePPTX()">
             📥 PowerPoint (.pptx) をダウンロード
         </button>
@@ -186,11 +276,11 @@
 </div>
 
 <script>
-    // --- スライドデータ定義 ---
+    // --- スライドデータ定義（変更なし） ---
     const slidesData = [
         {
             type: "title",
-            title: "生成AI活用研修：ケアの質を変える「3つのステップ」",
+            title: "生成AI活用研修：\nケアの質を変える「3つのステップ」",
             sub: "記録業務の負担を減らし、利用者との「対話」を最大化する実践アプローチ\n\n[発表者名/組織名]"
         },
         {
@@ -199,9 +289,9 @@
             content: [
                 "今の課題：記録に追われ、過去の情報を活かしきれていない。",
                 "【AI活用の新サイクル】",
-                "● Step-1 Input (人間)：見たこと、聞いたことを入れる",
-                "● Step-2 Process (AI)：要約・分析・アイデア出し",
-                "● Step-3 Output (人間)：整理された情報で温かいケア",
+                "Step-1 Input (人間)：見たこと、聞いたことを入れる",
+                "Step-2 Process (AI)：要約・分析・アイデア出し",
+                "Step-3 Output (人間)：整理された情報で温かいケア",
                 "結論：事務作業はAIに、心の通うケアは人間に。"
             ]
         },
@@ -265,14 +355,15 @@
         slidesData.forEach((slide, index) => {
             const slideDiv = document.createElement('div');
             slideDiv.className = 'slide';
+            if (slide.type === 'title') slideDiv.classList.add('title-type');
             
             // Slide Number
             slideDiv.innerHTML += `<div class="slide-number">${index + 1}</div>`;
 
             if (slide.type === 'title') {
                 slideDiv.innerHTML += `
-                    <div class="title-slide">
-                        <div class="main-title">${slide.title}</div>
+                    <div class="title-slide-content">
+                        <div class="main-title">${slide.title.replace(/\n/g, '<br>')}</div>
                         <div class="sub-title">${slide.sub.replace(/\n/g, '<br>')}</div>
                     </div>
                 `;
@@ -286,7 +377,7 @@
                 slideDiv.innerHTML += ul;
             } else if (slide.type === 'case') {
                 slideDiv.innerHTML += `<div class="slide-title">${slide.title}</div>`;
-                slideDiv.innerHTML += `<div style="font-weight:bold; margin-bottom:10px; color:#555;">${slide.subTitle}</div>`;
+                slideDiv.innerHTML += `<div class="slide-sub-title">${slide.subTitle}</div>`;
                 slideDiv.innerHTML += `
                     <div class="process-flow">
                         <div class="step-box step-1">
@@ -294,13 +385,13 @@
                             <h3>${slide.step1.label}</h3>
                             <div class="step-content">${slide.step1.text.replace(/\n/g, '<br>')}</div>
                         </div>
-                        <div class="arrow">➡</div>
+                        <div class="arrow-container"><div class="arrow">▶</div></div>
                         <div class="step-box step-2">
                             <div class="step-label">Step-2</div>
                             <h3>${slide.step2.label}</h3>
                             <div class="step-content">${slide.step2.text.replace(/\n/g, '<br>')}</div>
                         </div>
-                        <div class="arrow">➡</div>
+                        <div class="arrow-container"><div class="arrow">▶</div></div>
                         <div class="step-box step-3">
                             <div class="step-label">Step-3</div>
                             <h3>${slide.step3.label}</h3>
@@ -313,98 +404,146 @@
         });
     }
 
-    // --- PowerPoint生成処理 (PptxGenJS) ---
+    // --- PowerPoint生成処理 (PptxGenJS) - Pro Design ---
     function generatePPTX() {
         let pres = new PptxGenJS();
         
         // レイアウト設定 (16:9)
         pres.layout = 'LAYOUT_16x9';
 
-        // 共通色定義
-        const colorBlue = '0056b3';
-        const colorBgInput = 'e3f2fd';
-        const colorBgProcess = 'f3e5f5';
-        const colorBgOutput = 'e8f5e9';
+        // --- プロフェッショナルカラー定義 ---
+        const colorPrimary = '1A237E'; // ディープネイビー
+        const colorAccent = 'C5A572';  // マットゴールド
+        const colorText = '333333';
+        const colorLightText = '757575';
+        
+        // Step Box Colors
+        const colorStep1Bg = 'F5F7FA'; const colorStep1Border = '5C6BC0';
+        const colorStep2Bg = 'FAFAFA'; const colorStep2Border = 'BDBDBD';
+        const colorStep3Bg = 'F1F8E9'; const colorStep3Border = '66BB6A';
+
+        // フォント設定
+        const fontTitle = 'Montserrat';
+        const fontBody = 'Noto Sans JP';
+
+        // マスターページ定義（スライド共通のデザイン）
+        pres.defineSlideMaster({
+            title: 'MASTER_SLIDE',
+            background: { color: 'FFFFFF' },
+            objects: [
+                // 上部のアクセントライン（タイトルスライド以外）
+                { rect: { x: 0, y: 0, w: '100%', h: 0.1, fill: { type: 'linear', color1: colorPrimary, color2: colorAccent, angle: 90 } } },
+            ],
+            slideNumber: { x: 12.8, y: 7.0, color: colorLightText, fontSize: 12, fontFace: fontTitle }
+        });
+
+        pres.defineSlideMaster({
+            title: 'TITLE_SLIDE_MASTER',
+            background: { color: 'FFFFFF' },
+            // タイトルスライドは上部の線をなしにする
+            slideNumber: { x: 12.8, y: 7.0, color: colorLightText, fontSize: 12, fontFace: fontTitle }
+        });
+
 
         slidesData.forEach((slideData) => {
-            let slide = pres.addSlide();
+            let slide;
+            if (slideData.type === 'title') {
+                 slide = pres.addSlide({ masterName: 'TITLE_SLIDE_MASTER' });
+            } else {
+                 slide = pres.addSlide({ masterName: 'MASTER_SLIDE' });
+            }
 
             if (slideData.type === 'title') {
-                // タイトルスライド
+                // --- タイトルスライド ---
                 slide.addText(slideData.title, { 
-                    x: 0.5, y: 2.0, w: '90%', h: 1.5, 
-                    fontSize: 36, color: colorBlue, bold: true, align: 'center' 
+                    x: 0.8, y: 2.5, w: '85%', h: 2, 
+                    fontSize: 44, color: colorPrimary, bold: true, fontFace: fontTitle, align: 'left' 
                 });
+                // アクセントバー
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 4.8, w: 0.1, h: 1.5, fill: colorAccent });
                 slide.addText(slideData.sub, { 
-                    x: 1.0, y: 3.5, w: '80%', h: 1.5, 
-                    fontSize: 18, color: '666666', align: 'center' 
+                    x: 1.0, y: 4.8, w: '80%', h: 1.5, 
+                    fontSize: 20, color: colorText, align: 'left', fontFace: fontBody, lineSpacing: 32
                 });
 
             } else if (slideData.type === 'concept') {
-                // コンセプト/まとめスライド
+                // --- コンセプト/まとめスライド ---
+                // タイトルと下線
                 slide.addText(slideData.title, { 
-                    x: 0.5, y: 0.5, w: '90%', h: 0.5, 
-                    fontSize: 24, color: colorBlue, bold: true,
-                    border: { pt: 0, pb: '2pt', color: colorBlue } 
+                    x: 0.8, y: 0.8, w: '90%', h: 0.8, 
+                    fontSize: 32, color: colorPrimary, bold: true, fontFace: fontTitle, valign:'bottom'
                 });
-                
-                let contentText = slideData.content.join('\n\n');
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 1.65, w: 1.2, h: 0.05, fill: colorAccent });
+
+                let contentText = slideData.content.join('\n');
                 slide.addText(contentText, {
-                    x: 0.8, y: 1.5, w: '85%', h: 4.5,
-                    fontSize: 18, color: '333333', lineSpacing: 30, bullet: true
+                    x: 0.8, y: 2.2, w: '85%', h: 4.5,
+                    fontSize: 20, color: colorText, lineSpacing: 36, bullet: { color: colorAccent }, fontFace: fontBody
                 });
 
             } else if (slideData.type === 'case') {
-                // 事例スライド (3カラムレイアウト)
+                // --- 事例スライド (3カラム) ---
                 
-                // タイトル
+                // タイトルと下線
                 slide.addText(slideData.title, { 
-                    x: 0.5, y: 0.3, w: '90%', h: 0.5, 
-                    fontSize: 24, color: colorBlue, bold: true
+                    x: 0.8, y: 0.6, w: '90%', h: 0.8, 
+                    fontSize: 32, color: colorPrimary, bold: true, fontFace: fontTitle, valign:'bottom'
                 });
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 1.45, w: 1.2, h: 0.05, fill: colorAccent });
+
                 // サブタイトル
                 slide.addText(slideData.subTitle, {
-                    x: 0.5, y: 0.9, w: '90%', h: 0.4,
-                    fontSize: 16, color: '555555', bold: true
+                    x: 0.8, y: 1.6, w: '90%', h: 0.5,
+                    fontSize: 18, color: colorLightText, fontFace: fontBody
                 });
 
-                // ボックスの配置座標
-                const yPos = 1.6;
-                const boxW = 2.8;
-                const boxH = 3.5;
-                const gap = 0.3;
+                // ボックス配置
+                const yPos = 2.5;
+                const boxW = 3.8;
+                const boxH = 4.0;
+                const arrowW = 0.6;
                 
-                // Step 1 Box
-                slide.addShape(pres.ShapeType.rect, { x: 0.5, y: yPos, w: boxW, h: boxH, fill: colorBgInput, line: '90caf9' });
-                slide.addText("Step-1: " + slideData.step1.label, { x: 0.6, y: yPos + 0.1, w: boxW-0.2, fontSize: 12, bold: true, color: '003366' });
-                slide.addText(slideData.step1.text, { x: 0.6, y: yPos + 0.5, w: boxW-0.2, h: boxH-0.6, fontSize: 11, color: '333333', valign: 'top' });
+                // --- Step 1 ---
+                // 上部のカラーバー
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: yPos, w: boxW, h: 0.1, fill: colorStep1Border });
+                // 背景ボックス
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep1Bg });
+                
+                slide.addText("STEP-1", { x: 1.0, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
+                slide.addText(slideData.step1.label, { x: 1.0, y: yPos + 0.6, w: boxW-0.4, fontSize: 16, bold: true, color: colorPrimary, fontFace: fontTitle });
+                slide.addText(slideData.step1.text, { x: 1.0, y: yPos + 1.2, w: boxW-0.4, h: boxH-1.5, fontSize: 14, color: colorText, valign: 'top', fontFace: fontBody });
 
                 // Arrow 1
-                slide.addText("➡", { x: 3.35, y: yPos + 1.5, fontSize: 24, color: '999999' });
+                slide.addText("▶", { x: 4.7, y: yPos + 1.8, w: arrowW, fontSize: 24, color: colorAccent, align:'center' });
 
-                // Step 2 Box
-                slide.addShape(pres.ShapeType.rect, { x: 3.8, y: yPos, w: boxW, h: boxH, fill: colorBgProcess, line: 'ce93d8' });
-                slide.addText("Step-2: " + slideData.step2.label, { x: 3.9, y: yPos + 0.1, w: boxW-0.2, fontSize: 12, bold: true, color: '4a148c' });
-                slide.addText(slideData.step2.text, { x: 3.9, y: yPos + 0.5, w: boxW-0.2, h: boxH-0.6, fontSize: 11, color: '333333', valign: 'top' });
+                // --- Step 2 ---
+                slide.addShape(pres.ShapeType.rect, { x: 5.4, y: yPos, w: boxW, h: 0.1, fill: colorStep2Border });
+                slide.addShape(pres.ShapeType.rect, { x: 5.4, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep2Bg });
+                
+                slide.addText("STEP-2", { x: 5.6, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
+                slide.addText(slideData.step2.label, { x: 5.6, y: yPos + 0.6, w: boxW-0.4, fontSize: 16, bold: true, color: colorPrimary, fontFace: fontTitle });
+                slide.addText(slideData.step2.text, { x: 5.6, y: yPos + 1.2, w: boxW-0.4, h: boxH-1.5, fontSize: 14, color: colorText, valign: 'top', fontFace: fontBody });
 
                 // Arrow 2
-                slide.addText("➡", { x: 6.65, y: yPos + 1.5, fontSize: 24, color: '999999' });
+                slide.addText("▶", { x: 9.3, y: yPos + 1.8, w: arrowW, fontSize: 24, color: colorAccent, align:'center' });
 
-                // Step 3 Box
-                slide.addShape(pres.ShapeType.rect, { x: 7.1, y: yPos, w: boxW, h: boxH, fill: colorBgOutput, line: 'a5d6a7' });
-                slide.addText("Step-3: " + slideData.step3.label, { x: 7.2, y: yPos + 0.1, w: boxW-0.2, fontSize: 12, bold: true, color: '1b5e20' });
-                slide.addText(slideData.step3.text, { x: 7.2, y: yPos + 0.5, w: boxW-0.2, h: boxH-0.6, fontSize: 11, color: '333333', valign: 'top' });
+                // --- Step 3 ---
+                slide.addShape(pres.ShapeType.rect, { x: 10.0, y: yPos, w: boxW, h: 0.1, fill: colorStep3Border });
+                slide.addShape(pres.ShapeType.rect, { x: 10.0, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep3Bg });
+                
+                slide.addText("STEP-3", { x: 10.2, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
+                slide.addText(slideData.step3.label, { x: 10.2, y: yPos + 0.6, w: boxW-0.4, fontSize: 16, bold: true, color: colorPrimary, fontFace: fontTitle });
+                slide.addText(slideData.step3.text, { x: 10.2, y: yPos + 1.2, w: boxW-0.4, h: boxH-1.5, fontSize: 14, color: colorText, valign: 'top', fontFace: fontBody });
             }
         });
 
         // ファイル保存
-        pres.writeFile({ fileName: 'AI_Care_Training.pptx' });
+        pres.writeFile({ fileName: 'AI_Care_Training_Pro.pptx' });
     }
 
-    // 初期化：HTMLプレビューを表示
+    // 初期化
     renderPreview();
 
 </script>
-
 </body>
 </html>
