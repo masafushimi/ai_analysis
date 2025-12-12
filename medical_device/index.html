@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医療機器メーカー向けAI活用スライド (Pro Design)</title>
+    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* MedTech向け：信頼と先進性を表すディープネイビー×メディカルブルー×ゴールド */
+            --primary-color: #0d47a1; /* メディカルネイビー */
+            --accent-color: #ffd700;  /* ゴールド（品質・権威） */
+            --text-color: #263238;
+            --light-text: #546e7a;
+            --bg-color: #eceff1;
+            --slide-bg: #ffffff;
+            
+            /* Step Colors */
+            --step1-bg: #e3f2fd; --step1-border: #1976d2; /* Input: データ/規制 (Blue) */
+            --step2-bg: #f3e5f5; --step2-border: #8e24aa; /* Process: AI解析 (Purple) */
+            --step3-bg: #e8f5e9; --step3-border: #43a047; /* Output: 文書/解決 (Green) */
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 40px 20px;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1.page-title {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .controls {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            display: inline-block;
+        }
+
+        button.download-btn {
+            background: linear-gradient(135deg, var(--primary-color), #002171);
+            color: white;
+            border: none;
+            padding: 16px 36px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 4px 10px rgba(13, 71, 161, 0.3);
+        }
+
+        button.download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(13, 71, 161, 0.4);
+        }
+
+        /* Slide Preview Styles */
+        .slide-preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .slide {
+            width: 960px; /* 16:9 */
+            height: 540px;
+            background: var(--slide-bg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            padding: 50px;
+            box-sizing: border-box;
+            text-align: left;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color) 60%, var(--accent-color) 100%);
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 15px;
+            right: 25px;
+            color: var(--light-text);
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .slide-title {
+            font-size: 30px;
+            color: var(--primary-color);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 12px;
+            line-height: 1.3;
+        }
+        
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        .slide-sub-title {
+            font-size: 16px;
+            color: var(--light-text);
+            font-weight: 500;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            height: 310px;
+            margin-top: 10px;
+            gap: 15px;
+        }
+
+        .step-box {
+            flex: 1;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            font-size: 13px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            background-color: white;
+        }
+
+        .step-box h3 {
+            margin-top: 5px;
+            font-size: 15px;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 5px;
+        }
+
+        .step-1 { background-color: var(--step1-bg); border-top: 4px solid var(--step1-border); }
+        .step-2 { background-color: var(--step2-bg); border-top: 4px solid var(--step2-border); }
+        .step-3 { background-color: var(--step3-bg); border-top: 4px solid var(--step3-border); }
+
+        .arrow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+        }
+        
+        .arrow {
+            font-size: 20px;
+            color: var(--accent-color);
+        }
+
+        .step-content {
+            flex-grow: 1;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .step-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 4px;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        /* Title Slide */
+        .title-slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            padding-left: 20px;
+        }
+        .slide.title-type::before { background: none; }
+        .main-title { 
+            font-size: 40px; 
+            color: var(--primary-color); 
+            margin-bottom: 25px; 
+            font-weight: 800; 
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.2;
+        }
+        .sub-title { 
+            font-size: 20px; 
+            color: var(--text-color); 
+            line-height: 1.6;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 25px;
+        }
+        
+        /* Bullet List */
+        .bullet-list { padding-left: 30px; margin-top: 20px; }
+        .bullet-list li { 
+            margin-bottom: 15px; 
+            font-size: 18px; 
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+        .bullet-list li strong { color: var(--primary-color); }
+        .bullet-list li::marker { color: var(--accent-color); }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="page-title">医療機器メーカーAI活用スライド生成</h1>
+    <div class="controls">
+        <p>以下のボタンで、PowerPoint (.pptx) をダウンロードできます。</p>
+        <button class="download-btn" onclick="generatePPTX()">
+            📥 PowerPoint (.pptx) をダウンロード
+        </button>
+    </div>
+
+    <div class="slide-preview-container" id="previewArea"></div>
+</div>
+
+<script>
+    // --- スライドデータ定義 ---
+    const slidesData = [
+        {
+            type: "title",
+            title: "医療機器メーカーにおける\n生成AI活用と業務プロセス変革",
+            sub: "規制の「重さ」をAIで攻略し、\n開発・営業・サービスの質を最大化する"
+        },
+        {
+            type: "concept",
+            title: "AI導入の鍵：音声データの資産化",
+            content: [
+                "**1. 記録の自動化 (Voice First):** 症例立ち合い、サービス報告、会議は「書く」から「話してAIが書く」へ。",
+                "**2. 規制対応の高速化 (Regulatory Agility):** 膨大なPMDA/FDA規制文書と社内文書をNotebookLMで紐づけ。",
+                "**3. 変更管理の支援 (Change Control):** 4M変更時の影響度評価をAIがドラフトし、見落としを防ぐ。",
+                "目的：コンプライアンスを維持しながら、圧倒的なスピードを手に入れる。"
+            ]
+        },
+        // --- Phase 1: Create & Regulate ---
+        {
+            type: "case",
+            title: "【R&D/RA】リスクマネジメント & 申請準備",
+            subTitle: "ISO 14971準拠文書と、PMDA対面助言資料の作成支援",
+            step1: { label: "Input (規格/過去データ)", text: "・ISO 14971規格書\n・過去のFMEA/ハザード分析表\n・PMDA公開の審査報告書" },
+            step2: { label: "Process (AI: Claude Opus/NotebookLM)", text: "抽出：「新規設計におけるハザードを抽出し、リスク対策案をドラフトして」\n想定問答：「治験プロトコルに対し、PMDAから想定される指摘事項と回答案を作成して」" },
+            step3: { label: "Output (文書化)", text: "FMEAドラフト作成と、対面助言Q&Aの即時生成。\n監査対応の抜け漏れ防止と準備期間の短縮。" }
+        },
+        // --- Phase 2: Commercialize (Sales) ---
+        {
+            type: "case",
+            title: "【営業】症例立ち会い記録 & VAC申請",
+            subTitle: "現場の「記憶」を記録に変え、院内採用を勝ち取る",
+            step1: { label: "Input (音声/競合データ)", text: "・術後の音声メモ：「先生からXXの設定指示あり...」\n・競合製品のスペック情報" },
+            step2: { label: "Process (AI: Whisper/Perplexity/Genspark)", text: "文字起こし：Whisperで音声をテキスト化し、アクションアイテムを抽出\n資料作成：「A病院のVAC申請書式に合わせて、競合B社に対する優位性比較表を作成して」" },
+            step3: { label: "Output (成果)", text: "詳細な立会いレポートの自動生成と、採用申請資料の即時ドラフト。\n事務作業時間を削減し、医師との対話に集中。" }
+        },
+        // --- Phase 3: Support (Service/Quality) ---
+        {
+            type: "case",
+            title: "【品質/サービス】CAPA & サービス報告",
+            subTitle: "不適合の真因追求と、現場作業の負担ゼロ化",
+            step1: { label: "Input (不適合データ/現場音声)", text: "・製造記録(DHR)と不適合報告書\n・点検時の音声：「フィルター交換完了、異音なし」" },
+            step2: { label: "Process (AI: Claude Artifacts/Gemini Agent)", text: "分析：「過去の不適合事例から根本原因(Root Cause)を推論し、CAPA文書を構成して」\n生成：音声認識と手書きメモから、サービス完了報告書を自動生成" },
+            step3: { label: "Output (品質向上)", text: "論理的なCAPA文書の作成支援と、サービスレポート作成の自動化。\nコンプライアンス遵守と工数削減の両立。" }
+        },
+        // --- Special: Change Control ---
+        {
+            type: "case",
+            title: "【特別編】変更管理 (Change Control) の壁",
+            subTitle: "「部品ひとつ」の変更が及ぼす影響をAIが網羅",
+            step1: { label: "Input (変更通知)", text: "・サプライヤーからの部品仕様変更通知\n・社内の全設計図書(DHF/DMR)データベース" },
+            step2: { label: "Process (AI: Cross-Doc Analysis)", text: "影響度評価：「この部品変更が、リスクファイル、IFU、海外申請(510k)に与える影響範囲をリストアップして」\n追跡：Genspark等でトレーサビリティを確認" },
+            step3: { label: "Output (安全性担保)", text: "変更時影響度評価レポート(Impact Assessment)のドラフト。\n人間が見落としがちな、文書間の整合性をAIが担保。" }
+        },
+        {
+            type: "concept",
+            title: "まとめ：AIは「信頼性」の番人になる",
+            content: [
+                "**Create:** 開発リスクの抽出漏れを防ぐ。",
+                "**Sell:** 現場の声を正確に記録し、エビデンスにする。",
+                "**Support:** 変更による品質への影響を瞬時に検知する。",
+                "Next Step: まずは「営業/サービスの音声入力」と「社内文書のNotebookLM化」から開始を。"
+            ]
+        }
+    ];
+
+    // --- プレビュー生成 ---
+    function renderPreview() {
+        const container = document.getElementById('previewArea');
+        container.innerHTML = "";
+        
+        slidesData.forEach((slide, index) => {
+            const slideDiv = document.createElement('div');
+            slideDiv.className = 'slide';
+            if (slide.type === 'title') slideDiv.classList.add('title-type');
+            
+            slideDiv.innerHTML += `<div class="slide-number">${index + 1}</div>`;
+
+            if (slide.type === 'title') {
+                slideDiv.innerHTML += `
+                    <div class="title-slide-content">
+                        <div class="main-title">${slide.title.replace(/\n/g, '<br>')}</div>
+                        <div class="sub-title">${slide.sub.replace(/\n/g, '<br>')}</div>
+                    </div>`;
+            } else if (slide.type === 'concept') {
+                slideDiv.innerHTML += `<div class="slide-title">${slide.title}</div>`;
+                let ul = `<ul class="bullet-list">`;
+                slide.content.forEach(item => {
+                    const formatted = item.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    ul += `<li>${formatted.replace(/\n/g, '<br>')}</li>`;
+                });
+                ul += `</ul>`;
+                slideDiv.innerHTML += ul;
+            } else if (slide.type === 'case') {
+                slideDiv.innerHTML += `<div class="slide-title">${slide.title}</div>`;
+                slideDiv.innerHTML += `<div class="slide-sub-title">${slide.subTitle}</div>`;
+                slideDiv.innerHTML += `
+                    <div class="process-flow">
+                        <div class="step-box step-1">
+                            <div class="step-label">Step-1</div>
+                            <h3>${slide.step1.label}</h3>
+                            <div class="step-content">${slide.step1.text.replace(/\n/g, '<br>')}</div>
+                        </div>
+                        <div class="arrow-container"><div class="arrow">▶</div></div>
+                        <div class="step-box step-2">
+                            <div class="step-label">Step-2</div>
+                            <h3>${slide.step2.label}</h3>
+                            <div class="step-content">${slide.step2.text.replace(/\n/g, '<br>')}</div>
+                        </div>
+                        <div class="arrow-container"><div class="arrow">▶</div></div>
+                        <div class="step-box step-3">
+                            <div class="step-label">Step-3</div>
+                            <h3>${slide.step3.label}</h3>
+                            <div class="step-content">${slide.step3.text.replace(/\n/g, '<br>')}</div>
+                        </div>
+                    </div>`;
+            }
+            container.appendChild(slideDiv);
+        });
+    }
+
+    // --- PPTX生成 ---
+    function generatePPTX() {
+        let pres = new PptxGenJS();
+        pres.layout = 'LAYOUT_16x9';
+
+        const colorPrimary = '0d47a1';
+        const colorAccent = 'ffd700';
+        const colorText = '263238';
+        const colorLightText = '546e7a';
+        
+        // Step Colors
+        const colorStep1Bg = 'e3f2fd'; const colorStep1Border = '1976d2';
+        const colorStep2Bg = 'f3e5f5'; const colorStep2Border = '8e24aa';
+        const colorStep3Bg = 'e8f5e9'; const colorStep3Border = '43a047';
+
+        const fontTitle = 'Montserrat';
+        const fontBody = 'Noto Sans JP';
+
+        // Master
+        pres.defineSlideMaster({
+            title: 'MASTER',
+            background: { color: 'FFFFFF' },
+            objects: [
+                { rect: { x: 0, y: 0, w: '100%', h: 0.1, fill: { type: 'linear', color1: colorPrimary, color2: colorAccent, angle: 90 } } },
+            ],
+            slideNumber: { x: 12.8, y: 7.0, color: colorLightText, fontSize: 12, fontFace: fontTitle }
+        });
+
+        pres.defineSlideMaster({
+            title: 'TITLE_MASTER',
+            background: { color: 'FFFFFF' },
+            slideNumber: { x: 12.8, y: 7.0, color: colorLightText, fontSize: 12, fontFace: fontTitle }
+        });
+
+        slidesData.forEach((slideData) => {
+            let slide = pres.addSlide({ masterName: slideData.type === 'title' ? 'TITLE_MASTER' : 'MASTER' });
+
+            if (slideData.type === 'title') {
+                slide.addText(slideData.title, { x: 0.8, y: 2.0, w: '85%', h: 2.5, fontSize: 40, color: colorPrimary, bold: true, fontFace: fontTitle, align: 'left', lineSpacing:48 });
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 4.8, w: 0.1, h: 1.5, fill: colorAccent });
+                slide.addText(slideData.sub, { x: 1.0, y: 4.8, w: '80%', h: 1.5, fontSize: 20, color: colorText, align: 'left', fontFace: fontBody, lineSpacing: 32 });
+            } else if (slideData.type === 'concept') {
+                slide.addText(slideData.title, { x: 0.8, y: 0.8, w: '90%', h: 0.8, fontSize: 32, color: colorPrimary, bold: true, fontFace: fontTitle, valign:'bottom' });
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 1.65, w: 1.2, h: 0.05, fill: colorAccent });
+                let contentText = slideData.content.map(t => t.replace(/\*\*/g, '').replace(/\/g, '')).join('\n\n');
+                slide.addText(contentText, { x: 0.8, y: 2.2, w: '85%', h: 4.5, fontSize: 20, color: colorText, lineSpacing: 36, bullet: { color: colorAccent }, fontFace: fontBody });
+            } else if (slideData.type === 'case') {
+                slide.addText(slideData.title, { x: 0.8, y: 0.6, w: '90%', h: 0.8, fontSize: 30, color: colorPrimary, bold: true, fontFace: fontTitle, valign:'bottom' });
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 1.45, w: 1.2, h: 0.05, fill: colorAccent });
+                slide.addText(slideData.subTitle, { x: 0.8, y: 1.6, w: '90%', h: 0.5, fontSize: 16, color: colorLightText, fontFace: fontBody });
+
+                const yPos = 2.5; const boxW = 3.8; const boxH = 4.0; const arrowW = 0.6;
+                
+                // Helper to strip citations for PPTX display
+                const stripCite = (txt) => txt.replace(/\/g, '');
+
+                // Step 1
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: yPos, w: boxW, h: 0.1, fill: colorStep1Border });
+                slide.addShape(pres.ShapeType.rect, { x: 0.8, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep1Bg });
+                slide.addText("STEP-1", { x: 1.0, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
+                slide.addText(slideData.step1.label, { x: 1.0, y: yPos + 0.6, w: boxW-0.4, fontSize: 14, bold: true, color: colorPrimary, fontFace: fontTitle });
+                slide.addText(stripCite(slideData.step1.text), { x: 1.0, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
+                // Arrow
+                slide.addText("▶", { x: 4.7, y: yPos + 1.8, w: arrowW, fontSize: 24, color: colorAccent, align:'center' });
+                // Step 2
+                slide.addShape(pres.ShapeType.rect, { x: 5.4, y: yPos, w: boxW, h: 0.1, fill: colorStep2Border });
+                slide.addShape(pres.ShapeType.rect, { x: 5.4, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep2Bg });
+                slide.addText("STEP-2", { x: 5.6, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
+                slide.addText(slideData.step2.label, { x: 5.6, y: yPos + 0.6, w: boxW-0.4, fontSize: 14, bold: true, color: colorPrimary, fontFace: fontTitle });
+                slide.addText(stripCite(slideData.step2.text), { x: 5.6, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
+                // Arrow
+                slide.addText("▶", { x: 9.3, y: yPos + 1.8, w: arrowW, fontSize: 24, color: colorAccent, align:'center' });
+                // Step 3
+                slide.addShape(pres.ShapeType.rect, { x: 10.0, y: yPos, w: boxW, h: 0.1, fill: colorStep3Border });
+                slide.addShape(pres.ShapeType.rect, { x: 10.0, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep3Bg });
+                slide.addText("STEP-3", { x: 10.2, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
+                slide.addText(slideData.step3.label, { x: 10.2, y: yPos + 0.6, w: boxW-0.4, fontSize: 14, bold: true, color: colorPrimary, fontFace: fontTitle });
+                slide.addText(stripCite(slideData.step3.text), { x: 10.2, y: yPos + 1.1, w: boxW-0.4, h: boxH-1.2, fontSize: 12, color: colorText, valign: 'top', fontFace: fontBody });
+            }
+        });
+
+        pres.writeFile({ fileName: 'MedTech_AI_Training.pptx' });
+    }
+
+    renderPreview();
+</script>
+</body>
+</html>
