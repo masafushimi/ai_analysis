@@ -3,411 +3,585 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>医療現場における生成AI活用事例集</title>
+    <title>医療機関向けAI活用事例集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary: #0056b3; /* 信頼感のある医療ブルー */
-            --accent: #20c997;  /* 安全・安心のティールグリーン */
-            --bg: #f0f4f8;      /* 清潔な薄いグレー背景 */
-            --text: #333333;
-            --white: #ffffff;
+            --primary-color: #0056b3; /* Medical Blue */
+            --accent-color: #28a745;  /* Success Green */
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --border-radius: 12px;
         }
 
         body {
-            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
         }
 
-        /* スライド全体のコンテナ */
-        .slide-container {
-            width: 100%;
-            max-width: 960px; /* PCでのスライドサイズ */
-            aspect-ratio: 16 / 9;
-            background: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
+        header {
+            text-align: center;
+            padding: 40px 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             overflow: hidden;
+            padding: 30px;
             display: flex;
             flex-direction: column;
         }
 
-        /* 各スライド */
-        .slide {
-            display: none; /* デフォルトは非表示 */
-            padding: 40px 60px;
-            height: 100%;
-            box-sizing: border-box;
-            animation: fadeIn 0.5s ease;
-            flex-direction: column;
-        }
-
-        .slide.active {
+        /* Title Section */
+        .card-header {
             display: flex;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ヘッダーエリア */
-        .header {
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            flex-wrap: wrap;
         }
 
         .role-badge {
-            background: var(--primary);
-            color: var(--white);
-            padding: 5px 15px;
-            border-radius: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-weight: 700;
             font-size: 0.9rem;
-            font-weight: bold;
+            white-space: nowrap;
         }
 
-        h2 {
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
             margin: 0;
-            font-size: 1.8rem;
-            color: var(--primary);
         }
 
-        /* コンテンツレイアウト */
-        .content {
+        /* Content Layout */
+        .card-body {
             display: flex;
             gap: 30px;
-            flex-grow: 1;
         }
 
-        .left-col {
+        .image-section {
             flex: 1;
+            min-width: 300px;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+            aspect-ratio: 4/3;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .text-section {
+            flex: 1.5;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
 
-        .right-col {
-            flex: 1;
-            background: #f8fbff;
-            border-radius: 8px;
-            padding: 20px;
-            border: 1px solid #e1e8ed;
-        }
-
-        /* 各セクションのスタイル */
+        /* Section Headings inside card */
         h3 {
             font-size: 1.1rem;
-            color: var(--text);
-            border-left: 4px solid var(--accent);
-            padding-left: 10px;
-            margin: 10px 0 5px 0;
+            color: #444;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        ul {
-            margin: 0;
-            padding-left: 20px;
-            line-height: 1.6;
+        h3 i {
+            color: var(--accent-color);
+        }
+
+        .problem-box {
+            background-color: #fff0f0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #dc3545;
             font-size: 0.95rem;
         }
 
-        li {
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .steps-list li {
             margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .steps-list li::before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .other-scenes {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #555;
         }
 
         .impact-box {
-            background: var(--primary);
-            color: var(--white);
-            padding: 15px;
+            background: linear-gradient(135deg, #0056b3 0%, #004494 100%);
+            color: white;
+            padding: 15px 20px;
             border-radius: 8px;
-            margin-top: auto; /* 下寄せ */
-            text-align: center;
             font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .impact-box i {
-            color: var(--accent);
-            margin-right: 8px;
-        }
-
-        /* 画像プレースホルダー（前の会話でDLした画像を入れる場所） */
-        .img-placeholder {
-            width: 100%;
-            height: 150px;
-            background-color: #ddd;
-            border-radius: 8px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: #666;
-            margin-bottom: 15px;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        /* コントロールボタン */
-        .controls {
-            position: absolute;
-            bottom: 20px;
-            right: 30px;
-            display: flex;
             gap: 15px;
-            align-items: center;
+            margin-top: auto; /* Push to bottom */
         }
 
-        button {
-            background: var(--white);
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
+        .impact-icon {
+            font-size: 1.5rem;
         }
 
-        button:hover {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .page-number {
-            font-size: 0.9rem;
-            color: #888;
-        }
-
-        /* レスポンシブ対応 */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .slide-container {
-                aspect-ratio: auto;
-                height: 100vh;
-                border-radius: 0;
-            }
-            .content {
+            .card-body {
                 flex-direction: column;
-                overflow-y: auto;
             }
-            .slide {
-                padding: 20px;
+            .image-section {
+                width: 100%;
             }
-            h2 { font-size: 1.4rem; }
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="slide-container">
-    
-    <div class="slide active">
-        <div class="header">
-            <span class="role-badge">医師・研究</span>
-            <h2>医学論文・研究業務の劇的効率化</h2>
-        </div>
-        <div class="content">
-            <div class="left-col">
-                <div class="img-placeholder"><i class="fa-solid fa-microscope fa-3x"></i></div>
-                <div>
-                    <h3><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</h3>
-                    <p>診療の合間に文献調査や執筆が必要で、本来の診療時間が削られている。</p>
+    <header>
+        <h1>医療機関向け AI活用事例集</h1>
+        <p>現場の課題を解決し、患者様と向き合う時間を取り戻すための10の処方箋</p>
+    </header>
+
+    <div class="container">
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge">医師・研究</span>
+                <h2 class="card-title">医学論文・研究業務の劇的効率化</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="PCで研究を行う医師">
                 </div>
-                <div>
-                    <h3><i class="fa-solid fa-robot"></i> AI活用ステップ</h3>
-                    <ul>
-                        <li><strong>検索・要約：</strong>PubMed等から論文を抽出・要約。</li>
-                        <li><strong>ドラフト：</strong>研究データから論文構成を自動生成。</li>
-                        <li><strong>校正・翻訳：</strong>学術的表現へブラッシュアップ。</li>
-                    </ul>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 現状の課題</strong><br>
+                        診療の合間に膨大な時間を割いて文献調査や英語論文の執筆を行う必要があり、本来の診療時間が削られている。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>検索・要約：</strong>PubMed等から論文を抽出・日本語300字要約。</li>
+                            <li><strong>ドラフト作成：</strong>研究データから論文構成・本文を自動生成。</li>
+                            <li><strong>校正・翻訳：</strong>学術的表現へのブラッシュアップとカバーレター作成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="other-scenes">
+                        <strong><i class="fas fa-lightbulb"></i> その他の活用シーン</strong><br>
+                        学会発表用スライドの構成案作成、統計解析Pythonコード生成。
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-clock impact-icon"></i>
+                        <span>導入効果：論文1本あたり5〜10時間以上の時間を節約</span>
+                    </div>
                 </div>
             </div>
-            <div class="right-col">
-                <h3><i class="fa-solid fa-lightbulb"></i> その他の活用シーン</h3>
-                <ul>
-                    <li>学会発表用スライドの構成案と図解生成。</li>
-                    <li>統計解析用Pythonコードの生成支援。</li>
-                </ul>
-                <div class="impact-box">
-                    <i class="fa-solid fa-clock"></i> 導入効果：論文1本あたり5〜10時間以上を節約
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge">医師</span>
+                <h2 class="card-title">高齢患者向け「伝わる」インフォームド・コンセント</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1584515933487-9d31e14800cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="高齢患者へ説明する医師">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 現状の課題</strong><br>
+                        専門用語が多く高齢患者の理解を得にくい。説明資料を作る時間やスキルが不足している。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>平易化：</strong>専門用語を「中学生にもわかる言葉」や例え話に変換。</li>
+                            <li><strong>図解作成：</strong>画像生成AIで病態や生活指導を優しいイラスト化。</li>
+                            <li><strong>多機能化：</strong>外国人患者向けの多言語翻訳・説明作成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="other-scenes">
+                        <strong><i class="fas fa-lightbulb"></i> その他の活用シーン</strong><br>
+                        持ち帰り用Q&Aの自動作成、個別リハビリメニューの図解。
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-smile impact-icon"></i>
+                        <span>導入効果：患者の「なるほど！」を生み、信頼関係を強化</span>
+                    </div>
                 </div>
             </div>
-        </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge">看護師長</span>
+                <h2 class="card-title">複雑な勤務シフト表の自動生成</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1516574187841-693083f69802?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="シフト管理をする看護師長">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 現状の課題</strong><br>
+                        希望休、スキル、ペア制約などのパズル作成に数日を費やしている。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>条件設定：</strong>夜勤回数、NGペア、資格者配置ルールを入力。</li>
+                            <li><strong>自動生成：</strong>AIツールを用い、わずか数十秒で初稿を出力。</li>
+                            <li><strong>対話的修正：</strong>急な変更希望もAIと対話し即座に再調整。</li>
+                        </ul>
+                    </div>
+
+                    <div class="other-scenes">
+                        <strong><i class="fas fa-lightbulb"></i> その他の活用シーン</strong><br>
+                        新人×教育担当の最適ペアリング、急な欠員時の再編成。
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-calendar-check impact-icon"></i>
+                        <span>導入効果：シフト作成時間を最大50〜90%削減</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge">医療安全管理者</span>
+                <h2 class="card-title">インシデント報告の自動収集と高度分析</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="データ分析を行うスタッフ">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 現状の課題</strong><br>
+                        報告書作成が負担で件数が伸びない。膨大な報告の分析が属人化している。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>音声入力：</strong>話すだけでテキスト化し、所定フォーマットへ自動整理。</li>
+                            <li><strong>パターン抽出：</strong>共通の原因（投薬ミス等）を自動分類・タグ付け。</li>
+                            <li><strong>可視化：</strong>「なぜなぜ分析」等の因果関係図をAIが自動生成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="other-scenes">
+                        <strong><i class="fas fa-lightbulb"></i> その他の活用シーン</strong><br>
+                        類似事例からの再発防止策提案、事故予兆の予測。
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-shield-alt impact-icon"></i>
+                        <span>導入効果：報告増と分析迅速化で有害事象ゼロへ</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge">多職種連携</span>
+                <h2 class="card-title">カンファレンス議事録のリアルタイム共有</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1631217868269-dfc1c5c05d95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="医療チームのミーティング">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 現状の課題</strong><br>
+                        専門用語が飛び交う会議の記録負担が大きく、共有の遅れが連携ミスを生む。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>自動文字起こし：</strong>医療用語に強いAIで会議を一語一句テキスト化。</li>
+                            <li><strong>構造化要約：</strong>「決定事項」「担当者」「期限」を自動抽出。</li>
+                            <li><strong>即時共有：</strong>会議終了直後に整形された議事録を自動配信。</li>
+                        </ul>
+                    </div>
+
+                    <div class="other-scenes">
+                        <strong><i class="fas fa-lightbulb"></i> その他の活用シーン</strong><br>
+                        欠席職種（薬剤師等）向けの要点要約、プロジェクト進捗分析。
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-users impact-icon"></i>
+                        <span>導入効果：議事録作成時間を約70％削減</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge">事務・広報</span>
+                <h2 class="card-title">「選ばれる病院」のためのプロモーション</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="スマホを見る地域住民">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 現状の課題</strong><br>
+                        医療情報を一般の人に魅力的に伝えるリソースが不足している。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>ペルソナ作成：</strong>ターゲット像（例：腰痛に悩む会社員）を詳細化。</li>
+                            <li><strong>コンテンツ制作：</strong>刺さるキャッチコピーやブログ記事を作成。</li>
+                            <li><strong>口コミ分析：</strong>ネット上のレビューから意見の要点を抽出。</li>
+                        </ul>
+                    </div>
+
+                    <div class="other-scenes">
+                        <strong><i class="fas fa-lightbulb"></i> その他の活用シーン</strong><br>
+                        近隣競合のSWOT分析、集客用チラシのデザイン案作成。
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-bullhorn impact-icon"></i>
+                        <span>導入効果：外注費を抑え、質の高い広報を継続</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge">事務・管理職</span>
+                <h2 class="card-title">データに基づく病院運営とリスク管理</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="データ分析と経営戦略">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 現状の課題</strong><br>
+                        勘や経験に頼った運営からの脱却。将来予測の精度不足。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>シナリオ計画：</strong>「楽観・標準・悲観」の3シナリオ別収支予測。</li>
+                            <li><strong>数値管理：</strong>KPI（新患数・紹介率等）を設定し改善案をブレスト。</li>
+                            <li><strong>故障予測：</strong>機器メンテ履歴から故障予測と頻度を最適化。</li>
+                        </ul>
+                    </div>
+
+                    <div class="other-scenes">
+                        <strong><i class="fas fa-lightbulb"></i> その他の活用シーン</strong><br>
+                        法改正に伴うリスク洗い出し、省エネ設備の運用最適化。
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-chart-line impact-icon"></i>
+                        <span>導入効果：ロジカルな意思決定で経営の安定性を向上</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge">教育担当</span>
+                <h2 class="card-title">AIロールプレイによる実戦的スタッフ育成</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="スタッフ研修">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 現状の課題</strong><br>
+                        OJTの時間を確保できず、スタッフの対応力に差がある。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>教育計画：</strong>個別の年間OJT計画や成長目標を作成。</li>
+                            <li><strong>AIロールプレイ：</strong>AIを患者役（クレーマー等）にして対話練習。</li>
+                            <li><strong>フィードバック：</strong>対応をAIが評価し、より良い言い回しを助言。</li>
+                        </ul>
+                    </div>
+
+                    <div class="other-scenes">
+                        <strong><i class="fas fa-lightbulb"></i> その他の活用シーン</strong><br>
+                        患者の本音を引き出す質問リスト作成、クイズ教材作成。
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-graduation-cap impact-icon"></i>
+                        <span>導入効果：「隙間時間」での質の高い教育が可能に</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge">窓口・受付</span>
+                <h2 class="card-title">患者満足度を高める応対の自動化・標準化</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="受付スタッフ">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 現状の課題</strong><br>
+                        同様の問い合わせへの個別対応が負担。回答品質にばらつきがある。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>FAQ自動抽出：</strong>過去記録から頻出質問と回答テンプレートを整備。</li>
+                            <li><strong>再来院促進：</strong>前回の内容を盛り込んだ丁寧な案内文作成。</li>
+                            <li><strong>クレーム対応：</strong>謝罪・原因説明・再発防止策の雛形を生成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="other-scenes">
+                        <strong><i class="fas fa-lightbulb"></i> その他の活用シーン</strong><br>
+                        外国人患者向け指さし確認シート、予約確認メッセージ生成。
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-heart impact-icon"></i>
+                        <span>導入効果：均一な高品質対応で患者に安心感を与える</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card" style="border: 2px solid #dc3545;">
+            <div class="card-header">
+                <span class="role-badge" style="background-color:#dc3545;">重要</span>
+                <h2 class="card-title" style="color:#dc3545;">安全活用のための鉄則：リスク管理</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="セキュリティと鍵">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box" style="border-left-color: #333;">
+                        <strong><i class="fas fa-lock"></i> 活用の大前提</strong><br>
+                        医療現場でのAI利用には絶対に守るべき「やってはいけない」ルールがあります。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-exclamation-triangle"></i> 3つの絶対ルール</h3>
+                        <ul class="steps-list">
+                            <li><strong>匿名化の徹底：</strong>患者氏名や特定の病歴など、個人特定情報は入力しない。</li>
+                            <li><strong>ハルシネーション確認：</strong>もっともらしい嘘をつく可能性があるため、専門家が最終確認する。</li>
+                            <li><strong>人間による最終責任：</strong>AIは「下書き・分析補助」。判断と責任は人間が負う。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box" style="background: #333;">
+                        <i class="fas fa-check-circle impact-icon"></i>
+                        <span>導入効果：「便利さ」と「安全性」を両立し信頼を守る</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
     </div>
 
-    <div class="slide">
-        <div class="header">
-            <span class="role-badge">医師・患者対応</span>
-            <h2>高齢患者向け「伝わる」インフォームド・コンセント</h2>
-        </div>
-        <div class="content">
-            <div class="left-col">
-                <div class="img-placeholder"><i class="fa-solid fa-user-doctor fa-3x"></i></div>
-                <div>
-                    <h3><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</h3>
-                    <p>専門用語が多く理解されにくい。説明資料を作る時間がない。</p>
-                </div>
-                <div>
-                    <h3><i class="fa-solid fa-robot"></i> AI活用ステップ</h3>
-                    <ul>
-                        <li><strong>平易化：</strong>中学生にもわかる言葉や例え話に変換。</li>
-                        <li><strong>図解作成：</strong>病態や生活指導を優しいイラスト化。</li>
-                        <li><strong>多言語化：</strong>外国人患者向けの翻訳・音声作成。</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="right-col">
-                <h3><i class="fa-solid fa-lightbulb"></i> その他の活用シーン</h3>
-                <ul>
-                    <li>個別リハビリメニューの図解化。</li>
-                    <li>家族共有用の持ち帰りQ&A作成。</li>
-                </ul>
-                <div class="impact-box">
-                    <i class="fa-regular fa-face-smile"></i> 導入効果：患者の「なるほど！」を生み信頼強化
-                </div>
-            </div>
-        </div>
-    </div>
+    <footer style="text-align:center; padding: 40px; color:#999; font-size:0.9rem;">
+        &copy; 2025 AI Usage Case Study for Medical Fields
+    </footer>
 
-    <div class="slide">
-        <div class="header">
-            <span class="role-badge">看護師長</span>
-            <h2>複雑な勤務シフト表の自動生成</h2>
-        </div>
-        <div class="content">
-            <div class="left-col">
-                <div class="img-placeholder"><i class="fa-solid fa-calendar-days fa-3x"></i></div>
-                <div>
-                    <h3><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</h3>
-                    <p>希望休、スキル、夜勤制限など複雑なパズル作成に数日かかる。</p>
-                </div>
-                <div>
-                    <h3><i class="fa-solid fa-robot"></i> AI活用ステップ</h3>
-                    <ul>
-                        <li><strong>条件設定：</strong>夜勤回数、NGペア等のルールを入力。</li>
-                        <li><strong>自動生成：</strong>数十秒でシフト初稿を出力。</li>
-                        <li><strong>対話修正：</strong>人間関係の配慮をAIと相談し調整。</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="right-col">
-                <h3><i class="fa-solid fa-lightbulb"></i> その他の活用シーン</h3>
-                <ul>
-                    <li>新人×教育担当(プリセプター)の最適ペアリング。</li>
-                    <li>急な欠員時の最適配置シミュレーション。</li>
-                </ul>
-                <div class="impact-box">
-                    <i class="fa-solid fa-chart-line"></i> 導入効果：作成時間を最大50〜90%削減
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide">
-        <div class="header">
-            <span class="role-badge">医療安全</span>
-            <h2>インシデント報告の自動収集と高度分析</h2>
-        </div>
-        <div class="content">
-            <div class="left-col">
-                <div class="img-placeholder"><i class="fa-solid fa-shield-halved fa-3x"></i></div>
-                <div>
-                    <h3><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</h3>
-                    <p>報告書作成が負担。膨大なデータの分析が属人化している。</p>
-                </div>
-                <div>
-                    <h3><i class="fa-solid fa-robot"></i> AI活用ステップ</h3>
-                    <ul>
-                        <li><strong>音声入力：</strong>話すだけで報告書フォーマットへ自動整理。</li>
-                        <li><strong>分析：</strong>大量データから共通原因を自動タグ付け。</li>
-                        <li><strong>可視化：</strong>因果関係図（なぜなぜ分析）を生成。</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="right-col">
-                <h3><i class="fa-solid fa-lightbulb"></i> その他の活用シーン</h3>
-                <ul>
-                    <li>類似事例からの再発防止策提案。</li>
-                    <li>今後起こりうる事故予兆の予測。</li>
-                </ul>
-                <div class="impact-box">
-                    <i class="fa-solid fa-check-double"></i> 導入効果：報告増と分析強化で事故ゼロへ
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide">
-        <div class="header">
-            <span class="role-badge">多職種連携</span>
-            <h2>カンファレンス議事録のリアルタイム共有</h2>
-        </div>
-        <div class="content">
-            <div class="left-col">
-                <div class="img-placeholder"><i class="fa-solid fa-comments fa-3x"></i></div>
-                <div>
-                    <h3><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</h3>
-                    <p>記録負担が大きく、共有の遅れが情報伝達ミスを生む。</p>
-                </div>
-                <div>
-                    <h3><i class="fa-solid fa-robot"></i> AI活用ステップ</h3>
-                    <ul>
-                        <li><strong>文字起こし：</strong>医療用語対応AIで会議をテキスト化。</li>
-                        <li><strong>要約：</strong>決定事項・担当・期限を構造化して抽出。</li>
-                        <li><strong>即時配信：</strong>終了直後にチャット等で自動共有。</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="right-col">
-                <h3><i class="fa-solid fa-lightbulb"></i> その他の活用シーン</h3>
-                <ul>
-                    <li>欠席職種（リハビリ等）向けの要点要約作成。</li>
-                    <li>過去会議録の横断検索・分析。</li>
-                </ul>
-                <div class="impact-box">
-                    <i class="fa-solid fa-bolt"></i> 導入効果：議事録作成時間を約70％削減
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="slide">
-        <div class="header">
-            <span class="role-badge">事務・広報</span>
-            <h2>「選ばれる病院」のためのプロモーション戦略</h2>
-        </div>
-        <div class="content">
-            <div class="left-col">
-                <div class="img-placeholder"><i class="fa-solid fa-bullhorn fa-3x"></i></div>
-                <div>
-                    <h3><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</h3>
-                    <p>医療情報を一般の人に魅力的に伝えるノウハウ・時間不足。</p>
-                </div>
-                <div>
-                    <h3><i class="fa-solid fa-robot"></i> AI活用ステップ</h3>
-                    <ul>
-                        <li><strong>ペルソナ：</strong>ターゲット（例：腰痛の会社員）を設定。</li>
-                        <li><strong>制作：</strong>刺さるコピーやブログ記事、SNS案を作成。</li>
-                        <li><strong>分析：</strong>口コミの感情分析で改善点を抽出。</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="right-col">
-                <h3><i class="fa-solid fa-lightbulb"></i> その他の活用シーン</h3>
-                <ul>
-                    <li>近隣競合とのSWOT分析。</li>
-                    <li>公開セミナーの企画とチラシデザイン案。</li>
-                </ul>
-                <div class="impact-box">
-                    <i class="fa-solid fa-users"></i> 導入効果：外注費抑制と高品質な発信の両立
-                </div>
-            </div>
+</body>
+</html>
