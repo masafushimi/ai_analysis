@@ -45,7 +45,37 @@
             color: #666;
             font-size: 1.1rem;
         }
+/* ▼▼▼ 追加したボタンスタイル ▼▼▼ */
+        .slide-link-container {
+            text-align: center;
+            margin-bottom: 50px; /* カードとの間隔 */
+        }
 
+        .slide-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .slide-btn:hover {
+            background-color: #004494;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 86, 179, 0.4);
+        }
+
+        .slide-btn i {
+            font-size: 1.3rem;
+        }
+        /* ▲▲▲ 追加ここまで ▲▲▲ */
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -210,9 +240,12 @@
         <p>現場の課題を解決し、患者様と向き合う時間を取り戻すための10の処方箋</p>
     </header>
 
-    <a href="https://docs.google.com/presentation/d/1dC1EPzWdrF1Uf6-0H97YGUucCKcc-wnsQ2BHU_rj0qI/edit">
-        スライドはこちらからご覧いただけます
-    </a>
+    <div class="slide-link-container">
+        <a href="https://docs.google.com/presentation/d/1dC1EPzWdrF1Uf6-0H97YGUucCKcc-wnsQ2BHU_rj0qI/edit" target="_blank" rel="noopener noreferrer" class="slide-btn">
+            <i class="fas fa-file-powerpoint"></i>
+            スライドはこちらからご覧いただけます
+        </a>
+    </div>
     <div class="container">
 
         <article class="card">
