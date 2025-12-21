@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医療機器メーカー向け 生成AI活用事例集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #004085; /* Tech Blue - メーカーらしい濃い青 */
+            --accent-color: #17a2b8;  /* Tech Cyan */
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 20px 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        /* Slide Button Style */
+        .slide-link-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .slide-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0, 64, 133, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .slide-btn:hover {
+            background-color: #002752;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 64, 133, 0.4);
+        }
+
+        .slide-btn i {
+            font-size: 1.3rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Role Badge Variants */
+        .role-badge {
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .badge-rd { background-color: #0d6efd; } /* Research Blue */
+        .badge-ra { background-color: #6610f2; } /* Regulatory Purple */
+        .badge-qa { background-color: #dc3545; } /* Quality Red */
+        .badge-sales { background-color: #198754; } /* Sales Green */
+        .badge-support { background-color: #fd7e14; } /* Support Orange */
+        .badge-ma { background-color: #0dcaf0; color: #333;} /* Medical Affairs Cyan */
+        .badge-mfg { background-color: #6c757d; } /* Manufacturing Grey */
+        .badge-hr { background-color: #d63384; } /* HR Pink */
+        .badge-mkt { background-color: #20c997; } /* Marketing Teal */
+        .badge-mgmt { background-color: #343a40; } /* Management Dark */
+
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .card-body {
+            display: flex;
+            gap: 30px;
+        }
+
+        .image-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+            aspect-ratio: 4/3;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .text-section {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: #444;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h3 i {
+            color: var(--accent-color);
+        }
+
+        .problem-box {
+            background-color: #f0f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            font-size: 0.95rem;
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .steps-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .steps-list li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .impact-box {
+            background: linear-gradient(135deg, #004085 0%, #002752 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .impact-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .card-body {
+                flex-direction: column;
+            }
+            .image-section {
+                width: 100%;
+            }
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>医療機器メーカー向け 生成AI活用事例集</h1>
+        <p>R&Dから製造、営業まで。バリューチェーン全体を加速させる10の革新モデル</p>
+    </header>
+
+    <!-- Slide Link Button (Dummy link for presentation) -->
+    <div class="slide-link-container">
+        <a href="#" class="slide-btn">
+            <i class="fas fa-file-powerpoint"></i>
+            プレゼンテーション案のダウンロード
+        </a>
+    </div>
+
+    <div class="container">
+
+        <!-- Case 1: R&D -->
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-rd">研究開発 (R&D)</span>
+                <h2 class="card-title">論文・特許調査の高速化</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="顕微鏡と研究データ">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-search"></i> 具体的なタスク</strong><br>
+                        新技術の開発における膨大な学術論文や競合特許のスクリーニング。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> 生成AIの活用</h3>
+                        <ul class="steps-list">
+                            <li><strong>要旨抽出：</strong>複数論文の要旨をマトリックス形式で比較抽出。</li>
+                            <li><strong>要約：</strong>膨大な情報から核心を短時間で把握。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-tachometer-alt impact-icon"></i>
+                        <span>効果：研究の初期調査時間を大幅に短縮し、開発サイクルを加速</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Case 2: RA -->
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-ra">薬事 (RA)</span>
+                <h2 class="card-title">申請書類（PMA/510k）のドラフト作成</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="書類作成と申請業務">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-file-alt"></i> 具体的なタスク</strong><br>
+                        各国の規制当局へ提出する膨大な技術文書や申請書の作成。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> 生成AIの活用</h3>
+                        <ul class="steps-list">
+                            <li><strong>ドラフト生成：</strong>過去の承認申請データと最新ガイドラインを学習し、整合性の取れた下書きを作成。</li>
+                            <li><strong>負担軽減：</strong>ゼロから文章を作成する負担を大幅に削減。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-check-double impact-icon"></i>
+                        <span>効果：専門的整合性のチェック（監修）に注力可能に</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Case 3: QA -->
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-qa">品質保証 (QA)</span>
+                <h2 class="card-title">市販後調査（PMS）の不具合分析</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="データ分析と品質管理">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-triangle"></i> 具体的なタスク</strong><br>
+                        世界中から寄せられる製品不具合や苦情（コンプレイン）のテキストデータの分析。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> 生成AIの活用</h3>
+                        <ul class="steps-list">
+                            <li><strong>自動抽出：</strong>自由記述形式の苦情内容から、根本原因や潜在的なリスク傾向を抽出。</li>
+                            <li><strong>予兆検知：</strong>特定ロットの不具合予兆など、微細な傾向を構造化。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-shield-alt impact-icon"></i>
+                        <span>効果：見落としがちなリスクを発見し、迅速な安全対策を実現</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Case 4: Sales -->
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-sales">営業 (MR)</span>
+                <h2 class="card-title">医師向けパーソナライズ提案資料</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="医師へのプレゼンテーション">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-user-md"></i> 具体的なタスク</strong><br>
+                        個別の医師の専門領域や過去の質問に合わせた学術資料の準備。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> 生成AIの活用</h3>
+                        <ul class="steps-list">
+                            <li><strong>情報収集：</strong>医師の専門論文や学会発表内容を学習。</li>
+                            <li><strong>提案反映：</strong>その医師が関心を持つ可能性が高い製品ベネフィットを提案書に反映。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-handshake impact-icon"></i>
+                        <span>効果：高度に個別化された情報提供で医師からの信頼を獲得</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Case 5: Customer Support -->
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-support">サポート</span>
+                <h2 class="card-title">医療従事者向け24時間FAQ</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="カスタマーサポートセンター">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-headset"></i> 具体的なタスク</strong><br>
+                        医療現場からの機器操作やトラブルに関する緊急の問い合わせ対応。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> 生成AIの活用</h3>
+                        <ul class="steps-list">
+                            <li><strong>チャットボット：</strong>添付文書や操作マニュアルを学習した高精度ボットの設置。</li>
+                            <li><strong>即時解決：</strong>緊急時でも待たせずにトラブルシューティングを提供。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-clock impact-icon"></i>
+                        <span>効果：スタッフの負担を減らし、現場を待たせない24時間対応</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Case 6: Medical Affairs -->
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-ma">MA / MSL</span>
+                <h2 class="card-title">エビデンス構築の支援</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="医学的な議論">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-microscope"></i> 具体的なタスク</strong><br>
+                        自社製品の臨床的価値を証明するためのKOL（主要意見交換者）との議論用資料作成。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> 生成AIの活用</h3>
+                        <ul class="steps-list">
+                            <li><strong>構造化：</strong>最新の臨床試験結果を整理・構造化。</li>
+                            <li><strong>相関分析：</strong>アンメット・メディカル・ニーズとの相関図を生成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-brain impact-icon"></i>
+                        <span>効果：資料作成を効率化し、深い科学的議論に時間を割ける</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Case 7: Manufacturing -->
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-mfg">製造・生産</span>
+                <h2 class="card-title">機器メンテナンスのマニュアル要約・翻訳</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="工場とエンジニア">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-tools"></i> 具体的なタスク</strong><br>
+                        海外工場の最新メンテナンス手順の理解と国内拠点への展開。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> 生成AIの活用</h3>
+                        <ul class="steps-list">
+                            <li><strong>翻訳・要約：</strong>多言語の複雑な技術マニュアルを、現場が理解しやすい平易な日本語に変換。</li>
+                            <li><strong>展開：</strong>グローバル拠点のナレッジを迅速に共有。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-globe impact-icon"></i>
+                        <span>効果：言語の壁を防ぎ、グローバル規模で研修効果を定着</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Case 8: HR -->
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-hr">人事管理</span>
+                <h2 class="card-title">専門職種に特化した評価コメント生成</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="面談風景">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-user-tie"></i> 具体的なタスク</strong><br>
+                        専門性の高いエンジニアや薬事担当者の公正な人事評価。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> 生成AIの活用</h3>
+                        <ul class="steps-list">
+                            <li><strong>フィードバック案：</strong>期中の具体的成果（プロジェクト進捗や承認取得）を基に、建設的なコメントを生成。</li>
+                            <li><strong>公平化：</strong>評価者による質のばらつきを抑える。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-balance-scale impact-icon"></i>
+                        <span>効果：公平で納得感のある評価を実現し、離職防止につなげる</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Case 9: Marketing -->
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-mkt">マーケティング</span>
+                <h2 class="card-title">ガイドライン準拠のコンテンツ制作</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1533750516457-a7f992034fec?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="デジタルマーケティング">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-ad"></i> 具体的なタスク</strong><br>
+                        ウェブサイトやSNSでの製品紹介コンテンツの作成。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> 生成AIの活用</h3>
+                        <ul class="steps-list">
+                            <li><strong>リスク低減：</strong>医療広告ガイドラインをプロンプトに組み込み、抵触リスクの低いドラフトを作成。</li>
+                            <li><strong>迅速化：</strong>監修プロセスを前提としたスピード感のある発信。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-check-circle impact-icon"></i>
+                        <span>効果：法規制を守りながら、安全かつ迅速な情報発信が可能</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Case 10: Management -->
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-mgmt">経営企画</span>
+                <h2 class="card-title">勤怠データ分析による生産性向上</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="データ分析ダッシュボード">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-chart-line"></i> 具体的なタスク</strong><br>
+                        部署ごとの残業実態の把握とリソース最適化。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> 生成AIの活用</h3>
+                        <ul class="steps-list">
+                            <li><strong>可視化：</strong>全社の勤怠データを解析し、特定のプロジェクトや時期に偏る負荷を可視化。</li>
+                            <li><strong>最適化：</strong>データに基づいたリソース配分。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-users impact-icon"></i>
+                        <span>効果：過度な疲弊を防ぎ、組織全体のパフォーマンスを最大化</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </div>
+
+    <footer style="text-align:center; padding: 40px; color:#999; font-size:0.9rem;">
+        &copy; 2025 Generative AI Use Cases for Medical Device Manufacturers
+    </footer>
+
+</body>
+</html>
