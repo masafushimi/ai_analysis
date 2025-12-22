@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>歯科医院向け 生成AI活用事例集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #008b8b; /* Dental Teal - 清潔感のある青緑 */
+            --accent-color: #ff7f50;  /* Coral - 温かみのあるアクセント */
+            --bg-color: #f0fdfc;      /* Very Light Mint */
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 20px 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        /* Slide Button Style */
+        .slide-link-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .slide-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0, 139, 139, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .slide-btn:hover {
+            background-color: #006666;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 139, 139, 0.4);
+        }
+
+        .slide-btn i {
+            font-size: 1.3rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Role Badge Variants */
+        .role-badge {
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .badge-reception { background-color: #20c997; } /* Teal */
+        .badge-doctor { background-color: #0056b3; }    /* Navy Blue */
+        .badge-dh { background-color: #d63384; }        /* Pink (Hygienist) */
+        .badge-da { background-color: #fd7e14; }        /* Orange (Assistant) */
+        .badge-mgmt { background-color: #343a40; }      /* Dark Grey */
+        .badge-staff { background-color: #6c757d; }     /* Grey */
+        .badge-admin { background-color: #198754; }     /* Green */
+        .badge-marketing { background-color: #6610f2; } /* Purple */
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .card-body {
+            display: flex;
+            gap: 30px;
+        }
+
+        .image-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+            aspect-ratio: 4/3;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .text-section {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: #444;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h3 i {
+            color: var(--accent-color);
+        }
+
+        .problem-box {
+            background-color: #e0f2f1; /* Light Teal bg */
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            font-size: 0.95rem;
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .steps-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .steps-list li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .impact-box {
+            background: linear-gradient(135deg, #008b8b 0%, #004d4d 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .impact-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .card-body {
+                flex-direction: column;
+            }
+            .image-section {
+                width: 100%;
+            }
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>歯科医院向け 生成AI活用事例集</h1>
+        <p>診療の質を高め、スタッフが長く働ける医院をつくる10の改革モデル</p>
+    </header>
+
+    <div class="slide-link-container">
+        <a href="#" class="slide-btn">
+            <i class="fas fa-file-powerpoint"></i>
+            プレゼンテーション案のダウンロード
+        </a>
+    </div>
+
+    <div class="container">
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-reception">受付・事務</span>
+                <h2 class="card-title">予約リマインドの高度化による「無断キャンセル」防止</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="受付と予約管理">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-calendar-times"></i> 具体的なタスク</strong><br>
+                        予約前日の確認連絡、無断キャンセル者へのフォロー。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>属性分析：</strong>「キャンセルしやすい属性や時間帯」をAIが分析。</li>
+                            <li><strong>自動送信：</strong>最適なタイミングで、その患者に響くリマインド文（SMS/メール）を自動送信。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-user-slash impact-icon"></i>
+                        <span>効果：予約管理工数を40%削減し、収益ロスの原因となる無断キャンセルを激減</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-doctor">歯科医師</span>
+                <h2 class="card-title">「紹介状・診断書」のドラフト作成</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="カルテ入力する歯科医師">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-file-medical"></i> 具体的なタスク</strong><br>
+                        他院や高次医療機関（大学病院等）への紹介状（対診状）の作成。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>即時ドラフト：</strong>箇条書きの所見や検査数値を入力するだけで、適切な医療用語・構成の紹介状を作成。</li>
+                            <li><strong>時間短縮：</strong>診療後の事務作業負担を大幅に軽減。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-user-md impact-icon"></i>
+                        <span>効果：事務作業を減らし、より多くの患者の診療や治療計画立案に注力</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-dh">歯科衛生士 (DH)</span>
+                <h2 class="card-title">予防歯科・定期検診の「パーソナライズ説明文」生成</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf4722e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="ブラッシング指導">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-tooth"></i> 具体的なタスク</strong><br>
+                        歯周病の状態やブラッシング指導の内容を、患者ごとにわかりやすく伝える資料作成。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>生活背景の考慮：</strong>口腔内状況とライフスタイル（喫煙、食習慣等）をAIに入力。</li>
+                            <li><strong>提案生成：</strong>その患者に合わせた「今日からできるケア」の提案文を自動作成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-heart impact-icon"></i>
+                        <span>効果：患者の納得感を高め、自費クリーニングや定期検診のリピート率を向上</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-mgmt">院長・経営</span>
+                <h2 class="card-title">自費診療（矯正・インプラント等）の広告最適化</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="インプラントや矯正の模型">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-ad"></i> 具体的なタスク</strong><br>
+                        高単価な自費診療の集患対策。ターゲット選定と広告運用。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>データ解析：</strong>既存患者の属性データをAIが解析し、ターゲット層（年齢・地域・悩み）を特定。</li>
+                            <li><strong>自動生成：</strong>ピンポイントで響くSNS広告やGoogle広告を自動生成・運用。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-coins impact-icon"></i>
+                        <span>効果：少ない予算で効果的に新患を獲得し、広告費の無駄を削減</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-staff">全スタッフ</span>
+                <h2 class="card-title">24時間対応の「歯科FAQチャットボット」</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="スマホでの問い合わせ">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-phone-volume"></i> 具体的なタスク</strong><br>
+                        「抜歯後の痛み」「矯正装置が外れた」など、緊急・定型的な問い合わせ対応。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>学習済みAI：</strong>院内のマニュアルを学習させたAIチャットボットをHPに設置。</li>
+                            <li><strong>即時回答：</strong>患者の質問に24時間体制で即座に回答。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-headset impact-icon"></i>
+                        <span>効果：電話問い合わせを50%減少させ、窓口での対面接遇に集中できる環境を実現</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-da">歯科助手・新人 (DA)</span>
+                <h2 class="card-title">複雑な「器具準備・片付け」の要約学習</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="歯科用器具の準備">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-tools"></i> 具体的なタスク</strong><br>
+                        処置ごとの複雑なセットアップや滅菌手順の習得。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>動画解析：</strong>院内研修動画や長大なマニュアルをAIに読み込ませる。</li>
+                            <li><strong>要点提示：</strong>処置ごとの「重要ポイント3選」などを数秒で要約・提示。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-graduation-cap impact-icon"></i>
+                        <span>効果：教育コストを大幅に下げ、経験が浅くてもミスなく迅速に準備可能に</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-mgmt">院長・チーフ</span>
+                <h2 class="card-title">歯科衛生士・助手の「人事評価コメント」作成支援</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="面談と評価">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-user-edit"></i> 具体的なタスク</strong><br>
+                        スタッフ一人ひとりのスキルや貢献度に対するフィードバック。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>実績入力：</strong>スタッフの具体的実績（技術向上、患者アンケート評価等）を入力。</li>
+                            <li><strong>文案作成：</strong>建設的でモチベーションを高める評価文案をAIが作成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-thumbs-up impact-icon"></i>
+                        <span>効果：評価業務の負担を軽減し、公平で納得感のある評価で離職を防ぐ</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-admin">事務・経営管理</span>
+                <h2 class="card-title">AIによる「シフト最適化」と残業削減</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="シフト表と時計">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-clock"></i> 具体的なタスク</strong><br>
+                        勤怠管理とスタッフの配置計画。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>波の解析：</strong>過去の来院患者数の波をAIが解析。</li>
+                            <li><strong>最適配置：</strong>繁忙日時に合わせた最適なスタッフ配置（リソース配分）を提案。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-chart-line impact-icon"></i>
+                        <span>効果：無駄な待機時間を減らしつつ、集中する残業を大幅に削減</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-marketing">マーケティング</span>
+                <h2 class="card-title">ガイドライン準拠の「歯科ブログ・SNS記事」量産</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1533750516457-a7f992034fec?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="ブログ執筆">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-pen-nib"></i> 具体的なタスク</strong><br>
+                        ホームページ記事の更新によるSEO対策。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>ドラフト生成：</strong>最新の歯科知識を盛り込んだ有益なコラムのドラフトを生成。</li>
+                            <li><strong>法規遵守：</strong>医療広告ガイドラインを遵守した表現を学習・適用。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-search-plus impact-icon"></i>
+                        <span>効果：検索順位を向上させ、院の専門性と信頼性をアピール</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-mgmt">経営陣</span>
+                <h2 class="card-title">スタッフの「潜在的な不満」の可視化と改善</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="チームミーティング">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-users-cog"></i> 具体的なタスク</strong><br>
+                        定期的なスタッフ面談やアンケートの結果分析。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>自由記述分析：</strong>スタッフ満足度アンケートの自由記述回答をAIが分析。</li>
+                            <li><strong>構造化：</strong>離職の兆候や現場の隠れた課題（マネジメントの不一致等）を可視化。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-heart-broken impact-icon"></i>
+                        <span>効果：深刻化する前に対策を講じ、スタッフ定着率（エンゲージメント）を飛躍的に向上</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </div>
+
+    <footer style="text-align:center; padding: 40px; color:#999; font-size:0.9rem;">
+        &copy; 2025 Generative AI Use Cases for Dental Clinics
+    </footer>
+
+</body>
+</html>
