@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>調剤薬局向け 生成AI活用事例集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2e8b57; /* Pharmacy Green - 信頼と安心のグリーン */
+            --accent-color: #fd7e14;  /* Orange - 温かみのあるアクセント */
+            --bg-color: #f0f9f4;      /* Very Light Green */
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 20px 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        /* Slide Button Style */
+        .slide-link-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .slide-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .slide-btn:hover {
+            background-color: #21663f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(46, 139, 87, 0.4);
+        }
+
+        .slide-btn i {
+            font-size: 1.3rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Role Badge Variants */
+        .role-badge {
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .badge-ph { background-color: #20c997; }     /* Teal for Pharmacist */
+        .badge-clerk { background-color: #e67e22; }  /* Orange for Clerk */
+        .badge-mgr { background-color: #0d6efd; }    /* Blue for Manager */
+        .badge-owner { background-color: #343a40; }  /* Dark for Owner */
+        .badge-admin { background-color: #6c757d; }  /* Grey for Admin */
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .card-body {
+            display: flex;
+            gap: 30px;
+        }
+
+        .image-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+            aspect-ratio: 4/3;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .text-section {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: #444;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h3 i {
+            color: var(--accent-color);
+        }
+
+        .problem-box {
+            background-color: #e8f5e9; /* Light Green bg */
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            font-size: 0.95rem;
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .steps-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .steps-list li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .impact-box {
+            background: linear-gradient(135deg, #2e8b57 0%, #1e5c39 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .impact-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .card-body {
+                flex-direction: column;
+            }
+            .image-section {
+                width: 100%;
+            }
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>調剤薬局向け 生成AI活用事例集</h1>
+        <p>業務効率化と対人業務の高度化を実現する10の処方箋</p>
+    </header>
+
+    <div class="slide-link-container">
+        <a href="#" class="slide-btn">
+            <i class="fas fa-file-powerpoint"></i>
+            プレゼンテーション案のダウンロード
+        </a>
+    </div>
+
+    <div class="container">
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-ph">薬剤師</span>
+                <h2 class="card-title">薬歴（SOAP）作成のドラフト自動生成</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1576671081837-49000212a370?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="薬歴入力を行う薬剤師">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-edit"></i> 具体的なタスク</strong><br>
+                        服薬指導後の経過記録（薬歴）の作成。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>音声・メモ入力：</strong>指導時のメモや音声をAIに入力。</li>
+                            <li><strong>SOAP生成：</strong>適切な文章構成でドラフトを自動作成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-file-medical-alt impact-icon"></i>
+                        <span>効果：ゼロから考える負担を軽減し、事務作業時間を短縮して対人業務を確保</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-ph">薬剤師</span>
+                <h2 class="card-title">DI（医薬品情報）照会・要約の高速化</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1631549916768-4119b2e5f926?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="医薬品情報を調べる">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-search"></i> 具体的なタスク</strong><br>
+                        膨大な添付文書やインタビューフォーム、新薬情報のスクリーニング。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>高速スクリーニング：</strong>長大な医薬品情報を読み込ませる。</li>
+                            <li><strong>要点抽出：</strong>特定の副作用や相互作用に関する情報を数秒で抽出。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-bolt impact-icon"></i>
+                        <span>効果：必要な情報を即座に把握し、疑義照会や患者説明を迅速化</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-ph">薬剤師</span>
+                <h2 class="card-title">パーソナライズされた「服薬支援資材」の作成</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1585435557343-3b092031a831?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="患者への服薬指導">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-hands-helping"></i> 具体的なタスク</strong><br>
+                        患者の疾患やライフスタイルに合わせた注意点、副作用の説明。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>平易化：</strong>添付文書の情報を、高齢者や子供にも分かりやすい表現に変換。</li>
+                            <li><strong>個別生成：</strong>患者一人ひとりに合わせた指導資料を作成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-user-check impact-icon"></i>
+                        <span>効果：相手に寄り添った質の高い服薬指導を実現</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-clerk">医療事務</span>
+                <h2 class="card-title">24時間対応の「処方箋・在庫確認」チャットボット</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="スマホ対応">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-phone-slash"></i> 具体的なタスク</strong><br>
+                        営業時間外の在庫確認や、処方箋の有効期限などの定型的な問い合わせ対応。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>FAQ学習：</strong>FAQデータを学習したAIチャットボットを設置。</li>
+                            <li><strong>24時間回答：</strong>時間外でも自動で一次対応を完了。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-headset impact-icon"></i>
+                        <span>効果：電話対応の負担を約50%減少させ、窓口業務に集中</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-clerk">医療事務</span>
+                <h2 class="card-title">未受取薬の防止「スマート・リマインド」</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1623861215448-6d271926b014?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="カレンダー通知">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-bell"></i> 具体的なタスク</strong><br>
+                        処方箋予約後の未来局患者や、継続服用が必要な患者への連絡。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>傾向分析：</strong>患者ごとの来局傾向を分析。</li>
+                            <li><strong>自動通知：</strong>最適なタイミングでリマインド通知を自動送信。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-calendar-check impact-icon"></i>
+                        <span>効果：管理工数を約40%削減し、服薬遵守（アドヒアランス）向上に寄与</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-mgr">薬局長</span>
+                <h2 class="card-title">AIによる「在庫最適化とデッドストック削減」</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="医薬品の在庫棚">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-boxes"></i> 具体的なタスク</strong><br>
+                        近隣クリニックの処方傾向に基づいた在庫発注管理。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>需要予測：</strong>過去の処方データから需要を予測。</li>
+                            <li><strong>適正化：</strong>適切な在庫量を算出し、過不足を防ぐ。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-chart-line impact-icon"></i>
+                        <span>効果：過剰在庫（収入口ス）を防ぎ、経営効率を最大化</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-mgr">薬局長</span>
+                <h2 class="card-title">スタッフの「納得感を高める人事評価」</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1559067515-bf7d799b6d4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="面談とフィードバック">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-user-friends"></i> 具体的なタスク</strong><br>
+                        薬剤師や事務スタッフへの定期的なフィードバック。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>文案作成：</strong>スタッフの具体的な貢献内容をもとに、建設的で公平な評価コメントを作成。</li>
+                            <li><strong>標準化：</strong>評価者による表現のばらつきを抑える。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-smile impact-icon"></i>
+                        <span>効果：公平で納得感のある評価を通じてモチベーションと定着率を向上</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-owner">経営者</span>
+                <h2 class="card-title">地域住民向け「健康コラム・SNS」の自動量産</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="地域医療と情報発信">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-bullhorn"></i> 具体的なタスク</strong><br>
+                        かかりつけ薬局としての情報発信、健康フェアの告知。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>ドラフト作成：</strong>季節性の疾患（花粉症等）に合わせた記事を自動生成。</li>
+                            <li><strong>ガイドライン遵守：</strong>医療広告ガイドラインに配慮した表現を提案。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-map-marker-alt impact-icon"></i>
+                        <span>効果：SEOを強化し、地域における薬局の認知度と信頼性を向上</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-admin">事務・管理</span>
+                <h2 class="card-title">AIテキスト分析による「店舗課題」の可視化</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="データ分析">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-search-plus"></i> 具体的なタスク</strong><br>
+                        スタッフアンケートや患者アンケートの集計・分析。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>構造化：</strong>自由記述コメントをAIが分析。</li>
+                            <li><strong>抽出：</strong>潜在的な不満や改善提案を洗い出し、可視化。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-lightbulb impact-icon"></i>
+                        <span>効果：現場の声を早期に把握して職場環境を改善し、離職を未然に防ぐ</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-admin">管理部門</span>
+                <h2 class="card-title">ピーク予測による「シフト最適化」</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="混雑する時間帯">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-clock"></i> 具体的なタスク</strong><br>
+                        特定の時間帯に集中する待ち時間を解消するための人員配置。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>ピーク分析：</strong>処方箋の集中する時間帯や曜日を分析。</li>
+                            <li><strong>提案：</strong>効率的なシフト表をAIが提案。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-balance-scale impact-icon"></i>
+                        <span>効果：閑散時の無駄と繁忙時の残業を抑制し、ワークライフバランスを向上</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </div>
+
+    <footer style="text-align:center; padding: 40px; color:#999; font-size:0.9rem;">
+        &copy; 2025 Generative AI Use Cases for Pharmacies
+    </footer>
+
+</body>
+</html>
