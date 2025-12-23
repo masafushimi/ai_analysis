@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>温浴施設向け 生成AI活用事例集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #d65a31; /* Terracotta - 温かみのあるオレンジ */
+            --accent-color: #008080;  /* Teal - 清潔感のある水色・緑 */
+            --bg-color: #fff8f0;      /* Warm Off-white */
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 20px 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        /* Slide Button Style */
+        .slide-link-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .slide-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(214, 90, 49, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .slide-btn:hover {
+            background-color: #b54521;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(214, 90, 49, 0.4);
+        }
+
+        .slide-btn i {
+            font-size: 1.3rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Role Badge Variants */
+        .role-badge {
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .badge-front { background-color: #e67e22; }    /* Orange for Front */
+        .badge-facility { background-color: #27ae60; } /* Green for Facility */
+        .badge-mkt { background-color: #8e44ad; }      /* Purple for Marketing */
+        .badge-mgmt { background-color: #2c3e50; }     /* Dark Blue for Management */
+        .badge-food { background-color: #c0392b; }     /* Red for Food */
+        .badge-admin { background-color: #7f8c8d; }    /* Grey for Admin */
+        .badge-hr { background-color: #d35400; }       /* Dark Orange for HR */
+        .badge-edu { background-color: #2980b9; }      /* Blue for Education */
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .card-body {
+            display: flex;
+            gap: 30px;
+        }
+
+        .image-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+            aspect-ratio: 4/3;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .text-section {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: #444;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h3 i {
+            color: var(--accent-color);
+        }
+
+        .problem-box {
+            background-color: #fcece4; /* Very Light Orange bg */
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            font-size: 0.95rem;
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .steps-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .steps-list li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .impact-box {
+            background: linear-gradient(135deg, #d65a31 0%, #a04020 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .impact-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .card-body {
+                flex-direction: column;
+            }
+            .image-section {
+                width: 100%;
+            }
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>温浴施設向け 生成AI活用事例集</h1>
+        <p>業務効率化と「おもてなし」の質を高める10の活用モデル</p>
+    </header>
+
+    <div class="slide-link-container">
+        <a href="#" class="slide-btn">
+            <i class="fas fa-file-powerpoint"></i>
+            プレゼンテーション案のダウンロード
+        </a>
+    </div>
+
+    <div class="container">
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-front">フロント</span>
+                <h2 class="card-title">多言語メール・予約対応の標準化</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1563911302283-d2bc129e7c1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="ホテル・旅館のフロント">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-globe"></i> 具体的なタスク</strong><br>
+                        海外観光客からの宿泊・団体予約に関する問い合わせ（メール・Webフォーム）対応。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>自動生成：</strong>問い合わせ内容に基づき、館内ルールや空き状況を反映した返信文を作成。</li>
+                            <li><strong>多言語化：</strong>スタッフの語学力に依存せず、正確な翻訳で即レス対応。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-comments impact-icon"></i>
+                        <span>効果：1件あたり5分以上の短縮と「属人性の解消」を実現</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-front">フロント</span>
+                <h2 class="card-title">AIボットによる「忘れ物・定型質問」の自動応答</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1596178060810-7264e14e8e16?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="スマホでの問い合わせ">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-phone-volume"></i> 具体的なタスク</strong><br>
+                        営業時間、アクセス、忘れ物の所在確認などの電話・チャット対応。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>24時間対応：</strong>HP上のチャットボットやAI電話応答システムが即座に回答。</li>
+                            <li><strong>負担軽減：</strong>単純な質問対応を自動化。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-headset impact-icon"></i>
+                        <span>効果：電話件数を約50%減少させ、接客に集中できる環境を実現</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-facility">施設管理</span>
+                <h2 class="card-title">水質・巡回点検レポートの自動生成</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1533038590840-1cde6e668a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="温泉やプール施設">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-tools"></i> 具体的なタスク</strong><br>
+                        1日複数回実施する温泉・貯水タンクの温度、水位、水質チェックと記録。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>データ連携：</strong>IoTセンサーが検知した異常値をAIが解析。</li>
+                            <li><strong>レポート化：</strong>日次・週次の異常レポートや改善提案を自動生成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-clipboard-check impact-icon"></i>
+                        <span>効果：属人的な点検を標準化し、負担軽減と安全性を高度に維持</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-mkt">マーケティング</span>
+                <h2 class="card-title">イベント・SNS投稿のドラフト量産</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1544367563-12123d832d34?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="SNS用の写真撮影">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-bullhorn"></i> 具体的なタスク</strong><br>
+                        「季節の変わり風呂」や「サウナイベント」などのSNS投稿やブログ記事作成。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>学習：</strong>過去の反響が良い投稿パターンを学習。</li>
+                            <li><strong>コピー生成：</strong>ターゲット（若年層、家族連れ等）に刺さるキャッチコピーを自動生成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-thumbs-up impact-icon"></i>
+                        <span>効果：SEO強化や新規集客に寄与し、少ない予算で効果的な広報が可能</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-mgmt">経営</span>
+                <h2 class="card-title">ダイナミック・プライシングの最適化</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="データ分析とグラフ">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-chart-line"></i> 具体的なタスク</strong><br>
+                        曜日、天候、近隣イベントに基づいた入館料や宿泊費の調整。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>多変量解析：</strong>過去の混雑データと外部要因（天気、連休）を分析。</li>
+                            <li><strong>提案：</strong>最適な料金設定やクーポン発行タイミングを提案。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-coins impact-icon"></i>
+                        <span>効果：収益最大化と混雑緩和を両立し、顧客満足度を向上</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-food">飲食</span>
+                <h2 class="card-title">顧客レビューの感情分析による「メニュー改善」</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="レストランの食事">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-utensils"></i> 具体的なタスク</strong><br>
+                        Googleマップや口コミサイトに寄せられる膨大なレビューの確認。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>テキストマイニング：</strong>レビューから「サ飯」への不満や要望をポジネガ分析。</li>
+                            <li><strong>要約：</strong>「味が濃い」「提供が遅い」等の具体的な声を構造化。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-search-plus impact-icon"></i>
+                        <span>効果：現場のニーズを見落とさず、迅速なメニュー改善へ</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-admin">バックオフィス</span>
+                <h2 class="card-title">AIによる「シフト最適化」と残業削減</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="シフト管理">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-clock"></i> 具体的なタスク</strong><br>
+                        繁忙期・閑散期に合わせたスタッフの人員配置計画。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>需要予測：</strong>AIが導き出した来客予測数に基づき計算。</li>
+                            <li><strong>自動作成：</strong>過不足のない最適なスタッフ配置案を作成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-user-clock impact-icon"></i>
+                        <span>効果：閑散時の無駄を減らし、残業コストの大幅な圧縮を目指す</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-hr">HR (人事)</span>
+                <h2 class="card-title">多種多様なパート・アルバイトへの「公平な評価」</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="スタッフ同士のコミュニケーション">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-user-check"></i> 具体的なタスク</strong><br>
+                        フロント、清掃、調理など多職種のスタッフに対する人事考課。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>フィードバック案：</strong>成果（接客、欠勤率、スキル）を入力し、モチベーションを高める文案を生成。</li>
+                            <li><strong>公平化：</strong>評価者による表現のばらつきを抑える。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-smile impact-icon"></i>
+                        <span>効果：納得感を高め、スタッフの定着率（エンゲージメント）を向上</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-edu">教育・研修</span>
+                <h2 class="card-title">複雑な「設備操作マニュアル」の要約・QA化</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="設備点検とマニュアル">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-book"></i> 具体的なタスク</strong><br>
+                        巨大なボイラーやろ過装置、防災設備などの操作方法を新人スタッフに教育。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>要約生成：</strong>分厚いマニュアルや動画を読み込み、「緊急時の対応3ステップ」等を生成。</li>
+                            <li><strong>QA化：</strong>疑問点に即座に答える仕組みを構築。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-graduation-cap impact-icon"></i>
+                        <span>効果：研修時間を短縮し、隙間時間で効率よく学べる体制を整備</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge badge-mgmt">経営</span>
+                <h2 class="card-title">離職予兆の早期発見（従業員満足度分析）</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="スタッフミーティング">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-heart-broken"></i> 具体的なタスク</strong><br>
+                        定期的なスタッフ面談やアンケート結果の分析。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>要因特定：</strong>自由記述回答から離職リスクの要因（人間関係、体力不安等）を抽出。</li>
+                            <li><strong>改善：</strong>問題が深刻化する前に環境改善へ繋げる。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-user-shield impact-icon"></i>
+                        <span>効果：職場環境を早期に改善し、コスト増の原因となる「離職」を未然に防ぐ</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </div>
+
+    <footer style="text-align:center; padding: 40px; color:#999; font-size:0.9rem;">
+        &copy; 2025 Generative AI Use Cases for Spa & Wellness Facilities
+    </footer>
+
+</body>
+</html>
