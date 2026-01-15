@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>株式会社インフィックス | 生成AI活用事例集</title>
+    <meta name="description" content="株式会社インフィックスの事業における生成AI活用による業務効率化・高度化の事例集">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* INFIX Inc. イメージに合わせたカラーパレット */
+            --primary-color: #1a2a44; /* Deep Navy: 信頼、知性 */
+            --secondary-color: #c5a059; /* Gold/Beige: 品格、高品質 */
+            --accent-color: #28a745;  /* Success Green: 効率化、成果 */
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --light-text: #666;
+            --card-bg: #ffffff;
+            --border-radius: 12px;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0f1c30 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 0.05em;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ddd;
+            margin-top: 0;
+        }
+
+        .company-name {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Navigation / Filters */
+        .filter-container {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 100;
+            margin-bottom: 40px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #ddd;
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 500;
+            color: var(--light-text);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+            display: grid;
+            gap: 40px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Card Header */
+        .card-header {
+            padding: 25px 30px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .category-badge {
+            background-color: #e9ecef;
+            color: var(--primary-color);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-id {
+            color: #ccc;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Card Body */
+        .card-body {
+            display: flex;
+            padding: 30px;
+            gap: 30px;
+        }
+
+        .image-section {
+            flex: 0 0 35%;
+            min-width: 250px;
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 100%;
+            min-height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .image-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .text-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h2.card-title {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Content Blocks */
+        .content-block {
+            margin-bottom: 10px;
+        }
+
+        .block-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .problem-text {
+            background-color: #fff5f5;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border-left: 3px solid #dc3545;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .solution-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .solution-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        .solution-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .impact-box {
+            margin-top: auto;
+            background: linear-gradient(to right, var(--primary-color), #2c3e50);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.95rem;
+        }
+
+        .impact-icon {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9rem;
+        }
+
+        .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .card-body {
+                flex-direction: column;
+                padding: 20px;
+            }
+            .image-section {
+                flex: auto;
+                height: 200px;
+            }
+            .filter-buttons {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 5px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .filter-btn {
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <span class="company-name">INFIX Inc.</span>
+            <h1>生成AI活用事例集</h1>
+            <p class="subtitle">輸入代行・薬事・コンサルティング業務の効率化と高度化</p>
+        </div>
+    </header>
+
+    <div class="filter-container">
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCards('all')">すべて表示</button>
+            <button class="filter-btn" onclick="filterCards('global')">海外取引・輸入</button>
+            <button class="filter-btn" onclick="filterCards('pharma')">薬事・コンサル</button>
+            <button class="filter-btn" onclick="filterCards('sales')">営業・マーケティング</button>
+            <button class="filter-btn" onclick="filterCards('internal')">社内業務・管理</button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Category A: 海外取引・輸入 -->
+        <article class="card category-global">
+            <div class="card-header">
+                <span class="category-badge">海外取引・輸入</span>
+                <span class="card-id">01</span>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="契約書と握手">
+                    </div>
+                </div>
+                <div class="text-section">
+                    <h2 class="card-title">海外メーカーとの交渉・契約自動化</h2>
+                    
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 課題</div>
+                        <div class="problem-text">
+                            独占販売権等の交渉において、多言語（英語・伊語等）でのメール作成や、複雑な契約書の条文チェックに時間がかかり、意思決定が遅れる。
+                        </div>
+                    </div>
+
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-robot" style="color:var(--primary-color)"></i> AI活用ソリューション</div>
+                        <ul class="solution-list">
+                            <li><strong>交渉メール生成：</strong>要点を箇条書きするだけで、現地の商習慣に即した丁寧なビジネスメールを各言語で作成。</li>
+                            <li><strong>契約書リスク検知：</strong>PDFを読み込み、自社に不利な条項の抽出と修正案の提示を自動化。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-tachometer-alt impact-icon"></i>
+                        <span>コミュニケーション速度3倍、法務チェック工数削減</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card category-global">
+            <div class="card-header">
+                <span class="category-badge">海外取引・輸入</span>
+                <span class="card-id">02</span>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="マニュアル翻訳">
+                    </div>
+                </div>
+                <div class="text-section">
+                    <h2 class="card-title">マニュアルの多言語自動翻訳・ローカライズ</h2>
+                    
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 課題</div>
+                        <div class="problem-text">
+                            輸入機器や化粧品のマニュアル日本語化において、専門用語の統一やレイアウト調整に膨大な工数がかかる。
+                        </div>
+                    </div>
+
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-robot" style="color:var(--primary-color)"></i> AI活用ソリューション</div>
+                        <ul class="solution-list">
+                            <li><strong>レイアウト保持翻訳：</strong>PDFのデザインを崩さずにテキストのみを高精度翻訳。</li>
+                            <li><strong>用語統一：</strong>「美容医療用語集」を学習させ、違和感のない専門的な日本語へ自動修正。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-clock impact-icon"></i>
+                        <span>マニュアル作成期間を数週間から数日へ短縮</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Category B: 薬事・コンサル -->
+        <article class="card category-pharma">
+            <div class="card-header">
+                <span class="category-badge">薬事・コンサル</span>
+                <span class="card-id">03</span>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="薬事法チェック">
+                    </div>
+                </div>
+                <div class="text-section">
+                    <h2 class="card-title">薬機法・医療広告ガイドラインチェック自動化</h2>
+                    
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 課題</div>
+                        <div class="problem-text">
+                            HPや広告の表現が薬機法に抵触しないか、目視でのチェックに限界があり、コンプライアンスリスクがある。
+                        </div>
+                    </div>
+
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-robot" style="color:var(--primary-color)"></i> AI活用ソリューション</div>
+                        <ul class="solution-list">
+                            <li><strong>リスク判定：</strong>広告テキストをAIがスキャンし、違反の可能性がある箇所を即座に指摘。</li>
+                            <li><strong>代替案生成：</strong>ガイドラインに準拠した「言い換え表現（OKパターン）」を自動提案。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-shield-alt impact-icon"></i>
+                        <span>確認作業時間70%削減、リスク低減</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card category-pharma">
+            <div class="card-header">
+                <span class="category-badge">薬事・コンサル</span>
+                <span class="card-id">04</span>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="申請書類作成">
+                    </div>
+                </div>
+                <div class="text-section">
+                    <h2 class="card-title">PMDA等への申請書類ドラフト作成支援</h2>
+                    
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 課題</div>
+                        <div class="problem-text">
+                            医療機器・化粧品の製造販売届出など、定型だが記述量の多い公的書類の作成負荷が高い。
+                        </div>
+                    </div>
+
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-robot" style="color:var(--primary-color)"></i> AI活用ソリューション</div>
+                        <ul class="solution-list">
+                            <li><strong>自動生成：</strong>製品スペック（成分、寸法等）を入力し、申請書様式に合わせた文章を生成。</li>
+                            <li><strong>クロスチェック：</strong>添付文書と申請書の内容に矛盾がないかAIが整合性を確認。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-file-alt impact-icon"></i>
+                        <span>申請準備期間の半減、記載ミスの防止</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card category-pharma">
+            <div class="card-header">
+                <span class="category-badge">薬事・コンサル</span>
+                <span class="card-id">05</span>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="データ分析">
+                    </div>
+                </div>
+                <div class="text-section">
+                    <h2 class="card-title">開業支援用「商圏分析レポート」の生成</h2>
+                    
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 課題</div>
+                        <div class="problem-text">
+                            クリニック開業支援において、エリアごとの競合分析や事業計画書の作成に時間がかかり提案数が増やせない。
+                        </div>
+                    </div>
+
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-robot" style="color:var(--primary-color)"></i> AI活用ソリューション</div>
+                        <ul class="solution-list">
+                            <li><strong>SWOT分析：</strong>地域の人口・競合データを入力し、AIが戦略的分析を実行。</li>
+                            <li><strong>執筆支援：</strong>ターゲット層や診療方針に合わせた事業計画書の骨子と文章を生成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-chart-line impact-icon"></i>
+                        <span>高品質なコンサル資料を短時間で作成、顧客満足度UP</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Category C: 営業・マーケティング -->
+        <article class="card category-sales">
+            <div class="card-header">
+                <span class="category-badge">営業・マーケティング</span>
+                <span class="card-id">06</span>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="チャットボット対応">
+                    </div>
+                </div>
+                <div class="text-section">
+                    <h2 class="card-title">カスタマーサポート用 トラブルシューティングBot</h2>
+                    
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 課題</div>
+                        <div class="problem-text">
+                            納品先クリニックからの「機器のエラー」等の電話問い合わせが多く、営業担当が対応に追われている。
+                        </div>
+                    </div>
+
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-robot" style="color:var(--primary-color)"></i> AI活用ソリューション</div>
+                        <ul class="solution-list">
+                            <li><strong>画像認識・回答：</strong>エラー画面の写真を送るだけで、AIがマニュアルから解決策を即答。</li>
+                            <li><strong>24時間対応：</strong>夜間・休日でも一次対応が可能になり、顧客のダウンタイムを最小化。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-headset impact-icon"></i>
+                        <span>電話問い合わせ50%削減、迅速な顧客サポート</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card category-sales">
+            <div class="card-header">
+                <span class="category-badge">営業・マーケティング</span>
+                <span class="card-id">07</span>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1499750310159-529800cf2c5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="コンテンツ作成">
+                    </div>
+                </div>
+                <div class="text-section">
+                    <h2 class="card-title">SEO記事・製品キャッチコピーの自動生成</h2>
+                    
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 課題</div>
+                        <div class="problem-text">
+                            優れた製品でも、日本人向けの魅力的な紹介文（LP、ブログ）を作るリソースが不足している。
+                        </div>
+                    </div>
+
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-robot" style="color:var(--primary-color)"></i> AI活用ソリューション</div>
+                        <ul class="solution-list">
+                            <li><strong>ペルソナ設定：</strong>ターゲット層（例：30代女性）に響く共感性の高いコピーを生成。</li>
+                            <li><strong>SEO強化：</strong>「美容医療」「幹細胞」等のキーワードを網羅した記事構成を作成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-search-dollar impact-icon"></i>
+                        <span>検索流入増加、コンテンツ制作コスト削減</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card category-sales">
+            <div class="card-header">
+                <span class="category-badge">営業・マーケティング</span>
+                <span class="card-id">08</span>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="セールストーク">
+                    </div>
+                </div>
+                <div class="text-section">
+                    <h2 class="card-title">インサイドセールスのトークスクリプト最適化</h2>
+                    
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 課題</div>
+                        <div class="problem-text">
+                            新規クリニックへのアプローチにおいて、営業担当個人のスキル差により成約率にばらつきがある。
+                        </div>
+                    </div>
+
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-robot" style="color:var(--primary-color)"></i> AI活用ソリューション</div>
+                        <ul class="solution-list">
+                            <li><strong>成功パターン分析：</strong>成約した商談データを分析し「キラーフレーズ」を抽出。</li>
+                            <li><strong>スクリプト生成：</strong>顧客状況（開業前、機器入替など）に応じた最適な台本を提示。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-users impact-icon"></i>
+                        <span>新人営業の即戦力化、アポイント取得率向上</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Category D: 社内業務・管理 -->
+        <article class="card category-internal">
+            <div class="card-header">
+                <span class="category-badge">社内業務・管理</span>
+                <span class="card-id">09</span>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1568667256549-094345857637?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="ナレッジ検索">
+                    </div>
+                </div>
+                <div class="text-section">
+                    <h2 class="card-title">社内ナレッジ検索（RAG）システム</h2>
+                    
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 課題</div>
+                        <div class="problem-text">
+                            「過去の輸入実績」や「交渉経緯」等の情報が属人化しており、探すのに時間がかかる。
+                        </div>
+                    </div>
+
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-robot" style="color:var(--primary-color)"></i> AI活用ソリューション</div>
+                        <ul class="solution-list">
+                            <li><strong>社内DB検索：</strong>過去のメール、日報、書類をAIが学習・インデックス化。</li>
+                            <li><strong>即時回答：</strong>「〇〇社とのトラブル履歴は？」と聞くだけで、要約された回答を提示。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-database impact-icon"></i>
+                        <span>情報検索時間の削減、ノウハウの組織的継承</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card category-internal">
+            <div class="card-header">
+                <span class="category-badge">社内業務・管理</span>
+                <span class="card-id">10</span>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="在庫管理">
+                    </div>
+                </div>
+                <div class="text-section">
+                    <h2 class="card-title">在庫・発注予測の精度向上</h2>
+                    
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-exclamation-circle" style="color:#dc3545"></i> 課題</div>
+                        <div class="problem-text">
+                            海外輸入品はリードタイムが長く、経験と勘に頼った発注により欠品や過剰在庫が発生しやすい。
+                        </div>
+                    </div>
+
+                    <div class="content-block">
+                        <div class="block-label"><i class="fas fa-robot" style="color:var(--primary-color)"></i> AI活用ソリューション</div>
+                        <ul class="solution-list">
+                            <li><strong>需要予測：</strong>過去データ、季節変動、トレンドを分析し3ヶ月後の需要を予測。</li>
+                            <li><strong>発注アラート：</strong>最適な発注タイミングと数量をAIがリコメンド。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-boxes impact-icon"></i>
+                        <span>在庫回転率の向上、キャッシュフロー改善</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </div>
+
+    <footer>
+        <span class="footer-logo">INFIX Inc.</span>
+        <p>&copy; 2024 INFIX Inc. Generated AI Usage Case Study.</p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">Designed for internal proposal.</p>
+    </footer>
+
+    <script>
+        function filterCards(category) {
+            // Update buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter logic
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = 'flex';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    if (card.classList.contains(`category-${category}`)) {
+                        card.style.display = 'flex';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
