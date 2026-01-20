@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-FIRST Re:ZONE AI活用事例集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            /* K-FIRST / Re:ZONE Branding Colors */
+            --primary-color: #1a365d; /* Trustworthy Navy */
+            --accent-color: #319795;  /* Renovation Teal */
+            --bg-color: #f0f4f8;      /* Light Grayish Blue Background */
+            --text-color: #2d3748;    /* Dark Gray Text */
+            --card-bg: #ffffff;
+            --border-radius: 12px;
+            --problem-bg: #fff5f5;    /* Light Red for Problem */
+            --problem-border: #e53e3e;/* Red Border */
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0 60px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            color: #4a5568;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08); /* Slightly stronger shadow */
+            overflow: hidden;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease;
+        }
+        
+        /* Title Section */
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .role-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .role-badge.design { background-color: #805ad5; } /* Purple for Design */
+        .role-badge.sales { background-color: #d69e2e; }  /* Yellow/Gold for Sales */
+        .role-badge.manage { background-color: #319795; } /* Teal for Management */
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        /* Content Layout */
+        .card-body {
+            display: flex;
+            gap: 35px;
+        }
+
+        .image-section {
+            flex: 1;
+            min-width: 320px;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            min-height: 250px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .text-section {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Section Headings inside card */
+        h3 {
+            font-size: 1.15rem;
+            color: #2d3748;
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        h3 i {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+
+        .problem-box {
+            background-color: var(--problem-bg);
+            padding: 18px;
+            border-radius: 8px;
+            border-left: 5px solid var(--problem-border);
+            font-size: 0.95rem;
+            color: #742a2a;
+        }
+
+        .problem-box strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #c53030;
+            font-size: 1rem;
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .steps-list li {
+            margin-bottom: 10px;
+            padding-left: 24px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .steps-list li::before {
+            content: "\f00c"; /* FontAwesome check */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+
+        .steps-list strong {
+            color: var(--primary-color);
+        }
+
+        .impact-box {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #2a4365 100%);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto; /* Push to bottom */
+            box-shadow: 0 4px 10px rgba(26, 54, 93, 0.3);
+        }
+
+        .impact-icon {
+            font-size: 1.8rem;
+            color: #81e6d9; /* Lighter teal for contrast on dark bg */
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .card-body {
+                flex-direction: column;
+            }
+            .image-section {
+                width: 100%;
+                min-width: auto;
+            }
+            .image-section img {
+                height: 200px;
+            }
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h3>株式会社K-FIRST Re:ZONE事業</h3>
+        <h1>生成AI活用による業務高度化 事例集</h1>
+        <p>「築古ビルの再生」を加速させるための、各部門における具体的AI活用シナリオ</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Case 1: Business Development -->
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge">事業開発・仕入れ</span>
+                <h2 class="card-title">オーナー交渉資料・市場調査の高速化</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="商談を行うビジネスマン">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-circle"></i> 現状の課題</strong>
+                        オーナー様ごとに異なる懸念（空室リスク、修繕費）への提案資料作成に時間がかかる。市場データの収集が煩雑。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-robot"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>交渉シナリオ生成：</strong>オーナーの懸念点を入力し、心に響くアプローチメールやトークスクリプトをChatGPTで生成。</li>
+                            <li><strong>市場調査：</strong>Perplexity等のAI検索で、特定エリアの「コワーキング需要」「競合賃料」を即座に収集。</li>
+                            <li><strong>契約書ドラフト：</strong>物件特有の条件を反映した契約書や特約条項案をAIが洗い出し。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-handshake impact-icon"></i>
+                        <span>導入効果：提案資料作成時間を70%削減、成約率の向上</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Case 2: Planning & Design -->
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge design">企画・デザイン</span>
+                <h2 class="card-title">リノベーション構想・パースの即時視覚化</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="モダンなオフィス内装">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-circle"></i> 現状の課題</strong>
+                        リノベーション後のイメージをオーナーや社内で共有する際、パース作成にコストと時間がかかり、意思決定が遅れる。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-paint-roller"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>画像生成AI活用：</strong>「ブルックリンスタイル」「北欧モダン」等のキーワードから、内装イメージ画像を数分で数十案生成。</li>
+                            <li><strong>コンセプト開発：</strong>ターゲット（士業、IT等）に刺さる物件コンセプトやネーミング案を大量生成。</li>
+                            <li><strong>合成編集：</strong>既存写真にAIで家具を配置するバーチャルステージングを実施。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-lightbulb impact-icon"></i>
+                        <span>導入効果：イメージ共有の初速が劇的に向上、手戻りの削減</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Case 3: Leasing & PR -->
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge sales">リーシング・広報</span>
+                <h2 class="card-title">集客コンテンツの自動生成と24時間対応</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="SNS運用とマーケティング">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-circle"></i> 現状の課題</strong>
+                        物件紹介記事やSNS投稿の作成が属人的で時間がかかる。営業時間外の問い合わせに対応できず機会損失がある。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-bullhorn"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>記事自動生成：</strong>スペックとターゲットを入力し、SEOに強いブログ記事やポータル掲載文を一瞬で作成。</li>
+                            <li><strong>SNS運用：</strong>Instagram/X用の魅力的な投稿文とハッシュタグ選定をAIに任せ、発信頻度を倍増。</li>
+                            <li><strong>AIチャットボット：</strong>「初期費用は？」「内覧可能？」等の質問に24時間即答し、営業へトスアップ。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-rocket impact-icon"></i>
+                        <span>導入効果：問い合わせ数アップ、対応工数の大幅削減</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Case 4: Property Management -->
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge manage">管理・PM</span>
+                <h2 class="card-title">入居者対応の品質均一化と多言語サポート</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="カスタマーサポート">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-circle"></i> 現状の課題</strong>
+                        クレーム対応メールの作成に精神的負担と時間がかかる。外国人入居者への対応が難しい。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-headset"></i> AI活用ステップ</h3>
+                        <ul class="steps-list">
+                            <li><strong>トラブル対応支援：</strong>状況に応じた「配慮のあるお詫び・報告メール」をAIがドラフト作成。</li>
+                            <li><strong>FAQ自動生成：</strong>過去の問い合わせ履歴から「よくある質問集」を生成し、入居者アプリへ反映。</li>
+                            <li><strong>多言語翻訳：</strong>掲示物や連絡事項をDeepL等で即時翻訳し、スムーズなコミュニケーションを実現。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-smile impact-icon"></i>
+                        <span>導入効果：担当者の負担軽減と入居者満足度（CX）の向上</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Summary / Risk -->
+        <article class="card" style="border: 2px solid #e53e3e;">
+            <div class="card-header" style="border-bottom-color: #feb2b2;">
+                <span class="role-badge" style="background-color:#c53030;">重要</span>
+                <h2 class="card-title" style="color:#c53030;">導入におけるリスク管理とルール</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1633265486064-086b219458ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="セキュリティロック">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box" style="background-color: #fff; border: 1px solid #fc8181; border-left: 5px solid #c53030; color: #2d3748;">
+                        <strong><i class="fas fa-shield-alt"></i> セキュリティの大前提</strong>
+                        不動産情報は個人情報や機密情報の塊です。AI利用時には以下のルールを徹底します。
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-lock"></i> 3つの鉄則</h3>
+                        <ul class="steps-list">
+                            <li><strong>個人情報の入力禁止：</strong>オーナー名、入居者名、具体的な住所などの特定情報はAIに入力しない（匿名化する）。</li>
+                            <li><strong>最終確認は人間が：</strong>AIは誤情報を生成する可能性があるため、契約条件や法的判断は必ず担当者がチェックする。</li>
+                            <li><strong>著作権への配慮：</strong>画像生成AIを利用する際は、商用利用可能なプラットフォームを選定する。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box" style="background: #2d3748;">
+                        <i class="fas fa-check-double impact-icon"></i>
+                        <span>導入効果：「攻め」の効率化と「守り」の信頼性を両立</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </div>
+
+    <footer>
+        &copy; 2025 K-FIRST Re:ZONE Project - AI Transformation Roadmap
+    </footer>
+
+</body>
+</html>
