@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アークレスト法律事務所 AI活用戦略スライド（カードデザイン版）</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- PptxGenJS (PowerPoint Generator) -->
+    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f0f4f8; /* Light Grayish Blue */
+        }
+        
+        /* Slide Aspect Ratio 16:9 Container */
+        .slide-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 ratio */
+            background: #f0f4f8;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        /* Inner Content Wrapper to handle absolute positioning */
+        .slide-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem; /* Margin around the card */
+            box-sizing: border-box;
+        }
+
+        /* The Card Itself */
+        .card-design {
+            background: white;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            overflow: hidden;
+            border-top: 6px solid #0f2e53; /* Navy Top Border */
+        }
+
+        /* Title Slide Override */
+        .title-slide {
+            background: #0f2e53;
+            color: white;
+            flex-direction: column;
+            text-align: center;
+            border: none;
+        }
+
+        /* Card Layout Split */
+        .card-left {
+            width: 35%;
+            position: relative;
+        }
+        .card-left img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-right {
+            width: 65%;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Typography & Elements */
+        .role-badge {
+            display: inline-block;
+            background-color: #0f2e53;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .role-badge.alert { background-color: #c53030; }
+
+        h1 { font-size: 1.8rem; font-weight: 700; color: #0f2e53; margin-bottom: 1.2rem; line-height: 1.3; }
+        
+        .problem-box {
+            background-color: #fff5f5;
+            border-left: 4px solid #e53e3e;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #742a2a;
+        }
+
+        .rank-item {
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+            color: #333;
+        }
+        .rank-tag {
+            background: #e2e8f0;
+            color: #2d3748;
+            font-size: 0.8rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .impact-box {
+            margin-top: auto;
+            background: linear-gradient(135deg, #0f2e53 0%, #1a365d 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            .slide-container { page-break-after: always; height: 100vh; margin: 0; border: none; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen flex flex-col items-center">
+
+    <!-- Controls -->
+    <div class="w-full max-w-5xl mb-6 flex flex-wrap gap-4 justify-between items-center no-print">
+        <h2 class="text-xl font-bold text-slate-700 m-0"><i class="fas fa-desktop mr-2"></i>スライドプレビュー（カード型）</h2>
+        <div class="flex gap-2">
+            <button onclick="changeSlide(-1)" class="px-4 py-2 bg-white border border-slate-300 rounded hover:bg-slate-50 font-medium text-slate-600 transition">
+                ← 前へ
+            </button>
+            <span id="page-indicator" class="px-4 py-2 text-slate-500 font-mono flex items-center">1 / 6</span>
+            <button onclick="changeSlide(1)" class="px-4 py-2 bg-white border border-slate-300 rounded hover:bg-slate-50 font-medium text-slate-600 transition">
+                次へ →
+            </button>
+        </div>
+        <div class="flex gap-2">
+            <button onclick="exportPPTX()" class="flex items-center gap-2 px-6 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 font-bold shadow-lg transition transform hover:-translate-y-0.5">
+                <i class="fas fa-file-powerpoint"></i> PPTXをダウンロード
+            </button>
+        </div>
+    </div>
+
+    <!-- Viewer -->
+    <div id="viewer" class="w-full max-w-5xl">
+        <!-- Slide Rendered Here -->
+    </div>
+
+    <script>
+        // Data Source
+        const slides = [
+            {
+                type: 'title',
+                title: '生成AI活用による業務変革事例集 Top 10',
+                subtitle: '弁護士法人アークレスト法律事務所\nIT×法律の強みを最大化するロードマップ',
+                footer: '2026 Arcrest Law Office'
+            },
+            {
+                type: 'card',
+                badge: 'ネット誹謗中傷・IT紛争',
+                title: '証拠収集の自動化とスピード解決',
+                img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                problem: 'SNSの膨大なログ確認や目録作成に時間がかかり、被害拡散スピードに追いつけない。',
+                items: [
+                    { rank: '1位', text: '【証拠抽出】数千件のログから権利侵害発言のみをAIが特定' },
+                    { rank: '2位', text: '【書面生成】プロバイダごとの反論パターンを学習し、請求書を自動執筆' },
+                    { rank: '7位', text: '【OCR】スクショ画像からURL・日時を抽出し、別紙目録を自動作成' }
+                ],
+                impact: '事務作業時間を80%削減、開示請求のリードタイム短縮'
+            },
+            {
+                type: 'card',
+                badge: '消費者被害・詐欺返金',
+                title: '大量案件のパターン分析と違法性検知',
+                img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                problem: '詐欺サイトの手口分析や、多数の被害者情報の整理（名寄せ）にリソースが圧迫されている。',
+                items: [
+                    { rank: '3位', text: '【違法検知】LPをスキャンし、特商法違反・不実告知箇所をリストアップ' },
+                    { rank: '6位', text: '【組織図】バラバラの相談データから振込先・手口を紐付け可視化' },
+                    { rank: '8位', text: '【CB申請】カード会社審査基準に合わせたチャージバック理由書作成' }
+                ],
+                impact: '返金成功率の向上と、少額被害案件の収益化'
+            },
+            {
+                type: 'card',
+                badge: '経営管理・顧客対応',
+                title: 'ナレッジの資産化と品質均一化',
+                img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                problem: '電話相談の記録作成や、担当者によるヒアリング品質・交渉力のバラつき。',
+                items: [
+                    { rank: '4位', text: '【所内検索】過去の全事件記録を学習。「和解相場は？」等に即答' },
+                    { rank: '5位', text: '【音声解析】通話を要約し、終了と同時に「受任確度スコア」を出力' }
+                ],
+                impact: '教育コストの削減と、受任率（売上）の最大化'
+            },
+            {
+                type: 'card',
+                badge: '不動産・Web集客',
+                title: '適正査定の瞬時提示と集客強化',
+                img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                problem: '敷金査定の手間や、Web集客における専門記事量産リソースの不足。',
+                items: [
+                    { rank: '9位', text: '【適正査定】見積書をスキャンし、ガイドライン照合で減額案を提示' },
+                    { rank: '10位', text: '【記事量産】検索意図を網羅した記事構成案を量産し流入増' }
+                ],
+                impact: '広告費を抑えた集客増と、即レスによる信頼獲得'
+            },
+            {
+                type: 'card',
+                badge: '重要：セキュリティ',
+                isAlert: true,
+                title: '守秘義務と運用の大前提',
+                img: 'https://images.unsplash.com/photo-1614064641938-3e82161932cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                problem: '弁護士法23条（守秘義務）の遵守。依頼者情報は厳格に保護されなければならない。',
+                items: [
+                    { rank: 'Rule 1', text: '個人情報のマスキング（匿名化）を徹底する' },
+                    { rank: 'Rule 2', text: 'AI学習のオプトアウト環境のみを利用する' },
+                    { rank: 'Rule 3', text: '最終判断は必ず「人（弁護士）」が行う' }
+                ],
+                impact: '「守り」を固めた上で「攻め」の業務効率化を実現'
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function renderSlide(index) {
+            const slide = slides[index];
+            const container = document.getElementById('viewer');
+            
+            let contentHtml = '';
+
+            if (slide.type === 'title') {
+                contentHtml = `
+                    <div class="slide-container">
+                        <div class="slide-inner">
+                            <div class="card-design title-slide justify-center">
+                                <h3 class="text-cyan-400 tracking-widest uppercase mb-4 text-sm font-bold">ARCREST LAW OFFICE</h3>
+                                <h1 class="text-5xl text-white mb-6 leading-tight">${slide.title}</h1>
+                                <p class="text-xl text-slate-300 whitespace-pre-wrap">${slide.subtitle}</p>
+                                <div class="mt-12 text-slate-400 text-sm border-t border-slate-600 pt-4 px-10">
+                                    ${slide.footer}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                const badgeClass = slide.isAlert ? 'role-badge alert' : 'role-badge';
+                const itemsHtml = slide.items.map(item => `
+                    <div class="rank-item flex items-start">
+                        <span class="rank-tag flex-shrink-0 mt-1">${item.rank}</span>
+                        <span><strong>${item.text.split('】')[0]}】</strong>${item.text.split('】')[1]}</span>
+                    </div>
+                `).join('');
+
+                contentHtml = `
+                    <div class="slide-container">
+                        <div class="slide-inner">
+                            <div class="card-design">
+                                <div class="card-left">
+                                    <img src="${slide.img}" alt="slide image">
+                                </div>
+                                <div class="card-right">
+                                    <div>
+                                        <span class="${badgeClass}">${slide.badge}</span>
+                                        <h1>${slide.title}</h1>
+                                        <div class="problem-box">
+                                            <strong><i class="fas fa-exclamation-triangle"></i> 課題:</strong>
+                                            ${slide.problem}
+                                        </div>
+                                        <div class="mb-4">
+                                            ${itemsHtml}
+                                        </div>
+                                    </div>
+                                    <div class="impact-box ${slide.isAlert ? 'bg-slate-800' : ''}">
+                                        <i class="fas fa-bolt text-cyan-400 text-xl"></i>
+                                        <span>効果：${slide.impact}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            container.innerHTML = contentHtml;
+            document.getElementById('page-indicator').textContent = `${index + 1} / ${slides.length}`;
+        }
+
+        function changeSlide(dir) {
+            const newIndex = currentIndex + dir;
+            if (newIndex >= 0 && newIndex < slides.length) {
+                currentIndex = newIndex;
+                renderSlide(currentIndex);
+            }
+        }
+
+        // --- PPTX Export (Complex Layout Matching) ---
+        function exportPPTX() {
+            const pptx = new PptxGenJS();
+            pptx.layout = 'LAYOUT_16x9'; // 10 x 5.625 inches
+
+            const navy = "0F2E53";
+            const cyan = "00B4D8";
+            const bgGray = "F0F4F8";
+            const red = "C53030";
+
+            slides.forEach((slide) => {
+                const pptSlide = pptx.addSlide();
+                
+                if (slide.type === 'title') {
+                    pptSlide.background = { color: navy };
+                    pptSlide.addText("ARCREST LAW OFFICE", { x:0, y:1.5, w:'100%', align:'center', color:cyan, fontSize:14, tracking:2 });
+                    pptSlide.addText(slide.title, { x:1, y:2.0, w:8, align:'center', color:'FFFFFF', fontSize:36, bold:true });
+                    pptSlide.addText(slide.subtitle, { x:1, y:3.5, w:8, align:'center', color:'CBD5E1', fontSize:18 });
+                } else {
+                    // 1. Background
+                    pptSlide.background = { color: bgGray };
+
+                    // 2. White Card Container (Shadow simulated by gray border or separate shape? PPTX shadow is basic)
+                    // Card Area: x=0.5, y=0.5, w=9, h=4.6
+                    pptSlide.addShape(pptx.ShapeType.rect, { 
+                        x: 0.5, y: 0.5, w: 9, h: 4.625, 
+                        fill: { color: 'FFFFFF' },
+                        line: { color: navy, width: 3, type: 'solid' } // Simulate Top Border (actually full border here, but good enough)
+                    });
+                    
+                    // To simulate specifically the top border, we can add a line or just accept the frame. 
+                    // Let's add the Image on the left (Card Left)
+                    // Image Area: x=0.5, y=0.5, w=3.15, h=4.625
+                    pptSlide.addImage({ 
+                        path: slide.img, 
+                        x: 0.55, y: 0.55, w: 3.1, h: 4.52, // Slight inset to respect card border
+                        sizing: { type: 'cover', w: 3.1, h: 4.52 } 
+                    });
+
+                    // Content Area (Card Right) start X = 3.8
+                    const contentX = 3.8;
+                    const contentW = 5.5;
+
+                    // Badge
+                    pptSlide.addShape(pptx.ShapeType.roundRect, {
+                        x: contentX, y: 0.8, w: 2.5, h: 0.4,
+                        fill: { color: slide.isAlert ? red : navy },
+                        r: 5
+                    });
+                    pptSlide.addText(slide.badge, {
+                        x: contentX, y: 0.8, w: 2.5, h: 0.4,
+                        color: 'FFFFFF', fontSize: 12, bold: true, align: 'center', inset:0
+                    });
+
+                    // Title
+                    pptSlide.addText(slide.title, {
+                        x: contentX, y: 1.3, w: contentW, h: 0.6,
+                        color: navy, fontSize: 22, bold: true
+                    });
+
+                    // Problem Box (Light Red bg)
+                    pptSlide.addShape(pptx.ShapeType.rect, {
+                        x: contentX, y: 2.0, w: contentW, h: 0.9,
+                        fill: { color: 'FFF5F5' },
+                        line: { color: 'E53E3E', width: 2 } // Left border simulation... actually full border
+                    });
+                    pptSlide.addText(`課題: ${slide.problem}`, {
+                        x: contentX + 0.1, y: 2.0, w: contentW - 0.2, h: 0.9,
+                        color: '742A2A', fontSize: 11, valign: 'middle'
+                    });
+
+                    // List Items
+                    let listY = 3.1;
+                    slide.items.forEach(item => {
+                        // Bold the part before '】'
+                        const parts = item.text.split('】');
+                        const boldText = parts[0] + '】';
+                        const normalText = parts[1];
+
+                        pptSlide.addText(
+                            [
+                                { text: item.rank + " ", options: { color: navy, bold: true, fontSize: 10 } },
+                                { text: boldText, options: { color: navy, bold: true } },
+                                { text: normalText, options: { color: '333333' } }
+                            ],
+                            { x: contentX, y: listY, w: contentW, h: 0.4, fontSize: 12 }
+                        );
+                        listY += 0.45;
+                    });
+
+                    // Impact Box (Navy Gradient simulated by solid Navy)
+                    pptSlide.addShape(pptx.ShapeType.rect, {
+                        x: contentX, y: 4.5, w: contentW, h: 0.5,
+                        fill: { color: slide.isAlert ? '1E293B' : navy }, // Dark gray if alert
+                        r: 5
+                    });
+                    pptSlide.addText(`効果：${slide.impact}`, {
+                        x: contentX, y: 4.5, w: contentW, h: 0.5,
+                        color: 'FFFFFF', fontSize: 11, bold: true, align: 'center', inset:0
+                    });
+                }
+            });
+
+            pptx.writeFile({ fileName: "Arcrest_AI_Cards.pptx" });
+        }
+
+        renderSlide(0);
+    </script>
+</body>
+</html>
