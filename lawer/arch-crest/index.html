@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アークレスト法律事務所 AI活用事例集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Branding Colors for Law Firm (Trust & Tech) */
+            --primary-color: #0f2e53; /* Deep Navy: Reliability */
+            --accent-color: #00b4d8;  /* Cyan/Tech Blue: Innovation */
+            --bg-color: #f4f6f9;      /* Light Gray Background */
+            --text-color: #333333;    /* Dark Gray Text */
+            --card-bg: #ffffff;
+            --border-radius: 8px;     /* Sharper corners for professional look */
+            --problem-bg: #fff5f5;    
+            --problem-border: #e53e3e;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0 60px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header h3 {
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 2.5rem;
+            margin: 0 0 15px 0;
+            font-weight: 700;
+        }
+
+        header p {
+            color: #555;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            overflow: hidden;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            border-top: 5px solid var(--primary-color);
+        }
+        
+        /* Title Section */
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .role-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .role-badge.tech { background-color: #2b6cb0; } 
+        .role-badge.consumer { background-color: #c05621; } 
+        .role-badge.manage { background-color: #2c7a7b; } 
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        /* Content Layout */
+        .card-body {
+            display: flex;
+            gap: 35px;
+        }
+
+        .image-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            min-height: 280px;
+            border-radius: 6px;
+            object-fit: cover;
+            filter: brightness(0.95);
+        }
+
+        .text-section {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Section Headings inside card */
+        h4 {
+            font-size: 1.1rem;
+            color: #2d3748;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        h4 i {
+            color: var(--accent-color);
+        }
+
+        .problem-box {
+            background-color: var(--problem-bg);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid var(--problem-border);
+            font-size: 0.9rem;
+            color: #742a2a;
+        }
+
+        .problem-box strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #c53030;
+            font-size: 0.95rem;
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .steps-list li {
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed #edf2f7;
+            padding-bottom: 8px;
+        }
+        
+        .steps-list li:last-child {
+            border-bottom: none;
+        }
+
+        .steps-list li::before {
+            content: "\f00c"; 
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+
+        .steps-list strong {
+            color: var(--primary-color);
+        }
+
+        .rank-tag {
+            background: #e2e8f0;
+            color: #4a5568;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 5px;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+
+        .impact-box {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a365d 100%);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto;
+            box-shadow: 0 4px 10px rgba(15, 46, 83, 0.3);
+        }
+
+        .impact-icon {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .card-body {
+                flex-direction: column;
+            }
+            .image-section {
+                width: 100%;
+                min-width: auto;
+            }
+            .image-section img {
+                height: 200px;
+                min-height: auto;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h3>ARCREST LAW OFFICE</h3>
+        <h1>生成AIによる法務業務の変革事例集</h1>
+        <p>「IT×法律」の強みを最大化し、圧倒的な処理能力と顧客満足を実現するTop 10施策</p>
+    </header>
+
+    <div class="container">
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge tech">ネット誹謗中傷・IT紛争</span>
+                <h2 class="card-title">証拠収集の自動化とスピード開示請求</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="サイバーセキュリティとデータ解析">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-exclamation-triangle"></i> 現状の課題</strong>
+                        SNSの膨大なログ確認やスクショのテキスト化（目録作成）に時間がかかり、被害拡散のスピードに追いつけない。
+                    </div>
+                    
+                    <div>
+                        <h4><i class="fas fa-robot"></i> 重点施策 (Rank 1, 2, 7)</h4>
+                        <ul class="steps-list">
+                            <li><span class="rank-tag">1位</span><strong>決定的証拠の自動抽出：</strong>数千件の投稿履歴から「権利侵害」に該当する発言のみをAIがスコアリングして即座に特定。</li>
+                            <li><span class="rank-tag">7位</span><strong>証拠スクショの完全OCR：</strong>画像データのURLや投稿日時をテキスト化し、訴状の「別紙目録」を一瞬で作成。手入力ミスをゼロに。</li>
+                            <li><span class="rank-tag">2位</span><strong>請求書ドラフト生成：</strong>プロバイダごとの反論パターンを学習したAIが、最適な法的論拠を含む開示請求書を自動執筆。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-bolt impact-icon"></i>
+                        <span>効果：事務作業時間を80%削減、開示請求のリードタイムを劇的短縮</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge consumer">消費者被害・詐欺返金</span>
+                <h2 class="card-title">大量案件のパターン分析と違法性検知</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="書類分析と法務">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-search-minus"></i> 現状の課題</strong>
+                        巧妙化する詐欺サイトの手口分析や、多数の被害者情報の整理（名寄せ）に人的リソースが圧迫されている。
+                    </div>
+                    
+                    <div>
+                        <h4><i class="fas fa-gavel"></i> 重点施策 (Rank 3, 6, 8)</h4>
+                        <ul class="steps-list">
+                            <li><span class="rank-tag">3位</span><strong>違法サイト・LPスキャン：</strong>情報商材のLPを読み込み、特商法違反や不実告知の箇所を数秒でリストアップして証拠化。</li>
+                            <li><span class="rank-tag">6位</span><strong>組織図の自動生成：</strong>バラバラの相談データから「振込先・手口」をAIが名寄せし、詐欺グループの全容を可視化・集団訴訟へ。</li>
+                            <li><span class="rank-tag">8位</span><strong>チャージバック申請書生成：</strong>カード会社ごとの審査基準に合わせ、最も通りやすい論理構成で理由書を作成。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-chart-line impact-icon"></i>
+                        <span>効果：返金成功率の向上と、少額被害案件の収益化</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge manage">経営管理・顧客対応</span>
+                <h2 class="card-title">ナレッジの資産化と相談対応の高品質化</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="チームミーティング">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-users-slash"></i> 現状の課題</strong>
+                        電話相談の記録作成に時間がかかる上、担当者によってヒアリングの質や和解交渉のレベルに差がある。
+                    </div>
+                    
+                    <div>
+                        <h4><i class="fas fa-brain"></i> 重点施策 (Rank 4, 5)</h4>
+                        <ul class="steps-list">
+                            <li><span class="rank-tag">4位</span><strong>所内検索「アークレスト・ブレイン」：</strong>過去の事件記録・準備書面を全学習。「このパターンの和解相場は？」等の質問に即答するRAGシステム。</li>
+                            <li><span class="rank-tag">5位</span><strong>相談音声のリアルタイム解析：</strong>通話内容を要約し、終了と同時に「法的論点」「受任確度スコア」を出力。取りこぼしを防ぐ。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-user-graduate impact-icon"></i>
+                        <span>効果：教育コストの削減と、受任率（売上）の最大化</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <span class="role-badge manage">不動産・広報</span>
+                <h2 class="card-title">適正査定の瞬時提示と集客強化</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="不動産とマーケティング">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box">
+                        <strong><i class="fas fa-bullhorn"></i> 現状の課題</strong>
+                        敷金返還の査定見積もりに手間がかかる。Web集客において専門記事の量産リソースが足りない。
+                    </div>
+                    
+                    <div>
+                        <h4><i class="fas fa-pen-nib"></i> 重点施策 (Rank 9, 10)</h4>
+                        <ul class="steps-list">
+                            <li><span class="rank-tag">9位</span><strong>原状回復費用の適正査定：</strong>管理会社の見積書をスキャンし、国交省ガイドラインと照合して「減額可能額」と反論案を即座に提示。</li>
+                            <li><span class="rank-tag">10位</span><strong>検索意図網羅記事の大量生成：</strong>「詐欺 返金」「削除」等のワードに対し、SEOに強く法的に正確な記事構成案を量産し流入増へ。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box">
+                        <i class="fas fa-arrow-trend-up impact-icon"></i>
+                        <span>効果：広告費を抑えた集客増と、即レスによる信頼獲得</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card" style="border-top: 5px solid #c53030;">
+            <div class="card-header" style="border-bottom-color: #feb2b2;">
+                <span class="role-badge" style="background-color:#c53030;">重要</span>
+                <h2 class="card-title" style="color:#c53030;">守秘義務とセキュリティガイドライン</h2>
+            </div>
+            <div class="card-body">
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1614064641938-3e82161932cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="セキュリティロック">
+                </div>
+                <div class="text-section">
+                    <div class="problem-box" style="background-color: #fff; border: 1px solid #fc8181; border-left: 5px solid #c53030; color: #2d3748;">
+                        <strong><i class="fas fa-shield-alt"></i> 弁護士法23条（守秘義務）の遵守</strong>
+                        依頼者の情報は厳格に守られるべきものです。AI利用時は以下のルールを徹底します。
+                    </div>
+                    
+                    <div>
+                        <h4><i class="fas fa-lock"></i> 運用ルール3ヶ条</h4>
+                        <ul class="steps-list">
+                            <li><strong>個人情報のマスキング：</strong>依頼者名、具体的な住所、口座番号などは「A氏」「甲土地」などに置換してからAIに入力する。</li>
+                            <li><strong>学習利用のオプトアウト：</strong>ChatGPT等のツールは、入力データがAIの学習に使われない設定（API利用やオプトアウト申請）済み環境のみ使用。</li>
+                            <li><strong>最終判断は弁護士が：</strong>AIはあくまで「草案作成」の補助。法的判断と最終的な文書チェックは必ず有資格者が行う。</li>
+                        </ul>
+                    </div>
+
+                    <div class="impact-box" style="background: #2d3748;">
+                        <i class="fas fa-check-double impact-icon"></i>
+                        <span>結論：「守り」を固めた上で「攻め」の業務効率化を実現する</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Arcrest Law Office - Digital Transformation Strategy</p>
+    </footer>
+
+</body>
+</html>
