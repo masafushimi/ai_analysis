@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美容院向け 生成AI活用事例集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #a88a5d; /* Elegant Gold */
+            --accent-color: #e27d60; /* Soft Coral */
+            --bg-color: #fdfcfb;
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --border-radius: 16px;
+            --shadow: 0 10px 30px rgba(168, 138, 93, 0.1);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #fff 0%, #f5f0e6 100%);
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+        }
+
+        header p {
+            color: #777;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .slide-link-container {
+            text-align: center;
+            margin: -20px 0 60px 0;
+        }
+
+        .slide-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 18px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 20px rgba(168, 138, 93, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .slide-btn:hover {
+            background-color: #8e734b;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(168, 138, 93, 0.4);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(168, 138, 93, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            padding: 30px 40px 10px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .role-badge {
+            background-color: #f5f0e6;
+            color: var(--primary-color);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            border: 1px solid var(--primary-color);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #222;
+            margin: 0;
+            flex: 1;
+        }
+
+        .card-body {
+            padding: 0 40px 40px;
+            display: flex;
+            gap: 40px;
+        }
+
+        .image-section {
+            flex: 1;
+            min-width: 320px;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            object-fit: cover;
+            aspect-ratio: 1/1;
+            filter: brightness(0.95);
+        }
+
+        .text-section {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            color: var(--primary-color);
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px dashed #ddd;
+            padding-bottom: 8px;
+        }
+
+        .problem-box {
+            background-color: #faf7f2;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .steps-list li {
+            margin-bottom: 12px;
+            padding-left: 28px;
+            position: relative;
+            font-size: 1rem;
+        }
+
+        .steps-list li::before {
+            content: "\f058"; /* Check circle */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+        }
+
+        .other-scenes {
+            background-color: #f9f9f9;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .impact-box {
+            background: linear-gradient(135deg, #a88a5d 0%, #8e734b 100%);
+            color: white;
+            padding: 18px 25px;
+            border-radius: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .impact-icon {
+            font-size: 1.6rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px;
+            color: #aaa;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .card-body {
+                flex-direction: column;
+            }
+            .image-section {
+                min-width: 100%;
+            }
+            .card-header {
+                padding: 30px 25px 10px;
+            }
+            .card-body {
+                padding: 0 25px 30px;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>BEAUTY SALON × Generative AI</h1>
+    <p>サロンワークを効率化し、クリエイティブな時間を最大化する活用事例集</p>
+</header>
+
+<div class="slide-link-container">
+    <a href="#" class="slide-btn">
+        <i class="fas fa-file-powerpoint"></i> 導入ガイドをダウンロード
+    </a>
+</div>
+
+<div class="container">
+
+    <!-- Case 1: Marketing (SEO) -->
+    <article class="card">
+        <div class="card-header">
+            <span class="role-badge">Marketing</span>
+            <h2 class="card-title">HPB集客最大化とSEOライティングの高度化</h2>
+        </div>
+        <div class="card-body">
+            <div class="image-section">
+                <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80" alt="HPB・SNS運用">
+            </div>
+            <div class="text-section">
+                <div class="problem-box">
+                    <strong><i class="fas fa-exclamation-circle" style="color:var(--accent-color)"></i> 現状の課題</strong><br>
+                    HPBの更新が「作業」になっており、キーワードの「左寄せ」やフリーワード検索対策など、高度なSEO設計まで手が回らない。
+                </div>
+                <div>
+                    <h3><i class="fas fa-wand-magic-sparkles"></i> AI活用ステップ</h3>
+                    <ul class="steps-list">
+                        <li><strong>キーワード「左寄せ」リライト：</strong>クーポン名の冒頭にエリア名や「髪質改善」等の重要ワードをAIが戦略的に配置。</li>
+                        <li><strong>お悩みワードの自動網羅：</strong>「白髪染め」「インナーカラー」等、自エリアのトレンドワードをページ内に自然に散りばめる。</li>
+                        <li><strong>SEOブログの量産：</strong>Google検索に強い「地域名×悩み×解決策」をタイトルに含んだ記事案を数分で生成。</li>
+                        <li><strong>口コミ返信SEO：</strong>返信文にメニュー名や薬剤名をAIが混ぜ込み、ページ全体のキーワード比率を向上。</li>
+                    </ul>
+                </div>
+                <div class="impact-box">
+                    <i class="fas fa-bolt impact-icon"></i>
+                    <span>導入効果：フリーワード検索からの流入増とブランド力強化</span>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- Case 2: Knowledge Bot (NotebookLM) -->
+    <article class="card">
+        <div class="card-header">
+            <span class="role-badge">Support / Management</span>
+            <h2 class="card-title">NotebookLMによる「サロン専用AIボット」</h2>
+        </div>
+        <div class="card-body">
+            <div class="image-section">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="データ分析">
+            </div>
+            <div class="text-section">
+                <div class="problem-box">
+                    <strong><i class="fas fa-exclamation-circle" style="color:var(--accent-color)"></i> 現状の課題</strong><br>
+                    駐車場、成分、メニュー詳細など、お客様や新人スタッフからの同じ質問への回答に時間を取られ、本来の接客が中断される。
+                </div>
+                <div>
+                    <h3><i class="fas fa-brain"></i> AI活用ステップ</h3>
+                    <ul class="steps-list">
+                        <li><strong>ナレッジの集約：</strong>店内のPDFマニュアル、薬剤パンフレット、過去のブログ、FAQをすべてNotebookLMにアップロード。</li>
+                        <li><strong>根拠のある回答：</strong>AIが読み込ませた資料のみに基づいて回答するため、嘘（ハルシネーション）を極限まで抑制。</li>
+                        <li><strong>音声変換・要約：</strong>複雑な薬剤マニュアルをAIが「新人向けの音声ガイド」や「お客様向けQ&A」として平易に要約。</li>
+                    </ul>
+                </div>
+                <div class="other-scenes">
+                    <strong><i class="fas fa-lightbulb"></i> その他のシーン</strong><br>
+                    新人スタッフの「逆引きマニュアル」として活用、薬剤の成分アレルギー確認の高速化。
+                </div>
+                <div class="impact-box">
+                    <i class="fas fa-microchip impact-icon"></i>
+                    <span>導入効果：問い合わせ対応時間を50%削減し、情報の正確性を担保</span>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- Case 3: Stylist -->
+    <article class="card">
+        <div class="card-header">
+            <span class="role-badge">Stylist</span>
+            <h2 class="card-title">AIヘアスタイルシミュレーション</h2>
+        </div>
+        <div class="card-body">
+            <div class="image-section">
+                <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=800&q=80" alt="カウンセリング">
+            </div>
+            <div class="text-section">
+                <div class="problem-box">
+                    <strong><i class="fas fa-exclamation-circle" style="color:var(--accent-color)"></i> 現状の課題</strong><br>
+                    カウンセリング時に「似合うかどうか」のイメージ共有が難しく、仕上がりのミスマッチや顧客の不安が残る。
+                </div>
+                <div>
+                    <h3><i class="fas fa-scissors"></i> AI活用ステップ</h3>
+                    <ul class="steps-list">
+                        <li><strong>リアル合成：</strong>顧客の顔写真に、生成AIで作った理想のスタイルや髪色を自然に合成して提示。</li>
+                        <li><strong>顔タイプ分析：</strong>AIが顧客のパーツを分析し、理論的に「似合うスタイル」の根拠を説明。</li>
+                    </ul>
+                </div>
+                <div class="impact-box">
+                    <i class="fas fa-face-smile impact-icon"></i>
+                    <span>導入効果：カウンセリング成約率と顧客満足度が向上</span>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- Case 4: Reception -->
+    <article class="card">
+        <div class="card-header">
+            <span class="role-badge">Reception</span>
+            <h2 class="card-title">口コミ返信とCRMの自動化</h2>
+        </div>
+        <div class="card-body">
+            <div class="image-section">
+                <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=80" alt="受付対応">
+            </div>
+            <div class="text-section">
+                <div class="problem-box">
+                    <strong><i class="fas fa-exclamation-circle" style="color:var(--accent-color)"></i> 現状の課題</strong><br>
+                    口コミへの返信が定型文になりがち。また、次回来店を促すCRMメッセージの作成工数が膨大。
+                </div>
+                <div>
+                    <h3><i class="fas fa-comments"></i> AI活用ステップ</h3>
+                    <ul class="steps-list">
+                        <li><strong>パーソナライズ返信：</strong>口コミから喜びのポイントを抽出し、一人ひとりに寄り添った返信案を作成。</li>
+                        <li><strong>再来促進CRM：</strong>来店履歴に基づき、最適なタイミングで「前回の続き」を提案するメッセージをAIが生成。</li>
+                    </ul>
+                </div>
+                <div class="impact-box">
+                    <i class="fas fa-heart impact-icon"></i>
+                    <span>導入効果：リピート率向上とフロント業務の標準化</span>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- Case 5: Creative -->
+    <article class="card">
+        <div class="card-header">
+            <span class="role-badge">Creative</span>
+            <h2 class="card-title">モデル不在でも可能な高品質ビジュアル制作</h2>
+        </div>
+        <div class="card-body">
+            <div class="image-section">
+                <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=800&q=80" alt="撮影">
+            </div>
+            <div class="text-section">
+                <div class="problem-box">
+                    <strong><i class="fas fa-exclamation-circle" style="color:var(--accent-color)"></i> 現状の課題</strong><br>
+                    スタイル撮影のモデル手配やスタジオ代が高額。素材の不足により、SNSや広告の更新が止まる。
+                </div>
+                <div>
+                    <h3><i class="fas fa-camera"></i> AI活用ステップ</h3>
+                    <ul class="steps-list">
+                        <li><strong>AIモデル生成：</strong>髪型さえあれば、モデルの顔や表情をAIで生成・差し替えが可能。</li>
+                        <li><strong>背景差し替え：</strong>店内の写真をAIで「洗練されたスタジオ」や「海外の街角」へ自然に変更。</li>
+                    </ul>
+                </div>
+                <div class="impact-box">
+                    <i class="fas fa-coins impact-icon"></i>
+                    <span>導入効果：撮影コストを70%削減し、広告素材を量産</span>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- Case 6: Safety (Red Theme) -->
+    <article class="card" style="border: 2px solid var(--accent-color);">
+        <div class="card-header">
+            <span class="role-badge" style="background-color:var(--accent-color); color:#fff; border:none;">Important</span>
+            <h2 class="card-title" style="color:var(--accent-color);">安心活用のための鉄則：リスク管理</h2>
+        </div>
+        <div class="card-body">
+            <div class="image-section">
+                <img src="https://images.unsplash.com/photo-1508341591423-4347099e1f19?auto=format&fit=crop&w=800&q=80" alt="セキュリティ">
+            </div>
+            <div class="text-section">
+                <div class="problem-box" style="border-left-color: #333;">
+                    <strong><i class="fas fa-lock"></i> 運用の大前提</strong><br>
+                    顧客の信頼を守るため、生成AIを利用する際には以下のルールを徹底する必要があります。
+                </div>
+                <div>
+                    <h3><i class="fas fa-shield-halved"></i> 3つの絶対ルール</h3>
+                    <ul class="steps-list">
+                        <li><strong>個人情報の入力禁止：</strong>顧客の氏名、電話番号などの特定情報は絶対に入力しない。</li>
+                        <li><strong>情報の最終確認：</strong>AIはもっともらしい嘘をつくことがあるため、必ずプロが確認する。</li>
+                        <li><strong>肖像権の配慮：</strong>顧客の写真を加工・公開する場合は、必ず事前に同意を得る。</li>
+                    </ul>
+                </div>
+                <div class="impact-box" style="background: #333;">
+                    <i class="fas fa-check-circle impact-icon"></i>
+                    <span>AIは「アシスタント」。最終的な判断とおもてなしは人間が負う</span>
+                </div>
+            </div>
+        </div>
+    </article>
+
+</div>
+
+<footer>
+    <p>&copy; 2025 Salon DX Promotion Association - 生成AIで、美容室の未来をクリエイティブに。</p>
+</footer>
+
+</body>
+</html>
