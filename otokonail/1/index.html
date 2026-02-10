@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTOKO・NAIL - 男性専用メンズネイルケア専門店</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #1a1a1a;
+            --primary-light: #f8f6f3;
+            --accent-gold: #c9a961;
+            --accent-charcoal: #2d2d2d;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6b6b6b;
+            --border-subtle: #e5e3df;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--primary-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(248, 246, 243, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(248, 246, 243, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--primary-dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--accent-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-dark);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background-color: var(--accent-gold);
+            color: var(--white);
+            padding: 0.8rem 2rem;
+            border-radius: 2px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            transition: all 0.3s ease;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--accent-gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1621607512214-68297480165e?w=1920&h=1080&fit=crop') center/cover;
+            opacity: 0.4;
+            animation: slowZoom 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(26, 26, 26, 0.6) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--white);
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            color: var(--accent-gold);
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.9s forwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.2s forwards;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1.2rem 3rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-gold);
+            color: var(--white);
+            border: 1px solid var(--accent-gold);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--primary-dark);
+            border-color: var(--white);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            opacity: 0;
+            animation: fadeIn 1s ease 2s forwards, bounce 2s ease-in-out 2.5s infinite;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, var(--accent-gold));
+        }
+
+        /* Section Styles */
+        section {
+            padding: 8rem 3rem;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .section-description {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        /* Concept Section */
+        .concept {
+            background-color: var(--white);
+        }
+
+        .concept-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+        }
+
+        .concept-card {
+            text-align: center;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .concept-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            border: 2px solid var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--accent-gold);
+            transition: all 0.3s ease;
+        }
+
+        .concept-card:hover .concept-icon {
+            background-color: var(--accent-gold);
+            color: var(--white);
+        }
+
+        .concept-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            color: var(--primary-dark);
+        }
+
+        .concept-card p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        /* Services Section */
+        .services {
+            background: linear-gradient(to bottom, var(--primary-light) 0%, var(--white) 100%);
+        }
+
+        .services-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .service-image {
+            width: 45%;
+            object-fit: cover;
+        }
+
+        .service-content {
+            padding: 3rem;
+            width: 55%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .service-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            font-weight: 500;
+        }
+
+        .service-content p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-price {
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .service-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-link:hover {
+            color: var(--primary-dark);
+            gap: 1rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background-color: var(--accent-charcoal);
+            color: var(--white);
+        }
+
+        .gallery .section-title {
+            color: var(--white);
+        }
+
+        .gallery .section-description {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .gallery-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(201, 169, 97, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            color: var(--white);
+            font-size: 2rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background-color: var(--white);
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--primary-light);
+            padding: 3rem 2.5rem;
+            border-left: 3px solid var(--accent-gold);
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.9;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .author-info h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--accent-charcoal) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 8rem 3rem;
+        }
+
+        .cta-section h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--accent-charcoal);
+            color: #c4c4c4;
+            padding: 5rem 3rem 3rem;
+            border-top: 1px solid rgba(201, 169, 97, 0.2);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: white;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: #a0a0a0;
+        }
+
+        .footer-section h4 {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: white;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #a0a0a0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+            color: #808080;
+            letter-spacing: 0.05em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .concept-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1.5rem 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            section {
+                padding: 5rem 2rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .service-card {
+                flex-direction: column;
+            }
+
+            .service-image,
+            .service-content {
+                width: 100%;
+            }
+
+            .service-image {
+                height: 250px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .cta-section h2 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">OTOKO・NAIL</a>
+            <ul class="nav-links">
+                <li><a href="#concept">コンセプト</a></li>
+                <li><a href="#services">メニュー</a></li>
+                <li><a href="#gallery">ギャラリー</a></li>
+                <li><a href="#testimonials">お客様の声</a></li>
+                <li><a href="/news">ニュース</a></li>
+                <li><a href="#" class="cta-button">ご予約</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-subtitle">日本初・男性専用ネイルケアサロン</p>
+            <h1>真の洗練は、<br>指先から始まる</h1>
+            <p class="hero-description">ビジネスシーンで差をつける、プロフェッショナルのためのネイルケア。<br>清潔感と品格を、指先に宿す。</p>
+            <div class="hero-buttons">
+                <a href="#services" class="btn-primary">メニューを見る</a>
+                <a href="#concept" class="btn-secondary">詳しく知る</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- Concept Section -->
+    <section class="concept" id="concept">
+        <div class="section-header">
+            <p class="section-subtitle">Our Philosophy</p>
+            <h2 class="section-title">オトコネイルが選ばれる理由</h2>
+            <p class="section-description">現代のプロフェッショナルにとって、指先の手入れは単なる身だしなみではありません。それは、自己管理能力と細部へのこだわりを体現するもの。私たちは、男性のための上質なネイルケアを通じて、あなたの価値を高めます。</p>
+        </div>
+        <div class="concept-grid">
+            <div class="concept-card">
+                <div class="concept-icon">✦</div>
+                <h3>男性専用空間</h3>
+                <p>完全男性専用のプライベート空間。周囲を気にすることなく、リラックスして施術をお受けいただけます。</p>
+            </div>
+            <div class="concept-card">
+                <div class="concept-icon">◆</div>
+                <h3>プロフェッショナル技術</h3>
+                <p>経験豊富なネイリストによる、男性の手に特化した繊細な技術。自然で品のある仕上がりを実現します。</p>
+            </div>
+            <div class="concept-card">
+                <div class="concept-icon">✧</div>
+                <h3>ビジネスに最適</h3>
+                <p>商談、プレゼン、接客。あらゆるビジネスシーンで好印象を与える、洗練された指先を演出します。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <p class="section-subtitle">Our Services</p>
+            <h2 class="section-title">施術メニュー</h2>
+            <p class="section-description">お客様のライフスタイルとニーズに合わせた、多様なメニューをご用意しています。</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=600&h=500&fit=crop" alt="ベーシックケア" class="service-image">
+                <div class="service-content">
+                    <h3>ベーシックケア</h3>
+                    <p>爪の形を整え、甘皮処理、バッフィング、保湿までを丁寧に行う基本コース。初めての方にもおすすめです。</p>
+                    <div class="service-price">¥5,500</div>
+                    <a href="#" class="service-link">詳細を見る →</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=600&h=500&fit=crop" alt="プレミアムケア" class="service-image">
+                <div class="service-content">
+                    <h3>プレミアムケア</h3>
+                    <p>ベーシックケアに加え、ハンドマッサージと特別なトリートメントで、極上のリラクゼーション体験を。</p>
+                    <div class="service-price">¥8,800</div>
+                    <a href="#" class="service-link">詳細を見る →</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=500&fit=crop" alt="エグゼクティブコース" class="service-image">
+                <div class="service-content">
+                    <h3>エグゼクティブコース</h3>
+                    <p>すべてを含んだ最高級コース。深爪や巻き爪などのトラブルケアも対応。完璧な仕上がりをお約束します。</p>
+                    <div class="service-price">¥12,000</div>
+                    <a href="#" class="service-link">詳細を見る →</a>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=600&h=500&fit=crop" alt="トラブルケア" class="service-image">
+                <div class="service-content">
+                    <h3>トラブルケア</h3>
+                    <p>巻き爪、深爪、二枚爪など、爪のトラブルに特化した専門的なケア。健康的な爪へと導きます。</p>
+                    <div class="service-price">¥7,700</div>
+                    <a href="#" class="service-link">詳細を見る →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="section-header">
+            <p class="section-subtitle">Gallery</p>
+            <h2 class="section-title">施術例</h2>
+            <p class="section-description">実際の施術例をご覧ください。自然で洗練された仕上がりをお約束します。</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400&h=400&fit=crop" alt="施術例1">
+                <div class="gallery-overlay"><span>+</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=400&h=400&fit=crop" alt="施術例2">
+                <div class="gallery-overlay"><span>+</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=400&fit=crop" alt="施術例3">
+                <div class="gallery-overlay"><span>+</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=400&h=400&fit=crop" alt="施術例4">
+                <div class="gallery-overlay"><span>+</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1621607512214-68297480165e?w=400&h=400&fit=crop" alt="施術例5">
+                <div class="gallery-overlay"><span>+</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&h=400&fit=crop" alt="施術例6">
+                <div class="gallery-overlay"><span>+</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=crop" alt="施術例7">
+                <div class="gallery-overlay"><span>+</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="施術例8">
+                <div class="gallery-overlay"><span>+</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header">
+            <p class="section-subtitle">Testimonials</p>
+            <h2 class="section-title">お客様の声</h2>
+            <p class="section-description">多くのビジネスパーソンの方々にご利用いただいています。</p>
+        </div>
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <p class="testimonial-text">「商談前に必ず利用しています。清潔感のある指先が自信につながり、成約率も上がった気がします。男性専用なので気兼ねなく通えるのも魅力です。」</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">T.S</div>
+                    <div class="author-info">
+                        <h4>田中 様</h4>
+                        <p>IT企業経営者 / 40代</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">「最初は半信半疑でしたが、一度体験してから定期的に通っています。スタッフの方の技術力が高く、自然な仕上がりに満足しています。プレゼンの前には欠かせません。」</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">K.Y</div>
+                    <div class="author-info">
+                        <h4>山田 様</h4>
+                        <p>外資系企業勤務 / 30代</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">「長年悩んでいた巻き爪が改善されました。痛みもなくなり、仕事に集中できるようになりました。トラブルケアの技術の高さに驚きました。本当に感謝しています。」</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">M.S</div>
+                    <div class="author-info">
+                        <h4>佐藤 様</h4>
+                        <p>弁護士 / 50代</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>あなたの価値を、<br>指先から高める</h2>
+        <p>初めての方限定、体験コースをご用意しています</p>
+        <a href="#" class="btn-primary">今すぐ予約する</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>OTOKO・NAIL</h3>
+                <p>男性専用のメンズネイルケア専門店。<br>洗練されたケアで、真の美しさを引き出します。</p>
+            </div>
+            <div class="footer-section">
+                <h4>サービス</h4>
+                <ul class="footer-links">
+                    <li><a href="#services">施術メニュー</a></li>
+                    <li><a href="#">初めての方へ</a></li>
+                    <li><a href="#testimonials">お客様の声</a></li>
+                    <li><a href="#">よくある質問</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>会社情報</h4>
+                <ul class="footer-links">
+                    <li><a href="#concept">コンセプト</a></li>
+                    <li><a href="#">店舗情報</a></li>
+                    <li><a href="#">コラム</a></li>
+                    <li><a href="#">採用情報</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>お問い合わせ</h4>
+                <ul class="footer-links">
+                    <li><a href="#">取材・講演依頼</a></li>
+                    <li><a href="#">プライバシーポリシー</a></li>
+                    <li><a href="#">利用規約</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 OTOKO・NAIL All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.concept-card, .service-card, .testimonial-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
