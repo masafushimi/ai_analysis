@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistics AI DX Strategy - X Mile Executive Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #a88a5d;
+            --bg-ivory: #fdfcfb;
+            --accent-coral: #e27d60;
+            --text-dark: #2c2c2c;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-ivory);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            color: var(--primary-gold);
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--primary-gold);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(168, 138, 93, 0.1);
+            border: 1px solid rgba(168, 138, 93, 0.2);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .role-badge {
+            background-color: var(--primary-gold);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            width: fit-content;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            color: var(--primary-gold);
+            margin-top: 0;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: var(--accent-coral);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 8px;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            margin: 5px 0 15px 0;
+        }
+
+        .impact-box {
+            background-color: #fef8f5;
+            padding: 10px;
+            border-left: 4px solid var(--accent-coral);
+            font-weight: bold;
+            margin-top: auto;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--primary-gold);
+            font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>物流DX：AI活用戦略事例集</h1>
+    <p>X Mile 株式会社 様 向 け 戦略レポート</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <span class="role-badge">営業・マーケティング</span>
+        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400" alt="Truck">
+        <h2>求人媒体の原稿最適化AI</h2>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <p>慢性的なドライバー不足。媒体ごとに原稿を書き分ける工数が莫大で、効果検証が不十分。</p>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <p>1. 過去の採用データと競合原稿を分析。 2. LLMによりクリック率が高いキーワードを自動生成。 3. 各媒体の規定に合わせたリライトを自動実行。</p>
+        <div class="impact-box">応募率：25%向上 / 原稿作成時間：90%削減</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">現場・運行管理</span>
+        <img src="https://images.unsplash.com/photo-1501700493717-9af9882fe910?auto=format&fit=crop&w=400" alt="Navigation">
+        <h2>NotebookLM：運行マニュアルAI化</h2>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <p>分厚い運行規定集や安全マニュアルが形骸化。新人教育にベテランの時間が奪われる。</p>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <p>1. 既存のPDFマニュアル、ヒヤリハット記録を学習。 2. ドライバーがLINE等で「XXルートの注意点は？」と聞くと即座に回答。</p>
+        <div class="impact-box">教育コスト：40%削減 / 安全知識定着率：大幅向上</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">プラットフォーム活用</span>
+        <img src="https://images.unsplash.com/photo-1566576721346-d4a3b4eaad5b?auto=format&fit=crop&w=400" alt="Warehouse">
+        <h2>物流マッチング自動受注アシスト</h2>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <p>ハコベル等の案件掲示板への返信速度が成約を左右するが、常時監視が困難。</p>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <p>1. 特定条件の案件を自動検知。 2. 自社の空車状況を照合し、最適な提案メッセージを生成。 3. 運行管理者の最終承認後に送信。</p>
+        <div class="impact-box">受注成約数：1.5倍 / 案件チェック工数：ゼロ化</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">事務・バックオフィス</span>
+        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=400" alt="Invoices">
+        <h2>手書き受領書の超精度OCR解析</h2>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <p>現場からの紙の受領書回収と、会計ソフトへの転記作業に月数百時間を費やしている。</p>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <p>1. マルチモーダルAIにより、癖のある手書き文字も高精度に認識。 2. 社内基幹システムへ自動連携。 3. 異常値を自動アラート。</p>
+        <div class="impact-box">経理事務工数：85%削減 / 請求サイクル：最短化</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">マネジメント・経営</span>
+        <img src="https://images.unsplash.com/photo-1551288049-bbbda536639a?auto=format&fit=crop&w=400" alt="Data">
+        <h2>2024年問題対策：拘束時間シミュレーター</h2>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <p>法改正に伴う拘束時間の上限規制により、従来ルートの維持が困難に。</p>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <p>1. 実走行データから平均的な待ち時間（$T_{wait}$）を算出。 2. $H_{work} = T_{drive} + T_{wait}$ の等式に基づき、中継拠点の最適配置を計算。</p>
+        <div class="impact-box">違反リスク：ゼロ / 拠点配置コスト：最適化</div>
+    </div>
+
+    <div class="card" style="border: 2px solid var(--accent-coral);">
+        <span class="role-badge" style="background-color: var(--accent-coral);">リスク管理</span>
+        <h2>AI安全運用ガイドライン</h2>
+        <div class="section-title"><i class="fas fa-shield-alt"></i> 留意点</div>
+        <p>荷主情報や配送先個人情報の取り扱いには、入力データを学習させないAPI利用設定を徹底します。</p>
+        <div class="section-title"><i class="fas fa-check-double"></i> ハルシネーション対策</div>
+        <p>運行経路や法令に関する回答は、必ず最終確認（Human-in-the-loop）を介し、安全を最優先します。</p>
+        <div class="impact-box">安全性・信頼性の担保</div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 X Mile AI Strategy Consulting Report</p>
+</footer>
+
+</body>
+</html>
