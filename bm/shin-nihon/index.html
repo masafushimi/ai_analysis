@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHINNIHON SERVICE AI DX Strategy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --navy: #002d56;
+            --gray: #666;
+        }
+
+        body {
+            background-color: var(--ivory);
+            color: #333;
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--navy), #004080);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 3px;
+            font-weight: 700;
+        }
+
+        header p {
+            color: var(--gold);
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e1e8ed;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            filter: brightness(0.9);
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: var(--navy);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 2px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--navy);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 10px;
+            color: var(--gold);
+        }
+
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-top: 15px;
+            text-transform: uppercase;
+        }
+
+        .section-text {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .impact-box {
+            background: #f4f7f9;
+            border-left: 4px solid var(--navy);
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .impact-text {
+            font-weight: bold;
+            color: var(--navy);
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>QUALITY x AI STRATEGY</h1>
+    <p>新日本サービス株式会社：信頼をデジタルで強化するDXロードマップ</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=500&q=80" alt="Water" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">環境衛生・現場</span>
+                <div class="card-title"><i class="fas fa-faucet"></i>AI排水管劣化診断</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">内視鏡点検の結果判断が技術者の主観に頼っており、オーナーへの説得力が課題。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 撮影された内視鏡動画をAIにアップロード。<br>2. AIが管内の付着物や腐食を検知し、数年後の閉塞確率をシミュレーション。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-check-circle"></i> 提案の客観性を担保。予防保全の受注率が 35% 向上。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1586762522927-10d2ca20ee05?auto=format&fit=crop&w=500&q=80" alt="ISO" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">品質管理・事務</span>
+                <div class="card-title"><i class="fas fa-clipboard-check"></i>ISO完全準拠・報告書生成</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">ISO9001等の厳格な様式に合わせた書類作成工数が、現場社員の大きな負担。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. スマホアプリで点検項目にチェックし、写真を添付。<br>2. AIが文脈を整理し、専門用語を正しく用いた公式報告書を即座に生成。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-history"></i> 書類作成時間を 75% 削減。品質のムラをゼロに。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1517502884422-41eaace197b4?auto=format&fit=crop&w=500&q=80" alt="Facility" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">ナレッジ資産化</span>
+                <div class="card-title"><i class="fas fa-book-medical"></i>新日本・設備メンテナンス百科</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">物件ごとの設備構成や、過去の特異なトラブル対応ノウハウが散逸している。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 過去数十年の全点検記録、図面、ISOマニュアルをNotebookLMに集約。<br>2. 「〇〇ビルの地下ポンプ異音」と問えば、過去の対応履歴を即座に提示。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-search"></i> 現場でのトラブル解決時間を 50% 短縮。ベテランの知恵を共有。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=500&q=80" alt="Medical" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">医療清掃・現場</span>
+                <div class="card-title"><i class="fas fa-hospital"></i>医療清掃AI監査システム</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">病院清掃における高レベルな衛生管理を、すべてのスタッフが均一に実施・証明する必要。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. ゾーニングに基づいた清掃ルートをスマートウォッチでガイド。<br>2. 清掃後の写真から、拭き残しや未処理箇所をAIがリアルタイム判定。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-shield-virus"></i> 医療関連サービスマークの維持管理を自動化。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1454165833767-027e692484f4?auto=format&fit=crop&w=500&q=80" alt="Sales" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">経営・営業</span>
+                <div class="card-title"><i class="fas fa-chart-bar"></i>LCC（建物生涯コスト）予見営業</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">突発的な設備故障による緊急出動が多く、計画的な受注管理が難しい。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 設備の稼働時間と点検データから摩耗曲線をAIが作成。<br>2. 「来年故障する可能性が $P > 0.8$」となる前に、計画的な更新を提案。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-clock"></i> 緊急対応の 20% を計画案件へ移行。利益率の向上。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border: 2px solid var(--coral);">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=500&q=80" alt="Security" class="card-img">
+            <div class="card-content">
+                <span class="role-badge" style="background: var(--coral);">リスク管理</span>
+                <div class="card-title"><i class="fas fa-user-lock"></i>データ品質ガバナンス</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">ISO取得企業として、AIの出力（ハルシネーション）による誤った点検判断の防止。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. AIの提案に対し、必ず有資格者が最終承認を行うワークフローをデジタル化。<br>2. 偽情報の混入を防ぐため、社内の公式マニュアルのみを参照元とする「RAG」構成を採用。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-balance-scale"></i> 技術的な正確性を 100% 維持した上でのDX推進。</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 SHINNIHON SERVICE Co., Ltd. - Advanced AI Management Roadmap
+</footer>
+
+</body>
+</html>
