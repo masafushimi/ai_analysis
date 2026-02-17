@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANSEI AI DX Strategy | 株式会社三勢</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --navy: #1e3a5f;
+            --gray: #555;
+        }
+
+        body {
+            background-color: var(--ivory);
+            color: #333;
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--navy), #2c5282);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.4rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        header p {
+            color: var(--gold);
+            margin-top: 15px;
+            font-size: 1.2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+            border: 1px solid #eaeaea;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--navy);
+            border-left: 5px solid var(--coral);
+            padding-left: 12px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-top: 15px;
+        }
+
+        .section-text {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .impact-box {
+            background: #fffafa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 4px solid var(--coral);
+        }
+
+        .impact-text {
+            font-weight: bold;
+            color: var(--coral);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            background: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>SANSEI AI Transformation</h1>
+    <p>株式会社三勢：地域を支える総合サービスの未来を、AIと共に。</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=500&q=80" alt="Proposal" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">指定管理者事業</span>
+                <div class="card-title">指定管理プロポーザル作成AI</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">自治体ごとの複雑な募集要項への対応と、地域課題を盛り込んだ企画提案書の作成に多大な工数がかかる。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 過去10年の採択提案書を学習。<br>2. 募集要項を読み込ませ、三勢の強みと地域統計データを掛け合わせた独自の施策案を生成。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-file-alt"></i> 提案書作成時間を 60% 短縮。採択率の安定向上。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1466632346940-715af5dd9748?auto=format&fit=crop&w=500&q=80" alt="Cooking" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">給食管理事業</span>
+                <div class="card-title">AI献立最適化・アレルギー検知</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">栄養バランス、コスト、アレルギー管理の並立。献立のマンネリ化防止。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 旬の食材と価格データを統合。<br>2. アレルギー物質の混入を画像認識と成分表AIで二重チェック。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-utensils"></i> 食品ロス 15% 削減。安全性の大幅な向上。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=500&q=80" alt="Knowledge" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">ナレッジ資産化</span>
+                <div class="card-title">NotebookLM：三勢マイスターAI</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">ビル管理から衛生、給食まで多岐にわたる事業間のノウハウ共有が不十分。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 全事業部のマニュアル、資格情報、ヒヤリハット事例をNotebookLMへ学習。<br>2. 部門を跨ぐトラブル（例：給食施設での空調不具合）に対し最適な解決策を提示。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-lightbulb"></i> 部門間連携スピード 2倍。社内ナレッジの完全資産化。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=500&q=80" alt="Energy" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">建設
