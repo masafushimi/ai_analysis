@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADVANCE SERVICE AI DX Strategy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --blue: #0056b3;
+            --dark: #333;
+        }
+
+        body {
+            background-color: var(--ivory);
+            color: var(--dark);
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1581578731548-c64695cc6954?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        header p {
+            color: var(--gold);
+            margin-top: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: var(--blue);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--blue);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 5px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-top: 15px;
+        }
+
+        .section-text {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .impact-box {
+            background: #f0f7ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid #cce5ff;
+        }
+
+        .impact-text {
+            font-weight: bold;
+            color: var(--blue);
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>現場力を、AIで加速させる。</h1>
+    <p>株式会社アドバンスサービス AI DX戦略レポート</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=500&q=80" alt="Blog" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">マーケティング</span>
+                <div class="card-title">「現場の熱量」AIブログ生成</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">各支店のクルーが多忙な中、魅力的なブログを継続更新するのが負担になっている。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 現場写真と「今日は床ワックス頑張った」等の短文を専用LINEへ送信。<br>2. AIがクルー独自の口調（チームの特色）を反映したブログ案を3秒で生成。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-edit"></i> 執筆時間を 90% 削減。ファン（顧客）との接点を強化。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=500&q=80" alt="Education" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">教育・アカデミー</span>
+                <div class="card-title">ビルメン学校 24/7 AI講師</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">年間18回以上の勉強会内容を、現場の新人や受講生がいつでも復習できる環境が必要。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 過去の講義資料や動画、熟練技術者のFAQをNotebookLMへ全集約。<br>2. 現場で「この汚れの落とし方は？」とスマホに聞けば、最適な洗剤と手法をAIが回答。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-graduation-cap"></i> 教育の質を均一化。新人の独り立ちまでの期間を 30% 短縮。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1556740734-7f9a2b7a0f42?auto=format&fit=crop&w=500&q=80" alt="Sales" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">営業・御用聞き</span>
+                <div class="card-title">AI「お助け」提案エンジン</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">「御用聞き」として、顧客の潜在的なニーズに気づく力が属人化している。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 過去の受注履歴とアンケートの「お礼の言葉」を解析。<br>2. 「去年の今頃、エアコン清掃に喜んでいた」等の情報をAIが抽出し、最適なタイミングで再提案をリマインド。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-handshake"></i> LTV（顧客生涯価値）向上。追加提案成約率 25% 改善。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1516714435131-44d6b64dc392?auto=format&fit=crop&w=500&q=80" alt="Quality" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">現場・品質</span>
+                <div class="card-title">床面ワックス劣化AI診断</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">「そろそろワックスが必要です」という提案が主観的になり、顧客へ伝わりにくい。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. ウルトラフロアケア等の正常時と劣化時の画像をAIに学習させる。<br>2. 写真を撮るだけで劣化率を $D = f(S)$ として算出し、客観的な報告書を自動作成。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-tachometer-alt"></i> 提案の説得力向上。施工品質の客観的保証。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=500&q=80" alt="Management" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">経営・採用</span>
+                <div class="card-title">アドバンスファミリー AIマッチング</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">多角化する事業部（家事代行、警備等）間での、最適な人材配置と相性管理。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 社員の「人柄データ（適性）」と各現場の「顧客特性」をマッチング。<br>2. 「お客様に最も喜ばれるクルー」をAIがレコメンドし、ミスマッチを防止。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-users"></i> スタッフ定着率向上。顧客アンケート高評価率の維持。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border: 2px solid var(--coral);">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=500&q=80" alt="Risk" class="card-img">
+            <div class="card-content">
+                <span class="role-badge" style="background: var(--coral);">リスク管理</span>
+                <div class="card-title">自社施工データのAI倫理・保護</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">現場写真に含まれるプライバシー情報や、自社の独自技術情報の流出。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. ブログ投稿前にAIが自動で顔・住所・機密情報を検知し、即座にマスキング。<br>2. 社内勉強会の知恵を「外部AI」に学習させない閉域環境の構築。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-shield-alt"></i> セキュリティ事故ゼロ。信頼のブランドをデジタルでも維持。</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 ADVANCE SERVICE Co., Ltd. - AI Driven Future for Building Maintenance
+</footer>
+
+</body>
+</html>
