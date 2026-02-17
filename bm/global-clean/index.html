@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Clean AI DX Strategy Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --main-blue: #00a0e9;
+            --deep-blue: #0056a0;
+            --gray: #666;
+        }
+
+        body {
+            background-color: var(--ivory);
+            color: #333;
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--main-blue), var(--deep-blue));
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        header p {
+            color: white;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: none;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: var(--main-blue);
+            color: white;
+            padding: 3px 15px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--deep-blue);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 10px;
+            color: var(--main-blue);
+        }
+
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-top: 15px;
+        }
+
+        .section-text {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .impact-box {
+            background: #f0faff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid #cceeff;
+        }
+
+        .impact-text {
+            font-weight: bold;
+            color: var(--deep-blue);
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            color: #999;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>OMOTENASHI x AI DX</h1>
+    <p>株式会社グローバル・クリーン：清掃のプロ集団が描く未来の技術資産</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=500&q=80" alt="Training" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">技術教育・現場</span>
+                <div class="card-title"><i class="fas fa-magic"></i>AI「清掃道」指導アシスタント</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">競技大会レベルの「卓越した技術」を、多忙な現場クルーへ直接指導する時間が限られている。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 熟練者の作業動画からAIが「理想的な重心移動と道具の軌跡」を抽出。<br>2. 新人がスマホ越しに作業すると、ARで理想の動きとの差分を表示。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-chart-line"></i> 育成スピード 2倍。社内全体の技術水準を「金賞レベル」へ。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=500&q=80" alt="Robot" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">コンサルティング営業</span>
+                <div class="card-title"><i class="fas fa-robot"></i>ロボット共生型 ROIシミュレーター</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">清掃ロボット導入に対し、顧客が具体的な費用対効果をイメージしにくい。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 物件の面積、床材、現在のコストを入力。<br>2. AIがロボット稼働ルートと削減工数を算出し、人件費削減率を $R = 1 - (C_{AI}/C_{Manual})$ として提示。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-percentage"></i> ロボット導入提案の成約率 40% 向上。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1517502884422-41eaace197b4?auto=format&fit=crop&w=500&q=80" alt="Knowledge" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">ナレッジ資産化</span>
+                <div class="card-title"><i class="fas fa-database"></i>NotebookLM：全社汚れ解決DB</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">特殊なシミや床材への対応など、蓄積された「特殊ノウハウ」が各個人の記憶に依存。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 過去の全施工事例、洗剤の化学特性、受賞者の技術論文をNotebookLMへ統合。<br>2. 現場から「大理石の変色」と問えば、AIが即座に最適解を提示。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-brain"></i> 事故リスクの最小化。若手の現場判断力を劇的向上。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500&q=80" alt="PR" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">広報・ブランディング</span>
+                <div class="card-title"><i class="fas fa-paper-plane"></i>おもてなしSNS自動エディター</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">女性や若手が活躍する「輝く現場」の発信を増やしたいが、編集の暇がない。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 現場での笑顔の写真や清掃後の美しさを撮影。<br>2. AIがブランドイメージに合ったBGMとテロップを付け、リール動画を自動生成。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-thumbs-up"></i> 採用応募数 1.8倍。地域でのブランド認知度向上。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1551288049-bbda64626744?auto=format&fit=crop&w=500&q=80" alt="CS" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">顧客対応・品質管理</span>
+                <div class="card-title"><i class="fas fa-heart"></i>AIホスピタリティ・レポート</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">清掃後の「気づき（電球切れ、備品消耗など）」を、心のこもった文章で顧客へ伝えるのが苦手なスタッフも。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 「トイレ点検済。少し水漏れ気味」と音声入力。<br>2. AIが「お客様が快適にお過ごしいただけるよう…」とホスピタリティ溢れる文章へリライト。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-smile"></i> 顧客満足度（NPS）向上。解約率の低下。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border: 2px solid var(--coral);">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=500&q=80" alt="Security" class="card-img">
+            <div class="card-content">
+                <span class="role-badge" style="background: var(--coral);">リスク管理</span>
+                <div class="card-title"><i class="fas fa-shield-alt"></i>宮崎・全国ネットワーク保護</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">全国へ広がるパートナー網での、顧客情報の安全な取り扱い。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. パートナー間での情報共有時、AIが個人情報を自動マスキング。<br>2. 偽情報の拡散を防ぐため、AIが生成したドキュメントには電子透かしを自動付与。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-user-lock"></i> セキュリティ基盤の強化。信頼の「全国ブランド」を死守。</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 GLOBAL CLEAN Co., Ltd. - Empowering Hospitality with AI
+</footer>
+
+</body>
+</html>
