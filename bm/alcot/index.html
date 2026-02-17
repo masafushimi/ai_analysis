@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Maintenance AI Strategy | Alcot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --dark: #2c3e50;
+            --gray: #7f8c8d;
+        }
+
+        body {
+            background-color: var(--ivory);
+            color: var(--dark);
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #003366, #00509d);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            color: #bdc3c7;
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.07);
+            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: white;
+            padding: 3px 12px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #003366;
+            border-left: 4px solid var(--coral);
+            padding-left: 10px;
+        }
+
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-top: 12px;
+        }
+
+        .section-text {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+
+        .impact-box {
+            background: #fdf5f2;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 15px;
+            border: 1px dashed var(--coral);
+        }
+
+        .impact-text {
+            font-weight: bold;
+            color: var(--coral);
+            font-size: 0.85rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            color: #95a5a6;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>ALCOT AI DX STRATEGY</h1>
+    <p>アルコット株式会社：ビルメンテナンス次世代化計画</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=400&q=80" alt="Maintenance" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">現場・実務</span>
+                <div class="card-title">AI音声報告書作成システム</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">作業後の事務作業が重荷。手書きやPC入力のために事務所に戻る無駄が発生。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. スマホで現場写真を撮影。<br>2. 音声で「3階トイレ、床清掃完了。汚れなし」と話すとAIが正式な報告書へ整形。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-clock"></i> 事務時間を毎日 1.5時間 削減。直行直帰を促進。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1454165833767-027e692484f4?auto=format&fit=crop&w=400&q=80" alt="Knowledge" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">ナレッジ資産化</span>
+                <div class="card-title">NotebookLM：ビル別・設備メンテナンスAI</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">物件ごとに異なる旧式設備の操作方法や、ベテランしか知らない「癖」が継承されていない。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 全物件の図面、取扱説明書、過去のトラブル対応履歴をNotebookLMに集約。<br>2. 現場で「ポンプ室の異音」を相談すると、即座に過去の対策案を提示。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-brain"></i> 属人化を解消。新人でもベテラン級の判断が可能に。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=400&q=80" alt="Sales" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">営業・経営</span>
+                <div class="card-title">LCC自動算出・修繕提案AI</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">オーナーへの改修提案が後手に回り、他社へのリプレイスリスクがある。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 築年数、設備稼働データから将来の故障確率を $P(t)$ として算出。<br>2. AIが「今修繕した場合のコストメリット」を視覚化した資料を自動生成。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-chart-line"></i> 追加工事の受注率 40% 向上。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1521791136064-7986c2959210?auto=format&fit=crop&w=400&q=80" alt="Recruit" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">バックオフィス</span>
+                <div class="card-title">AI多言語教育アシスタント</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">外国人スタッフの増加に伴う、清掃品質のバラつきと教育コストの増大。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 日本語の清掃マニュアルを動画や多言語テキストへリアルタイム変換。<br>2. AIが作業手順を母国語でクイズ形式で出題し、習得度を管理。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-globe"></i> 教育期間を 50% 短縮。現場トラブル率 30% 低減。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=400&q=80" alt="Strategy" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">経営・管理</span>
+                <div class="card-title">AIシフト最適化エンジン</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">現場ごとの欠員補充や、移動効率を考慮したシフト作成が複雑。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. スタッフの住所、スキル、希望休を統合。<br>2. 移動距離を最小化し、かつ現場スキルを満たす最適シフトを自動生成。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-route"></i> 移動コスト 15% 削減。管理者工数を激減。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border: 2px solid var(--coral);">
+            <img src="https://
