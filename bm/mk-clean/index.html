@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エムケイクリーン AI DX 事例集</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --soft-coral: #e27d60;
+            --text-dark: #333;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--ivory);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: #fff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--text-dark);
+        }
+
+        h1 span {
+            color: var(--gold);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .role-badge {
+            font-size: 0.8rem;
+            color: var(--soft-coral);
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .role-badge i {
+            margin-right: 0.5rem;
+        }
+
+        .card h3 {
+            margin: 0 0 1.5rem 0;
+            font-size: 1.4rem;
+            color: var(--gold);
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #888;
+            margin-bottom: 0.3rem;
+        }
+
+        .card p {
+            margin: 0 0 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .solution-box {
+            background-color: #f9f9f9;
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .impact-text {
+            color: var(--soft-coral);
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .impact-text::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-right: 0.5rem;
+        }
+
+        .risk-card {
+            background-color: #333;
+            color: #fff;
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+
+        .risk-card h3 {
+            color: var(--gold);
+            border-bottom-color: #444;
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-badge">PREMIUM DX REPORT</div>
+        <h1>エムケイクリーン <span>AI DX 事例集</span></h1>
+        <p>医療・福祉を支える「心くばり」を、AIの力で確信に変える。</p>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            <!-- 1. Knowledge Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-microscope"></i> 衛生ナレッジ</div>
+                <h3>NotebookLMによる「院内感染対策」ナレッジベース</h3>
+                <div class="section-label">現状の課題</div>
+                <p>医療関連サービスマーク準拠の高度な衛生知識が一部の有資格者に偏っており、現場への浸透にムダがある。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 院内感染対策マニュアル、各種ウイルスへの対応手順をNotebookLMに集約。<br>
+                    2. 現場で「吐瀉物処理の二次感染防止手順は？」とスマホで確認。<br>
+                    3. AIが最新のガイドラインに基づいた手順を解説。
+                </div>
+                <div class="impact-text">衛生管理レベルの均一化 / 教育コスト 40% 削減</div>
+            </div>
+
+            <!-- 2. Quality Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-hand-holding-heart"></i> 心くばり・CS</div>
+                <h3>「心くばり」を可視化するAI品質診断</h3>
+                <div class="section-label">現状の課題</div>
+                <p>病院・介護施設での清掃は、汚れの除去だけでなく「患者様への配慮」という数値化しにくい価値がある。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 作業後の画像をAIが解析。清掃の完璧さだけでなく、配慮の行き届いた備品配置等を評価。<br>
+                    2. 施設利用者へのアンケート（感情分析）と清掃データを統合。<br>
+                    3. 「心くばりスコア」として定量的評価を実施。
+                </div>
+                <div class="impact-text">施設内QOL（生活の質）向上 / クレーム発生率 80% 低減</div>
+            </div>
+
+            <!-- 3. Training Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-chalkboard-user"></i> 教育・研修</div>
+                <h3>AIマナー・コミュニケーション・トレーナー</h3>
+                <div class="section-label">現状の課題</div>
+                <p>医療現場の一員としてのマナー指導を、多忙な現場リーダーが行うのは負担が大きい。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 清掃スタッフがタブレットに向かい、挨拶や患者対応をロールプレイング。<br>
+                    2. AIが声のトーン、笑顔、言葉遣いを分析し、適切なフィードバック。<br>
+                    3. 医療・介護施設特有の「ABCD+E」の精神をAIで反復教育。
+                </div>
+                <div class="impact-text">スタッフ定着率の向上 / 施設からの信頼獲得</div>
+            </div>
+
+            <!-- 4. Sales Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-hospital-user"></i> 営業特化</div>
+                <h3>医療・福祉施設特化型 AI見積・提案アシスタント</h3>
+                <div class="section-label">現状の課題</div>
+                <p>施設の規模や診療科に応じた、専門性の高い提案書・見積書作成に時間がかかる。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 施設種別（急性期、老健等）と床数をインプット。<br>
+                    2. AIが衛生管理リスクを自動算定し、最適な清掃頻度を提案。<br>
+                    3. 感染対策コストを含む、根拠のある見積原案を自動生成。
+                </div>
+                <div class="impact-text">提案作成時間 75% 削減 / コンペ勝率の向上</div>
+            </div>
+
+            <!-- 5. Monitoring Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-biohazard"></i> 衛生DX</div>
+                <h3>AI環境衛生モニタリング（ダルトン等プラットフォーム連携）</h3>
+                <div class="section-label">現状の課題</div>
+                <p>ATPふき取り検査等のデータが活用しきれず、数値が「点」で終わっている。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 現場の検査数値をAIダッシュボードに自動吸い上げ。<br>
+                    2. 過去データと施設内流行予測を組み合わせ、重点清掃エリアをAIが特定。<br>
+                    3. 作業員へリアルタイムで補強指示を配信。
+                </div>
+                <div class="impact-text">院内感染リスクの極小化 / 清掃資源の最適配分</div>
+            </div>
+
+            <!-- 6. Management Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-people-arrows"></i> 人事管理</div>
+                <h3>病院シフト・AIマッチング最適化</h3>
+                <div class="section-label">現状の課題</div>
+                <p>病院ごとに求められる技能（感染対策スキル等）が異なり、適切な人員配置が複雑。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. スタッフの職能（有資格者等）と施設側の要望をAIに登録。<br>
+                    2. 欠員発生時も、周辺の現場から最適な代行候補をAIが推奨。<br>
+                    3. 交通費、経験値を考慮した最小コスト配置を自動立案。
+                </div>
+                <div class="impact-text">欠員対応時間 90% 短縮 / スタッフの移動負荷軽減</div>
+            </div>
+
+            <!-- 7. Backoffice Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-file-shield"></i> 事務効率化</div>
+                <h3>AI医療関連サービス報告書オートメーション</h3>
+                <div class="section-label">現状の課題</div>
+                <p>病院提出用の厳格な清掃日報・月報の集計・作成に事務スタッフが追われている。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 現場スタッフがスマホで清掃完了箇所をチェック入力。<br>
+                    2. AIが実施記録を統合し、法的要件を満たした報告フォーマットを生成。<br>
+                    3. 各フェーズでの異常値を自動抽出し、改善コメントをドラフト。
+                </div>
+                <div class="impact-text">事務報告工数 85% 削減 / 報告の迅速化・高精度化</div>
+            </div>
+
+            <!-- 8. Inventory Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-box-open"></i> 資材管理</div>
+                <h3>AI薬品・消耗品在庫最適化</h3>
+                <div class="section-label">現状の課題</div>
+                <p>高額な除菌剤や使い捨て資材の過剰在庫、または現場での在庫切れが発生する。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 毎日の清掃範囲データから、資材消費量をAIが予測。<br>
+                    2. 在庫が一定数を切る前に、AIが業者へ自動発注（または承認依頼）。<br>
+                    3. 現場ごとの資材使用傾向を分析し、異常使用（ロス）を警告。
+                </div>
+                <div class="impact-text">資材コスト 15% 削減 / 管理業務の自動化</div>
+            </div>
+
+            <!-- Risk Card -->
+            <div class="card risk-card">
+                <div class="role-badge"><i class="fas fa-shield-halved"></i> リスク管理</div>
+                <h3>安心・安全のための AI 運用ガイドライン</h3>
+                <div class="section-label">重要事項</div>
+                <p>医療法等に基づく守秘義務を遵守するため、患者情報が含まれる可能性のあるデータは端末内で即時破棄・匿名化。AIの提案は、感染管理の専門家（有資格者）による二重チェック体制の下で運用します。</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 エムケイクリーン AI DX Strategy Proposal. All Rights Reserved.
+    </footer>
+
+</body>
+
+</html>
