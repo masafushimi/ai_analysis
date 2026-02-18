@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>株式会社ワタナベ美装 AI DX 事例集</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --soft-coral: #e27d60;
+            --text-dark: #333;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--ivory);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: #fff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--text-dark);
+        }
+
+        h1 span {
+            color: var(--gold);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .role-badge {
+            font-size: 0.8rem;
+            color: var(--soft-coral);
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .role-badge i {
+            margin-right: 0.5rem;
+        }
+
+        .card h3 {
+            margin: 0 0 1.5rem 0;
+            font-size: 1.4rem;
+            color: var(--gold);
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #888;
+            margin-bottom: 0.3rem;
+        }
+
+        .card p {
+            margin: 0 0 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .solution-box {
+            background-color: #f9f9f9;
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .impact-text {
+            color: var(--soft-coral);
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .impact-text::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-right: 0.5rem;
+        }
+
+        .risk-card {
+            background-color: #333;
+            color: #fff;
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+
+        .risk-card h3 {
+            color: var(--gold);
+            border-bottom-color: #444;
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-badge">PREMIUM DX REPORT</div>
+        <h1>ワタナベ美装 <span>AI DX 事例集</span></h1>
+        <p>京都の「笑声（えごえ）」とプロの誇りを、AIの力で世界へ届ける。</p>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            <!-- 1. Knowledge Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-landmark"></i> 京の知恵・ナレッジ</div>
+                <h3>NotebookLMによる「京都・滋賀物件」知恵袋</h3>
+                <div class="section-label">現状の課題</div>
+                <p>50年以上の歴史で培った京都特有の古い建材の扱い、名門企業様ごとの作法が属人化している。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 過去の施工記録、顧客ごとの「トップスター7カ条」実践事例をNotebookLMに集約。<br>
+                    2. 現場で「この石造りのお寺の廊下に最適なワックスは？」と音声相談。<br>
+                    3. AIが過去の成功体験と顧客の歴史的背景に基づいた作法を回答。
+                </div>
+                <div class="impact-text">教育期間 50% 短縮 / 京都・滋賀の「品質と作法」の継承</div>
+            </div>
+
+            <!-- 2. Quality Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-face-smile"></i> 笑声・CS</div>
+                <h3>笑声（えごえ）を磨く AIマナートレーナー</h3>
+                <div class="section-label">現状の課題</div>
+                <p>理念である「笑声」の基準が主観的になりやすく、新人スタッフへの浸透にムラが出る。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. スタッフの挨拶や電話対応の音声をAIが解析。声のトーンから「笑顔の度合い」を数値化。<br>
+                    2. 良好な「笑声」が出ている際にAIがリアルタイムでポジティブなFBを実施。<br>
+                    3. お客様アンケートと相関分析し、最適な「笑声」を追求。
+                </div>
+                <div class="impact-text">顧客満足度 30% 向上 / 挨拶クレーム ゼロ化</div>
+            </div>
+
+            <!-- 3. Sales Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-store-alt"></i> ワンストップ提案</div>
+                <h3>AIワンストップ提案・見積オートメーション</h3>
+                <div class="section-label">現状の課題</div>
+                <p>清掃から設備、警備、リフォームまで多岐にわたるため、複合的な見積作成が複雑で時間がかかる。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 現地の現状写真と要望をAIに送信。<br>
+                    2. AIが清掃箇所、劣化設備、修繕必要箇所を自動検知し、ワンストップ提案書を作成。<br>
+                    3. 品質チェック13項目に基づいた、納得感のある根拠価格を提示。
+                </div>
+                <div class="impact-text">見積作成工数 70% 削減 / アップセル率の向上</div>
+            </div>
+
+            <!-- 4. Quality Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-award"></i> 品質管理</div>
+                <h3>「トップスター」AI品質監査アシスタント</h3>
+                <div class="section-label">現状の課題</div>
+                <p>現場巡回による13項目の品質チェックを行っているが、巡回頻度と記録の集計に限界がある。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 現場スタッフが各チェックポイントをスマホで撮影。<br>
+                    2. AIが自社基準に照らし、清掃の不備や美観状態を自動スコアリング。<br>
+                    3. 「トップスター」基準に達していない場合、具体的な修正方法をAIがその場で指示。
+                </div>
+                <div class="impact-text">品質の完全標準化 / クオリティ達成スピード向上</div>
+            </div>
+
+            <!-- 5. Management Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-calendar-check"></i> 働き方・人事</div>
+                <h3>AI「残らんデー」推進・シフト最適化</h3>
+                <div class="section-label">現状の課題</div>
+                <p>子育て中や多様な働き方を支援しているが、個別の希望を反映した緻密なシフト作成がリーダーの負担。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. スタッフの育児時間、通院等の個別事情をAIが完全把握。<br>
+                    2. 火曜日の「残らんデー」を死守しつつ、移動効率を最大化したシフト案を自動生成。<br>
+                    3. 前日の欠員に対しても、相性と効率が最も良い代行者をAIが提案。
+                </div>
+                <div class="impact-text">管理職の残業 40% 削減 / スタッフのワークライフバランス実現</div>
+            </div>
+
+            <!-- 6. Facility Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-wrench"></i> 設備保守</div>
+                <h3>AI設備予兆保全（京都の名門企業様向け）</h3>
+                <div class="section-label">現状の課題</div>
+                <p>京都の老舗企業や精密機器工場等の顧客に対し、より高度な「止まらない建物管理」を提供したい。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 給排水・空調設備のセンサーデータをAIが常時監視。<br>
+                    2. 京都特有の季節変動（夏冬の温度差）を考慮した、故障予兆を1ヶ月前に予測。<br>
+                    3. 「笑声」による丁寧な説明を添えた、データに基づく計画修繕の提案。
+                </div>
+                <div class="impact-text">設備トラブル件数 80% 削減 / 顧客物件の資産価値最大化</div>
+            </div>
+
+            <!-- 7. Backoffice Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-file-signature"></i> 事務効率化</div>
+                <h3>現場ボイスによる「おもてなし」報告書自動生成</h3>
+                <div class="section-label">現状の課題</div>
+                <p>清掃だけでなく、現場でのちょっとした気づき（おもてなしの心）を報告書に反映させるのが難しい。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. スタッフが作業後に「花瓶が少し寄っていたので直しておきました」等の気づきをボイス入力。<br>
+                    2. AIが丁寧な「京の気遣い」を感じさせる文章へ昇華させ、報告書に自動反映。<br>
+                    3. オーナー様へ感動を与える日報を即時発行。
+                </div>
+                <div class="impact-text">報告業務時間 80% 削減 / 顧客ロイヤリティの飛躍的向上</div>
+            </div>
+
+            <!-- 8. Inventory Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-shopping-cart"></i> 資材管理</div>
+                <h3>AI資材消費予測・自動発注</h3>
+                <div class="section-label">現状の課題</div>
+                <p>複数拠点の資材庫での過剰在庫や在庫切れが、清掃スケジュールの遅延に繋がることがある。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 施工面積と種類から、必要なワックス、洗剤量をAIが自動計算。<br>
+                    2. 在庫レベルをAIがリアルタイム予測し、業者宛に自動注文案を作成。<br>
+                    3. 拠点間での在庫融通をAIが指示し、ムダを最小化。
+                </div>
+                <div class="impact-text">資材管理費 20% 削減 / 現場の「資材切れ」不安をゼロ化</div>
+            </div>
+
+            <!-- Risk Card -->
+            <div class="card risk-card">
+                <div class="role-badge"><i class="fas fa-shield-halved"></i> リスク管理</div>
+                <h3>安心・安全のための AI 運用ガイドライン</h3>
+                <div class="section-label">重要事項</div>
+                <p>京都・滋賀の地域社会との信頼維持のため、データセキュリティのISMS基準を厳守。AIは「現場の笑顔と誇り」を助けるツールとし、最終的なおもてなしの判断は常に人間（ワタナベ美装スタッフ）が行います。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 株式会社ワタナベ美装 AI DX Strategy Proposal. All Rights Reserved.
+    </footer>
+
+</body>
+
+</html>
