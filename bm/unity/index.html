@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ユニティガードシステム株式会社 AI DX 事例集</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --soft-coral: #e27d60;
+            --text-dark: #333;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--ivory);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: #fff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--text-dark);
+        }
+
+        h1 span {
+            color: var(--gold);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .role-badge {
+            font-size: 0.8rem;
+            color: var(--soft-coral);
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .role-badge i {
+            margin-right: 0.5rem;
+        }
+
+        .card h3 {
+            margin: 0 0 1.5rem 0;
+            font-size: 1.4rem;
+            color: var(--gold);
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #888;
+            margin-bottom: 0.3rem;
+        }
+
+        .card p {
+            margin: 0 0 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .solution-box {
+            background-color: #f9f9f9;
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .impact-text {
+            color: var(--soft-coral);
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .impact-text::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-right: 0.5rem;
+        }
+
+        .risk-card {
+            background-color: #333;
+            color: #fff;
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+
+        .risk-card h3 {
+            color: var(--gold);
+            border-bottom-color: #444;
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-badge">PREMIUM DX REPORT</div>
+        <h1>ユニティガード <span>AI DX 事例集</span></h1>
+        <p>1965年からの「安心・安全」を、AIの知性で鉄壁の守りへ。</p>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            <!-- 1. Knowledge Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-shield-virus"></i> 防犯・ナレッジ</div>
+                <h3>NotebookLMによる「施設別防犯ナレッジ」資産化</h3>
+                <div class="section-label">現状の課題</div>
+                <p>オフィス、マンション、工場等、各施設の特性に応じたリスクの見極めが、ベテラン警備員の経験に依存している。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 過去の全警備日誌、事故報告書、施設別特殊ルールをNotebookLMに集約。<br>
+                    2. 現場スタッフが「このエリアの夜間巡回で特に注視すべき隙間は？」と質問。<br>
+                    3. AIが過去の侵入インシデントに基づいたリスク箇所を回答。
+                </div>
+                <div class="impact-text">現場立ち上げ工数 60% 削減 / 事故未然防止率 30% 向上</div>
+            </div>
+
+            <!-- 2. Planning Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-video"></i> 監視・IT施工</div>
+                <h3>AI画像解析による「みせる警備」の自動化</h3>
+                <div class="section-label">現状の課題</div>
+                <p>モニター監視だけでは見逃しが発生し、かつ犯罪抑止のための立哨・巡回の効率化が必要。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 自社施工の防犯カメラにAI検知をアドオン。不審挙動や特定エリアへの滞留を自動検知。<br>
+                    2. AIが最も抑止効果の高い「巡回タイミング」を予測し、警備員へ通知。<br>
+                    3. 立哨スタッフとAI監視をリアルタイム連携させ、効率的な守りを実現。
+                </div>
+                <div class="impact-text">監視精度の大幅向上 / 警備効率化による経費 20% 削減</div>
+            </div>
+
+            <!-- 3. Sales Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-handshake-simple"></i> 営業・FM提案</div>
+                <h3>施設価値を向上させる AIセキュリティ診断提案</h3>
+                <div class="section-label">現状の課題</div>
+                <p>警備・管理費用を「コスト」ではなく「投資」として顧客に理解してもらうための客観的根拠が必要。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 施設の設計データと周辺の犯罪発生統計をAIにインプット。<br>
+                    2. AIが被害発生確率と、警備導入によるリスク軽減額を可視化。<br>
+                    3. 施設価値を最大化する入退室管理・警備・清掃のトータルプランを自動生成。
+                </div>
+                <div class="impact-text">提案書説得力の大幅向上 / 新規獲得単価 15% アップ</div>
+            </div>
+
+            <!-- 4. Security Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-fingerprint"></i> 入退室管理</div>
+                <h3>バイオメトリクスAI最適化・保守エンジン</h3>
+                <div class="section-label">現状の課題</div>
+                <p>静脈、指紋、顔認証等、多岐にわたるシステムの施工・保守に高度な専門知識が必要。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 各システムの動作ログと不具合パターンをAIが学習。<br>
+                    2. 環境変化（温度、照明）による誤検知の予兆をAIが察知。<br>
+                    3. 自社スタッフによる迅速な調整・メンテナンスをAIがナビゲート。
+                </div>
+                <div class="impact-text">システムダウンタイム 90% 削減 / 迅速な緊急対応の実現</div>
+            </div>
+
+            <!-- 5. Training Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-user-shield"></i> 教育・人間力</div>
+                <h3>AI「人間力」トレーニングアシスタント</h3>
+                <div class="section-label">現状の課題</div>
+                <p>直接雇用にこだわるからこそ、多忙な現場での「教育のムラ」が課題。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 警備実務、受付・対応マナーをAIがVR等のシミュレーション環境で教育。<br>
+                    2. 現場での挨拶、身だしなみをAIが視認解析し、適切なアドバイス。<br>
+                    3. 資格試験（警備員指導教育責任者等）の合格をAIがパーソナライズ支援。
+                </div>
+                <div class="impact-text">資格合格率 25% 向上 / サービス品質の底上げ</div>
+            </div>
+
+            <!-- 6. Management Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-truck-monster"></i> 運営・事務</div>
+                <h3>首都圏広域 AI緊急配備・指令システム</h3>
+                <div class="section-label">現状の課題</div>
+                <p>1都3県の広域現場で緊急事態が発生した際、最適なスタッフを即座に割り出すのが困難。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 管理センターと全スタッフのGPS、スキルデータをリアルタイム統合。<br>
+                    2. 異常検知時、AIが現場に最も近く、かつ当該施設に精通したスタッフをマッチング。<br>
+                    3. 最短ルート案内と初動指示を自動配信。
+                </div>
+                <div class="impact-text">緊急駆けつけ時間 40% 短縮 / 初動ミスのゼロ化</div>
+            </div>
+
+            <!-- 7. Backoffice Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-lock"></i> セキュリティ・事務</div>
+                <h3>ISMS準拠 AI文書管理・漏洩チェッカー</h3>
+                <div class="section-label">現状の課題</div>
+                <p>ISMS/ISMS認証企業として、膨大な文書の不備チェックと情報漏洩リスク監視のコストが高い。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 全ての報告書・メール・ログをAIがISMS基準で自動スキャン。<br>
+                    2. コンプライアンス違反や個人情報漏洩の予兆をリアルタイムで検知。<br>
+                    3. 定期更新が必要な認証文書の変更箇所をAIが自動要約。
+                </div>
+                <div class="impact-text">管理工数 70% 削減 / 情報セキュリティ事故 ゼロの継続</div>
+            </div>
+
+            <!-- 8. Inventory Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-microchip"></i> 設備・施工</div>
+                <h3>防犯カメラ・センサー寿命予測 AI</h3>
+                <div class="section-label">現状の課題</div>
+                <p>数百箇所の施設の防犯・防災機器の寿命管理がアナログで、突発的な故障が発生しやすい。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 機器の稼働年数、画質劣化、電力変動データをAIに蓄積。<br>
+                    2. 故障率が上がる時期をAIが個別に予測。<br>
+                    3. オーナーへ「お薦めの交換時期」をデータ根拠を持って自動レコメンド。
+                </div>
+                <div class="impact-text">機器故障による未警備期間の解消 / リニューアル受注率 1.5倍</div>
+            </div>
+
+            <!-- Risk Card -->
+            <div class="card risk-card">
+                <div class="role-badge"><i class="fas fa-shield-halved"></i> リスク管理</div>
+                <h3>安心・安全のための AI 運用ガイドライン</h3>
+                <div class="section-label">重要事項</div>
+                <p>警備業務の特性上、AIの判定は「警告・支援」に留め、最終的な警備アクション（緊急介入、通報等）は必ず教育を受けた人間の警備員が判断します。AIアルゴリズム自体も定期的な倫理・精度監査を実施します。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 ユニティガードシステム株式会社 AI DX Strategy Proposal. All Rights Reserved.
+    </footer>
+
+</body>
+
+</html>
