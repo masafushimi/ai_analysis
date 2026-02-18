@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>有限会社美創プランニング AI DX 事例集</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --soft-coral: #e27d60;
+            --text-dark: #333;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--ivory);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: #fff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--text-dark);
+        }
+
+        h1 span {
+            color: var(--gold);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .role-badge {
+            font-size: 0.8rem;
+            color: var(--soft-coral);
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .role-badge i {
+            margin-right: 0.5rem;
+        }
+
+        .card h3 {
+            margin: 0 0 1.5rem 0;
+            font-size: 1.4rem;
+            color: var(--gold);
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #888;
+            margin-bottom: 0.3rem;
+        }
+
+        .card p {
+            margin: 0 0 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .solution-box {
+            background-color: #f9f9f9;
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .impact-text {
+            color: var(--soft-coral);
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .impact-text::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-right: 0.5rem;
+        }
+
+        .risk-card {
+            background-color: #333;
+            color: #fff;
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+
+        .risk-card h3 {
+            color: var(--gold);
+            border-bottom-color: #444;
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-badge">PREMIUM DX REPORT</div>
+        <h1>美創プランニング <span>AI DX 事例集</span></h1>
+        <p>「社員ファースト」と「環境技術」を、AIで加速。四方良しの未来へ。</p>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            <!-- 1. Knowledge Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-seedling"></i> 技術・ナレッジ</div>
+                <h3>NotebookLMによる「電解水清掃」技術の資産化</h3>
+                <div class="section-label">現状の課題</div>
+                <p>自社製電解水とファインバブルを活用した特殊清掃のノウハウが、マニュアル化しきれていない。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 各種床材に対する電解水の最適希釈率、施工データをNotebookLMに投入。<br>
+                    2. 現場で「この石材の油汚れに最適なファインバブル圧力は？」と音声検索。<br>
+                    3. AIが過去の成功事例に基づいた施工設定を即座に回答。
+                </div>
+                <div class="impact-text">施工品質の安定化 / 洗剤コストさらなる 20% 削減</div>
+            </div>
+
+            <!-- 2. Planning Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-calendar-day"></i> 管理・マネジメント</div>
+                <h3>AIフレキシブル・シフト最適化エンジン</h3>
+                <div class="section-label">現状の課題</div>
+                <p>社員の個性を尊重しつつ、昼夜問わない関東一円の広域・不規則なシフト作成が非常に煩雑。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 社員の希望、居住地、保有資格、現場相性をAIに登録。<br>
+                    2. 関東各拠点の受注状況をAIが实时解析。<br>
+                    3. 移動時間を最小化し、かつ社員の希望を満たす最適シフト案を自動生成。
+                </div>
+                <div class="impact-text">シフト作成工数 90% 削減 / 社員満足度と定着率の向上</div>
+            </div>
+
+            <!-- 3. Sales Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-hand-holding-usd"></i> 営業・四方良し</div>
+                <h3>四方良しを実現する AI「環境価値」提案資料作成</h3>
+                <div class="section-label">現状の課題</div>
+                <p>電解水清掃による環境負荷軽減（SDGs）の価値を、顧客に分かりやすく説明するレポート作成が大変。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 施工面積と過去の洗剤使用データをAIに入力。<br>
+                    2. AIが削減された化学物質量や水の節約量をSDGsインパクトとして自動算出。<br>
+                    3. 顧客企業の環境活動報告書にそのまま使える提案書を生成。
+                </div>
+                <div class="impact-text">提案書作成工数 80% 削減 / 新規受注率向上</div>
+            </div>
+
+            <!-- 4. Quality Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-check-to-slot"></i> 品質管理</div>
+                <h3>AI視覚による木床研磨・塗装品質チェック</h3>
+                <div class="section-label">現状の課題</div>
+                <p>木床の研磨具合や塗装の塗りムラ判定には高度な熟練の目が必要で、個体差が出やすい。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 作業中または完了後の床面をスマホカメラでスキャン。<br>
+                    2. AIが光沢度、平面の平滑度を解析し、ムラを可視化。<br>
+                    3. 不備がある箇所をAR（拡張現実）で現場スタッフにガイド。
+                </div>
+                <div class="impact-text">手直し工事 50% 削減 / 「さすがプロ」と言われる品質の保証</div>
+            </div>
+
+            <!-- 5. Creative Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-lightbulb"></i> 社員提案・企画</div>
+                <h3>AI「社員アイデア」ブラッシュアップbot</h3>
+                <div class="section-label">現状の課題</div>
+                <p>「社員ファースト」で現場からのアイデアを尊重しているが、具体化・企画化するプロセスに手間がかかる。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 現場スタッフが気づいた「もっとこうしたい」を音声やLINE等でチャット入力。<br>
+                    2. AIが市場トレンドや先行事例を調べ、実現可能なビジネスプラン案として構成。<br>
+                    3. 社内委員会での検討資料として自動出力。
+                </div>
+                <div class="impact-text">社内改善提案数 3倍 / ボトムアップ型の組織活性化</div>
+            </div>
+
+            <!-- 6. Recruiting Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-universal-access"></i> ダイバーシティ</div>
+                <h3>障がい者雇用・多世代共生 AI教育アシスタント</h3>
+                <div class="section-label">現状の課題</div>
+                <p>多様な背景を持つスタッフに対し、一律のマニュアル教育では理解度に差が出る。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. スタッフ一人ひとりの理解特性（視覚優位、聴覚優位等）をAIが学習。<br>
+                    2. 清掃手順を、AIが最適な表現（易しい日本語、イラスト多め等）で個別に生成。<br>
+                    3. 作業中、困ったサインを検知して即座にサポート動画を提示。
+                </div>
+                <div class="impact-text">独り立ちまでの期間 30% 短縮 / インクルーシブな環境実現</div>
+            </div>
+
+            <!-- 7. Backoffice Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-file-waveform"></i> 事務効率化</div>
+                <h3>現場画像による AI自動見積・報告フロー</h3>
+                <div class="section-label">現状の課題</div>
+                <p>除草作業や広範囲の床清掃など、事前の見積算出と事後の報告書作成が現場スタッフの時間を奪っている。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 現場（草むら、床）をパノラマ撮影。AIが面積や密度を自動計算。<br>
+                    2. 作業前後をAIが比較し、完了箇所を自動マッピング。<br>
+                    3. ISO/SDGs準拠の報告書を自動出力。
+                </div>
+                <div class="impact-text">現場事務負担 70% 削減 / 現場直帰率の向上</div>
+            </div>
+
+            <!-- 8. Inventory Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-flask"></i> 環境DX</div>
+                <h3>電解水生成装置 AIメンテナンス予測</h3>
+                <div class="section-label">現状の課題</div>
+                <p>自社電解水生成装置の不調は清掃品質に直結するため、ダウンタイムをゼロにしたい。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 装置の動作ログ（pH値、流量、電力）を常時モニタリング。<br>
+                    2. AIが異常傾向を検知し、部品交換の必要性を。予測点検として通知。<br>
+                    3. 清掃スケジュールを考慮し、最も影響の少ないタイミングで修繕を自動予約。
+                </div>
+                <div class="impact-text">装置故障発生率 90% 削減 / 安定した高品質施工の維持</div>
+            </div>
+
+            <!-- Risk Card -->
+            <div class="card risk-card">
+                <div class="role-badge"><i class="fas fa-shield-halved"></i> リスク管理</div>
+                <h3>安心・安全のための AI 運用ガイドライン</h3>
+                <div class="section-label">重要事項</div>
+                <p>社員のプライバシーを保護するため、評価AIの利用規約を透明化。AIによる品質判定は「補助」とし、最終的な合否や評価は人間としての「情熱と技術」を尊重し、管理者が決定します。</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 有限会社美創プランニング AI DX Strategy Proposal. All Rights Reserved.
+    </footer>
+
+</body>
+
+</html>
