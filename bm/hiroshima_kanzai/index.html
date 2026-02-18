@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ひろしま管財 AI DX 事例集</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --soft-coral: #e27d60;
+            --text-dark: #333;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--ivory);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: #fff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--text-dark);
+        }
+
+        h1 span {
+            color: var(--gold);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .role-badge {
+            font-size: 0.8rem;
+            color: var(--soft-coral);
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .role-badge i {
+            margin-right: 0.5rem;
+        }
+
+        .card h3 {
+            margin: 0 0 1.5rem 0;
+            font-size: 1.4rem;
+            color: var(--gold);
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #888;
+            margin-bottom: 0.3rem;
+        }
+
+        .card p {
+            margin: 0 0 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .solution-box {
+            background-color: #f9f9f9;
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .impact-text {
+            color: var(--soft-coral);
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .impact-text::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-right: 0.5rem;
+        }
+
+        .risk-card {
+            background-color: #333;
+            color: #fff;
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+
+        .risk-card h3 {
+            color: var(--gold);
+            border-bottom-color: #444;
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-badge">PREMIUM DX REPORT</div>
+        <h1>ひろしま管財 <span>AI DX 事例集</span></h1>
+        <p>創業60年の「ありがとう」を、AIの力で次世代の輝きへ。</p>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            <!-- 1. NotebookLM Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-brain"></i> ナレッジマネジメント</div>
+                <h3>NotebookLMによる「ありがとう」の資産化</h3>
+                <div class="section-label">現状の課題</div>
+                <p>60年蓄積された清掃ノウハウや各建物の癖が属人化しており、教育に時間がかかる。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 過去のマニュアル、トラブル報告書をNotebookLMに集約。<br>
+                    2. スタッフが現場で「この床材の汚れの落とし方は？」と質問。<br>
+                    3. 即座に過去の成功事例を回答。
+                </div>
+                <div class="impact-text">教育期間 40% 短縮 / 現場判断スピード 2倍</div>
+            </div>
+
+            <!-- 2. Sales Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-file-contract"></i> 営業・見積備</div>
+                <h3>平面図解析によるAI自動見積</h3>
+                <div class="section-label">現状の課題</div>
+                <p>現地調査と手作業による図面計測に膨大な時間がかかり、見積提出が遅れる。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 建物図面PDFをAIが解析し、清掃面積・床材を自動抽出。<br>
+                    2. 過去の単価DBと照合。<br>
+                    3. 精度の高い見積原案を1分で生成。
+                </div>
+                <div class="impact-text">見積作成工数 80% 削減 / 受注率の向上</div>
+            </div>
+
+            <!-- 3. Marketing Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-bullhorn"></i> SNS・集客</div>
+                <h3>LaPica SNS運用オートメーション</h3>
+                <div class="section-label">現状の課題</div>
+                <p>「LaPica」の認知向上のためのSNS投稿がスタッフの負担になり、更新が滞る。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 現場のBefore/After写真をアップロード。<br>
+                    2. AIが「感動・誠実・プロの技」をテーマに文章とタグを生成。<br>
+                    3. 投稿予約までを自動完結。
+                </div>
+                <div class="impact-text">SNS運用時間 90% 削減 / フォロワー増による直販率UP</div>
+            </div>
+
+            <!-- 4. Quality Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-check-double"></i> 現場品質</div>
+                <h3>スマート・クオリティ・チェッカー</h3>
+                <div class="section-label">現状の課題</div>
+                <p>清掃品質がスタッフの経験値に左右され、拭き残し等のクレームが稀に発生する。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 清掃完了後に指定ポイントをスマホで撮影。<br>
+                    2. AIが微細な汚れや光沢度を判定。<br>
+                    3. 不備があればその場で修正指示。
+                </div>
+                <div class="impact-text">品質クレーム ゼロ化 / スタッフのスキル平準化</div>
+            </div>
+
+            <!-- 5. Management Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-users-cog"></i> 事務・人事</div>
+                <h3>280名規模のAIシフト最適化エンジン</h3>
+                <div class="section-label">現状の課題</div>
+                <p>280名の希望と数百拠点のマッチングが複雑極まり、管理職が数日かけて作成している。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 住所、希望時間、スキル、現場相性をAIにインプット。<br>
+                    2. 数理最適化アルゴリズムにより数分でシフト案を生成。<br>
+                    3. 移動効率を最大化した配置案を提示。
+                </div>
+                <div class="impact-text">シフト作成工数 95% 削減 / 採用コストの最適化</div>
+            </div>
+
+            <!-- 6. Facility Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-tools"></i> 設備点検</div>
+                <h3>設備異常音のAI予兆検知</h3>
+                <div class="section-label">現状の課題</div>
+                <p>ポンプや空調の異音の聞き分けには熟練の勘が必要で、若手では発見が遅れる。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 点検時に設備の動作音をスマホで5秒録音。<br>
+                    2. 正常時データと比較し、摩耗や故障の予兆をAIが判定。<br>
+                    3. 故障前の計画修繕を提案。
+                </div>
+                <div class="impact-text">緊急修理費用 30% 削減 / 建物資産価値の維持</div>
+            </div>
+
+            <!-- 7. CS Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-headset"></i> 顧客対応</div>
+                <h3>緊急トラブル一次対応AIボット</h3>
+                <div class="section-label">現状の課題</div>
+                <p>夜間や休日、管理会社の営業時間外に発生する緊急トラブルの受付体制が脆弱。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 漏水等の緊急時にAIボット（電話/チャット）が応対。<br>
+                    2. 自動で被害状況をヒアリングし、緊急度を分類。<br>
+                    3. 指定の緊急対応スタッフへ即時通知。
+                </div>
+                <div class="impact-text">初動対応 1時間 短縮 /二次被害の防止</div>
+            </div>
+
+            <!-- 8. Specialized Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-home"></i> LaPica特化</div>
+                <h3>AIパーソナル整理収納提案</h3>
+                <div class="section-label">現状の課題</div>
+                <p>整理収納サービスの打ち合わせ時に、完成イメージが顧客に伝わりにくい。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 片付け前の部屋をスマホで撮影。<br>
+                    2. AIが整理後の美しい空間画像を生成。<br>
+                    3. ライフスタイルに合った収納家具をセットで提案。
+                </div>
+                <div class="impact-text">成約率 2倍 / アップセル単価向上</div>
+            </div>
+
+            <!-- Risk Card -->
+            <div class="card risk-card">
+                <div class="role-badge"><i class="fas fa-shield-halved"></i> リスク管理</div>
+                <h3>安心・安全のための AI 運用ガイドライン</h3>
+                <div class="section-label">重要事項</div>
+                <p>個人情報の入力を制限する匿名化フィルターの導入。AIの回答には常に人間の最終確認（Human-in-the-loop）を行い、ハルシネーションによる誤情報のリスクを徹底排除します。</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 ひろしま管財 AI DX Strategy Proposal. All Rights Reserved.
+    </footer>
+
+</body>
+
+</html>
