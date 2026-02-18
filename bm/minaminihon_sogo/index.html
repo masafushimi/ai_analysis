@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南日本総合サービス AI DX 事例集</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --soft-coral: #e27d60;
+            --text-dark: #333;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--ivory);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: #fff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--text-dark);
+        }
+
+        h1 span {
+            color: var(--gold);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .role-badge {
+            font-size: 0.8rem;
+            color: var(--soft-coral);
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .role-badge i {
+            margin-right: 0.5rem;
+        }
+
+        .card h3 {
+            margin: 0 0 1.5rem 0;
+            font-size: 1.4rem;
+            color: var(--gold);
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #888;
+            margin-bottom: 0.3rem;
+        }
+
+        .card p {
+            margin: 0 0 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .solution-box {
+            background-color: #f9f9f9;
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .impact-text {
+            color: var(--soft-coral);
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .impact-text::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-right: 0.5rem;
+        }
+
+        .risk-card {
+            background-color: #333;
+            color: #fff;
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+
+        .risk-card h3 {
+            color: var(--gold);
+            border-bottom-color: #444;
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-badge">PREMIUM DX REPORT</div>
+        <h1>南日本総合サービス <span>AI DX 事例集</span></h1>
+        <p>鹿児島の「安心・快適」を、AIと共に未来へつなぐ。</p>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            <!-- 1. Knowledge Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-building-shield"></i> 警備ナレッジ</div>
+                <h3>NotebookLMによる「安全ノウハウ」の資産化</h3>
+                <div class="section-label">現状の課題</div>
+                <p>1961年からの膨大な事故対応、物件ごとの特殊警備ルールがベテランの経験に依存している。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 過去60年分の報告書、防犯診断データをNotebookLMに投入。<br>
+                    2. 新任警備員が現場で「この現場の夜間の注視ポイントは？」と質問。<br>
+                    3. AIが過去の事例に基づき、的確な指示を秒速で回答。
+                </div>
+                <div class="impact-text">現場立ち上げ工数 60% 削減 / 事故未然防止率の向上</div>
+            </div>
+
+            <!-- 2. Security Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-video"></i> 監視・保安</div>
+                <h3>24時間監視 AI画像解析アシスタント</h3>
+                <div class="section-label">現状の課題</div>
+                <p>監視センターでの数多くのモニター監視は疲労が激しく、一瞬の見落としが重大事故に直結する。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 監視映像をリアルタイムでAIが解析。<br>
+                    2. 侵入、転倒、火災予兆（煙）などの異常を即時に自動検知。<br>
+                    3. 人間の監視員にアラートを発し、駆けつけ判断を迅速化。
+                </div>
+                <div class="impact-text">異常検知精度 99.9% / 人員配置の最適化</div>
+            </div>
+
+            <!-- 3. Traffic Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-road"></i> 交通誘導</div>
+                <h3>イベント・駐車場のAI混雑予測・誘導計画</h3>
+                <div class="section-label">現状の課題</div>
+                <p>鹿児島県内の大型イベントにおける渋滞が地域課題となっており、警備員の経験による誘導に限界がある。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 会場図面と予想来場者数をAIに入力。<br>
+                    2. 車流シミュレーションを行い、最適な誘導ポイントと人数を算出。<br>
+                    3. 当日の混雑状況をAIがリアルタイム解析し、配置を動的に修正。
+                </div>
+                <div class="impact-text">近隣渋滞 30% 低減 / 顧客満足度の向上</div>
+            </div>
+
+            <!-- 4. Health Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-heart-pulse"></i> 健康経営</div>
+                <h3>健康経営を加速するAIアドバイザー</h3>
+                <div class="section-label">現状の課題</div>
+                <p>「健康経営優良法人」として、従業員の高齢化に伴う現場での健康リスク管理を高度化したい。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 匿名化した健診結果と活動データをAIが分析。<br>
+                    2. 熱中症リスクが高いスタッフや疲労蓄積を予測し、管理者にアラート。<br>
+                    3. 個人に合わせた運動・食事メニューをチャットで配信。
+                </div>
+                <div class="impact-text">欠勤率 15% 低減 / 従業員満足度と定着率の向上</div>
+            </div>
+
+            <!-- 5. Medical Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-file-medical"></i> 医療事務</div>
+                <h3>医療事務レセプト AI精度向上システム</h3>
+                <div class="section-label">現状の課題</div>
+                <p>医療事務受託先での入力ミスによる返戻が、業務負担と信頼性の欠如に繋がっている。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 入力されたデータをAIがリアルタイムでスキャン。<br>
+                    2. 最新の診療報酬ルールに基づき、整合性の不備を自動指摘。<br>
+                    3. 適切なコーディング案をガイドとして表示。
+                </div>
+                <div class="impact-text">返戻率 80% 削減 / 事務工数の大幅カット</div>
+            </div>
+
+            <!-- 6. Management Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-user-check"></i> 人事・採用</div>
+                <h3>現場適合度判定 AI採用エンジン</h3>
+                <div class="section-label">現状の課題</div>
+                <p>地元鹿児島の労働力不足の中、採用ミスマッチによる早期離職を最小限にしたい。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 過去の優秀スタッフの適性データを学習。<br>
+                    2. 面接動画やテストから、清掃・警備・事務への資質をAIがスコアリング。<br>
+                    3. 個人の性格に最も合う現場をレコメンド。
+                </div>
+                <div class="impact-text">早期離職率 50% 削減 / 採用面接時間の最適化</div>
+            </div>
+
+            <!-- 7. Report Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-clipboard-check"></i> 現場事務</div>
+                <h3>現場ボイスによる報告書自動生成</h3>
+                <div class="section-label">現状の課題</div>
+                <p>現場作業後の膨大な報告作業がスタッフの残業の主因となっており、改善が急務。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 作業終了時に現場でスマホに向かって状況をボイス入力。<br>
+                    2. AIが要約・整理し、顧客提出用の丁寧な形式で報告書を作成。<br>
+                    3. 写真を添付してワンタップでオーナーへ送信。
+                </div>
+                <div class="impact-text">報告書作成工数 90% 削減 / 現場直帰率の向上</div>
+            </div>
+
+            <!-- 8. Energy Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-leaf"></i> 設備・環境</div>
+                <h3>SDGs貢献 AI建物エネルギー最適化</h3>
+                <div class="section-label">現状の課題</div>
+                <p>管理ビルにおいて、空調や照明のムダが多く、テナントの満足度と省エネを両立したい。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 天候、室温、人流センサーのデータを統合。<br>
+                    2. AIが数時間後の負荷を予測し、空調・照明を自動きめ細かく制御。<br>
+                    3. 削減効果を可視化し、オーナーへレポート。
+                </div>
+                <div class="impact-text">消費電力 20% 削減 / テナント満足度の向上</div>
+            </div>
+
+            <!-- Risk Card -->
+            <div class="card risk-card">
+                <div class="role-badge"><i class="fas fa-shield-halved"></i> リスク管理</div>
+                <h3>安心・安全のための AI 運用ガイドライン</h3>
+                <div class="section-label">重要事項</div>
+                <p>警備情報の機密性保持のため、データは暗号化し国内サーバーで運用。AIによる判定はあくまで支援とし、最終的な警備判断や駆けつけ司令はベテラン監視員が担当することで、100%の安全を担保します。</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 南日本総合サービス AI DX Strategy Proposal. All Rights Reserved.
+    </footer>
+
+</body>
+
+</html>
