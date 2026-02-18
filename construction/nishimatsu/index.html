@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DX Strategy Report - Nishimatsu Construction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #a88a5d;
+            --bg: #fdfcfb;
+            --accent: #e27d60;
+            --text: #333;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg);
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            padding: 25px;
+            border-top: 5px solid var(--primary);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .role-badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            width: fit-content;
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            color: var(--text);
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2 i {
+            color: var(--accent);
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.95rem;
+        }
+
+        .content {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .impact-box {
+            background: #fdf6f4;
+            border-left: 4px solid var(--accent);
+            padding: 10px;
+            margin-top: auto;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>西松建設 AI DX 戦略事例集</h1>
+    <p>現場力とデジタル技術の融合による施工プロセスの革新</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <div class="role-badge">クリエイティブ・企画</div>
+        <h2><i class="fas fa-file-contract"></i>AIプロポーザル作成支援</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">官公庁・民間案件の提案書作成に莫大な時間を要し、過去の知見が担当者に依存している。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">過去の当選提案書をRAG（検索拡張生成）で学習。案件概要を入力するだけで、構成案とドラフトを自動生成。</p>
+        <div class="impact-box">提案書作成時間 60% 削減 / 勝率 15% 向上</div>
+    </div>
+
+    <div class="card">
+        <div class="role-badge">現場・実務</div>
+        <h2><i class="fas fa-camera-retro"></i>写真整理・黒板自動認識</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">毎日数百枚撮影する工事写真の仕分けと、黒板情報の台帳転記が現場監督の重荷。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">Photoruction等のPFと連携。画像認識AIが写真内の黒板情報を読み取り、自動で工種別にフォルダ仕分け。</p>
+        <div class="impact-box">現場監督の残業時間 月20時間削減</div>
+    </div>
+
+    <div class="card">
+        <div class="role-badge">ナレッジ資産化</div>
+        <h2><i class="fas fa-book"></i>西松技術百科 AI (NotebookLM)</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">数十年蓄積された施工指針やトラブル事例集がPDF化されたままで、現場で活用しきれていない。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">全社マニュアルをNotebookLMに集約。若手社員が音声やチャットで「杭打ちの留意点は？」と聞けば即座に回答。</p>
+        <div class="impact-box">技術承継コストの劇的低下 / 施工ミス防止</div>
+    </div>
+
+    <div class="card">
+        <div class="role-badge">マネジメント・経営</div>
+        <h2><i class="fas fa-chart-line"></i>プロジェクト採算予測AI</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">資材価格の高騰や外注費の変動により、竣工時の最終利益が予測しづらい。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">リアルタイムの原価データと市場指数を解析。リスク要因を早期検知し、$EBITDA$ の最大化を図る。</p>
+        <div class="impact-box">原価管理精度 ±2% 以内に向上</div>
+    </div>
+
+    <div class="card">
+        <div class="role-badge">事務・バックオフィス</div>
+        <h2><i class="fas fa-shield-halved"></i>下請法・契約リスク検知</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">協力会社との膨大な契約書類における、法令違反や不利益な条項のチェック。 </p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">法務LLMが全契約書をスクリーニング。不適切な支払い条件や工期設定をアラート通知。</p>
+        <div class="impact-box">法務審査リードタイム 75% 削減</div>
+    </div>
+
+    <div class="card">
+        <div class="role-badge">営業・マーケティング</div>
+        <h2><i class="fas fa-bullseye"></i>入札価格最適化エンジン</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">他社の入札動向やJV組成のパターンが複雑で、最適な応札価格の決定が困難。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">過去5年分の入札結果を機械学習。競合他社の落札傾向をシミュレーションし、落札確率を算出。</p>
+        <div class="impact-box">落札率 12% 向上 / 利益率の適正化</div>
+    </div>
+
+    <div class="card">
+        <div class="role-badge">現場・実務</div>
+        <h2><i class="fas fa-helmet-safety"></i>AI安全巡視ドローン</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">広大な現場の安全確認を人力で行うのは限界があり、高所等の危険箇所も多い。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">自律飛行ドローンが現場を撮影。AIが「ヘルメット未着用」「開口部未養生」を自動検知し通知。</p>
+        <div class="impact-box">重大事故発生リスク 40% 削減</div>
+    </div>
+
+    <div class="card">
+        <div class="role-badge">顧客対応</div>
+        <h2><i class="fas fa-comments"></i>近隣住民対応AIエージェント</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">施工中の騒音・振動に対する苦情や問い合わせ対応が、現場監督の精神的負担に。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">多言語対応のAIチャットボットを設置。施工予定や対策を自動回答し、ログを即座に共有。</p>
+        <div class="impact-box">住民満足度向上 / 監督の対応工数 50% 削減</div>
+    </div>
+
+    <div class="card">
+        <div class="role-badge">クリエイティブ・企画</div>
+        <h2><i class="fas fa-cube"></i>AI自動配筋検査</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">配筋検査には膨大な写真撮影と、設計図との照合、実測が必要で、検査員の拘束時間が長い。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">LiDARスキャンデータからAIが配筋本数・間隔を計測。設計BIMと自動照合しレポート作成。</p>
+        <div class="impact-box">検査時間 80% 削減 / 検査精度の均一化</div>
+    </div>
+
+    <div class="card">
+        <div class="role-badge">リスク管理</div>
+        <h2><i class="fas fa-exclamation-triangle"></i>AIガバナンス・倫理管理</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">生成AI活用における機密情報漏洩や、不正確な回答（ハルシネーション）による設計ミス。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">西松専用の閉域環境（Azure/GCP）を構築。入力フィルタリングと、AI回答の根拠文献（ソース）提示を義務化。</p>
+        <div class="impact-box">情報漏洩リスク 0% / 信頼性の確保</div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 全業界対応型 AI DX戦略コンサルタント - 西松建設様向け戦略レポート</p>
+</footer>
+
+</body>
+</html>
