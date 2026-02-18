@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>株式会社エコル AI DX 事例集</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --soft-coral: #e27d60;
+            --text-dark: #333;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--ivory);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: #fff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--text-dark);
+        }
+
+        h1 span {
+            color: var(--gold);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .role-badge {
+            font-size: 0.8rem;
+            color: var(--soft-coral);
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .role-badge i {
+            margin-right: 0.5rem;
+        }
+
+        .card h3 {
+            margin: 0 0 1.5rem 0;
+            font-size: 1.4rem;
+            color: var(--gold);
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #888;
+            margin-bottom: 0.3rem;
+        }
+
+        .card p {
+            margin: 0 0 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .solution-box {
+            background-color: #f9f9f9;
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .impact-text {
+            color: var(--soft-coral);
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .impact-text::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-right: 0.5rem;
+        }
+
+        .risk-card {
+            background-color: #333;
+            color: #fff;
+            grid-column: 1 / -1;
+            text-align: center;
+        }
+
+        .risk-card h3 {
+            color: var(--gold);
+            border-bottom-color: #444;
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-badge">PREMIUM DX REPORT</div>
+        <h1>株式会社エコル <span>AI DX 事例集</span></h1>
+        <p>「工事のできる掃除屋」の技術と、AIの知性を融合する。</p>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            <!-- 1. Knowledge Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-hammer"></i> 技能継承・ナレッジ</div>
+                <h3>NotebookLMによる「技術マニュアル」のAI化</h3>
+                <div class="section-label">現状の課題</div>
+                <p>ポンプ交換や内外装工事など、多岐にわたる技術ノウハウが散逸しており、若手への継承が困難。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 過去の全施工実績、図面、技術マニュアルをNotebookLMに投入。<br>
+                    2. 現場で「この型番のポンプの異音原因は？」とボイス検索。<br>
+                    3. AIが即座に過去の故障パターンと修復手順を回答。
+                </div>
+                <div class="impact-text">技術研修コスト 50% 削減 / 現場トラブル解決率向上</div>
+            </div>
+
+            <!-- 2. Visual Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-eye"></i> 現場点検</div>
+                <h3>外壁・設備損傷のAI画像診断</h3>
+                <div class="section-label">現状の課題</div>
+                <p>ガラス清掃や点検時の目視確認では、ごく小さな亀裂や劣化の見落としが発生し、後の高額修繕に繋がる。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 清掃・点検時に高解像度カメラで外壁や設備を撮影。<br>
+                    2. AIが数ミリ単位のき裂、錆、剥離を自動検知。<br>
+                    3. 重大事故リスクを数値化し、予防修理を提案。
+                </div>
+                <div class="impact-text">点検見落とし ゼロ化 / 顧客への予防保全提案の質向上</div>
+            </div>
+
+            <!-- 3. Sales Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-file-invoice"></i> 営業・事務</div>
+                <h3>「工事のできる掃除屋」専用 AI見積アシスタント</h3>
+                <div class="section-label">現状の課題</div>
+                <p>清掃から修繕、内外装工事まで多岐にわたるため、見積作成に高度な知識と多大な時間が必要。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 現場調査メモと写真をAIに送信。<br>
+                    2. AIが清掃範囲と必要な工種（左官、塗装、配管等）を判別。<br>
+                    3. 適切な部材と工数を算出し、見積書を自動構成。
+                </div>
+                <div class="impact-text">見積作成時間 70% 削減 / 見積漏れによる赤字受注の防止</div>
+            </div>
+
+            <!-- 4. Monitoring Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-wave-square"></i> 設備保守</div>
+                <h3>ポンプ・ファン異音のAI音声解析保守</h3>
+                <div class="section-label">現状の課題</div>
+                <p>ポンプ交換.jpを運営する強みを活かし、故障の予兆を科学的に捉えたい。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 定期点検時に回転機器の音を録音、またはセンサーで常時監視。<br>
+                    2. 周波数分析を行い、摩耗や芯ズレの兆候を数ヶ月前に予測。<br>
+                    3. 「壊れる前の交換」をデータで根拠づけて提案。
+                </div>
+                <div class="impact-text">突発故障 90% 削減 / 設備寿命の最大化</div>
+            </div>
+
+            <!-- 5. Marketing Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-laptop-code"></i> 集客・Web</div>
+                <h3>専門サイト群（ガラス清掃.jp等）のSEO自動最適化</h3>
+                <div class="section-label">現状の課題</div>
+                <p>運営する複数サイトのブログ更新やコンテンツ作成が追いつかず、検索順位が安定しない。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 最新の清掃事例や施工実績を短文・写真でAIに連携。<br>
+                    2. 検索意図に基づいた専門性の高い解説記事をAIが生成。<br>
+                    3. キーワードやメタ情報を自動最適化。
+                </div>
+                <div class="impact-text">Web流入数 150% 向上 / 問い合わせ獲得コスト 30% 低減</div>
+            </div>
+
+            <!-- 6. Management Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-truck-fast"></i> 運営・経営</div>
+                <h3>文京・中央区集中ターゲット AI配車・巡回計画</h3>
+                <div class="section-label">現状の課題</div>
+                <p>強化エリア（千代田、中央区等）での作業密度を高め、移動時間のロスを最小化したい。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 全現場の位置、作業時間、車両空き状況を可視化。<br>
+                    2. AIが渋滞予測と作業効率を考慮した最短巡回ルートを策定。<br>
+                    3. 緊急案件の割り込み時もリアルタイムで再最適化。
+                </div>
+                <div class="impact-text">作業効率 25% 改善 / 燃料費・CO2排出削減</div>
+            </div>
+
+            <!-- 7. Customer Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-handshake-angle"></i> 顧客体験</div>
+                <h3>AIアフターフォロー・メンテナンスリマインダー</h3>
+                <div class="section-label">現状の課題</div>
+                <p>施工後の継続的なフォローが手薄になり、他社への流出が発生している。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. 各顧客の清掃・工事履歴をAIが管理。<br>
+                    2. 劣化速度を予測し、最適な次期清掃や点検時期に自動でパーソナライズDMを送付。<br>
+                    3. 顧客の建物の「健康診断書」を定期的にお届け。
+                </div>
+                <div class="impact-text">リピート受注率 40% 向上 / LTVの最大化</div>
+            </div>
+
+            <!-- 8. Backoffice Case -->
+            <div class="card">
+                <div class="role-badge"><i class="fas fa-microchip"></i> 事務効率化</div>
+                <h3>現場写真・報告書のAI自動仕分け・生成</h3>
+                <div class="section-label">現状の課題</div>
+                <p>現場スタッフが撮影した大量の写真の整理と、報告書の作成が深夜まで及んでいる。</p>
+                <div class="section-label">AI活用ステップ</div>
+                <div class="solution-box">
+                    1. スタッフが写真を撮るだけでAIが場所、状況、項目を自動タグ付け。<br>
+                    2. 短いボイスメモから、プロらしい丁寧な報告文章を自動生成。<br>
+                    3. ワンクリックで形式の整った報告書を出力。
+                </div>
+                <div class="impact-text">事務作業時間 1/3 に短縮 / 作業終了即報告の実現</div>
+            </div>
+
+            <!-- Risk Card -->
+            <div class="card risk-card">
+                <div class="role-badge"><i class="fas fa-shield-halved"></i> リスク管理</div>
+                <h3>安心・安全のための AI 運用ガイドライン</h3>
+                <div class="section-label">重要事項</div>
+                <p>図面や顧客物件情報の漏洩防止のため、クローズドなAI環境を利用。AIが提案する工事手法については、必ず有資格者による最終検図・承認を必須とし、物理的安全性を担保します。</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 株式会社エコル AI DX Strategy Proposal. All Rights Reserved.
+    </footer>
+
+</body>
+
+</html>
