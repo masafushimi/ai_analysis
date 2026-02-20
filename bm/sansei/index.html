@@ -64,6 +64,9 @@
             box-shadow: 0 12px 24px rgba(0,0,0,0.08);
             border: 1px solid #eaeaea;
             transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .card:hover {
@@ -73,12 +76,14 @@
 
         .card-img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
+            background-color: #eee;
         }
 
         .card-content {
             padding: 25px;
+            flex-grow: 1;
         }
 
         .role-badge {
@@ -148,7 +153,7 @@
     <div class="grid">
 
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=500&q=80" alt="Proposal" class="card-img">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="Proposal" class="card-img">
             <div class="card-content">
                 <span class="role-badge">指定管理者事業</span>
                 <div class="card-title">指定管理プロポーザル作成AI</div>
@@ -163,7 +168,7 @@
         </div>
 
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1466632346940-715af5dd9748?auto=format&fit=crop&w=500&q=80" alt="Cooking" class="card-img">
+            <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=800&q=80" alt="Cooking AI" class="card-img">
             <div class="card-content">
                 <span class="role-badge">給食管理事業</span>
                 <div class="card-title">AI献立最適化・アレルギー検知</div>
@@ -178,7 +183,7 @@
         </div>
 
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=500&q=80" alt="Knowledge" class="card-img">
+            <img src="https://images.unsplash.com/photo-1454165833767-027e692484f4?auto=format&fit=crop&w=800&q=80" alt="Knowledge" class="card-img">
             <div class="card-content">
                 <span class="role-badge">ナレッジ資産化</span>
                 <div class="card-title">NotebookLM：三勢マイスターAI</div>
@@ -193,14 +198,14 @@
         </div>
 
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=500&q=80" alt="Energy" class="card-img">
+            <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80" alt="Energy" class="card-img">
             <div class="card-content">
                 <span class="role-badge">建設・エネルギー</span>
                 <div class="card-title">環境貢献AIダッシュボード</div>
                 <div class="section-title">現状の課題</div>
                 <div class="section-text">SSボイラー導入等の省エネ効果が定量的に見えにくく、オーナーへのアピールが弱い。</div>
                 <div class="section-title">AI活用ステップ</div>
-                <div class="section-text">1. IoTセンサーから電力・燃料消費データを収集。<br>2. AIが削減貢献度を $E = \sum (C_{old} - C_{new})$ として可視化し、月次報告。</div>
+                <div class="section-text">1. IoTセンサーから電力・燃料消費データを収集。<br>2. AIが削減貢献度を数値として可視化し、月次報告。</div>
                 <div class="impact-box">
                     <div class="impact-text"><i class="fas fa-leaf"></i> オーナー満足度向上。リピート受注率 30% アップ。</div>
                 </div>
@@ -208,7 +213,7 @@
         </div>
 
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=500&q=80" alt="PR" class="card-img">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80" alt="PR" class="card-img">
             <div class="card-content">
                 <span class="role-badge">広報・地域貢献</span>
                 <div class="card-title">三勢通信 AIコンテンツ生成</div>
@@ -223,14 +228,14 @@
         </div>
 
         <div class="card" style="border: 2px solid var(--coral);">
-            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=500&q=80" alt="Privacy" class="card-img">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80" alt="Security" class="card-img">
             <div class="card-content">
                 <span class="role-badge" style="background: var(--coral);">リスク管理</span>
                 <div class="card-title">公共データ保護・AIガバナンス</div>
                 <div class="section-title">現状の課題</div>
                 <div class="section-text">指定管理者として取り扱う市民の個人情報保護。AI利用によるプライバシー侵害の防止。</div>
                 <div class="section-title">AI活用ステップ</div>
-                <div class="section-text">1. 市民データを含むプロンプトの自動フィルタリング。<br>2. 外部APIにデータを送信しないローカルLLM活用による安全なDX推進。</div>
+                <div class="section-text">1. 市民データを含むプロンプトの自動フィルタリング。<br>2. 外部APIにデータを送信しないセキュアなAI環境の構築。</div>
                 <div class="impact-box">
                     <div class="impact-text"><i class="fas fa-shield-virus"></i> プライバシーマーク基準を上回る堅牢なAI運用。</div>
                 </div>
