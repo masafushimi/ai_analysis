@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-one AI DX Strategy Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --aone-blue: #0078d4;
+            --dark: #333;
+        }
+
+        body {
+            background-color: var(--ivory);
+            color: var(--dark);
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--aone-blue), #005a9e);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.3rem;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            color: #fff;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: var(--aone-blue);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--aone-blue);
+            margin-bottom: 15px;
+            border-left: 5px solid var(--gold);
+            padding-left: 12px;
+        }
+
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-top: 15px;
+        }
+
+        .section-text {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .impact-box {
+            background: #f0f7ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px dashed var(--aone-blue);
+        }
+
+        .impact-text {
+            font-weight: bold;
+            color: var(--aone-blue);
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            color: #888;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>A-one AI DX Vision</h1>
+    <p>株式会社A-one：100%自社施工の技術力をAIで資産へ</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1584622781564-1d9876a13d00?auto=format&fit=crop&w=500&q=80" alt="Water Pipe" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">排水管清掃・現場</span>
+                <div class="card-title">AI「詰まり予兆」検知システム</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">排水管の内部状況や詰まりのリスク判断が、作業員の経験則に依存している。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 高圧洗浄時のノズル抵抗や内視鏡映像をAIが解析。<br>2. 汚れの固着度を数値化し、次回清掃の最適時期を自動算出。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-shield-alt"></i> 緊急漏水事故を 40% 削減。保守契約の付加価値向上。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=500&q=80" alt="Shift Management" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">バックオフィス</span>
+                <div class="card-title">300人規模・AI自動配車/シフト</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">300名を超えるスタッフのスキルや現場適性、移動時間を考慮したシフト作成が極めて煩雑。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 全スタッフのスキルマップと居住地をデータベース化。<br>2. 移動距離が最短になる最適なルートと配車計画をAIが自動生成。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-route"></i> 移動コスト 20% 削減。シフト作成時間を 90% カット。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500&q=80" alt="Training" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">ナレッジ資産化</span>
+                <div class="card-title">NotebookLM：A-one 現場ナレッジAI</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">ベテランが持つ物件固有の注意事項や、特殊な床材への対応が共有されていない。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 全現場の点検報告書やトラブル事例、清掃マニュアルをNotebookLMに集約。<br>2. 現場でスマホに相談すれば、AIが即座に最適な清掃方法を指導。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-brain"></i> 現場指導員の負担を激減。清掃品質の全国No.1レベルでの均一化。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=500&q=80" alt="Report" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">事務・顧客対応</span>
+                <div class="card-title">AI現場レポート自動生成</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">施工後の写真整理と、オーナー向けの報告書作成に帰社後の時間が取られている。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 専用アプリで撮影した写真をAIが「施工前・後」で自動判別。<br>2. 異常箇所の説明文を音声入力からAIが清書し、現場で報告書が完成。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-file-pdf"></i> 事務残業ゼロへ。顧客への報告スピードが 24時間 短縮。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=500&q=80" alt="Facility Check" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">設備点検・営業</span>
+                <div class="card-title">「異常予兆」エビデンス提案AI</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">設備修繕の提案が、オーナーにとって「今すぐ必要か」が伝わりにくい。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 過去の点検データと摩耗曲線をAIが比較解析。<br>2. 故障確率を視覚化し、「今直すことのコストメリット」をAIが資料化。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-chart-line"></i> 修繕工事の成約率 30% 向上。建物の長寿命化に貢献。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border: 2px solid var(--coral);">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=500&q=80" alt="Security" class="card-img">
+            <div class="card-content">
+                <span class="role-badge" style="background: var(--coral);">リスク管理</span>
+                <div class="card-title">AIプライバシー・データガバナンス</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">報告書写真に映り込む居住者のプライバシーや機密情報の管理。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 写真送信時にAIが人物、車両、表札を自動検知しマスキング。<br>2. 現場スタッフが使用するAIチャットの入力情報を暗号化管理。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-user-shield"></i> セキュリティ事故ゼロ。管理組合からの信頼をデジタルで強化。</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 株式会社A-one - PIKAPIKA Visionary Strategy
+</footer>
+
+</body>
+</html>
