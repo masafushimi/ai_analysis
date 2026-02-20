@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BELL HOLDINGS AI DX Strategy Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --bell-green: #2d5a27; /* 理念とSDGsをイメージした深緑 */
+            --dark: #2c2c2c;
+        }
+
+        body {
+            background-color: var(--ivory);
+            color: var(--dark);
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a1a1a, #333);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            color: var(--gold);
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--dark);
+            border-left: 4px solid var(--coral);
+            padding-left: 10px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .section-text {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .impact-box {
+            background: #fff5f2;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .impact-text {
+            font-weight: bold;
+            color: var(--coral);
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Bell Holdings AI Strategy</h1>
+    <p>愛と感動をテクノロジーで最大化するDXロードマップ</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1597848212624-a19eb3ba81a4?auto=format&fit=crop&w=500&q=80" alt="Pigeon" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">日本鳩対策センター</span>
+                <div class="card-title">AI被害レベル自動診断</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">現場の被害状況に基づいた「執着度」の判断が属人化しており、見積提案の精度にバラつき。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 現場写真をAI解析し、糞の量や営巣状況から被害レベルを $L=1 \sim 4$ で自動判定。<br>2. 過去の成功事例から、そのレベルに最適な施工方法を即座に提案。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-check-double"></i> 見積作成スピード 3倍。顧客への納得度向上。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=500&q=80" alt="Rehabilitation" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">Plus Keigo.（敬護）</span>
+                <div class="card-title">歩行解析AI「元気の見える化」</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">コンパスウォークでの歩行訓練の成果が感覚的になりがちで、モチベーション維持が難しい。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. タブレットで歩行動画を撮影し、AIが歩幅・速度・姿勢を骨格検知。<br>2. 数値化された「若返りスコア」をレポート化し、ご本人とご家族に共有。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-chart-line"></i> 利用者満足度 45% 向上。リハビリ継続意欲を最大化。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=500&q=80" alt="Nursery" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">Plus Keigo.（ふくふく保育園）</span>
+                <div class="card-title">愛と感動のAI連絡帳</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">保育士が園児一人ひとりの様子を丁寧に伝えたいが、事務作業が重く現場の負担。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 「給食完食、お昼寝ぐっすり、笑顔いっぱい」等の単語を音声入力。<br>2. AIがベルの理念に基づいた「温かみのあるエピソード文」にリライト。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-heart"></i> 保育士の事務時間を 60% 削減。保護者への感動を提供。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500&q=80" alt="Mission" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">マネジメント・教育</span>
+                <div class="card-title">NotebookLM：奥社長 理念メンター</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">多角化・多拠点化が進む中、創業の想いや「幸せのベル」の真意を全社員に等しく伝えるのが困難。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 奥社長のブログ、インタビュー、社内講話を全てNotebookLMに統合。<br>2. 社員が「ベルのプロとしてどう行動すべきか」を迷った際に、AIが社長の言葉でアドバイス。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-microphone"></i> 理念浸透のスピードを加速。組織のエンゲージメント向上。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6954?auto=format&fit=crop&w=500&q=80" alt="Maintenance" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">株式会社ベル</span>
+                <div class="card-title">「さすがプロ!」AI品質点検</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">「そこまでするの？」と言われるレベルの品質チェックを均一に行うための、高度な監査体制が必要。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 清掃・メンテ後の各所をスマホで撮影。<br>2. AIが「角のホコリ」や「水栓の輝き」など、ベル独自の高基準でスコアリング。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-medal"></i> サービス品質の完全均一化。顧客解約率の低減。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border: 2px solid var(--coral);">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=500&q=80" alt="Privacy" class="card-img">
+            <div class="card-content">
+                <span class="role-badge" style="background: var(--coral);">リスク管理</span>
+                <div class="card-title">AIプライバシー＆ハピネス保護</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-text">福祉や保育の現場における写真・個人情報の厳格な管理と、AIによる誤判断の防止。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-text">1. 連絡帳や報告書の生成時、個人情報をAIが自動検知し保護。<br>2. 現場の判断をAIに丸投げせず、最後は必ず「人の温もり（愛）」を介する二重体制。</div>
+                <div class="impact-box">
+                    <div class="impact-text"><i class="fas fa-user-shield"></i> セキュリティとホスピタリティの両立。</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 BELL HOLDINGS Co., Ltd. - Ringing the Bell of Happiness with AI
+</footer>
+
+</body>
+</html>
