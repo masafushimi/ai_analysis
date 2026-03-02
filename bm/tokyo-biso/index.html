@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DX Strategy Report - 東京美装ホールディングス</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --dark-blue: #1a2a3a;
+            --shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--ivory);
+            color: var(--dark-blue);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+        }
+
+        header {
+            background-color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--gold);
+        }
+
+        header h1 {
+            color: var(--dark-blue);
+            margin: 10px 0;
+            letter-spacing: 4px;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 50px auto;
+            padding: 0 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(168, 138, 93, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(168, 138, 93, 0.2);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            filter: grayscale(20%);
+        }
+
+        .card-content {
+            padding: 30px;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: var(--dark-blue);
+            color: var(--gold);
+            padding: 5px 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border: 1px solid var(--gold);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--dark-blue);
+            border-left: 4px solid var(--gold);
+            padding-left: 15px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: bold;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .text-content {
+            font-size: 0.9rem;
+            margin: 8px 0 15px 0;
+            color: #444;
+        }
+
+        .impact-box {
+            background-color: #f8f5f0;
+            border: 1px dashed var(--gold);
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--coral);
+            text-align: center;
+        }
+
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            text-align: center;
+            padding: 50px;
+            margin-top: 100px;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <p style="letter-spacing: 5px; color: var(--gold); font-weight: bold;">FACILITY MANAGEMENT DX</p>
+    <h1>東京美装ホールディングス株式会社<br>次世代AI戦略ポートフォリオ</h1>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">設備管理</span>
+                <div class="card-title">IoT×AI 設備予兆検知システム</div>
+                <div class="section-title">現状の課題</div>
+                <p class="text-content">空調やエレベーターの故障が発生してから対応するため、テナント満足度の低下と緊急修理費が発生。</p>
+                <div class="section-title">AI活用ステップ</div>
+                <p class="text-content">1. 振動・電流センサーデータを収集 2. AIが異常波形を検知 3. 故障確率 $P > 85\%$ で自動的にメンテナンス指示を発行。</p>
+                <div class="impact-box">ダウンタイム 40%削減 / 修繕費 25%削減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">清掃マネジメント</span>
+                <div class="card-title">ロボット清掃×AI人流解析最適化</div>
+                <div class="section-title">現状の課題</div>
+                <p class="text-content">深夜の定期清掃を人海戦術で行っているが、人手不足で広大な面積のカバーが困難になっている。</p>
+                <div class="section-title">AI活用ステップ</div>
+                <p class="text-content">1. カメラ映像から人流（汚れの蓄積）を解析 2. 清掃が必要なエリアを特定 3. 自律型清掃ロボットを動的に配分・指示。</p>
+                <div class="impact-box">清掃員人件費 50%削減 / 清掃品質の均一化</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">事務・バックオフィス</span>
+                <div class="card-title">協力会社AI発注・精算プラットフォーム</div>
+                <div class="section-title">現状の課題</div>
+                <p class="text-content">数千社のサブコンとの見積・発注・請求処理が紙やメールで混在し、事務工数が膨大。</p>
+                <div class="section-title">AI活用ステップ</div>
+                <p class="text-content">1. 全請求書をAI-OCRで読み込み 2. 契約条件と照らし合わせ異常値を自動検知 3. 入金確認と仕訳をAIが完結。</p>
+                <div class="impact-box">バックオフィス工数 70%削減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e7a7?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">経営・ESG</span>
+                <div class="card-title">エネルギー消費最適化AI（BEMS連携）</div>
+                <div class="section-title">現状の課題</div>
+                <p class="text-content">ビルオーナーからの「省エネ要求」に対し、手動の空調調整では限界がある。</p>
+                <div class="section-title">AI活用ステップ</div>
+                <p class="text-content">1. 外気温・日射量・テナント稼働率を学習 2. 熱負荷を予測 3. 空調出力を $1\%$ 単位でリアルタイム制御。</p>
+                <div class="impact-box">電力消費量 15%削減 / 建物資産価値の向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1573161158521-8034a818615e?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">ナレッジ資産化</span>
+                <div class="card-title">TBH NotebookLM：設備点検百科事典</div>
+                <div class="section-title">現状の課題</div>
+                <p class="text-content">ベテラン技術者が持つ「異音だけで故障箇所を当てる」ような技術が継承されず退職で消失している。</p>
+                <div class="section-title">AI活用ステップ</div>
+                <p class="text-content">1. 30年分の点検記録、特殊機材の仕様書をNotebookLMに学習 2. 若手スタッフが現場でスマホ越しに技術相談できる環境を構築。</p>
+                <div class="impact-box">技術承継スピード 3倍 / 現場ミス 80%低減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">営業・PM</span>
+                <div class="card-title">自動LCC（ライフサイクルコスト）シミュレーター</div>
+                <div class="section-title">現状の課題</div>
+                <p class="text-content">長期修繕計画の策定に膨大な時間がかかり、オーナーへの提案タイミングを逃している。</p>
+                <div class="section-title">AI活用ステップ</div>
+                <p class="text-content">1. 過去の修繕実績と市況データを統合 2. ビルスペックを入力するだけで 30年先までのコスト推移をAIが瞬時に生成。</p>
+                <div class="impact-box">提案作成時間 95%削減 / 受注角度の向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">顧客対応</span>
+                <div class="card-title">マルチリンガル・ビルコンシェルジュAI</div>
+                <div class="section-title">現状の課題</div>
+                <p class="text-content">外資系テナントからの英語・中国語での問い合わせに対し、夜間対応できるスタッフが不足。</p>
+                <div class="section-title">AI活用ステップ</div>
+                <p class="text-content">1. 建物専用のAIチャットボットを設置 2. 入館手続きや施設予約、トラブル報告を多言語で24時間自動受付。</p>
+                <div class="impact-box">対応待ち時間 0秒 / テナント満足度向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">安全管理</span>
+                <div class="card-title">AIによる労働災害リスク検知</div>
+                <div class="section-title">現状の課題</div>
+                <p class="text-content">高所作業や機械室での作業において、不安全行動による事故リスクが潜んでいる。</p>
+                <div class="section-title">AI活用ステップ</div>
+                <p class="text-content">1. 現場カメラ・ウェアラブル端末から姿勢データを取得 2. 「ヘルメット未着用」「危険区域侵入」をAIが検知し警告。</p>
+                <div class="impact-box">労働災害発生率 ゼロへの挑戦</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">人事・教育</span>
+                <div class="card-title">AIキャリアパス設計・配置最適化</div>
+                <div class="section-title">現状の課題</div>
+                <p class="text-content">スタッフ数が多いため、個々のスキルに適した現場配置ができず、離職の一因となっている。</p>
+                <div class="section-title">AI活用ステップ</div>
+                <p class="text-content">1. 保有資格・得意業務・通勤時間をデータベース化 2. 各現場の必要スキルとマッチングさせ、最適なシフトと異動案をAIが提示。</p>
+                <div class="impact-box">離職率 20%低減 / 人材配置の公平性向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1558441328-9366e8529d3a?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">マーケティング</span>
+                <div class="card-title">建物価値可視化（データドリブンPM）</div>
+                <div class="section-title">現状の課題</div>
+                <p class="text-content">ビル管理の質がいかに資産価値（賃料）に貢献しているか、オーナーへ客観的なデータで示せていない。</p>
+                <div class="section-title">AI活用ステップ</div>
+                <p class="text-content">1. 周辺物件の賃料・稼働率データと自社管理データを比較 2. 管理品質向上がもたらす将来収益をAIが算出・レポート化。</p>
+                <div class="impact-box">管理委託継続率の向上 / 新規受注力強化</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">事務・コンプライアンス</span>
+                <div class="card-title">法定点検スケジュール自動自動生成</div>
+                <div class="section-title">現状の課題</div>
+                <p class="text-content">消防法、建築基準法など複雑な法定点検の期限管理が属人化しており、失念リスクがある。</p>
+                <div class="section-title">AI活用ステップ</div>
+                <p class="text-content">1. 全管理物件の台帳と法規制を紐付け 2. 点検時期をAIが自動算出・業者への仮予約まで自動化。</p>
+                <div class="impact-box">法令遵守 100%徹底 / 管理ミスゼロ</div>
+            </div>
+        </div>
+
+        <div class="card" style="border-top-color: var(--coral);">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge" style="background: var(--coral);">リスク管理</span>
+                <div class="card-title">エンタープライズAIセキュリティ</div>
+                <div class="section-title">導入時の留意点</div>
+                <p class="text-content">ビル管理データには機密性の高いセキュリティ情報や図面が含まれるため、汎用AIへの直接入力は危険。</p>
+                <div class="section-title">対策</div>
+                <p class="text-content">1. Azure OpenAI等の閉鎖型環境でのLLM構築 2. 入力データの自動フィルタリング 3. 生成された回答の専門家によるダブルチェック体制。</p>
+                <div class="impact-box">情報漏洩リスクの遮断 / 企業信頼の保護</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 東京美装ホールディングス株式会社 AI DX Strategy | Created by All-Industry AI DX Consultant
+</footer>
+
+</body>
+</html>
