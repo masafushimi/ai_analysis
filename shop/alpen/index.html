@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpen Group AI DX Strategy Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --text-dark: #333;
+            --bg-gradient: linear-gradient(135deg, #fdfcfb 0%, #f5f0e1 100%);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--ivory);
+            background: var(--bg-gradient);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        header h1 {
+            color: var(--gold);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(168, 138, 93, 0.1);
+            padding: 30px;
+            position: relative;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border-top: 5px solid var(--gold);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .role-badge {
+            background-color: var(--gold);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-bottom: 15px;
+            width: fit-content;
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card h2 i {
+            margin-right: 10px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: var(--coral);
+            margin-top: 15px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .impact {
+            margin-top: auto;
+            background: #fdfcfb;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--coral);
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>ALPEN AI DX STRATEGY</h1>
+    <p>アルペングループにおける次世代AI活用事例集</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <span class="role-badge">マーケティング / EC</span>
+        <h2><i class="fas fa-shopping-cart"></i>ECモールSEO自動最適化</h2>
+        <p class="section-title">現状の課題</p>
+        <div class="content">楽天・Amazon等の数万点の商品説明文が静的であり、トレンドの変化や検索アルゴリズムの更新に対応できていない。</div>
+        <p class="section-title">AI活用ステップ</p>
+        <div class="content">生成AIをAPI接続。競合動向と検索トレンドをリアルタイム分析し、商品名・紹介文を動的に書き換え、CVRを最大化。</div>
+        <div class="impact">期待効果：EC売上 15%向上 / 運用工数 70%削減</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">現場実務 / フィッティング</span>
+        <h2><i class="fas fa-golf-ball"></i>AIゴルフスイング解析・提案</h2>
+        <p class="section-title">現状の課題</p>
+        <div class="content">ゴルフクラブ選びに専門スタッフの知見が必要だが、熟練者の不足により全店舗で均一なサービスが提供しにくい。</div>
+        <p class="section-title">AI活用ステップ</p>
+        <div class="content">動画解析AIで顧客のスイング軌道を分析。数千の在庫データから、物理特性 $P$ に基づく最適なシャフトを自動レコメンド。</div>
+        <div class="impact">期待効果：客単価向上 / フィッティング成約率 25%改善</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">教育 / バックオフィス</span>
+        <h2><i class="fas fa-book"></i>全社マニュアルのAI化(NotebookLM)</h2>
+        <p class="section-title">現状の課題</p>
+        <div class="content">キャンプ設営からスキー板のWAXがけまで、膨大な専門知識が散在。新人教育に時間がかかっている。</div>
+        <p class="section-title">AI活用ステップ</p>
+        <div class="content">NotebookLMを導入。過去の全研修資料・動画・Q&Aを学習。店舗スタッフがスマホで聞けば、即座に「匠の回答」を得られる環境を構築。</div>
+        <div class="impact">期待効果：教育コスト 50%削減 / 店舗対応スピード向上</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">経営企画 / マネジメント</span>
+        <h2><i class="fas fa-chart-line"></i>天候連動型・需要予測システム</h2>
+        <p class="section-title">現状の課題</p>
+        <div class="content">スポーツ用品は季節・天候に大きく左右される。過去の勘による発注で欠品や過剰在庫が発生。</div>
+        <p class="section-title">AI活用ステップ</p>
+        <div class="content">気象データと過去5年の販売データを時系列解析モデルで処理。3ヶ月先の需要を高精度で予測し、発注を自動最適化。</div>
+        <div class="impact">期待効果：在庫回転率 20%向上 / 廃棄ロス削減</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">CS / サポート</span>
+        <h2><i class="fas fa-comments"></i>ハイブリッド型AIチャットボット</h2>
+        <p class="section-title">現状の課題</p>
+        <div class="content">「自分のキャンプ道具にこのパーツは合うか？」といった専門性の高い問い合わせに、有人対応がパンク状態。</div>
+        <p class="section-title">AI活用ステップ</p>
+        <div class="content">RAG（検索拡張生成）を用いたAIが商品スペック表を参照し、互換性を即答。複雑な相談のみ人間にトリアージ。</div>
+        <div class="impact">期待効果：CS満足度 40%向上 / 受電数 60%削減</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">広報 / クリエイティブ</span>
+        <h2><i class="fas fa-video"></i>SNS動画の自動要約・拡散</h2>
+        <p class="section-title">現状の課題</p>
+        <div class="content">YouTube動画を撮影しても、ショート動画やTikTokへの編集が追いつかず、露出機会を逃している。</div>
+        <p class="section-title">AI活用ステップ</p>
+        <div class="content">映像解析AIが長尺動画からハイライトシーンを自動抽出。SNS向けに縦型クロップ・字幕生成を全自動化。</div>
+        <div class="impact">期待効果：SNS総リーチ数 200%増 / 制作コストの大幅減</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">コンプライアンス / リスク管理</span>
+        <h2><i class="fas fa-shield-halved"></i>AIガバナンス＆ハルシネーション対策</h2>
+        <p class="section-title">現状の課題</p>
+        <div class="content">AIが誤った商品仕様を顧客に伝えてしまうリスクや、機密情報の流出。</div>
+        <p class="section-title">AI活用ステップ</p>
+        <div class="content">入力情報のマスキング処理を自動化。出力結果に対して、事実確認（Fact-checking）を行うダブルチェックAIを実装。</div>
+        <div class="impact">期待効果：法的リスクの極小化 / AI活用の心理的ハードル払拭</div>
+    </div>
+
+</div>
+
+<footer>
+    &copy; 2026 AI DX Strategy Group for Alpen Group
+</footer>
+
+</body>
+</html>
