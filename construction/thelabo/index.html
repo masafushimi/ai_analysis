@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DX Strategic Report | 空間デザイン×MAC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #a88a5d; /* Gold */
+            --bg: #fdfcfb;      /* Ivory */
+            --accent: #e27d60;  /* Soft Coral */
+            --text: #2c2c2c;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-weight: 300;
+            color: #666;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(168, 138, 93, 0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(168, 138, 93, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            align-self: flex-start;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card h3 {
+            margin: 10px 0;
+            font-size: 1.25rem;
+            color: var(--text);
+            border-left: 4px solid var(--accent);
+            padding-left: 15px;
+        }
+
+        .section-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 8px;
+        }
+
+        .content {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .impact-box {
+            margin-top: auto;
+            background: #f9f6f2;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .impact-text {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid #eee;
+            color: #888;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>AI DX STRATEGY ARCHIVE</h1>
+        <p>株式会社空間デザイン一級建築士事務所 × 株式会社MAC 共同提案書</p>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <span class="badge">Design & Creative</span>
+            <h3>施主の「潜在ニーズ」言語化分析</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">施主自身も気づいていない「本当に欲しい空間」の抽出に時間がかかり、設計変更が頻発する。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">ヒアリング時の音声を解析し、声のトーンや言葉の詰まりから「こだわり度」を数値化。優先順位を可視化する。</p>
+            <div class="impact-box">
+                <span class="impact-text">設計満足度の向上と修正工数 30% 削減</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="badge">Sales & Storytelling</span>
+            <h3>物語のある空間コンセプト生成</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">機能面の説明に終始してしまい、施主の感性に訴えかけるプレゼンが難しい。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">設計案をもとに、その家で過ごす「未来の家族の物語」をAIが生成。エモーショナルな提案を実現する。</p>
+            <div class="impact-box">
+                <span class="impact-text">初回提案での成約率 1.5倍 向上</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="badge">Real-time Visualization</span>
+            <h3>手書きエスキスからの即時3Dパース生成</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">手書きのイメージをCG化するのに数日かかり、打ち合わせの熱量が冷めてしまう。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">手書きスケッチをAIに読み込ませ、Stable Diffusion等を用いてその場でフォトリアルな画像に変換する。</p>
+            <div class="impact-box">
+                <span class="impact-text">打ち合わせ当日の意思決定スピードを倍速化</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="badge">Science & Design</span>
+            <h3>色彩心理に基づく感情影響レポート</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">色の選定理由が「デザイナーのセンス」に依存し、顧客へのロジカルな説明が不足する。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">選定した色と照明プランが自律神経に与える影響をAIが科学的根拠（論文DB）から解析しレポート出力する。</p>
+            <div class="impact-box">
+                <span class="impact-text">「根拠あるデザイン」による提案単価の向上</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="badge">Professional Training</span>
+            <h3>設計思考のデジタルツイン化</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">ベテラン設計士の「暗黙知」が若手に継承されず、教育に膨大な時間がかかる。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">過去の設計図面と修正指示をAIに学習させ、若手の図面に対して「所長視点」のアドバイスを自動出力する。</p>
+            <div class="impact-box">
+                <span class="impact-text">教育コスト 50% 削減と品質の均一化</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="badge">Real Estate Sales</span>
+            <h3>売主心理を攻略する交渉ロールプレイング</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">難易度の高い地主との交渉において、経験の浅い営業マンが失注してしまう。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">頑固な地主や資産家をAIが演じ、営業マンが対話。AIが「信頼を得るための改善点」をフィードバックする。</p>
+            <div class="impact-box">
+                <span class="impact-text">物上げ成功率の劇的向上</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="badge">Marketing & Ad</span>
+            <h3>物件写真の「環境・季節」自在変換</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">空き家の写真が暗い、または季節外れのままで、ポータルサイトでのクリック率が低い。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">生成AIにより、冬の写真を「新緑の季節」へ、昼を「夕暮れのムードある照明」へ瞬時に変換。家具の配置も自動で行う。</p>
+            <div class="impact-box">
+                <span class="impact-text">物件への問い合わせ数 40% 増加</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="badge">Data Analysis</span>
+            <h3>登記簿から読み解く隠れた売却動機</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">登記簿の権利関係の変化から「売却の緊急度」を判断するのに高度な専門知識が必要。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">AIが登記簿データを解析。相続、差押え、信託などのパターンから売主の状況を予測し、最適なアプローチ時期を通知する。</p>
+            <div class="impact-box">
+                <span class="impact-text">仕入れの精度向上と機会損失の防止</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="badge">Investor Relations</span>
+            <h3>投資家別オーダーメイド提案書</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">投資家ごとに異なる重視ポイント（利回り、減価償却等）に合わせた資料作成が負担。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">CRMの対話履歴からAIが投資家の選好を分析。数秒で「その人が今一番欲しい情報」を軸にした提案書を構成する。</p>
+            <div class="impact-box">
+                <span class="impact-text">リピート投資率の最大化</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="badge">Knowledge Management</span>
+            <h3>NotebookLMによる社内ナレッジのAI化</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">過去の図面、仕様書、法令改定情報、社内マニュアルが散在し、検索に時間がかかる。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">全ドキュメントをNotebookLMへ統合。社員が「〇〇坪の傾斜地での過去のトラブル事例は？」と聞けば即座に回答を得られる。</p>
+            <div class="impact-box">
+                <span class="impact-text">社内調査工数の完全削減</span>
+            </div>
+        </div>
+
+        <div class="card" style="border-color: var(--accent);">
+            <span class="badge" style="background: var(--accent);">Compliance & Risk</span>
+            <h3>AI導入における安全管理策</h3>
+            <div class="section-title"><i class="fas fa-shield-alt"></i> 留意事項</div>
+            <p class="content">個人情報、図面データの漏洩防止および、AIによる誤情報（ハルシネーション）の検証体制の構築。</p>
+            <div class="section-title"><i class="fas fa-check-double"></i> 対策ステップ</div>
+            <p class="content">・法人契約済のクローズドLLM環境の構築<br>・AI回答に対する有資格者によるダブルチェックのルーチン化</p>
+            <div class="impact-box">
+                <span class="impact-text">安全で信頼されるAI経営の実現</span>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 AI DX Strategic Consultant. Created for 空間デザイン一級建築士事務所 & 株式会社MAC.</p>
+    </footer>
+
+</body>
+</html>
