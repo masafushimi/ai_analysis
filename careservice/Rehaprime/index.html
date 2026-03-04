@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>リハプライム AI DX戦略事例集</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #a88a5d; /* Gold */
+            --bg: #fdfcfb;      /* Ivory */
+            --accent: #e27d60;  /* Soft Coral */
+            --text: #333;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid rgba(168, 138, 93, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+
+        .card h2 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: var(--accent);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .content {
+            font-size: 0.9rem;
+            margin: 5px 0 0 0;
+        }
+
+        .impact-box {
+            margin-top: auto;
+            background: #fff9f5;
+            border-left: 4px solid var(--accent);
+            padding: 10px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AI DX 戦略事例集 20選</h1>
+    <p>リハプライム株式会社 様 - 「敬護」をAIで加速させる20の処方箋</p>
+</header>
+
+<div class="grid">
+    <div class="card">
+        <span class="badge">現場実務</span>
+        <h2><i class="fas fa-pen-nib"></i> 介護記録のAI自動整形</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">音声入力や断片的なメモから、提出用の正式な記録文章を作るのに時間がかかる。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">現場の「話し言葉」をAIが解釈し、専門用語を交えた正確な介護記録へ一瞬で変換。</p>
+        <div class="impact-box">記録時間を1日60分削減</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">現場実務</span>
+        <h2><i class="fas fa-heart"></i> 家族への「感動」連絡帳</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">毎日の報告が定型文になりがちで、本人の頑張りや「敬護」の思いが伝わりにくい。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">その日のリハビリ成果を入力すると、家族が読みたくなる温かい物語調の文章を生成。</p>
+        <div class="impact-box">家族満足度と紹介率の向上</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">ケアマネジメント</span>
+        <h2><i class="fas fa-clipboard-check"></i> ICF視点のアセスメント</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">24項目のアセスメントから課題を抽出する作業が属人化しており、質にバラつきがある。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">情報を統合し、ICFの視点で生活課題を整理。短期・長期目標のドラフトを複数提案。</p>
+        <div class="impact-box">プラン作成時間を40%短縮</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">ケアマネジメント</span>
+        <h2><i class="fas fa-chart-line"></i> 変化を見逃さないモニタリング</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">訪問時の会話からADLの変化を抽出し、報告書にまとめる作業が負担。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">訪問メモから、服薬・意欲・動作の変化を自動抽出。報告形式に即座に要約。</p>
+        <div class="impact-box">記載漏れ防止と業務標準化</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">地域営業</span>
+        <h2><i class="fas fa-handshake"></i> ケアマネ向け「刺さる」提案文</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">競合施設が多い中、自社の「敬護」の強みをケアマネにどう伝えるか悩む。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">競合分析データを基に、ケアマネが利用者に紹介しやすい「決め台詞」をAIが生成。</p>
+        <div class="impact-box">新規紹介獲得率の向上</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">全社共通</span>
+        <h2><i class="fas fa-book-open"></i> NotebookLM 社内百科事典</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">過去の感動事例やマニュアルが散在しており、新人がすぐに学べない。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">全資料をAIに読み込ませ、「こんな時、半田社長ならどう言う？」に回答するBotを構築。</p>
+        <div class="impact-box">教育コストの大幅削減</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">本部管理</span>
+        <h2><i class="fas fa-camera-retro"></i> SNS運用・広報の自動化</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">日々の活動を発信したいが、写真の選定や文章作成に手が回らない。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">写真の内容を説明するだけで、Instagramやブログ用の親しみやすい投稿案を自動生成。</p>
+        <div class="impact-box">フォロワー増による採用力強化</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">マネジメント</span>
+        <h2><i class="fas fa-calendar-alt"></i> 相性を考慮したAIシフト編成</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">資格要件だけでなく、スタッフ同士の相性やバランスを考慮した作成が困難。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">スキルマップと相性データを基に、最適な配置パターンをAIが数秒でシミュレーション。</p>
+        <div class="impact-box">スタッフ定着率の改善</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">現場実務</span>
+        <h2><i class="fas fa-user-nurse"></i> 体調変化の予兆検知</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">日々のバイタルデータは取っているが、潜在的な悪化の予兆まで読み解けない。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">過去の統計データと照らし合わせ、季節変動を超えた「いつもと違う」異常を早期アラート。</p>
+        <div class="impact-box">重症化予防・リスク回避</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">本部管理</span>
+        <h2><i class="fas fa-user-check"></i> 理念共感型の採用診断</h2>
+        <div class="section-title">現状の課題</div>
+        <p class="content">面接短時間では、応募者が本当に「敬護」の心を持っているか見極めきれない。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">職務経歴書のエピソードから、当社の価値観とのマッチ度を分析し質問案を作成。</p>
+        <div class="impact-box">ミスマッチによる早期離職の防止</div>
+    </div>
+
+    <div class="card"><span class="badge">店舗運営</span><h2>問合せ対応Bot</h2><p class="content">夜間の電話・メール問合せに対し、AIが初期ヒアリングを行い、翌朝の対応をスムーズに。</p><div class="impact-box">受電漏れゼロ</div></div>
+    <div class="card"><span class="badge">現場実務</span><h2>口腔体操プログラム</h2><p class="content">季節の話題を盛り込んだ、高齢者が飽きない5分間のオリジナル体操案を毎日提案。</p><div class="impact-box">利用者の満足度向上</div></div>
+    <div class="card"><span class="badge">本部管理</span><h2>レセプト不備チェック</h2><p class="content">算定要件と実績を照らし合わせ、返戻リスクのある箇所を事前に自動検出。</p><div class="impact-box">返戻率の低減</div></div>
+    <div class="card"><span class="badge">現場実務</span><h2>送迎ルート最適最適化</h2><p class="content">当日欠席や道路状況を反映した、最も車中時間が短いルートを瞬時に再計算。</p><div class="impact-box">燃料費・時間の節約</div></div>
+    <div class="card"><span class="badge">地域営業</span><h2>住民セミナー企画</h2><p class="content">「明日からできるリハビリ」をテーマにした、地域住民向け体験イベントの構成案作成。</p><div class="impact-box">地域シェアの拡大</div></div>
+    <div class="card"><span class="badge">マネジメント</span><h2>新人コーチング</h2><p class="content">新人の日報に対し、自信を失わせず改善を促すアドバイス案をAIが店長へ提示。</p><div class="impact-box">育成スピードの加速</div></div>
+    <div class="card"><span class="badge">本部管理</span><h2>感動エピソード社内報</h2><p class="content">全店舗から集まるGood Jobを、全社員が涙するストーリー仕立ての記事に。理念浸透に貢献。</p><div class="impact-box">組織文化の強化</div></div>
+    <div class="card"><span class="badge">現場実務</span><h2>声掛け案（意欲喚起）</h2><p class="content">リハビリに消極的な利用者への、背景を踏まえた「魔法のひとこと」を提案。</p><div class="impact-box">リハビリ実施率向上</div></div>
+    <div class="card"><span class="badge">本部管理</span><h2>インシデント再発防止</h2><p class="content">発生した事故報告からハインリッヒの法則に基づき、潜在リスクと具体的対策を立案。</p><div class="impact-box">事故発生率の低下</div></div>
+    <div class="card"><span class="badge">経営</span><h2>Googleビジネス運用</h2><p class="content">店舗の口コミ返信や写真アップを自動化し、MEO（マップ検索順位）を常に上位へ。</p><div class="impact-box">集客コスト0円化</div></div>
+
+    <div class="card" style="border: 2px solid var(--accent);">
+        <span class="badge" style="background: var(--accent);">リスク管理</span>
+        <h2><i class="fas fa-exclamation-triangle"></i> AI導入の鉄則</h2>
+        <div class="section-title">ハルシネーション・個人情報</div>
+        <p class="content">AIは嘘をつく（ハルシネーション）可能性があるため、最終確認は必ず人間が行います。また、個人名は「利用者A様」等に置き換え、セキュアな環境で運用します。</p>
+        <div class="impact-box">安全な「敬護」DXの実現</div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 AI DX Strategic Consultant. Designed for Rehaprim.</p>
+</footer>
+
+</body>
+</html>
