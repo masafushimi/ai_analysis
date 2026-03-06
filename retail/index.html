@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北陸コカ・コーラ SCM × AigentAI 戦略事例集</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #a88a5d;
+            --bg-ivory: #fdfcfb;
+            --accent-coral: #e27d60;
+            --text-dark: #333;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        body {
+            background-color: var(--bg-ivory);
+            color: var(--text-dark);
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 0;
+            border-bottom: 2px solid var(--primary-gold);
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            color: var(--primary-gold);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(168, 138, 93, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            background-color: var(--primary-gold);
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.4rem;
+            color: var(--primary-gold);
+            border-left: 4px solid var(--accent-coral);
+            padding-left: 10px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: var(--accent-coral);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 8px;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            margin: 5px 0 15px 0;
+            color: #555;
+        }
+
+        .impact-box {
+            background-color: #f9f4ef;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: var(--primary-gold);
+            margin-top: auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            color: #888;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Hokuriku Coca-Cola SCM × AigentAI</h1>
+    <p>次世代サプライチェーンを構築する 15の戦略的AI活用事例</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1516431883659-655d41c09bf9?auto=format&fit=crop&q=80&w=600" alt="Snow" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">物流・配送</span>
+            <h3>豪雪地帯の自律的ルート再編</h3>
+            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+            <p>北陸の冬季における積雪・通行止めにより、固定ルートでは配送遅延が頻発し、人手による再編が限界。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 降雪予報と通行止め情報をリアルタイム取得。<br>2. AigentAIが車両位置と積載状況からルートを再計算。<br>3. 配送員へ即時通知。</p>
+            <div class="impact-box">配送遅延率を前年比40%削減</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1571235961513-40aa15729909?auto=format&fit=crop&q=80&w=600" alt="Vending Machine" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">現場・実務</span>
+            <h3>自販機在庫の「完全予測」補充</h3>
+            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+            <p>訪問してみないと在庫が分からない「無駄な訪問」と、人気商品の「欠品」が機会損失を招いている。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 自販機の販売データをリアルタイム解析。<br>2. エージェントが「今、行くべき自販機」を特定。<br>3. 必要な補充本数を事前にピッキング指示。</p>
+            <div class="impact-box">訪問効率 25% 向上 / 欠品率 15% 低減</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&q=80&w=600" alt="Manual" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">事務・ナレッジ</span>
+            <h3>物流ナレッジのAIエージェント化</h3>
+            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+            <p>ベテラン配送員が持つ「この店の納品は裏口から」「冬はここが凍る」といった暗黙知が継承されない。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. NotebookLMに過去の配送日誌や地図情報を集約。<br>2. 新人が音声で「○○店の注意点は？」と問いかける。<br>3. 最適なアドバイスを即答。</p>
+            <div class="impact-box">新人教育期間を 50% 短縮</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&q=80&w=600" alt="Analysis" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">マネジメント</span>
+            <h3>地域イベント連動・需要予測</h3>
+            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+            <p>金沢百万石まつり等の大規模行事の際、予測ミスにより主要店舗で深刻な在庫不足が発生する。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 地域の行事カレンダーと過去実績を相関分析。<br>2. AigentAIが供給量を動的に調整。<br>3. 卸先への事前提案を自動作成。</p>
+            <div class="impact-box">売上の最大化（欠品回避）による収益増</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=600" alt="Eco" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">マネジメント</span>
+            <h3>環境負荷最小化エージェント</h3>
+            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+            <p>配送効率だけでなく、CO2排出量削減という環境目標の達成が急務（ESG経営）。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 車両ごとの燃費・排出データをモニタリング。<br>2. 排出量最小化を目的関数としたルート選定。<br>3. サステナビリティ報告書の自動ドラフト作成。</p>
+            <div class="impact-box">CO2排出量を年間 12% 削減</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600" alt="Maintenance" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">現場・実務</span>
+            <h3>自販機・製造設備の予兆検知</h3>
+            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+            <p>故障してからの修理対応（事後保全）により、稼働停止時間と修理コストが増大している。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. IoTセンサーから振動・温度データを常時収集。<br>2. 異常波形を検出し、故障前にパーツ交換を指示。<br>3. メンテナンス員に最適な訪問順を提示。</p>
+            <div class="impact-box">ダウンタイムを 80% 削減</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1504386106331-3e4e71712b38?auto=format&fit=crop&q=80&w=600" alt="Procurement" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">事務・バックオフィス</span>
+            <h3>原材料の価格変動リスク管理</h3>
+            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+            <p>アルミニウムや糖類などの原材料価格の乱高下が、製品原価を圧迫している。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 国際市況ニュースと為替を24時間監視。<br>2. 最適な発注タイミングをエージェントが提案。<br>3. 調達先との交渉メールを自動生成。</p>
+            <div class="impact-box">調達コストを平均 5% 削減</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=600" alt="Retail" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">営業・マーケティング</span>
+            <h3>小売店向け「棚割り」最適化</h3>
+            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+            <p>小売店の棚で競合他社にシェアを奪われているが、全店舗の最適な陳列提案ができていない。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 店舗ごとのPOSデータと周辺デモグラフィックを分析。<br>2. 利益を最大化する棚割り案を画像生成。<br>3. 営業担当者へタブレット経由で即時共有。</p>
+            <div class="impact-box">棚の売上貢献度 18% 向上</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=600" alt="Invoice" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">事務・バックオフィス</span>
+            <h3>物流費精算の全自動照合</h3>
+            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+            <p>数百社の協力運送会社からの請求書と、社内配送実績の照合に膨大な工数がかかっている。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 多様な形式のPDF/紙請求書をマルチモーダルAIが読取。<br>2. 配送ログと1件ずつ自動突合。<br>3. 差異がある場合のみ人間にアラート。</p>
+            <div class="impact-box">事務工数を 90% 削減</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=600" alt="Event" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">営業・企画</span>
+            <h3>イベント会場用自販機の動的運用</h3>
+            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+            <p>フェスやスポーツイベント時、ピーク時の需要に供給が追いつかず機会損失が発生。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 人流予測データから、補充用トラックを近隣に待機。<br>2. AigentAIが在庫の減り方から最適な補充順を指示。<br>3. イベント終了後の撤収計画も自動化。</p>
+            <div class="impact-box">イベント期間中売上 30% 増</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&q=80&w=600" alt="CS" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">顧客対応</span>
+            <h3>マルチチャネル苦情検知</h3>
+            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+            <p>SNSや電話で寄せられるサイレント・クレーム（微細な品質変化等）の兆候を見逃している。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 音声ログとSNSを常時感情分析。<br>2. 特定ロットへの苦情集中を即時に検知。<br>3. 保健所・報道対応の初期案をエージェントが作成。</p>
+            <div class="impact-box">初動対応速度を 70% 改善</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&q=80&w=600" alt="Crisis" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">マネジメント</span>
+            <h3>震災・災害時の供給継続エージェント</h3>
+            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+            <p>能登半島地震のような広域災害時、どの倉庫が稼働可能で、どこに飲料が必要かの判断が混乱する。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 震度データ・道路寸断情報を自動収集。<br>2. 避難所への優先配送ルートを即座にシミュレーション。<br>3. 支援物資提供の意思決定を支援。</p>
+            <div class="impact-box">緊急時の飲料供給開始を数時間短縮</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=600" alt="HR" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">事務・バックオフィス</span>
+            <h3>物流現場のシフト最適化</h3>
+            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+            <p>繁忙期と閑散期の差が激しく、適切な臨時作業員の確保と配置が困難。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 需要予測に基づき、必要な労働力を算出。<br>2. 作業員のスキル・居住地を考慮したシフト自動生成。<br>3. 外部エージェンシーへの求人依頼を自動化。</p>
+            <div class="impact-box">人件費の 10% 最適化</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=600" alt="Quality" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">現場・実務</span>
+            <h3>配送中ダメージの画像検知</h3>
+            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+            <p>配送中の荷崩れやラベル破損に気づかず納品し、返品コストと信頼低下を招いている。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 車載カメラで荷室の状態を定期撮影。<br>2. 倒れたケースや汚損をAIがリアルタイム判定。<br>3. 現場で即時の積み直しを指示。</p>
+            <div class="impact-box">返品率を 20% 削減</div>
+        </div>
+    </div>
+
+    <div class="card" style="border: 2px solid var(--accent-coral);">
+        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600" alt="Security" class="card-img">
+        <div class="card-content">
+            <span class="role-badge" style="background-color: var(--accent-coral);">リスク管理</span>
+            <h3>AIガバナンス・ハルシネーション対策</h3>
+            <div class="section-title"><i class="fas fa-shield-alt"></i> 導入時の重要事項</div>
+            <p>AIが誤った配送指示（ハルシネーション）を出すことや、個人情報の漏洩は許されない。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> 対策ステップ</div>
+            <p>1. RAG（検索拡張生成）により社内公式データのみを参照。<br>2. AIの出力結果を別のAIが検証する「Cross-Check Agent」の実装。<br>3. PII（個人を特定できる情報）の自動マスキング。</p>
+            <div class="impact-box">安全で透明性の高いAI運用を実現</div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 AI DX Strategy Consultant. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
