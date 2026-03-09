@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DX Strategic Report - Merck Biopharma</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --dark: #2c3e50;
+            --gray: #7f8c8d;
+        }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--ivory);
+            color: var(--dark);
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: var(--gold);
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            padding: 30px;
+            border-top: 5px solid var(--gold);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .role-badge {
+            background-color: var(--gold);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 15px;
+            width: fit-content;
+        }
+        h3 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            color: var(--dark);
+            border-left: 4px solid var(--coral);
+            padding-left: 10px;
+        }
+        .section-title {
+            font-weight: bold;
+            color: var(--gold);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .section-title i {
+            margin-right: 8px;
+        }
+        p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 8px 0;
+        }
+        .impact-box {
+            background-color: #fff9f0;
+            border: 1px dashed var(--coral);
+            padding: 15px;
+            margin-top: auto;
+            border-radius: 8px;
+        }
+        .risk-card {
+            border-top: 5px solid var(--coral);
+            background-color: #fff5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <p style="color: var(--gold); font-weight: bold;">生成AI活用研修 提案資料</p>
+            <h1>AI導入による次世代製薬ビジネスの構築</h1>
+            <p>メルクバイオファーマ株式会社 様</p>
+        </header>
+
+        <div class="grid">
+            <div class="card">
+                <span class="role-badge">MR / 安全性管理</span>
+                <h3>24時間以内PV報告エージェント</h3>
+                <p class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</p>
+                <p>副作用(AE)情報の聴取後、24時間以内の第一報義務がMRの大きな心理的・時間的プレッシャーに。</p>
+                <p class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</p>
+                <p>音声メモや箇条書きから、PV部門指定フォーマットの報告書ドラフトをAIが数秒で自動生成。</p>
+                <div class="impact-box">
+                    <p><strong>導入効果:</strong> 報告漏れリスクをゼロにし、事務作業時間を約80%削減。</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="role-badge">メディカル / 学術</span>
+                <h3>最新論文抄読・トークスクリプト生成</h3>
+                <p class="section-title"><i class="fas fa-search"></i> 現状の課題</p>
+                <p>グローバルから届く英語論文が膨大で、多忙なMRが内容を深く理解し、医師へ提案するまでに時差が生じる。</p>
+                <p class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</p>
+                <p>NotebookLM等を用いて最新論文を解析。医師の専門性に合わせた「刺さる」要約とQ&A案を作成。</p>
+                <div class="impact-box">
+                    <p><strong>導入効果:</strong> 英語文献の理解スピードを10倍化。医師への学術提供の質を均一化。</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="role-badge">マーケティング / 営業</span>
+                <h3>パーソナライズ・オムニチャネル戦略</h3>
+                <p class="section-title"><i class="fas fa-chart-line"></i> 現状の課題</p>
+                <p>Web閲覧履歴等のデータはあるが、それを踏まえた「次の一手」のメール文案作成をMRが個別に行うのは困難。</p>
+                <p class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</p>
+                <p>医師のデジタル行動データをAIが分析。関心が高いトピックに沿ったVeevaメール文案を自動生成。</p>
+                <div class="impact-box">
+                    <p><strong>導入効果:</strong> メールの開封率・返信率の大幅向上。医師一人ひとりへの深い個別最適化。</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="role-badge">臨床開発 / 薬事</span>
+                <h3>PMDA照会事項・回答案作成支援</h3>
+                <p class="section-title"><i class="fas fa-file-contract"></i> 現状の課題</p>
+                <p>当局からの照会事項への回答作成には、過去の経緯やCTDとの整合性確認に膨大な時間を要する。</p>
+                <p class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</p>
+                <p>過去の回答データベースと照合し、一貫性を保った回答案をAIがドラフト。人間は高度な判断に注力。</p>
+                <div class="impact-box">
+                    <p><strong>導入効果:</strong> 回答作成リードタイムの50%削減。申請プロセスの加速。</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="role-badge">全社ナレッジ管理</span>
+                <h3>Merck内部ナレッジ資産化(NotebookLM)</h3>
+                <p class="section-title"><i class="fas fa-database"></i> 現状の課題</p>
+                <p>社内規定、公正競争規約、過去の成功事例が散在しており、検索に時間がかかる。</p>
+                <p class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</p>
+                <p>社内マニュアルや規約をNotebookLMに集約。自然言語で「この資材は今の規約で使える？」等の問いに即答。</p>
+                <div class="impact-box">
+                    <p><strong>導入効果:</strong> コンプラ違反の防止。ベテランMRの「暗黙知」を全社で活用可能に。</p>
+                </div>
+            </div>
+
+            <div class="card risk-card">
+                <span class="role-badge" style="background-color: var(--coral);">リスク管理・重要事項</span>
+                <h3>安心・安全なAI活用のためのガイドライン</h3>
+                <p class="section-title"><i class="fas fa-shield-alt"></i> セキュリティ & ハルシネーション</p>
+                <p>・**個人情報の保護:** 医師・患者の個人情報は入力せず、ID管理を徹底。</p>
+                <p>・**事実確認(Fact Check):** AIの回答は必ず原本（論文・規約）と照合するフローを構築。</p>
+                <p>・**クローズド環境:** 外部に情報が漏れないエンタープライズ版AIの利用を前提とする。</p>
+                <div class="impact-box">
+                    <p><strong>導入効果:</strong> コンプライアンスを遵守しつつ、最大限の利便性を享受。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
