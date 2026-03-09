@@ -3,226 +3,357 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHIONOGI MR AI研修 事例集</title>
+    <title>SHIONOGI MR 生成AI活用事例集</title>
     <style>
+        :root {
+            --shionogi-blue: #004098;
+            --shionogi-light-blue: #eef2f7;
+            --accent-red: #ff4757;
+            --text-dark: #333;
+            --text-light: #666;
+        }
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            background-color: #f4f7fa;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #f4f7f9;
             margin: 0;
-            padding: 20px;
-            color: #333;
+            padding: 0;
         }
         .container {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
-        }
-        .header {
-            background: linear-gradient(135deg, #004098 0%, #0056b3 100%);
-            color: white;
             padding: 40px 20px;
-            border-radius: 15px;
-            text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,64,152,0.2);
         }
-        .header h1 {
-            margin: 0;
-            font-size: 28px;
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--shionogi-blue) 0%, #0056b3 100%);
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,64,152,0.2);
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
             letter-spacing: 1px;
         }
-        .header p {
-            margin: 10px 0 0;
+        header p {
+            font-size: 1.2em;
             opacity: 0.9;
-            font-size: 16px;
         }
-        .grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+
+        .section-tag {
+            display: inline-block;
+            background: var(--shionogi-light-blue);
+            color: var(--shionogi-blue);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 10px;
         }
-        .card {
+
+        section {
             background: white;
-            border-radius: 12px;
-            padding: 20px;
-            flex: 1 1 calc(33.333% - 20px);
-            min-width: 300px;
-            box-sizing: border-box;
-            border-top: 6px solid #004098;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 8px solid var(--shionogi-blue);
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: var(--shionogi-blue);
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .flex-content {
             display: flex;
-            flex-direction: column;
-            transition: transform 0.2s;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
-        .card:hover {
-            transform: translateY(-5px);
+
+        .image-placeholder {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #eee;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
-        .card-special {
-            border: 2px solid #004098;
-            background: #f0f7ff;
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        .category {
-            font-size: 11px;
-            font-weight: bold;
-            color: #004098;
-            margin-bottom: 8px;
-            text-transform: uppercase;
+
+        .task-content {
+            flex: 1.5;
+            min-width: 300px;
         }
-        .title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 12px;
-            color: #111;
+
+        .problem-box {
+            background: #fff5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
         }
-        .description {
-            font-size: 14px;
-            color: #555;
-            line-height: 1.5;
-            flex-grow: 1;
+        .problem-box h4 {
+            margin: 0 0 10px 0;
+            color: var(--accent-red);
+            display: flex;
+            align-items: center;
+        }
+
+        h3.step-title {
+            font-size: 1.4em;
+            color: var(--shionogi-blue);
             margin-bottom: 15px;
         }
-        .result-badge {
-            background: #eef2f7;
-            color: #004098;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
         }
-        .badge-special {
-            background: #004098;
+        .steps-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+        }
+        .steps-list li::before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            color: var(--shionogi-blue);
+        }
+
+        .other-scenes {
+            font-size: 0.95em;
+            color: var(--text-light);
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .effect-box {
+            background: var(--shionogi-blue);
             color: white;
-        }
-        .tag {
+            padding: 15px 25px;
+            border-radius: 50px;
             display: inline-block;
-            background: #ff4757;
-            color: white;
-            font-size: 10px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-bottom: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0,64,152,0.3);
         }
-        @media (max-width: 768px) {
-            .card {
-                flex: 1 1 100%;
-            }
+
+        .best-practice-tag {
+            background: var(--accent-red);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+
+        @media (max-width: 600px) {
+            section { padding: 25px; }
+            h2 { font-size: 1.4em; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
-        <h1>SHIONOGI MR Generative AI Transformation</h1>
-        <p>業務棚卸し200項目に基づく「次世代MR」への15の進化シナリオ</p>
-    </div>
+    <header>
+        <h1>SHIONOGI MR AI活用事例集</h1>
+        <p>「200の業務」をAIで再構築し、医師・患者様と向き合う価値を最大化する15の処方箋</p>
+    </header>
 
-    <div class="grid">
-        <div class="card">
-            <div class="category">Strategy | No.1, 103</div>
-            <div class="title">01. エリア・ポテンシャル解析</div>
-            <div class="description">SFA・市場データ・薬局データをAIが突合。シェア乖離の真因を特定し「今、会うべき施設」を優先順位付け。</div>
-            <div class="result-badge">分析時間を80%削減</div>
+    <section>
+        <div class="section-tag">戦略立案・市場分析</div>
+        <h2>データ突合による「エリアポテンシャル」の自動解析</h2>
+        <div class="flex-content">
+            <div class="image-placeholder">
+                <img src="https://images.unsplash.com/photo-1551288049-bbda48658a7e?auto=format&fit=crop&w=800&q=80" alt="データ分析">
+            </div>
+            <div class="task-content">
+                <div class="problem-box">
+                    <h4>⚠️ 現状の課題</h4>
+                    <p>自社SFAと市場データ(IQVIA等)の突合に膨大な時間がかかり、競合比でシェアが乖離している「真に攻めるべき施設」の特定がMRの勘に頼りがちになっている。</p>
+                </div>
+                <h3 class="step-title">🛠 AI活用ステップ</h3>
+                <ul class="steps-list">
+                    <li><strong>データ解析：</strong>複数ソースのExcelデータを読み込み、エリア別の潜在患者数を算出。</li>
+                    <li><strong>要因推定：</strong>シェア乖離施設を抽出し、過去の活動ログから「なぜ負けているか」の仮説を生成。</li>
+                    <li><strong>優先順位付け：</strong>今週訪問すべきトップ10施設と最短ルートをAIが提案。</li>
+                </ul>
+            </div>
         </div>
+        <div class="other-scenes">
+            <strong>その他の活用シーン：</strong> 競合MRの動き推測（求人・SNS解析）、フォーミュラリー採用支援の経済性試算。
+        </div>
+        <div class="effect-box">導入効果：分析・計画策定時間を月間15時間以上削減</div>
+    </section>
 
-        <div class="card">
-            <div class="category">Insight | No.104</div>
-            <div class="title">02. 論文ベース・プロファイリング</div>
-            <div class="description">医師の過去論文を解析し「治療上のこだわり」を言語化。各医師の思考傾向に合わせたキーワードを自動導出。</div>
-            <div class="result-badge">初回面談の共感獲得率UP</div>
+    <section style="border-left-color: var(--accent-red);">
+        <div class="section-tag">情報提供・面談準備</div>
+        <h2 style="color: var(--accent-red);">医師の「こだわり」を読み解くバーチャル予習エージェント</h2>
+        <div class="flex-content">
+            <div class="image-placeholder">
+                <span class="best-practice-tag">BEST PRACTICE</span>
+                <img src="https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&w=800&q=80" alt="医師との面談">
+            </div>
+            <div class="task-content">
+                <div class="problem-box">
+                    <h4>⚠️ 現状の課題</h4>
+                    <p>気難しい医師や多忙な専門医に対し、過去の経緯や論文実績を把握しきれず、的外れな提案をしてしまい信頼機会を逃している。</p>
+                </div>
+                <h3 class="step-title">🛠 AI活用ステップ</h3>
+                <ul class="steps-list">
+                    <li><strong>プロファイリング：</strong>直近の論文タイトルや学会発言から「安全性重視」か「有効性重視」かを特定。</li>
+                    <li><strong>AIロールプレイ：</strong>その医師の性格を模したAIを相手に、iPad上で反論対応のシミュレーションを実施。</li>
+                    <li><strong>資材推奨：</strong>医師の専門性に合わせた最適なVeevaスライドの順序をAIが構成。</li>
+                </ul>
+            </div>
         </div>
+        <div class="other-scenes">
+            <strong>その他の活用シーン：</strong> 医師別パーソナライズメールの自動生成、お礼メールへの趣味の話題の盛り込み。
+        </div>
+        <div class="effect-box" style="background: var(--accent-red);">導入効果：初回面談での重要情報獲得率が約3倍に向上</div>
+    </section>
 
-        <div class="card">
-            <div class="category">Academic | No.7, 168</div>
-            <div class="title">03. 英語論文の「30秒サマリー」</div>
-            <div class="description">海外論文を多忙な医師向けサマリーへ即変換。臨床メリットをMRが語りやすい言葉で出力します。</div>
-            <div class="result-badge">情報提供の質を均一化</div>
+    <section>
+        <div class="section-tag">メディカル・学術</div>
+        <h2>難解な英語論文の「30秒エッセンス」抽出</h2>
+        <div class="flex-content">
+            <div class="image-placeholder">
+                <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=800&q=80" alt="論文執筆">
+            </div>
+            <div class="task-content">
+                <div class="problem-box">
+                    <h4>⚠️ 現状の課題</h4>
+                    <p>感染症やCNS領域の最新論文（英語）を読み込む時間がなく、医師からの高度な学術的質問に対して「確認します」という宿題が増えている。</p>
+                </div>
+                <h3 class="step-title">🛠 AI活用ステップ</h3>
+                <ul class="steps-list">
+                    <li><strong>スピード翻訳・要約：</strong>URLやPDFを読み込み「結論・エビデンス・既存薬との違い」を300字で要約。</li>
+                    <li><strong>FAQ生成：</strong>想定される医師からのツッコミ（副作用発現時期など）に対する回答案をロジカルに作成。</li>
+                    <li><strong>スライド化：</strong>論文内の図表データを解説するための口頭説明スクリプトを生成。</li>
+                </ul>
+            </div>
         </div>
+        <div class="other-scenes">
+            <strong>その他の活用シーン：</strong> ガイドライン改訂の差分抽出、MSLへのUMN（未充足ニーズ）報告票の作成。
+        </div>
+        <div class="effect-box">導入効果：学術知識の習得スピードが従来の5倍に</div>
+    </section>
 
-        <div class="card card-special">
-            <span class="tag">BEST PRACTICE</span>
-            <div class="category">Agent | No.62, 90</div>
-            <div class="title">04. 医師別バーチャル予習</div>
-            <div class="description">懐疑的な医師をAIが再現。反論への切り返しを模擬体験し、AIから即時フィードバックを受ける深層演習。</div>
-            <div class="result-badge badge-special">模擬面談による成約率向上</div>
+    <section>
+        <div class="section-tag">安全性情報・PV</div>
+        <h2>有害事象(AE)の初期検知と報告ドラフトの自動化</h2>
+        <div class="flex-content">
+            <div class="image-placeholder">
+                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80" alt="安全性管理">
+            </div>
+            <div class="task-content">
+                <div class="problem-box">
+                    <h4>⚠️ 現状の課題</h4>
+                    <p>面談中の医師の何気ない発言（「ちょっと発疹が出た」など）が有害事象に該当するか判断に迷い、報告が遅れるリスクがある。</p>
+                </div>
+                <h3 class="step-title">🛠 AI活用ステップ</h3>
+                <ul class="steps-list">
+                    <li><strong>キーワード検知：</strong>面談記録（音声・テキスト）から、副作用報告義務に該当する表現をAIが自動抽出。</li>
+                    <li><strong>ドラフト生成：</strong>所定フォーマットに沿って第一報のドラフトを作成。欠落情報（発現時期等）をMRに警告。</li>
+                    <li><strong>ナレッジ連携：</strong>過去の同様のAE事例とその後の経過を瞬時に照会し、医師への追加確認事項を提示。</li>
+                </ul>
+            </div>
         </div>
+        <div class="other-scenes">
+            <strong>その他の活用シーン：</strong> 薬価改定の影響試算、コンプラ規定（お弁当単価等）の即時照会チャットボット。
+        </div>
+        <div class="effect-box">導入効果：報告漏れリスクをゼロ化し、事務負担を70%削減</div>
+    </section>
 
-        <div class="card">
-            <div class="category">Sensing | No.9, 121</div>
-            <div class="title">05. 沈黙のインサイト解析</div>
-            <div class="description">面談中の「間」から医師の懸念をAIが予測。言語化されない「心理的障壁」を突破する質問案を作成。</div>
-            <div class="result-badge">隠れた拒絶理由の解消</div>
+    <section>
+        <div class="section-tag">事務管理・働き方改革</div>
+        <h2>音声入力による「日報・SFA入力」の構造化自動転記</h2>
+        <div class="flex-content">
+            <div class="image-placeholder">
+                <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=800&q=80" alt="モバイル作業">
+            </div>
+            <div class="task-content">
+                <div class="problem-box">
+                    <h4>⚠️ 現状の課題</h4>
+                    <p>一日の終わりにまとめて行うSFA入力が重荷となり、記憶の風化による情報の質低下や、深夜までの残業が常態化している。</p>
+                </div>
+                <h3 class="step-title">🛠 AI活用ステップ</h3>
+                <ul class="steps-list">
+                    <li><strong>音声録音：</strong>訪問直後の車内で、面談の要点を音声で吹き込む。</li>
+                    <li><strong>自動構造化：</strong>「ディテール品目」「処方意向」「次回アクション」「PMS情報」をAIが自動で項目分け。</li>
+                    <li><strong>週報生成：</strong>一週間のログから、主要成果と課題、来週の対策をまとめた週報ドラフトを自動作成。</li>
+                </ul>
+            </div>
         </div>
+        <div class="other-scenes">
+            <strong>その他の活用シーン：</strong> 経費精算レシートの自動照合、異動時の「地雷」を含む引き継ぎ事項の要約。
+        </div>
+        <div class="effect-box">導入効果：一日の事務時間を平均45分短縮</div>
+    </section>
 
-        <div class="card">
-            <div class="category">Efficiency | No.12, 166</div>
-            <div class="title">06. 音声日報・SFA自動入力</div>
-            <div class="description">音声メモから処方意向等を自動抽出し、CRMへ即時入力。移動時間を活用し事務作業をゼロへ。</div>
-            <div class="result-badge">毎日30分の残業削減</div>
+    <section>
+        <div class="section-tag">卸連携・MS協働</div>
+        <h2>MS向け「30秒クイック勉強会」資材の自動作成</h2>
+        <div class="flex-content">
+            <div class="image-placeholder">
+                <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=80" alt="チームミーティング">
+            </div>
+            <div class="task-content">
+                <div class="problem-box">
+                    <h4>⚠️ 現状の課題</h4>
+                    <p>多忙な卸MSに対し、自社製品の強みを短時間で伝えるのが難しい。また、卸の実消化データの解釈を共有する時間が取れない。</p>
+                </div>
+                <h3 class="step-title">🛠 AI活用ステップ</h3>
+                <ul class="steps-list">
+                    <li><strong>トピックス要約：</strong>MSがスマホで15秒で見せられる「今週の旬なトーク案」を生成。</li>
+                    <li><strong>データ解析：</strong>実消化Excelから、急激な処方増減があった施設を特定。MSへの確認依頼事項をリスト化。</li>
+                    <li><strong>クイズ配信：</strong>製品知識を定着させるための「MS向け10秒クイズ」を毎週自動作成。</li>
+                </ul>
+            </div>
         </div>
+        <div class="other-scenes">
+            <strong>その他の活用シーン：</strong> 支店長向けプレゼン資料作成、同行訪問時の役割分担メール自動作成。
+        </div>
+        <div class="effect-box">導入効果：MSによる自社品推奨頻度が25%向上</div>
+    </section>
 
-        <div class="card">
-            <div class="category">PV | No.13, 14</div>
-            <div class="title">07. AE検知＆PV報告支援</div>
-            <div class="description">ログから副作用兆候を自動検知。第一報ドラフト生成で、報告漏れ防止と安全性部門への迅速連携。</div>
-            <div class="result-badge">コンプラ遵守の自動化</div>
+    <section style="background: #333; color: white; border-left: none;">
+        <h2 style="color: white; border-bottom-color: #555;">⚠️ 安全活用のためのガイドライン（SHIONOGIプロトコル）</h2>
+        <div class="task-content" style="color: #ccc;">
+            <p>MRがAIを活用する際は、以下のコンプライアンスを最優先事項とします。</p>
+            <ul class="steps-list">
+                <li><strong>個人情報の非入力：</strong>患者名、特定の医師の個人的なプライバシー情報は絶対に入力しない。</li>
+                <li><strong>ハルシネーション(嘘)の確認：</strong>AIが生成した学術データは必ず添付文書やDI集で裏付けを取る。</li>
+                <li><strong>人間による最終責任：</strong>AIはあくまで「下書き担当」。提供する情報の責任はMR自身が負う。</li>
+            </ul>
         </div>
+        <div class="effect-box" style="background: #555; box-shadow: none;">導入効果：信頼を守りながら、デジタルの力でMRの価値を最大化</div>
+    </section>
 
-        <div class="card">
-            <div class="category">Engagement | No.16, 56</div>
-            <div class="title">08. 医師属性別招待メール</div>
-            <div class="description">「エビデンス重視」「QOL重視」など、医師の志向性に合わせた講演会案内文の書き分けを自動化。</div>
-            <div class="result-badge">案内メール開封率の大幅向上</div>
-        </div>
-
-        <div class="card">
-            <div class="category">Digital | No.55, 125</div>
-            <div class="title">09. 予測型オムニチャネル</div>
-            <div class="description">Webログから関心事をAIが予測。メールか訪問か、最適なアプローチ経路をリアルタイムにレコメンド。</div>
-            <div class="result-badge">ハイブリッド営業の最適化</div>
-        </div>
-
-        <div class="card">
-            <div class="category">Compliance | No.27, 147</div>
-            <div class="title">10. AIプロモーション点検</div>
-            <div class="description">独自資材に規約違反がないかAI監査。MR自身での一次チェックにより資材制作スピードを加速。</div>
-            <div class="result-badge">規約違反リスクの最小化</div>
-        </div>
-
-        <div class="card">
-            <div class="category">Management | No.32, 151</div>
-            <div class="title">11. 病院経営シミュレーター</div>
-            <div class="description">DPCデータを基に、在院日数短縮が病院収益に与えるインパクトを試算。事務長向け資料の骨子を作成。</div>
-            <div class="result-badge">経営層交渉のロジック強化</div>
-        </div>
-
-        <div class="card">
-            <div class="category">Patient | No.35, 198</div>
-            <div class="title">12. 平易な言葉への「翻訳」</div>
-            <div class="description">難解な薬理作用を、看護師や患者さんが納得できる「例え話」へ変換。服薬アドヒアランスを向上。</div>
-            <div class="result-badge">多職種連携の質的向上</div>
-        </div>
-
-        <div class="card">
-            <div class="category">Wholesaler | No.22, 132</div>
-            <div class="title">13. MS向け「30秒トピックス」</div>
-            <div class="description">MSが薬局訪問時に「一言で言える」差別化トピックスを生成。卸とのリレーションを強化。</div>
-            <div class="result-badge">エリア内推奨シェアの拡大</div>
-        </div>
-
-        <div class="card">
-            <div class="category">Knowledge | No.29, 169</div>
-            <div class="title">14. 成功体験の「型」化</div>
-            <div class="description">特定MRの成功事例をAIが構造化。「再現可能なレシピ」として営業所全体へ高速に横展開。</div>
-            <div class="result-badge">組織営業力の底上げ</div>
-        </div>
-
-        <div class="card">
-            <div class="category">Career | No.195, 200</div>
-            <div class="title">15. 自律型MR行動省察</div>
-            <div class="description">SHIONOGI Valueに照らし活動を客観評価。AIメンターが強みを分析し、成長ロードマップを提示。</div>
-            <div class="result-badge">キャリア開発の自分事化</div>
-        </div>
-    </div>
 </div>
 
 </body>
