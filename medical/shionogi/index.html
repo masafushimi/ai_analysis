@@ -1,92 +1,229 @@
-<section style="font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; line-height: 1.6; color: #333; max-width: 950px; margin: auto; padding: 30px; border: 1px solid #dcdcdc; background-color: #ffffff;">
-    <h2 style="color: #004098; border-bottom: 3px solid #004098; padding-bottom: 10px; text-align: center;">SHIONOGI MR Generative AI Transformation: 15 Core Scenarios</h2>
-    
-    <p style="font-weight: bold; background: #f0f4f8; padding: 10px;">MRの「考える時間」を最大化し、「作業時間」を最小化する具体的実践パッケージ</p>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIONOGI MR AI研修 事例集</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #004098 0%, #0056b3 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,64,152,0.2);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+        .header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            flex: 1 1 calc(33.333% - 20px);
+            min-width: 300px;
+            box-sizing: border-box;
+            border-top: 6px solid #004098;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-special {
+            border: 2px solid #004098;
+            background: #f0f7ff;
+        }
+        .category {
+            font-size: 11px;
+            font-weight: bold;
+            color: #004098;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #111;
+        }
+        .description {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+            flex-grow: 1;
+            margin-bottom: 15px;
+        }
+        .result-badge {
+            background: #eef2f7;
+            color: #004098;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .badge-special {
+            background: #004098;
+            color: white;
+        }
+        .tag {
+            display: inline-block;
+            background: #ff4757;
+            color: white;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+        }
+        @media (max-width: 768px) {
+            .card {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
 
-    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-        <thead>
-            <tr style="background-color: #004098; color: #ffffff;">
-                <th style="padding: 12px; border: 1px solid #ccc; width: 25%;">カテゴリー / 棚卸しNo.</th>
-                <th style="padding: 12px; border: 1px solid #ccc;">AI活用による「劇的変化」のシナリオ</th>
-                <th style="padding: 12px; border: 1px solid #ccc; width: 20%;">期待される成果</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>1. エリア分析の自動化</strong><br>(No.1, 103)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">SFAとIQVIA、さらに薬局の「処方箋受け入れ枚数」を突合。シェアが乖離している施設とその「推定要因」をAIが即座にレポート化。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">分析時間の80%削減。盲点施設の発見。</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>2. 医師の「こだわり」プロファイリング</strong><br>(No.104)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">医師の過去論文10年分を解析し、「早期治療派」か「慎重派」かを判定。納得感の高いキーワードを抽出する。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">初回面談の成功率向上。</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>3. 英語論文の「30秒ディテール」化</strong><br>(No.7, 168)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">難解な海外最新論文を、多忙な医師向けに「結論・エビデンス・既存薬との違い」の3点に絞って瞬時に要約。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">学術精度の均一化。即時性の確保。</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>4. 難攻不落医師とのAIロープレ</strong><br>(No.62, 90)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">「新薬に懐疑的な部長」をAIに演じさせ、反論への切り返しを特訓。終了後に100点満点で採点と改善案を提示。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">若手MRの早期戦力化。心理的障壁の払拭。</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>5. 面談中の「沈黙」インサイト解析</strong><br>(No.9, 121)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">「XXのデータを見せた時に医師が3秒沈黙した」というメモから、潜在的な懸念事項をAIが予測し、次回の質問案を作成。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">医師の「本音」へのアプローチ。</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>6. 音声入力からのSFA自動転記</strong><br>(No.12, 166)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">車中での音声メモから「品目・処方意向・次回約束・PMS」を自動抽出し、所定のCRMフォーマットへ変換。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">事務時間の毎日30分削減。入力精度の向上。</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>7. 有害事象（AE）の検知・報告支援</strong><br>(No.13, 14)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">面談記録から副作用の疑いがある表現をAIが自動検知。そのまま安全性部門への第一報ドラフトを作成。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">報告漏れリスクの極小化。PV業務の迅速化。</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>8. 医師の性格別「響く」招待状作成</strong><br>(No.16, 56)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">論理派には「データ強調」、情熱派には「患者のQOL強調」など、医師のタイプに合わせたメール件名と本文を自動生成。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">メール開封率・講演会出席率の向上。</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>9. オムニチャネル行動ログ解析</strong><br>(No.55, 125)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">「Webサイトで安全性動画だけ2回見た」等のログから、医師の現在の懸念を特定。次の訪問で持参すべき資材を推奨。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">最適なタイミングでの情報提供。</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>10. 自作資材のリアルタイム規約チェック</strong><br>(No.27, 147)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">独自に作成したチラシやSNS投稿案をAIに読み込ませ、誇大表現や不適切な比較がないか公正競争規約に照らして点検。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">コンプラ違反の未然防止。</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>11. 病院経営層向け「収益改善」シミュレーション</strong><br>(No.32, 151)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">DPCデータを基に、ゾコーバ導入による在院日数短縮が病院収益に与えるインパクトを経営視点で試算・資料化。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">事務長・院長クラスへのアプローチ強化。</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>12. 看護師・介護職向け「伝え方」変換</strong><br>(No.35, 198)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">専門用語だらけの学術情報を、現場スタッフや患者家族が「明日から使える」平易なアドバイスやメタファーに書き換え。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">地域連携におけるSHIONOGIのプレゼンス向上。</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>13. MS向け「30秒クイック勉強会」資材</strong><br>(No.22, 132)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">多忙なMSが「一言で言える」今月の旬なトピックスと、得意先薬局の優先順位をAIが1枚に集約。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">MSの推奨頻度の増加。</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>14. 営業所の「成功パターン」言語化</strong><br>(No.29, 169)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">トップMRの「阿吽の呼吸」の同行ログから、再現可能な「問いかけの型」をAIが抽出し、営業所全体のFAQ集を更新。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">組織全体の底上げ。</td>
-            </tr>
-            <tr>
-                <td style="padding: 12px; border: 1px solid #ccc; background: #f9f9f9;"><strong>15. AIを活用した自己評価・キャリア形成</strong><br>(No.195, 200)</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">半年間の活動実績を「SHIONOGI Group Values」の3軸でAIが客観的に振り返り、次なる成長課題を提案。</td>
-                <td style="padding: 12px; border: 1px solid #ccc;">内省の質の向上。モチベーションアップ。</td>
-            </tr>
-        </tbody>
-    </table>
-</section>
+<div class="container">
+    <div class="header">
+        <h1>SHIONOGI MR Generative AI Transformation</h1>
+        <p>業務棚卸し200項目に基づく「次世代MR」への15の進化シナリオ</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <div class="category">Strategy | No.1, 103</div>
+            <div class="title">01. エリア・ポテンシャル解析</div>
+            <div class="description">SFA・市場データ・薬局データをAIが突合。シェア乖離の真因を特定し「今、会うべき施設」を優先順位付け。</div>
+            <div class="result-badge">分析時間を80%削減</div>
+        </div>
+
+        <div class="card">
+            <div class="category">Insight | No.104</div>
+            <div class="title">02. 論文ベース・プロファイリング</div>
+            <div class="description">医師の過去論文を解析し「治療上のこだわり」を言語化。各医師の思考傾向に合わせたキーワードを自動導出。</div>
+            <div class="result-badge">初回面談の共感獲得率UP</div>
+        </div>
+
+        <div class="card">
+            <div class="category">Academic | No.7, 168</div>
+            <div class="title">03. 英語論文の「30秒サマリー」</div>
+            <div class="description">海外論文を多忙な医師向けサマリーへ即変換。臨床メリットをMRが語りやすい言葉で出力します。</div>
+            <div class="result-badge">情報提供の質を均一化</div>
+        </div>
+
+        <div class="card card-special">
+            <span class="tag">BEST PRACTICE</span>
+            <div class="category">Agent | No.62, 90</div>
+            <div class="title">04. 医師別バーチャル予習</div>
+            <div class="description">懐疑的な医師をAIが再現。反論への切り返しを模擬体験し、AIから即時フィードバックを受ける深層演習。</div>
+            <div class="result-badge badge-special">模擬面談による成約率向上</div>
+        </div>
+
+        <div class="card">
+            <div class="category">Sensing | No.9, 121</div>
+            <div class="title">05. 沈黙のインサイト解析</div>
+            <div class="description">面談中の「間」から医師の懸念をAIが予測。言語化されない「心理的障壁」を突破する質問案を作成。</div>
+            <div class="result-badge">隠れた拒絶理由の解消</div>
+        </div>
+
+        <div class="card">
+            <div class="category">Efficiency | No.12, 166</div>
+            <div class="title">06. 音声日報・SFA自動入力</div>
+            <div class="description">音声メモから処方意向等を自動抽出し、CRMへ即時入力。移動時間を活用し事務作業をゼロへ。</div>
+            <div class="result-badge">毎日30分の残業削減</div>
+        </div>
+
+        <div class="card">
+            <div class="category">PV | No.13, 14</div>
+            <div class="title">07. AE検知＆PV報告支援</div>
+            <div class="description">ログから副作用兆候を自動検知。第一報ドラフト生成で、報告漏れ防止と安全性部門への迅速連携。</div>
+            <div class="result-badge">コンプラ遵守の自動化</div>
+        </div>
+
+        <div class="card">
+            <div class="category">Engagement | No.16, 56</div>
+            <div class="title">08. 医師属性別招待メール</div>
+            <div class="description">「エビデンス重視」「QOL重視」など、医師の志向性に合わせた講演会案内文の書き分けを自動化。</div>
+            <div class="result-badge">案内メール開封率の大幅向上</div>
+        </div>
+
+        <div class="card">
+            <div class="category">Digital | No.55, 125</div>
+            <div class="title">09. 予測型オムニチャネル</div>
+            <div class="description">Webログから関心事をAIが予測。メールか訪問か、最適なアプローチ経路をリアルタイムにレコメンド。</div>
+            <div class="result-badge">ハイブリッド営業の最適化</div>
+        </div>
+
+        <div class="card">
+            <div class="category">Compliance | No.27, 147</div>
+            <div class="title">10. AIプロモーション点検</div>
+            <div class="description">独自資材に規約違反がないかAI監査。MR自身での一次チェックにより資材制作スピードを加速。</div>
+            <div class="result-badge">規約違反リスクの最小化</div>
+        </div>
+
+        <div class="card">
+            <div class="category">Management | No.32, 151</div>
+            <div class="title">11. 病院経営シミュレーター</div>
+            <div class="description">DPCデータを基に、在院日数短縮が病院収益に与えるインパクトを試算。事務長向け資料の骨子を作成。</div>
+            <div class="result-badge">経営層交渉のロジック強化</div>
+        </div>
+
+        <div class="card">
+            <div class="category">Patient | No.35, 198</div>
+            <div class="title">12. 平易な言葉への「翻訳」</div>
+            <div class="description">難解な薬理作用を、看護師や患者さんが納得できる「例え話」へ変換。服薬アドヒアランスを向上。</div>
+            <div class="result-badge">多職種連携の質的向上</div>
+        </div>
+
+        <div class="card">
+            <div class="category">Wholesaler | No.22, 132</div>
+            <div class="title">13. MS向け「30秒トピックス」</div>
+            <div class="description">MSが薬局訪問時に「一言で言える」差別化トピックスを生成。卸とのリレーションを強化。</div>
+            <div class="result-badge">エリア内推奨シェアの拡大</div>
+        </div>
+
+        <div class="card">
+            <div class="category">Knowledge | No.29, 169</div>
+            <div class="title">14. 成功体験の「型」化</div>
+            <div class="description">特定MRの成功事例をAIが構造化。「再現可能なレシピ」として営業所全体へ高速に横展開。</div>
+            <div class="result-badge">組織営業力の底上げ</div>
+        </div>
+
+        <div class="card">
+            <div class="category">Career | No.195, 200</div>
+            <div class="title">15. 自律型MR行動省察</div>
+            <div class="description">SHIONOGI Valueに照らし活動を客観評価。AIメンターが強みを分析し、成長ロードマップを提示。</div>
+            <div class="result-badge">キャリア開発の自分事化</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
