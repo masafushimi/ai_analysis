@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DX Strategy Report | 仙台厚生病院 循環器内科・看護部</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #a88a5d; /* Gold */
+            --bg: #fdfcfb; /* Ivory */
+            --accent: #e27d60; /* Coral */
+            --text: #333;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        body {
+            background-color: var(--bg);
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #fdfcfb 0%, #f5f0e8 100%);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.25rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            margin: 15px 0 5px;
+        }
+
+        .section-title i {
+            margin-right: 8px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            margin: 0 0 10px;
+        }
+
+        .impact-box {
+            background: #fff8f0;
+            border: 1px dashed var(--accent);
+            padding: 10px;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            color: #d15a3d;
+        }
+
+        .risk-card {
+            border-left: 5px solid var(--accent);
+            background: #fffefe;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Next-Gen Medical DX Strategy</h1>
+    <p>仙台厚生病院 循環器内科・看護部 AI導入計画書</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card">
+            <span class="role-badge">循環器内科医</span>
+            <h3><i class="fas fa-heartbeat"></i> 心カテ・オペ記録の自動生成</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p>PCI等の手術終了後、疲弊した状態で詳細なプロトコルを電子カルテに入力する負担が大きく、記載漏れのリスクがある。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 術中の会話をマイクで集音<br>2. ステントの種類や径、拡張圧を自動抽出<br>3. 術後すぐにドラフトを生成し医師が確認・署名。</p>
+            <div class="impact-box">事務作業時間を $50\%$ 削減。医療安全性の向上。</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">看護部</span>
+            <h3><i class="fas fa-user-nurse"></i> 看護記録のハンズフリー入力</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p>巡回後のナースステーションでの「まとめ打ち」が残業の主因。リアルタイム性に欠ける。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. ウェアラブルマイクで処置を独り言形式で入力<br>2. 生成AIがSOAP形式に構造化<br>3. 看護支援システムへ自動転記。</p>
+            <div class="impact-box">看護師の平均残業時間を月 $15$ 時間削減。</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">多職種チーム</span>
+            <h3><i class="fas fa-book-open"></i> NotebookLM 院内ナレッジ資産化</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p>膨大な検査マニュアル、院内ルール、新薬情報を新人スタッフが把握しきれない。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 最新のガイドラインや院内手順書をAIへ学習<br>2. 「この症例の退院基準は？」と聞けばソース付きで即答<br>3. 教育担当者の負担を大幅軽減。</p>
+            <div class="impact-box">自己学習の効率化、医療の標準化を推進。</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">地域連携</span>
+            <h3><i class="fas fa-envelope"></i> 紹介状・返書の自動ドラフト</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p>紹介元クリニックへの経過報告（サンキューレター）作成に時間を要し、地域連携が形式的になりがち。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 入院経過のサマリーから、紹介元医師が知りたい「予後」と「今後の方針」をAIが抽出<br>2. 丁寧な文章でドラフト作成。</p>
+            <div class="impact-box">連携医満足度の向上により、紹介患者数の $10\%$ 増を狙う。</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">患者教育</span>
+            <h3><i class="fas fa-play-circle"></i> パーソナライズIC動画</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p>心不全の自己管理指導など、同じ内容を繰り返し説明する時間が、看護師の業務を圧迫している。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 患者の年齢・理解度に応じた説明台本を生成<br>2. AIアバターが動画で説明<br>3. 患者の理解度チェックを自動集計。</p>
+            <div class="impact-box">対面説明時間を $30\%$ 削減。患者のセルフケア理解が向上。</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">経営管理</span>
+            <h3><i class="fas fa-chart-line"></i> DPC/病床管理予測AI</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p>緊急入院の多い循環器内科において、病床稼働の予測が困難で、常にベッド調整に追われている。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p>1. 過去の入退院データと救急搬送データを分析<br>2. $72$ 時間先の空床状況を予測<br>3. 収益性を考慮したDPCパスの逸脱を検知。</p>
+            <div class="impact-box">病床稼働率の適正化（平均 $95\%$ 維持）。</div>
+        </div>
+
+        <div class="card risk-card">
+            <span class="role-badge" style="background:var(--accent);">Risk Management</span>
+            <h3><i class="fas fa-shield-alt"></i> AI導入のガバナンス</h3>
+            <div class="section-title"><i class="fas fa-lock"></i> リスク管理事項</div>
+            <p>1. <b>ハルシネーション対策</b>：AI生成物は必ず専門医のレビューを必須とする。<br>
+               2. <b>個人情報保護</b>：オンプレミス環境またはクローズドなAzure OpenAI等を活用し、外部への患者データ流出を完全遮断。</p>
+            <div class="impact-box">「AIは副操縦士」という原則を徹底。</div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 AI DX Strategic Consulting for Sendai Kosei Hospital.
+</footer>
+
+</body>
+</html>
