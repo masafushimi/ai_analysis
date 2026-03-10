@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DX Strategy Report - みどりのまち整形外科</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #a88a5d;
+            --bg-ivory: #fdfcfb;
+            --accent-coral: #e27d60;
+            --text-dark: #333;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        body {
+            background-color: var(--bg-ivory);
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .header h1 {
+            color: var(--primary-gold);
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #666;
+            font-weight: 300;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            border-top: 5px solid var(--primary-gold);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .role-badge {
+            background: var(--bg-ivory);
+            color: var(--primary-gold);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: 1px solid var(--primary-gold);
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .card h3 {
+            margin: 0 0 15px 0;
+            color: var(--text-dark);
+            font-size: 1.25rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent-coral);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .section-title i {
+            margin-right: 8px;
+        }
+        .content {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+        .impact {
+            background: #fff8f0;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            color: var(--primary-gold);
+            text-align: center;
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>みどりのまち整形外科 AI DX戦略事例集</h1>
+    <p>次世代の医療体験をデザインする12の施策</p>
+</div>
+
+<div class="grid-container">
+    <div class="card">
+        <span class="role-badge">リハビリ・現場</span>
+        <h3>① リハビリSOAP自動生成AI</h3>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <div class="content">理学療法士がリハビリ後に記録するSOAP形式の入力に膨大な時間を要し、残業の原因に。</div>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <div class="content">音声入力または箇条書きのメモから、LLMが適切な医療用語を用いたSOAP文章を瞬時に生成。</div>
+        <div class="impact">記録時間を50%削減し、患者との対面時間を増加。</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">診察・医師</span>
+        <h3>② AI画像診断アシスト</h3>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <div class="content">微小な骨折や骨密度の変化など、見落としが許されない診断のダブルチェック負荷。</div>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <div class="content">レントゲン画像をAIが事前解析。異常値の可能性を強調表示し、医師の判断をサポート。</div>
+        <div class="impact">診断精度の向上と、視覚資料による説明納得度の強化。</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">全全部門</span>
+        <h3>③ 院内ナレッジのAI化 (NotebookLM)</h3>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <div class="content">分厚い紙のマニュアルや院内ルールが周知されず、ベテランへの質問が集中。</div>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <div class="content">全マニュアルをNotebookLMに学習させ、スタッフ専用チャットボットを構築。</div>
+        <div class="impact">新人教育コストの劇的削減と、現場の「自己解決力」向上。</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">マーケティング</span>
+        <h3>④ MEO/Googleマイビジネス自動運用</h3>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <div class="content">地域の患者が検索した際、口コミへの返信や最新情報の更新が滞り、集患機会を損失。</div>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <div class="content">投稿写真に合わせた疾患解説文の生成や、患者の口コミへの丁寧な返信案をAIが作成。</div>
+        <div class="impact">検索順位向上による新規患者数15%増加。</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">顧客対応</span>
+        <h3>⑤ LINE個別化アフターケア</h3>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <div class="content">リハビリが必要な患者が、自己判断で通院を中断してしまう（ドロップアウト）。</div>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <div class="content">患者の症状に合わせ、AIが「今週のストレッチ動画」や「通院リマインド」を個別送信。</div>
+        <div class="impact">継続通院率の20%改善と、患者との信頼関係構築。</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">事務</span>
+        <h3>⑥ レセプト点検・修正アシスト</h3>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <div class="content">月初のレセプト業務が特定のスタッフに偏り、ミスによる返戻（再請求）が発生。</div>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <div class="content">算定ルールとカルテ内容をAIが照合。不整合や入力漏れをリアルタイムで警告。</div>
+        <div class="impact">返戻率の最小化と、月初事務作業の$30\%$スピードアップ。</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">受付・CS</span>
+        <h3>⑦ AI Web問診・カルテ自動下書き</h3>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <div class="content">初診時に紙の問診票を記入してもらい、それをスタッフがカルテに再入力する二度手間。</div>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <div class="content">スマホ問診の結果をAIが要約。医師が確認しやすい形式で電子カルテへ自動転記。</div>
+        <div class="impact">受付待ち時間の短縮と、医師の入力負担の軽減。</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">リハビリ</span>
+        <h3>⑧ 自主トレ動画パーソナライズ</h3>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <div class="content">患者が自宅で行う運動が正しく行えず、治療効果が上がらないケースがある。</div>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <div class="content">AIが患者の可動域データから、最適な運動強度とフォーム解説動画を自動ピックアップ。</div>
+        <div class="impact">自宅療養の質が向上し、早期完治をサポート。</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">経営</span>
+        <h3>⑨ 需要予測・シフト最適化</h3>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <div class="content">連休前後や悪天候時、患者数が急増または急減し、スタッフ配置が非効率に。</div>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <div class="content">過去の来院データと天気予報・祝日情報をAIが分析し、翌週の来院予測を算出。</div>
+        <div class="impact">過剰な人員配置を防ぎ、人件費の最適化を実現。</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">広報・企画</span>
+        <h3>⑩ 医療情報コラムの自動生成</h3>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <div class="content">「腰痛」「膝痛」など、患者に役立つ情報を発信したいが、記事を書く時間がない。</div>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <div class="content">医師の監修用メモを元に、一般患者が理解しやすい平易な言葉でSEO記事を生成。</div>
+        <div class="impact">HPへの流入数アップと、地域住民への啓蒙活動の両立。</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">受付・多言語</span>
+        <h3>⑪ 多言語AI医療通訳</h3>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <div class="content">技能実習生や外国人居住者の受診時、専門用語が伝わらず診察に時間がかかる。</div>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <div class="content">整形外科特有の症状表現（ズキズキ、しびれる等）に強いAI翻訳端末を導入。</div>
+        <div class="impact">外国人患者の受入体制強化と、インシデント防止。</div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">経営・リスク管理</span>
+        <h3>⑫ AIガバナンス・倫理規定の策定</h3>
+        <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+        <div class="content">AI利用による誤診リスクや、患者の個人情報流出への懸念。</div>
+        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+        <div class="content">AIはあくまで補助である旨の運用規定を作成し、ハルシネーションを医師が最終確認。</div>
+        <div class="impact">安全で持続可能なDX推進体制の確立。</div>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 50px; color: #888; font-size: 0.8rem;">
+    &copy; 2026 AI DX Strategic Consulting - みどりのまち整形外科 専用レポート
+</div>
+
+</body>
+</html>
