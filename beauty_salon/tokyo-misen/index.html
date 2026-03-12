@@ -16,20 +16,20 @@
         }
         body { background-color: var(--bg-ivory); color: var(--text-dark); font-family: 'Noto Sans JP', sans-serif; margin: 0; padding: 0; line-height: 1.6; }
         header { background: linear-gradient(135deg, #fff 0%, #f4f1ea 100%); padding: 60px 20px; text-align: center; border-bottom: 3px solid var(--primary-gold); }
-        header h1 { color: var(--primary-gold); font-size: 2.5rem; margin: 0; letter-spacing: 2px; }
+        header h1 { color: var(--primary-gold); font-size: 2.2rem; margin: 0; letter-spacing: 2px; }
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
-        .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); transition: transform 0.3s ease; display: flex; flex-direction: column; border: 1px solid rgba(168, 138, 93, 0.1); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 30px; }
+        .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); transition: transform 0.3s ease; display: flex; flex-grow: 1; flex-direction: column; border: 1px solid rgba(168, 138, 93, 0.1); }
         .card:hover { transform: translateY(-5px); }
-        .card-img { width: 100%; height: 180px; object-fit: cover; filter: sepia(20%); }
-        .card-content { padding: 25px; flex-grow: 1; }
-        .role-badge { background-color: var(--primary-gold); color: #fff; font-size: 0.75rem; padding: 4px 12px; border-radius: 50px; display: inline-block; margin-bottom: 15px; font-weight: bold; }
-        .card-title { font-size: 1.3rem; font-weight: 700; color: var(--primary-gold); margin-bottom: 15px; }
-        .section-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; color: var(--accent-coral); display: flex; align-items: center; }
-        .section-title i { margin-right: 8px; }
-        .card-text { font-size: 0.9rem; margin-bottom: 20px; color: #555; }
+        .card-img { width: 100%; height: 200px; object-fit: cover; }
+        .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .role-badge { background-color: var(--primary-gold); color: #fff; font-size: 0.75rem; padding: 4px 12px; border-radius: 50px; display: inline-block; margin-bottom: 15px; font-weight: bold; width: fit-content; }
+        .card-title { font-size: 1.25rem; font-weight: 700; color: var(--primary-gold); margin-bottom: 15px; min-height: 3rem; display: flex; align-items: center; }
+        .section-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--accent-coral); display: flex; align-items: center; }
+        .section-title i { margin-right: 8px; width: 15px; }
+        .card-text { font-size: 0.88rem; margin-bottom: 18px; color: #555; flex-grow: 1; }
         .impact-box { background-color: #fef8f6; border-left: 4px solid var(--accent-coral); padding: 15px; margin-top: auto; }
-        .impact-text { font-size: 0.95rem; font-weight: bold; }
+        .impact-text { font-size: 0.9rem; font-weight: bold; }
         .footer { text-align: center; padding: 40px; color: #999; font-size: 0.8rem; }
         .highlight-card { border: 2px solid var(--primary-gold); background-color: #fffaf0; }
     </style>
@@ -38,155 +38,155 @@
 
 <header>
     <h1>AI DX STRATEGY REPORT</h1>
-    <p>東京美専クリニック様 向け AI活用ロードマップ（パーソナライズ接客強化版）</p>
+    <p>東京美専クリニック様 向け AI活用ロードマップ（集客・ホスピタリティ完全版）</p>
 </header>
 
 <div class="container">
     <div class="grid">
 
         <div class="card highlight-card">
-            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <img src="https://images.unsplash.com/photo-1560472355-536de3962603?auto=format&fit=crop&w=800&q=80" class="card-img" alt="MEO Marketing">
+            <div class="card-content">
+                <span class="role-badge">マーケティング</span>
+                <div class="card-title">Google口コミ返信・MEO自動化</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i>現状の課題</div>
+                <p class="card-text">Googleの口コミ返信が滞ると、ローカル検索の順位が低下し、新規顧客の信頼感も損なわれる。</p>
+                <div class="section-title"><i class="fas fa-magic"></i>AI活用ステップ</div>
+                <p class="card-text">口コミ投稿を検知し、内容（感謝・要望・不満等）を解析。「新宿」「医療脱毛」等のMEOキーワードを自然に含めた返信案を3秒で作成。</p>
+                <div class="impact-box">
+                    <div class="impact-text">MEO検索順位の向上 & 新規予約率の最大化</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Hospitality">
             <div class="card-content">
                 <span class="role-badge">接遇・顧客体験</span>
                 <div class="card-title">再来店時のパーソナライズ接客AI</div>
                 <div class="section-title"><i class="fas fa-exclamation-circle"></i>現状の課題</div>
-                <p class="card-text">前回の会話内容（悩み、趣味等）がカルテに埋もれ、再来院時に「自分を覚えてくれている」実感が薄い。</p>
+                <p class="card-text">前回の会話内容（趣味や家族の話など）をカルテから瞬時に把握できず、接遇が形式的になりやすい。</p>
                 <div class="section-title"><i class="fas fa-magic"></i>AI活用ステップ</div>
-                <p class="card-text">①施術中の会話をAIが解析し、顧客プロフィール（趣味：登山、悩み：デスクワーク等）を自動生成。<br>②再来院時に「前回の丹沢登山の後はどうでしたか？」といった、自然で温かみのあるトークスプリプトをAIが提案。</p>
+                <p class="card-text">前回の施術中会話から、顧客の「関心事」をAIがサマリー。再来院時の待ち時間に、スタッフの端末へ「今日のアイスブレイク案」を通知。</p>
                 <div class="impact-box">
-                    <div class="impact-text">再来店率(LTV)の大幅向上 & 顧客ロイヤリティの深化</div>
+                    <div class="impact-text">リピート率(LTV)の飛躍的向上 & 紹介率UP</div>
                 </div>
             </div>
         </div>
 
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">ナレッジ管理</span>
-                <div class="card-title">NotebookLM：美専ナレッジAI</div>
-                <div class="section-title"><i class="fas fa-exclamation-circle"></i>現状の課題</div>
-                <p class="card-text">施術マニュアルや院長の方針が現場に浸透するまで時間がかかり、教育にばらつきが出る。</p>
-                <div class="section-title"><i class="fas fa-magic"></i>AI活用ステップ</div>
-                <p class="card-text">全マニュアルをNotebookLMに集約。新人スタッフが「ハイフの禁忌事項は？」と問えば、院長の口調で即答可能に。</p>
-                <div class="impact-box">
-                    <div class="impact-text">教育期間の50%短縮 & 施術品質の均質化</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">顧客対応</span>
-                <div class="card-title">24/7 LINE自動コンシェルジュ</div>
-                <div class="section-title"><i class="fas fa-exclamation-circle"></i>現状的課題</div>
-                <p class="card-text">休診日や夜間のダウンタイムの不安に対する問い合わせが、翌営業日まで滞留してしまう。</p>
-                <div class="section-title"><i class="fas fa-magic"></i>AI活用ステップ</div>
-                <p class="card-text">公式Q&Aと医療ガイドラインを学習したAIボットが、LINE上で即座に応対。安心感を与えつつ次回の予約を促す。</p>
-                <div class="impact-box">
-                    <div class="impact-text">予約離脱率の40%低減 & 顧客満足度の向上</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">マーケティング</span>
-                <div class="card-title">症例写真のAI自動選別・匿名化</div>
-                <div class="section-title"><i class="fas fa-exclamation-circle"></i>現状の課題</div>
-                <p class="card-text">症例写真の整理、マスキング処理、SNS映えする角度の選別に多大な時間がかかっている。</p>
-                <div class="section-title"><i class="fas fa-magic"></i>AI活用ステップ</div>
-                <p class="card-text">AIが画像から施術効果を認識し、「最も変化がわかる1枚」を推奨。匿名化（スタンプ・ぼかし）もワンクリックで完了。</p>
-                <div class="impact-box">
-                    <div class="impact-text">SNS運用工数の70%削減 & 投稿頻度の向上</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1454165833767-0270093bb5d6?auto=format&fit=crop&w=800&q=80" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">事務・バックオフィス</span>
-                <div class="card-title">医療広告ガイドラインAIチェッカー</div>
-                <div class="section-title"><i class="fas fa-exclamation-circle"></i>現状の課題</div>
-                <p class="card-text">「最高」「業界初」などの誇大広告表現のチェックに神経を使う。法規制違反のリスク。</p>
-                <div class="section-title"><i class="fas fa-magic"></i>AI活用ステップ</div>
-                <p class="card-text">投稿案をAIに読み込ませ、現在の医療広告ガイドラインに抵触する箇所を特定し、安全な言い換え案を提示。</p>
-                <div class="impact-box">
-                    <div class="impact-text">コンプライアンス遵守 & リーガルコストの削減</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1611095773164-12ef5820a23a?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Counseling">
             <div class="card-content">
                 <span class="role-badge">現場・実務</span>
                 <div class="card-title">AIカウンセリング要約・カルテ化</div>
                 <div class="section-title"><i class="fas fa-exclamation-circle"></i>現状の課題</div>
-                <p class="card-text">カウンセリングから施術準備までの間に詳細な記録を残すのが難しく、情報共有の漏れが発生。</p>
+                <p class="card-text">詳細なカウンセリング記録を入力する時間が、スタッフの大きな心理的・時間的負担になっている。</p>
                 <div class="section-title"><i class="fas fa-magic"></i>AI活用ステップ</div>
-                <p class="card-text">タブレットで音声を収集し、Whisper等で解析。顧客の希望、懸念、過去の施術歴を要約してカルテに自動反映。</p>
+                <p class="card-text">対面カウンセリングの音声をリアルタイム録音。AIが「悩み・既往歴・希望の仕上がり」を抽出し、指定カルテ形式で要約出力。</p>
                 <div class="impact-box">
-                    <div class="impact-text">スタッフ間共有の精度向上 & 事務作業の激減</div>
+                    <div class="impact-text">カルテ作成工数 80%削減 & 記録精度の向上</div>
                 </div>
             </div>
         </div>
 
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Law Compliance">
+            <div class="card-content">
+                <span class="role-badge">事務・コンプライアンス</span>
+                <div class="card-title">医療広告ガイドラインAIチェッカー</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i>現状の課題</div>
+                <p class="card-text">SNSやHPの表現が法規制（薬機法・医療法）に抵触していないか、常に専門知識を持ったチェックが必要。</p>
+                <div class="section-title"><i class="fas fa-magic"></i>AI活用ステップ</div>
+                <p class="card-text">投稿予定の画像やテキストをアップ。AIが過去の指導事例を元にリスクを採点し、安全な表現へリライト提案。</p>
+                <div class="impact-box">
+                    <div class="impact-text">行政指導リスクをゼロへ & 承認スピード加速</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Knowledge Base">
+            <div class="card-content">
+                <span class="role-badge">教育・経営</span>
+                <div class="card-title">NotebookLM：美専ナレッジ資産化</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i>現状の課題</div>
+                <p class="card-text">施術マニュアルが更新されるたび、全スタッフへの周知・浸透に膨大な時間がかかる。</p>
+                <div class="section-title"><i class="fas fa-magic"></i>AI活用ステップ</div>
+                <p class="card-text">院内の全PDF・動画をNotebookLMに学習。新人が「この薬剤の禁忌は？」と聞けば、院長直伝の回答が即座に返る。</p>
+                <div class="impact-box">
+                    <div class="impact-text">新人教育コストの半減 & サービス品質の標準化</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1557200134-90327ee9fafa?auto=format&fit=crop&w=800&q=80" class="card-img" alt="LINE Support">
+            <div class="card-content">
+                <span class="role-badge">顧客対応</span>
+                <div class="card-title">24時間 LINE自動コンシェルジュ</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i>現状の課題</div>
+                <p class="card-text">予約の空き確認や、ダウンタイム中の細かな相談に対し、スタッフの手が回らず返信が遅れる。</p>
+                <div class="section-title"><i class="fas fa-magic"></i>AI活用ステップ</div>
+                <p class="card-text">LINE公式アカウントに高度なRAG（検索生成）を実装。深夜でも公式エビデンスに基づいた適切な回答を自動化。</p>
+                <div class="impact-box">
+                    <div class="impact-text">夜間の予約獲得率 35%向上 & 顧客不安の解消</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1616464916356-3a777b2b59b1?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Photo Process">
+            <div class="card-content">
+                <span class="role-badge">クリエイティブ</span>
+                <div class="card-title">症例写真のAI自動選別・加工</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i>現状の課題</div>
+                <p class="card-text">膨大な症例写真の中から、SNS掲載可能なものを選別し、プライバシー保護の加工をする負担。</p>
+                <div class="section-title"><i class="fas fa-magic"></i>AI活用ステップ</div>
+                <p class="card-text">AIが画像から「変化のわかりやすさ」を判定。自動で目を隠すスタンプを押し、適切なトーンに補正して書き出し。</p>
+                <div class="impact-box">
+                    <div class="impact-text">SNS投稿頻度の3倍化 & 現場負荷の軽減</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1551288049-bbbda5366a71?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Data Analysis">
             <div class="card-content">
                 <span class="role-badge">経営</span>
-                <div class="card-title">ダイナミック・プライシング支援</div>
+                <div class="card-title">AI需要予測・在庫最適化</div>
                 <div class="section-title"><i class="fas fa-exclamation-circle"></i>現状の課題</div>
-                <p class="card-text">近隣クリニックのキャンペーンに対抗するための適正価格判断が遅れがちになる。</p>
+                <p class="card-text">高価な薬剤の在庫切れ、または期限間近による廃棄ロスが経営の不透明要素になっている。</p>
                 <div class="section-title"><i class="fas fa-magic"></i>AI活用ステップ</div>
-                <p class="card-text">競合の予約空き状況や価格をAIが定期巡回。自院の予約率が低下した際に、最適なクーポン発行をアドバイス。</p>
+                <p class="card-text">過去の施術推移とキャンペーン予定から、必要な在庫量をAIが算出。自動発注システムと連携し最適在庫を維持。</p>
                 <div class="impact-box">
-                    <div class="impact-text">機会損失の回避 & 稼働率の最大化</div>
+                    <div class="impact-text">薬剤廃棄率の削減 & キャッシュフローの改善</div>
                 </div>
             </div>
         </div>
 
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <img src="https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Short Video">
             <div class="card-content">
                 <span class="role-badge">マーケティング</span>
-                <div class="card-title">TikTok/Reels 台本生成AI</div>
+                <div class="card-title">TikTok/Reels トレンド台本生成</div>
                 <div class="section-title"><i class="fas fa-exclamation-circle"></i>現状の課題</div>
-                <p class="card-text">ショート動画の企画・台本作成が属人的で、バズる構成を維持するのが難しい。</p>
+                <p class="card-text">どのような動画がバズるのかを分析する時間がなく、動画の質が安定しない。</p>
                 <div class="section-title"><i class="fas fa-magic"></i>AI活用ステップ</div>
-                <p class="card-text">バズっている美容系動画の構造を分析。「最初の3秒」のフックと、クリニックの信頼性を両立する台本をAIが生成。</p>
+                <p class="card-text">現在の美容トレンドをAIが収集。クリニックの機材やスタッフ構成に合わせた、視聴維持率の高い台本を自動作成。</p>
                 <div class="impact-box">
-                    <div class="impact-text">動画視聴完了率の向上 & 指名予約の増加</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">採用・教育</span>
-                <div class="card-title">美容ナース適性スコアリング</div>
-                <div class="section-title"><i class="fas fa-exclamation-circle"></i>現状の課題</div>
-                <p class="card-text">スキルは高くても、クリニックの接遇方針（ホスピタリティ）と合わず離職するケース。</p>
-                <div class="section-title"><i class="fas fa-magic"></i>AI活用ステップ</div>
-                <p class="card-text">面接動画や自己PR文をAIが言語分析。自院のバリューを体現できる可能性を客観的にスコアリング。</p>
-                <div class="impact-box">
-                    <div class="impact-text">離職率の20%改善 & 採用の属人化解消</div>
+                    <div class="impact-text">フォロワー外への拡散力強化 & 来院動機形成</div>
                 </div>
             </div>
         </div>
 
         <div class="card" style="border: 2px solid var(--accent-coral);">
             <div class="card-content">
-                <span class="role-badge" style="background-color: var(--accent-coral);">セキュリティ・リスク管理</span>
-                <div class="card-title">AI運用ガバナンス</div>
+                <span class="role-badge" style="background-color: var(--accent-coral);">リスク管理</span>
+                <div class="card-title">AIガバナンス・セキュリティ</div>
                 <div class="section-title"><i class="fas fa-shield-alt"></i>重要管理事項</div>
-                <p class="card-text">・**会話データの取扱い**: 会話のサマリー時には個人情報を自動除去。匿名化された状態でサマリーを生成。<br>・**医療判断の非AI化**: AIは接遇のアドバイスに留め、施術の可否判断には必ず医師が介入。<br>・**ハルシネーションの検閲**: AIが生成したアフターケア指示などは、送信前に専門職が目視確認。</p>
+                <p class="card-text">・**個人情報の秘匿**: 外部LLMに個人を特定できるデータを流さないクローズド環境の構築。<br>・**医療安全性**: AIの回答は接遇に限定し、医療的判断は必ず医師の承認を経るフローを徹底。</p>
                 <div class="impact-box" style="background-color: #fff;">
-                    <div class="impact-text">医療安全とDXの両立</div>
+                    <div class="impact-text">信頼されるAI美容医療の実現</div>
                 </div>
             </div>
         </div>
