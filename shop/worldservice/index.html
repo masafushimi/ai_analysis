@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DX Strategy Report - World Service Co., Ltd.</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --dark: #2c2c2c;
+            --gray: #7f8c8d;
+        }
+
+        body {
+            background-color: var(--ivory);
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--gold);
+            letter-spacing: 2px;
+            font-size: 2rem;
+        }
+
+        header p {
+            color: var(--gray);
+            margin-top: 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background-color: var(--gold);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--gold);
+            border-left: 4px solid var(--coral);
+            padding-left: 10px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--coral);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 8px;
+        }
+
+        .text-content {
+            font-size: 0.85rem;
+            color: #555;
+            margin: 5px 0 15px 0;
+        }
+
+        .impact-box {
+            background-color: #fff9f4;
+            border: 1px dashed var(--coral);
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: var(--dark);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>WORLD SERVICE <br>AI DX STRATEGIC ROADMAP</h1>
+    <p>次世代空間プロデュースに向けたAI活用事例集</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" alt="Concept AI" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">クリエイティブ・企画</span>
+                <div class="card-title">瞬間イメージパース生成AI</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="text-content">顧客の要望をビジュアル化するのに、デザイナーが数日かけてパースを作成しており、成約までのリードタイムが長い。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="text-content">ヒアリングシートを元にStable Diffusion等の画像生成AIが、30秒で3パターンの空間演出イメージを出力。</p>
+                <div class="impact-box">成約率 +25% / 制作コスト 90%削減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1478147427282-58a87a120781?auto=format&fit=crop&w=600&q=80" alt="Flowers" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">現場・実務</span>
+                <div class="card-title">AIフラワーロス削減予測</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="text-content">生花の仕入れ予測が困難で、廃棄ロス（スクラップ率）が利益を圧迫している。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="text-content">過去の受注データと季節、市場価格を機械学習モデルで分析し、最適な仕入れ量を$t+7$日先まで予測。</p>
+                <div class="impact-box">廃棄ロス 35%削減 / 粗利 5%向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=600&q=80" alt="Event" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">営業・マーケ</span>
+                <div class="card-title">ゼクシィ・SNS運用自動化</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="text-content">複数の結婚式情報サイトやInstagramへの投稿文作成が、現場社員の大きな事務負担に。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="text-content">施工写真をアップロードするだけで、媒体ごとの特性（トンマナ）に合わせた訴求文をLLMが自動生成。予約枠も自動同期。</p>
+                <div class="impact-box">広報工数 80%削減 / CVR 1.5倍</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=600&q=80" alt="Knowledge" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">マネジメント・経営</span>
+                <div class="card-title">NotebookLM：演出秘伝のタレAI</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="text-content">熟練プランナーのノウハウが属人化しており、新人の育成に数年単位の時間がかかる。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="text-content">過去30年分の提案書・図面・トラブル事例をNotebookLMに集約。新人がチャットで「雨天時の屋外演出のリスク」等を即座に確認可能に。</p>
+                <div class="impact-box">教育期間 50%短縮 / 提案品質の均一化</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80" alt="Inventory" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">事務・バックオフィス</span>
+                <div class="card-title">画像認識による返却資材検品</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="text-content">レンタル資材（クロス等）の返却時に、汚れや破損を目視で確認するのが非常に重労働。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="text-content">返却ラインにカメラを設置。画像認識AIがシミや破れを自動検知し、メンテナンスが必要なアイテムを自動仕分け。</p>
+                <div class="impact-box">検品工数 70%削減 / 請求漏れ防止</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" alt="Customer Support" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">顧客対応（CS）</span>
+                <div class="card-title">24/7 パーソナル・コンシェルジュ</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="text-content">夜間の新郎新婦からの不安や質問への対応が遅れ、不信感に繋がることがある。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="text-content">契約内容を把握したRAG型AIチャットボットが、深夜でも「当日の持ち物」や「オプション追加料金」に即答。</p>
+                <div class="impact-box">顧客満足度(NPS)向上 / 残業代削減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1507537297325-562937398334?auto=format&fit=crop&w=600&q=80" alt="Strategy" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">マネジメント・経営</span>
+                <div class="card-title">動的価格設定（ダイナミック・プライシング）</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="text-content">閑散期と繁忙期の価格差が固定化されており、収益機会を逃している。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="text-content">競合他社の空き状況、六曜、トレンド、天候予測を考慮し、最適な挙式・パーティー価格をAIが週単位で提案。</p>
+                <div class="impact-box">売上高前年比 112%達成</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80" alt="Layout" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">現場・実務</span>
+                <div class="card-title">自動配膳・動線シミュレーション</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="text-content">大人数のパーティーで、スタッフの配置や動線が非効率になり、提供が遅れる。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="text-content">会場レイアウト図面から、AIが最適なスタッフ配置と配膳ルートをシミュレーション。タブレットで各員に指示。</p>
+                <div class="impact-box">サービス効率 20%向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=600&q=80" alt="Accounting" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">事務・バックオフィス</span>
+                <div class="card-title">AI自動見積・原価照合</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="text-content">演出のカスタマイズが多すぎて、最終的な原価計算にミスが出やすい。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="text-content">見積書の品目と、仕入れ値を自動照合。異常な利益率の案件をアラート通知し、赤字受注を未然に防ぐ。</p>
+                <div class="impact-box">事務ミスゼロ化 / 営業利益率 +3%</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="Meeting" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">クリエイティブ・企画</span>
+                <div class="card-title">AIトレンド分析＆新作開発</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="text-content">トレンドの移り変わりが早く、新作コーディネートの開発が後手に回りがち。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="text-content">Pinterestや海外のウェディング誌のトレンドワード・画像を解析し、次に流行るカラーや素材をAIがレコメンド。</p>
+                <div class="impact-box">商品開発サイクル 3ヶ月短縮</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="Training" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">現場・実務</span>
+                <div class="card-title">多言語対応AIトレーニング</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="text-content">外国人スタッフの採用が増えているが、接客マニュアルの翻訳と教育が追いつかない。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="text-content">動画マニュアルをAIが多言語翻訳＆吹き替え。AIアバターが現場の所作を指導するeラーニング環境を構築。</p>
+                <div class="impact-box">多国籍チームの戦力化 2倍速</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1533750516457-a7f992034fec?auto=format&fit=crop&w=600&q=80" alt="Safety" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">リスク管理</span>
+                <div class="card-title">AIコンプライアンス＆倫理ガード</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="text-content">生成AIによる出力（画像・文章）が著作権を侵害したり、不適切な内容になるリスク。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="text-content">顧客情報のハルシネーション（嘘）や機密漏洩を防ぐための専用ゲートウェイAIを設置。すべての出力を自動検閲。</p>
+                <div class="impact-box">法的リスクの最小化 / 企業ブランド保護</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 AI DX Strategic Consultancy. Designed for World Service Co., Ltd.
+</footer>
+
+</body>
+</html>
