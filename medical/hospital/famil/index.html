@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DX Strategy Report | Famille Maternity Group</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --dark: #2c2c2c;
+            --gray: #7f8c8d;
+        }
+        body {
+            background-color: var(--ivory);
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--dark);
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #fdfcfb 0%, #f5f0e1 100%);
+            border-bottom: 3px solid var(--gold);
+            margin-bottom: 40px;
+        }
+        header h1 {
+            color: var(--gold);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            padding: 30px;
+            border-top: 5px solid var(--gold);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .role-badge {
+            display: inline-block;
+            background-color: var(--coral);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+        .card h3 {
+            font-size: 1.4rem;
+            margin: 0 0 15px 0;
+            color: var(--gold);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .section-title {
+            font-weight: bold;
+            color: var(--gold);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .section-title i {
+            margin-right: 8px;
+            width: 20px;
+        }
+        .content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .impact {
+            background: #f9f6f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: auto;
+            border-left: 4px solid var(--gold);
+        }
+        .risk-card {
+            border-top-color: #c0392b;
+            background-color: #fff5f5;
+        }
+        .risk-card .role-badge {
+            background-color: #c0392b;
+        }
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AI DX Strategic Roadmap</h1>
+    <p>ファミーユ産院グループ：次世代産科医療の実現に向けて</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+        <div class="card">
+            <span class="role-badge">現場・施術</span>
+            <h3><i class="fas fa-microphone-alt"></i> 音声AI 看護記録自動生成</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">分娩中や処置中にメモが取れず、勤務後に記憶を辿ってカルテ入力する「記録残業」の常態化。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">装着型マイクで実況録音。LLMが医療用語を判別し、SOAP形式の看護記録案を自動作成・電子カルテへ連携。</p>
+            <div class="impact">
+                <strong>導入効果:</strong> 記録時間を1日平均60分削減。記載漏れ防止による医療安全の向上。
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">顧客対応</span>
+            <h3><i class="fab fa-line"></i> 24h AIコンシェルジュ</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">夜間の不安な妊産婦からの電話対応が助産師の負担に。軽微な質問が緊急対応を妨げる。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">LINE公式アカウントに産院独自のQ&Aを学習したAIを搭載。緊急度判定プロトコルを組み込み、必要な時のみスタッフへ繋ぐ。</p>
+            <div class="impact">
+                <strong>導入効果:</strong> 電話件数の40%削減。患者満足度（UX）の向上。
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">マーケティング</span>
+            <h3><i class="fas fa-star"></i> MEO/SNS運用自動化</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">Googleマップの口コミ返信やInstagram更新が後回しになり、ブランディング機会を損失。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">口コミの内容をAIが感情分析し、ブランドトーンに合わせた最適な返信案を作成。写真からリール動画の構成案を自動生成。</p>
+            <div class="impact">
+                <strong>導入効果:</strong> 口コミ評価の向上、自院Webサイトへの流入数1.5倍。
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">教育・ナレッジ</span>
+            <h3><i class="fas fa-book-open"></i> Famille NotebookLM</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">グループ拡大に伴い、独自のケア方針やマニュアルが形骸化し、新人教育にバラつきが出る。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">過去の指導動画、PDFマニュアル、独自のケア方針をNotebookLMに集約。スタッフがいつでも「ファミーユ流」をAIに質問可能に。</p>
+            <div class="impact">
+                <strong>導入効果:</strong> 教育コスト30%削減。グループ全体のサービス品質の標準化。
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">事務</span>
+            <h3><i class="fas fa-file-invoice-dollar"></i> レセプトAI点検アシスト</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">産科特有の自費・保険併用や加算項目の確認が複雑。月初の事務スタッフへの負荷が過大。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">AIがカルテ記載とレセプトを照合。算定漏れや不整合をリアルタイムで検知し、修正案を提示。</p>
+            <div class="impact">
+                <strong>導入効果:</strong> 請求漏れによる損失を$2 \sim 3\%$改善。事務作業時間の50%短縮。
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">マネジメント</span>
+            <h3><i class="fas fa-chart-line"></i> 分娩需要予測ダッシュボード</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="content">出産は予測不能だが、スタッフ配置のミスマッチがバーンアウトや医療ミスの原因に。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="content">予約データ、過去の経産婦傾向、月齢等の相関を分析し、週ごとの分娩件数確率を算出。最適なシフト調整を支援。</p>
+            <div class="impact">
+                <strong>導入効果:</strong> 待機手当の最適化、スタッフのワークライフバランス改善。
+            </div>
+        </div>
+
+        <div class="card risk-card">
+            <span class="role-badge">医療安全・リスク管理</span>
+            <h3><i class="fas fa-shield-alt"></i> AIリスクガバナンス</h3>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 注意事項</div>
+            <p class="content">患者の個人情報保護（PHR）および、AIによる誤情報（ハルシネーション）の防止。</p>
+            <div class="section-title"><i class="fas fa-user-shield"></i> 対策ステップ</div>
+            <p class="content">1. 匿名化処理の徹底 2. AI回答の医師による最終確認プロセスの構築 3. 閉域網LLMの活用によるデータセキュリティ確保。</p>
+            <div class="impact">
+                <strong>信頼の担保:</strong> 安全性を最優先したAI活用により、患者と医療従事者双方の信頼を獲得。
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 AI DX Strategic Consultant for Famille Maternity Group</p>
+</footer>
+
+</body>
+</html>
