@@ -2,355 +2,68 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI DX Strategy Report - 株式会社イデア</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #a88a5d;
-            --bg: #fdfcfb;
-            --accent: #e27d60;
-            --text: #333;
-            --card-bg: #ffffff;
-        }
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        header {
-            text-align: center;
-            padding: 50px 0;
-            border-bottom: 2px solid var(--primary);
-            margin-bottom: 50px;
-        }
-        header h1 {
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin: 0;
-            letter-spacing: 2px;
-        }
-        header p {
-            font-size: 1.1rem;
-            color: #666;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            border-top: 4px solid var(--primary);
-            transition: transform 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .card-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-        .card-content {
-            padding: 25px;
-            flex-grow: 1;
-        }
-        .role-badge {
-            background: var(--primary);
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-        .card-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #222;
-            border-left: 4px solid var(--accent);
-            padding-left: 10px;
-        }
-        .section-title {
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-        }
-        .section-title i {
-            margin-right: 8px;
-        }
-        .card-text {
-            font-size: 0.95rem;
-            margin: 5px 0 15px 0;
-            color: #555;
-        }
-        .impact-box {
-            background: #fff8f0;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px dashed var(--accent);
-        }
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: #888;
-            font-size: 0.9rem;
-        }
-        @media (max-width: 480px) {
-            .container { grid-template-columns: 1fr; }
-        }
+        :root { --primary: #a88a5d; --bg: #fdfcfb; --accent: #e27d60; --text: #333; --card-bg: #ffffff; }
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        header { text-align: center; padding: 40px 0; border-bottom: 2px solid var(--primary); margin-bottom: 40px; }
+        header h1 { color: var(--primary); margin: 0; letter-spacing: 2px; }
+        .container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .card { background: var(--card-bg); border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; border-top: 4px solid var(--primary); }
+        .card-content { padding: 20px; flex-grow: 1; }
+        .role-badge { background: var(--primary); color: #fff; padding: 3px 10px; border-radius: 15px; font-size: 0.75rem; display: inline-block; margin-bottom: 10px; }
+        .card-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 12px; border-left: 3px solid var(--accent); padding-left: 8px; }
+        .section-title { font-size: 0.85rem; font-weight: bold; color: var(--primary); margin-top: 10px; }
+        .card-text { font-size: 0.9rem; margin: 5px 0 10px 0; color: #555; }
+        .impact-box { background: #fff8f0; padding: 12px; border-radius: 6px; border: 1px dashed var(--accent); font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>AI DX Strategy Portfolio</h1>
-    <p>株式会社イデア 様：次世代建設コンサルティング・ソリューション</p>
+    <p>株式会社イデア 様：技術人材×請負開発のAI変革</p>
 </header>
 
 <div class="container">
+    <script>
+        const cases = [
+            {role:"営業・マッチング", title:"AIスキルマッチングエンジン", prob:"案件票と職務経歴書の照合に多大な時間を要し、機会損失が発生。", sol:"LLMが要件定義を解析し、最適な技術者を即座にランキング表示。", impact:"マッチング速度500%向上。初動の速さによる成約率アップ。"},
+            {role:"採用・キャリア", title:"スキルシート自動最適化AI", prob:"技術者の強みが伝わりにくいスキルシートが多く、書類選考で損をしている。", sol:"エンジニアとの対話からAIが市場価値の高い「売れる」経歴書へリライト。", impact:"書類通過率30%向上。技術者の自己PR負担を大幅軽減。"},
+            {role:"請負・開発", title:"AIコード品質・セキュリティ監査", prob:"請負案件において、属人的なミスによる不具合や脆弱性のリスク。", sol:"コミット時にAIが自動レビューを行い、標準化された品質を担保。", impact:"バグ修正コストの40%削減。開発工程の安定化。"},
+            {role:"バックオフィス", title:"派遣法・契約管理AI監視", prob:"抵触日管理や法改正への対応が複雑で、管理者の精神的負担が大きい。", sol:"契約データを常時監視。更新時期や法規制の変更を自動通知・対応案提示。", impact:"コンプライアンス違反リスクの根絶。管理工数の大幅削減。"},
+            {role:"マネジメント", title:"AIエンゲージメント予兆検知", prob:"派遣先での孤独感やストレスによる、予期せぬ離職の発生。", sol:"週報のトーン分析や勤怠の微細な変化から、ケアが必要な社員をアラート。", impact:"離職率の15%低減。適切なタイミングでのキャリアフォロー実現。"},
+            {role:"ナレッジ資産化", title:"社内知見NotebookLM", prob:"過去のプロジェクトで得た特殊な技術知見が、担当者退職と共に消える。", sol:"全プロジェクトの技術資料をセキュアに学習し、誰でも聞ける「先生」化。", impact:"社内調査時間の80%削減。属人化の解消。"},
+            {role:"営業", title:"派遣単価・市場予測AI", prob:"感覚に頼った単価交渉になり、適切な利益を確保しきれない。", sol:"統計データとエンジニアの相対評価を紐解き、根拠ある交渉単価を算出。", impact:"売上総利益率の平均3%改善。公平な評価基準の確立。"},
+            {role:"企画・教育", title:"AIスキルアップ・ロードマップ", prob:"技術トレンドの移り変わりが速く、教育が追いつかない。", sol:"現在のスキルと市場ニーズのギャップを分析し、最適な学習経路を自動生成。", impact:"エンジニアの市場価値向上。リスキリングの自走化。"},
+            {role:"採用", title:"AI面接サポーター", prob:"面接官によって評価基準がバラつき、優秀な人材を見落とすリスク。", sol:"面接の対話から客観的なスキルスコアリングを行い、定量的評価を支援。", impact:"採用後のミスマッチを20%削減。選考のスピードアップ。"},
+            {role:"請負・上流工程", title:"要件定義構造化エージェント", prob:"クライアントの要求が曖昧で、後工程での手戻りが多い。", sol:"AIが要件の矛盾や不足を自動検知。論理的なWBSを自動生成。", impact:"上流工程のリードタイム30%削減。手戻り防止。"},
+            {role:"営業・マーケ", title:"企業ニーズ予測クローリング", prob:"どの企業が、いつ、どんな技術者を求めているかの把握が困難。", sol:"ターゲット企業の採用情報やニュースを解析し、ニーズ発生の予兆をキャッチ。", impact:"先行提案の増加による競合優位性の確保。"},
+            {role:"教育・広報", title:"技術ドキュメント動画化AI", prob:"文字だけのマニュアルでは、若手への技術承継がスムーズにいかない。", sol:"仕様書から、AIがナレーション付きの解説動画を自動生成。", impact:"研修効率の向上。社内情報の動画アーカイブ化促進。"},
+            {role:"経営", title:"AIリソース・ポートフォリオ", prob:"稼働状況の可視化が遅れ、過剰な採用や受注機会の損失が発生。", sol:"半年先のプロジェクト終了予定と、受注確率を統合した経営予測。", impact:"人員計画の最適化。投資判断の迅速化。"},
+            {role:"事務", title:"入館・セキュリティ申請Bot", prob:"派遣先ごとに異なる煩雑な事務手続き。技術者の生産性を下げている。", sol:"各社の手続きをボットが代行。必要な情報を抽出し、自動で申請書を作成。", impact:"非稼働事務作業の50%削減。エンジニアの満足度向上。"},
+            {role:"リスク管理", title:"セキュアAIゲートウェイ", prob:"技術者が生成AIを使う際、顧客コードが漏洩するリスク。", sol:"入出力をフィルタリング。個人情報や機密情報をマスキングする専用環境。", impact:"安全なAI利用の徹底。クライアントへの信頼醸成。"}
+        ];
 
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">営業・プロポーザル</span>
-            <div class="card-title">技術提案書（プロポーザル）自動生成</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">過去の類似案件の検索と、膨大な技術文書の執筆に若手・中堅の工数が逼迫している。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">過去の採択実績をベクトルDB化。案件概要を入力するだけで、最適な技術的工夫の提案骨子を自動生成。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> 資料作成時間を約60%削減。提案内容の平準化による受注率15%向上。
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">現場・実務</span>
-            <div class="card-title">現場写真の自動判別・整理システム</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">数千枚に及ぶ点検写真の仕分けと、調書への貼り付け作業が属人化しており、ミスも多い。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">画像認識AI（Vision LLM）により、写真内の損傷種類（ひび割れ、剥離等）を自動タグ付け。台帳へ自動出力。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> 整理工数を80%削減。人為的な見落としを防止し、品質管理を徹底。
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1507925921958-8a15da3b59d9?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">ナレッジ資産化</span>
-            <div class="card-title">NotebookLM：イデア技術知見Bot</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">社内の高度な設計ノウハウが個人のPCやサーバー内のPDFに埋もれ、再利用が困難。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">NotebookLMを活用し、社内の標準設計書、過去の特記仕様書を学習。自然言語で設計根拠を即座に引き出し。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> 社内調査時間のゼロ化。若手技術者の教育コストを大幅低減。
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">プラットフォーム最適化</span>
-            <div class="card-title">図面管理システム×AI検索</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">「5年前のXX県での橋梁補修図面」といった曖昧な検索が既存ソフトでは困難。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">図面内のテキストおよび形状特徴をマルチモーダルAIが解析。意味ベースでの高速図面検索を実現。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> 類似図面流用による設計スピードの倍速化。
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">顧客対応</span>
-            <div class="card-title">住民説明用ビジュアルAI生成</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">設計変更の影響を非専門家に伝えるための図説作成に時間がかかる。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">設計データを元に、画像生成AIが「完成後の街並みフォトリアル」を数秒で生成し、合意形成を加速。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> 住民説明会の満足度向上、協議期間の短縮。
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">事務・バックオフィス</span>
-            <div class="card-title">建設業特化型・契約書リーガルAI</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">再委託契約やJV協定など、業界特有の複雑な条項チェックが法務の負担。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">建設業法および最新のガイドラインに基づき、リスク条項を自動抽出・修正案提示。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> 契約審査スピードの3倍化。法的リスクの網羅的な管理。
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1572177191856-3cde618dee1f?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">クリエイティブ・設計</span>
-            <div class="card-title">BIM/CIM 属性自動付与エンジン</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">3Dモデルへの属性情報（材質、耐用年数等）の入力作業が極めて単調で膨大。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">形状データと設計条件から、最適な属性値を推論し一括自動入力。マニュアル作業を排除。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> BIM作成コストの40%削減。データ納品精度の100%維持。
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1521791136364-798a7bc0d262?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">マネジメント</span>
-            <div class="card-title">AI工数・収益予測アラート</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">プロジェクト終了間際に工数超過が発覚し、採算が悪化するケースがある。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">日報データと進捗状況を分析し、$EAC = AC + (BAC - EV)$ 等の指標をAIがリアルタイム予測して警告。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> 不採算案件の早期察知と対策。利益率平均5%改善。
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1512418490979-92798ccc13b0?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">現場・補償コンサル</span>
-            <div class="card-title">補償算定根拠の自動構成AI</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">建物補償調査において、算定基準が複雑で説明書類の作成に専門知識が必要。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">物件データと写真を入力すると、損失補償基準に則った算定説明文を自動生成。整合性チェックも同時実行。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> 算定ミスの根絶。調書作成スピードの倍増。
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">クリエイティブ・解析</span>
-            <div class="card-title">構造解析パラメータの自動最適化</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">解析ソフトの設定パラメータ調整に、熟練者の「勘」が必要となっている。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">ベイズ最適化等のAI手法を用い、構造物の安全性とコストが最適となる設計パラメータを自動探索。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> 設計品質の極大化。解析の試行錯誤回数を70%削減。
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">事務・IT</span>
-            <div class="card-title">社内ヘルプデスク・エージェント</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">CADのライセンスエラーや社内申請フローの質問がIT担当者に集中。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">社内マニュアルを学習した対話型AIが、TeamsやSlack上で即座に自己解決を支援。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> IT担当者の対応工数を50%削減。社員の待機時間を解消。
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">ガバナンス</span>
-            <div class="card-title">最新法令・技術基準差分チェッカー</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">毎年更新される技術基準（黄本・赤本等）の変更箇所の把握が遅れるリスクがある。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">新旧の基準書をAIが比較し、実務に影響する「設計変更ポイント」を要約して担当部署へ自動通知。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> 法令遵守の自動化。基準見落としによる手戻りをゼロに。
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1551288049-bbda48658a7d?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">マーケティング</span>
-            <div class="card-title">AI市場動向・競合分析レポート</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">自治体の次年度予算や重点施策の分析に多大な時間がかかっている。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">各自治体の予算書や広報誌をAIがクローリング。強化すべき事業領域（防災、DX等）を自動レポート。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> 戦略的な営業エリア展開。新規事業の着想支援。
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">教育・HR</span>
-            <div class="card-title">ベテラン思考シミュレーター</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">ベテラン層の大量退職による「技術的直感」の喪失。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">ベテランの添削履歴をAIに学習させ、若手の設計案に対して「ベテランならどこを指摘するか」をシミュレート。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> 24時間利用可能なメンターの実現。技術のデジタル承継。
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" class="card-img">
-        <div class="card-content">
-            <span class="role-badge">リスク管理</span>
-            <div class="card-title">AIハルシネーション・セキュリティ対策</div>
-            <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
-            <p class="card-text">生成AIによる誤情報の発生や、設計データの外部漏洩リスク。</p>
-            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
-            <p class="card-text">閉域網（Azure OpenAI等）の構築。AI出力に対し、必ず人間が承認するワークフロー（HITL）の厳格化。</p>
-            <div class="impact-box">
-                <strong>導入効果:</strong> 安全・安心なAI利用環境の確立。企業信頼性の維持。
-            </div>
-        </div>
-    </div>
-
+        const container = document.querySelector('.container');
+        cases.forEach(item => {
+            container.innerHTML += `
+                <div class="card">
+                    <div class="card-content">
+                        <span class="role-badge">${item.role}</span>
+                        <div class="card-title">${item.title}</div>
+                        <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+                        <p class="card-text">${item.prob}</p>
+                        <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                        <p class="card-text">${item.sol}</p>
+                        <div class="impact-box"><strong>導入効果:</strong> ${item.impact}</div>
+                    </div>
+                </div>
+            `;
+        });
+    </script>
 </div>
 
 <footer>
