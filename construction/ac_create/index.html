@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI DX Strategic Roadmap - AC Create Co., Ltd.</title>
+    <title>AC CREATE | Real Estate AI Strategy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
@@ -34,13 +34,14 @@
 
         header h1 {
             color: var(--gold);
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin: 0;
             letter-spacing: 0.1em;
+            font-weight: 700;
         }
 
         header p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #666;
             margin-top: 10px;
         }
@@ -52,8 +53,8 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 25px;
         }
 
         .card {
@@ -64,7 +65,7 @@
             transition: transform 0.3s ease;
             display: flex;
             flex-direction: column;
-            border: 1px solid rgba(168, 138, 93, 0.2);
+            border: 1px solid rgba(168, 138, 93, 0.15);
         }
 
         .card:hover {
@@ -73,332 +74,140 @@
 
         .card-img {
             width: 100%;
-            height: 180px;
+            height: 160px;
             object-fit: cover;
         }
 
         .card-content {
-            padding: 25px;
+            padding: 20px;
             flex-grow: 1;
         }
 
         .role-badge {
             background-color: var(--gold);
             color: #fff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
             font-weight: bold;
             display: inline-block;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .card-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: var(--dark);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-weight: 700;
             border-left: 4px solid var(--coral);
             padding-left: 10px;
+            line-height: 1.3;
         }
 
         .section-title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--gold);
             font-weight: bold;
-            margin-top: 15px;
-            margin-bottom: 5px;
+            margin-top: 12px;
+            margin-bottom: 4px;
         }
 
         .text-content {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #555;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .impact-box {
-            background-color: #fff9f5;
+            background-color: #fffaf5;
             border: 1px dashed var(--coral);
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 6px;
         }
 
         .impact-title {
             color: var(--coral);
             font-weight: bold;
-            font-size: 0.95rem;
-            margin-bottom: 5px;
+            font-size: 0.85rem;
+            margin-bottom: 3px;
         }
 
         footer {
             text-align: center;
-            padding: 60px 20px;
+            padding: 50px 20px;
             color: #999;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         @media (max-width: 600px) {
             .grid { grid-template-columns: 1fr; }
-            header h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>AC CREATE | AI DX STRATEGY</h1>
-    <p>株式会社エーシークリエイト AI導入ロードマップ 事例集</p>
+    <h1>AC CREATE | REAL ESTATE DX</h1>
+    <p>株式会社エーシークリエイト 総合不動産AI導入事例レポート</p>
 </header>
 
 <div class="container">
     <div class="grid">
 
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&w=500&q=80" alt="Construction" class="card-img">
+            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=500&q=80" alt="Sales" class="card-img">
             <div class="card-content">
-                <span class="role-badge">現場・施工管理</span>
-                <div class="card-title">ANDPAD報告業務のAI自動化</div>
+                <span class="role-badge">営業・マーケティング</span>
+                <div class="card-title">ポータルサイト掲載文のAI自動生成</div>
                 <div class="section-title">現状の課題</div>
-                <div class="text-content">現場監督が帰社後にスマホやPCで写真整理と日報入力を手動で行い、残業が常態化している。</div>
+                <div class="text-content">SUUMOや楽待等への掲載文作成に時間がかかり、物件公開までに数日のタイムラグが発生。</div>
                 <div class="section-title">AI活用ステップ</div>
-                <div class="text-content">音声AIとプラットフォームAPIを連携。現場で「〇〇現場、床貼り完了。異常なし」と話すだけで、ANDPADの該当項目に写真と共に自動登録。</div>
+                <div class="text-content">物件写真とスペック情報をAIに入力。投資家や一般客の心理を突くキャッチコピーと紹介文を瞬時に生成。</div>
                 <div class="impact-box">
-                    <div class="impact-title"><i class="fas fa-chart-line"></i> 期待される効果</div>
-                    事務作業時間を50%削減。現場からのリアルタイム報告率を100%に向上。
+                    <div class="impact-title"><i class="fas fa-bolt"></i> 期待される効果</div>
+                    掲載までの時間を70%短縮。SEO効果の高い文章で反響率が1.5倍に。
                 </div>
             </div>
         </div>
 
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1507208773393-40d9fc670acf?auto=format&fit=crop&w=500&q=80" alt="Knowledge" class="card-img">
+            <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=500&q=80" alt="Finance" class="card-img">
             <div class="card-content">
                 <span class="role-badge">マネジメント・経営</span>
-                <div class="card-title">NotebookLMによる社内ナレッジの資産化</div>
+                <div class="card-title">個別相談会用：AIファイナンス診断</div>
                 <div class="section-title">現状の課題</div>
-                <div class="text-content">熟練スタッフの施工ノウハウや過去のトラブル対応策が属人化しており、新人の教育に時間がかかる。</div>
+                <div class="text-content">提携銀行各社の融資条件が複雑で、最適な金融プランの提示が担当者の経験に依存。</div>
                 <div class="section-title">AI活用ステップ</div>
-                <div class="text-content">過去10年分の見積・図面・不具合対応記録・マニュアルをNotebookLMに集約。新人がチャット形式で専門知識を引き出せる「AI専務」を構築。</div>
+                <div class="text-content">銀行ごとの融資基準と顧客属性をNotebookLMに学習。面談中に最適な銀行と融資額を即座にシミュレーション。</div>
                 <div class="impact-box">
                     <div class="impact-title"><i class="fas fa-chart-line"></i> 期待される効果</div>
-                    新人教育コストの30%削減。施工ミスによる手戻り費用の最小化。
+                    融資承認率の向上。相談者の「一歩踏み出す不安」をデータで払拭。
                 </div>
             </div>
         </div>
 
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=500&q=80" alt="Design" class="card-img">
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=500&q=80" alt="Renovation" class="card-img">
             <div class="card-content">
                 <span class="role-badge">クリエイティブ・企画</span>
-                <div class="card-title">商談用リアルタイム・パース生成</div>
+                <div class="card-title">AIリノベーション・プレビュー</div>
                 <div class="section-title">現状の課題</div>
-                <div class="text-content">リフォーム商談時、デザインのイメージが伝わらず、持ち帰ってパースを作成するため、成約までに複数回の面談が必要。</div>
+                <div class="text-content">中古物件の売却相談時、リフォーム後のイメージが湧かず、媒介契約や買取価格の合意に時間がかかる。</div>
                 <div class="section-title">AI活用ステップ</div>
-                <div class="text-content">Stable DiffusionやMidjourneyを活用。現場で撮影した写真に「北欧風、オーク材、間接照明」等のキーワードを入力し、数秒で完成予想図を生成。</div>
+                <div class="text-content">現状の室内写真から、AIが「モダン」「インダストリアル」等のリノベ後パースを数秒で複数生成。</div>
                 <div class="impact-box">
-                    <div class="impact-title"><i class="fas fa-chart-line"></i> 期待される効果</div>
-                    成約までのリードタイムを2週間短縮。即決率の大幅な向上。
+                    <div class="impact-title"><i class="fas fa-eye"></i> 期待される効果</div>
+                    媒介受託率20%アップ。買取案件の合意形成を加速。
                 </div>
             </div>
         </div>
 
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&w=500&q=80" alt="Customer Support" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">顧客対応（CS）</span>
-                <div class="card-title">24時間メンテナンスAIコール</div>
-                <div class="section-title">現状の課題</div>
-                <div class="text-content">夜間や休日のトラブル連絡に対し、担当者が電話対応を迫られ、ワークライフバランスが損なわれている。</div>
-                <div class="section-title">AI活用ステップ</div>
-                <div class="text-content">AI音声認識（Vapi等）を導入。漏水などの緊急トラブルを一次受けし、状況をヒアリングして緊急度を判定。緊急時のみ担当者へ通知。</div>
-                <div class="impact-box">
-                    <div class="impact-title"><i class="fas fa-chart-line"></i> 期待される効果</div>
-                    夜間対応の精神的負荷を80%軽減。顧客満足度の向上。
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=500&q=80" alt="Office" class="card-img">
+            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=500&q=80" alt="Admin" class="card-img">
             <div class="card-content">
                 <span class="role-badge">事務・バックオフィス</span>
-                <div class="card-title">AIによる請求書・見積書自動突合</div>
+                <div class="card-title">重説・契約書のAIドラフト作成</div>
                 <div class="section-title">現状の課題</div>
-                <div class="text-content">多くの協力業者からの請求書と、当初の発注見積が合致しているかの目視確認に膨大な時間を費やしている。</div>
+                <div class="text-content">重要事項説明書の作成は転記ミスが許されず、宅建士のチェック工数が非常に大きい。</div>
                 <div class="section-title">AI活用ステップ</div>
-                <div class="text-content">マルチモーダルAIを活用し、形式の異なる請求書PDFを読み込み、予算管理表と自動照合。差分がある場合のみアラートを出す。</div>
-                <div class="impact-box">
-                    <div class="impact-title"><i class="fas fa-chart-line"></i> 期待される効果</div>
-                    経理事務の工数を月間40時間削減。支払ミスの撲滅。
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80" alt="Marketing" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">営業・マーケティング</span>
-                <div class="card-title">施工事例の多言語・SNS自動投稿</div>
-                <div class="section-title">現状の課題</div>
-                <div class="text-content">素晴らしい施工実績があるが、InstagramやHPへの更新が滞っており、集客の機会損失が発生している。</div>
-                <div class="section-title">AI活用ステップ</div>
-                <div class="text-content">施工写真をアップロードするだけで、AIが魅力を分析し、ハッシュタグ付きのSNS投稿文とブログ記事を自動生成・投稿。</div>
-                <div class="impact-box">
-                    <div class="impact-title"><i class="fas fa-chart-line"></i> 期待される効果</div>
-                    ウェブ流入数を2倍以上に増加。広報担当者の工数をほぼゼロに。
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1521791136064-7986c295944b?auto=format&fit=crop&w=500&q=80" alt="Legal" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">事務・バックオフィス</span>
-                <div class="card-title">AI契約リーガルチェック・リスク抽出</div>
-                <div class="section-title">現状の課題</div>
-                <div class="text-content">複雑な建築請負契約や賃貸管理契約のリスクチェックを専門家に頼るとコストがかかり、自社で行うと見落としが怖い。</div>
-                <div class="section-title">AI活用ステップ</div>
-                <div class="text-content">AI法務アシスタントを導入。自社に不利な条項（賠償範囲や支払い条件等）を瞬時に指摘し、修正案を提示。</div>
-                <div class="impact-box">
-                    <div class="impact-title"><i class="fas fa-chart-line"></i> 期待される効果</div>
-                    法務コストの50%削減。契約トラブルリスクの極小化。
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=500&q=80" alt="Quality" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">現場・施工管理</span>
-                <div class="card-title">AI画像認識による品質検査</div>
-                <div class="section-title">現状の課題</div>
-                <div class="text-content">配筋検査や防水検査など、写真に撮って目視で確認する作業が多忙で、小さなクラックなどの見落としリスクがある。</div>
-                <div class="section-title">AI活用ステップ</div>
-                <div class="text-content">撮影した現場写真から、AIが図面との整合性や、ひび割れ、塗装ムラを自動判定。基準を満たさない場合に警告を出す。</div>
-                <div class="impact-box">
-                    <div class="impact-title"><i class="fas fa-chart-line"></i> 期待される効果</div>
-                    検査精度の均質化。瑕疵担保責任リスクの低減。
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1504868584819-f8eec0b6d730?auto=format&fit=crop&w=500&q=80" alt="Analysis" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">マネジメント・経営</span>
-                <div class="card-title">AIによる最適職人マッチング</div>
-                <div class="section-title">現状の課題</div>
-                <div class="text-content">案件の難易度や納期に対して、どの職人・業者に発注すべきかの判断が担当者の「勘」に頼っている。</div>
-                <div class="section-title">AI活用ステップ</div>
-                <div class="text-content">過去の業績・単価・得意分野・稼働状況をデータ化し、AIがプロジェクトに最適なチーム構成をレコメンド。</div>
-                <div class="impact-box">
-                    <div class="impact-title"><i class="fas fa-chart-line"></i> 期待される効果</div>
-                    工事利益率の平均5%改善。協力業者との関係性最適化。
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=500&q=80" alt="Training" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">マネジメント・経営</span>
-                <div class="card-title">営業ロールプレイングAI</div>
-                <div class="section-title">現状の課題</div>
-                <div class="text-content">若手営業の教育において、先輩が付き合うロープレの時間が取れず、現場での失注が続いている。</div>
-                <div class="section-title">AI活用ステップ</div>
-                <div class="text-content">AIが「気難しい施主」や「コスト重視の賃貸オーナー」になりきり、音声で商談練習。会話後にAIが採点と改善アドバイスを提供。</div>
-                <div class="impact-box">
-                    <div class="impact-title"><i class="fas fa-chart-line"></i> 期待される効果</div>
-                    新人立ち上がり期間の50%短縮。営業組織全体のボトムアップ。
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1454165833767-1229763290f?auto=format&fit=crop&w=500&q=80" alt="Bidding" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">営業・マーケティング</span>
-                <div class="card-title">公共工事・大型入札自動監視AI</div>
-                <div class="section-title">現状の課題</div>
-                <div class="text-content">自治体等の入札情報を毎日チェックし、自社に適合する案件を探す作業が非効率。</div>
-                <div class="section-title">AI活用ステップ</div>
-                <div class="text-content">AIが官報や公示サイトを24時間監視。自社の実績やリソースに合致する「勝率の高い」案件だけを自動抽出してプッシュ通知。</div>
-                <div class="impact-box">
-                    <div class="impact-title"><i class="fas fa-chart-line"></i> 期待される効果</div>
-                    入札情報の収集漏れゼロ。提案活動の集中化による受注数向上。
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1551288049-bbbda536ad79?auto=format&fit=crop&w=500&q=80" alt="Dashboard" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">マネジメント・経営</span>
-                <div class="card-title">リアルタイム原価率予測ダッシュボード</div>
-                <div class="section-title">現状の課題</div>
-                <div class="text-content">工事完了後にならないと正確な利益がわからず、途中で赤字化していても気づくのが遅れる。</div>
-                <div class="section-title">AI活用ステップ</div>
-                <div class="text-content">発注データ、勤怠、資材高騰のトレンドをAIが統合分析。工事の進捗にあわせて「最終着地利益」をリアルタイムで予測提示。</div>
-                <div class="impact-box">
-                    <div class="impact-title"><i class="fas fa-chart-line"></i> 期待される効果</div>
-                    赤字案件の早期発見と対策。経営判断の迅速化。
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=500&q=80" alt="IT Support" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">事務・バックオフィス</span>
-                <div class="card-title">社内IT・業務ヘルプデスクAI</div>
-                <div class="section-title">現状の課題</div>
-                <div class="text-content">「経費精算の仕方は？」「PCのログインができない」といった管理部への些細な質問が業務を遮断している。</div>
-                <div class="section-title">AI活用ステップ</div>
-                <div class="text-content">SlackやLINE WORKS上にAIアシスタントを設置。社内規程やシステム操作方法を即座に回答。解決しない場合のみ人間に転送。</div>
-                <div class="impact-box">
-                    <div class="impact-title"><i class="fas fa-chart-line"></i> 期待される効果</div>
-                    管理部門への問い合わせを70%削減。全社員の自己解決能力向上。
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=500&q=80" alt="Inventory" class="card-img">
-            <div class="card-content">
-                <span class="role-badge">現場・実務</span>
-                <div class="card-title">備品・資材在庫のAI自動発注</div>
-                <div class="section-title">現状の課題</div>
-                <div class="text-content">消耗品や共通資材の在庫切れが現場で発生し、作業が中断。または過剰在庫によるスペース圧迫。</div>
-                <div class="section-title">AI活用ステップ</div>
-                <div class="text-content">過去の消費パターンと今後の工事予定をAIが分析。最適なタイミングでAmazon Business等を通じて自動発注をかける。</div>
-                <div class="impact-box">
-                    <div class="impact-title"><i class="fas fa-chart-line"></i> 期待される効果</div>
-                    在庫コストの20%削減。資材切れによる工期遅延の防止。
-                </div>
-            </div>
-        </div>
-
-        <div class="card" style="border: 2px solid var(--coral);">
-            <div class="card-content">
-                <span class="role-badge" style="background-color: var(--coral);">リスク管理・重要事項</span>
-                <div class="card-title">AI導入における安全な運用指針</div>
-                <div class="section-title">個人情報・機密情報の保護</div>
-                <div class="text-content">ChatGPT等の利用にあたっては「学習に利用しない」設定の徹底、またはAPI経由での利用に限定し、顧客の個人情報は匿名化して扱う。</div>
-                <div class="section-title">ハルシネーション（嘘）への対策</div>
-                <div class="text-content">AIの回答を盲信せず、特に構造計算や法的判断に関わる部分は必ず有資格者が最終確認を行うワークフローを構築する。</div>
-                <div class="impact-box" style="background-color: #fff1f0; border-color: #ffa39e;">
-                    <div class="impact-title"><i class="fas fa-shield-alt"></i> 安全性の確保</div>
-                    技術革新とガバナンスを両立させ、信頼されるAI企業としてのブランドを確立。
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<footer>
-    <p>&copy; 2026 AI DX Strategic Consulting Report | AC Create Co., Ltd.</p>
-</footer>
-
-</body>
-</html>
