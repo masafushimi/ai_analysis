@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三愛病院 AI DX Strategy Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --dark: #2c3e50;
+            --gray: #7f8c8d;
+        }
+
+        body {
+            background-color: var(--ivory);
+            color: var(--dark);
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 0;
+            border-bottom: 2px solid var(--gold);
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            color: var(--gold);
+            font-size: 2.5rem;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(168, 138, 93, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            background: var(--gold);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--dark);
+            border-left: 4px solid var(--coral);
+            padding-left: 10px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 8px;
+        }
+
+        .text-content {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 5px 0 0 22px;
+        }
+
+        .impact-box {
+            background: #fdf6f2;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px dashed var(--coral);
+        }
+
+        .impact-box strong {
+            color: var(--coral);
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>三愛病院 AI DX 事例集</h1>
+    <p>Healthcare Innovation through Generative AI</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800" alt="Doctor" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">医師・現場</span>
+            <div class="card-title">診察音声からのSOAPカルテ自動作成</div>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="text-content">診察後の電子カルテ入力に追われ、患者と向き合う時間が削られている。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="text-content">ICレコーダー等で診察を録音。Whisperで書き起こし、GPT-4oが医学用語を補完してSOAP形式で要約。</p>
+            <div class="impact-box">
+                <strong>導入効果:</strong> 記録時間を1日平均$90$分短縮。残業代削減と医師のバーンアウト防止。
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?q=80&w=800" alt="Document" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">地域連携・事務</span>
+            <div class="card-title">診療情報提供書（紹介状）の自動生成</div>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="text-content">紹介状の作成が医師の大きな事務負担となり、転院調整の遅れに繋がっている。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="text-content">電子カルテの直近3ヶ月のデータを抽出し、重要な検査結果と経過をAIが抽出しドラフト化。</p>
+            <div class="impact-box">
+                <strong>導入効果:</strong> 作成時間を1件あたり$20$分→$3$分へ短縮。紹介元への報告が迅速化。
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=800" alt="Billing" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">医事課</span>
+            <div class="card-title">レセプト査定リスクの自動検知</div>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="text-content">レセプトの点検ミスによる返戻・査定が収益悪化と修正工数の増大を招いている。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="text-content">過去の査定データと診療報酬点数表をAIに学習させ、不整合や算定漏れをリアルタイムで指摘。</p>
+            <div class="impact-box">
+                <strong>導入効果:</strong> 返戻率$15\%$削減。医事課の月末月始の残業を大幅に削減。
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=800" alt="MEO" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">広報・顧客対応</span>
+            <div class="card-title">Googleマイビジネス・クチコミ最適化</div>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="text-content">クチコミへの返信が追いつかず、時折感情的な書き込みが放置されている。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="text-content">Google Maps APIと連携。AIが共感的かつ丁寧な返信案を自動作成し、管理者が承認する体制。</p>
+            <div class="impact-box">
+                <strong>導入効果:</strong> 病院の好感度スコア向上。地域住民からの信頼獲得と初診数増加。
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800" alt="Knowledge" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">教育・マネジメント</span>
+            <div class="card-title">NotebookLM：三愛ナレッジバンク</div>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="text-content">膨大な院内規定や手順書がPDF化されているだけで、必要な時に見つからない。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="text-content">NotebookLMに全ての院内マニュアルをアップロード。チャット形式で手順を検索可能に。</p>
+            <div class="impact-box">
+                <strong>導入効果:</strong> 「マニュアルを探す時間」をゼロ化。医療事故リスクの低減。
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?q=80&w=800" alt="Shift" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">看護部・総務</span>
+            <div class="card-title">AIシフト最適化エンジン</div>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="text-content">師長が毎月数日かけて、複雑な勤務条件を手作業で調整している。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="text-content">数理最適化とAIを組み合わせ、夜勤制限、スキルレベル、希望休を反映したシフトを自動生成。</p>
+            <div class="impact-box">
+                <strong>導入効果:</strong> シフト作成時間を$80\%$削減。スタッフの不満解消と公平性の担保。
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=800" alt="Multilingual" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">受付・CS</span>
+            <div class="card-title">多言語対応AIタブレット問診</div>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="text-content">外国人患者の急増により、受付・看護師との意思疎通に時間がかかっている。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="text-content">タブレットで母国語による音声問診を実施。AIが医学的に正しい日本語へ翻訳しカルテに転記。</p>
+            <div class="impact-box">
+                <strong>導入効果:</strong> 通訳コストの削減。外国人患者の受け入れスムーズ化。
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1454165833767-02750800582d?q=80&w=800" alt="Management" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">経営</span>
+            <div class="card-title">自然言語による経営分析（BI）</div>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="text-content">経営会議の資料作成のために、毎回事務局がデータを集計・グラフ化している。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="text-content">データベースに自然言語で「先月の診療科別利益率を出して」と指示し、即座にグラフ化。</p>
+            <div class="impact-box">
+                <strong>導入効果:</strong> 意思決定の高速化。データに基づいた病院経営の実現。
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=800" alt="Incident" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">リスクマネジメント</span>
+            <div class="card-title">ヒヤリハットレポートの自動要約・分析</div>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="text-content">報告書が多すぎて、重要な傾向を見落としたり分析が後手に回ったりしている。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="text-content">自由記述のレポートをAIが即座に分類。再発防止策のアイデアを自動提案。</p>
+            <div class="impact-box">
+                <strong>導入効果:</strong> 医療安全の質向上。傾向分析の手間の大幅削減。
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?q=80&w=800" alt="Recruitment" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">人事・広報</span>
+            <div class="card-title">リクルート記事自動生成エージェント</div>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="text-content">看護師・技師の採用競争が激しいが、魅力的な情報発信ができていない。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="text-content">スタッフの日常業務をスマホで撮影・入力。AIが心に響く求人ブログやSNS投稿を生成。</p>
+            <div class="impact-box">
+                <strong>導入効果:</strong> 採用コストの削減。自社メディアによる直接応募の増加。
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?q=80&w=800" alt="Nutrition" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">栄養科・リハビリ</span>
+            <div class="card-title">パーソナライズ栄養指導レセピ</div>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="text-content">退院後の食事指導が一般的なパンフレットのみで、継続率が低い。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="text-content">患者の血液データと嗜好を統合。AIが安価で簡単な「退院後1週間レシピ」を個別作成。</p>
+            <div class="impact-box">
+                <strong>導入効果:</strong> 患者満足度の向上。退院後の再入院リスク低減。
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=800" alt="Study" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">医師・現場</span>
+            <div class="card-title">最新論文・ガイドライン要約ボット</div>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="text-content">最新の医学的知見を追いたいが、英語論文を読む時間が全くない。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="text-content">主要ジャーナルの抄録を毎朝自動で日本語要約し、LINE WORKS等の院内チャットに配信。</p>
+            <div class="impact-box">
+                <strong>導入効果:</strong> 院内の臨床レベルの底上げ。学習効率の劇的向上。
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?q=80&w=800" alt="Training" class="card-img">
+        <div class="card-content">
+            <span class="role-badge">教育</span>
+            <div class="card-title">接遇・クレーム対応AIロールプレイ</div>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="text-content">新人職員が、現場での難しい患者対応で心が折れてしまうケースがある。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="text-content">音声AIが「様々な感情を持つ患者」を演じ、対話トレーニングを実施。AIが評価・フィードバック。</p>
+            <div class="impact-box">
+                <strong>導入効果:</strong> 接遇スキルの標準化。離職率の低下。
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="border: 2px solid var(--coral);">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800" alt="Risk" class="card-img">
+        <div class="card-content">
+            <span class="role-badge" style="background: var(--coral);">リスク管理・最重要</span>
+            <div class="card-title">AIガバナンス・セキュリティ構築</div>
+            <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+            <p class="text-content">個人情報の流出や、AIによる誤った医学情報の提示が不安で導入が進まない。</p>
+            <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+            <p class="text-content">入力時に個人情報を自動検知してマスク（匿名化）。医師の最終確認を必須とするワークフロー設計。</p>
+            <div class="impact-box">
+                <strong>導入効果:</strong> 安全なAI活用環境の構築。法的・倫理的リスクの最小化。
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 AI DX Strategy Group for San-ai Hospital. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
