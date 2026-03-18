@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DX Strategy - Special Car Dealer Edition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+            --bg-gradient: linear-gradient(135deg, #fdfcfb 0%, #f5f0e1 100%);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--dark-text);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--light-text);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(168, 138, 93, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: white;
+            font-size: 0.75rem;
+            padding: 3px 12px;
+            border-radius: 50px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .card h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.3rem;
+            color: var(--gold);
+        }
+
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--coral);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 8px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            color: var(--dark-text);
+        }
+
+        .solution-steps {
+            background: var(--ivory);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .impact {
+            font-weight: bold;
+            color: var(--gold);
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>AI DX STRATEGY</h1>
+        <p>Specialist Car Dealer Solutions: Star Road, CRS, Roberta Focus</p>
+    </header>
+
+    <div class="grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">Marketing</span>
+                <h3>プラットフォーム文章最適化AI</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>カーセンサー等への掲載文作成が属人化し、魅力が伝わりきっていない。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <div class="solution-steps">
+                    1. 車両スペックと写真をAIにアップロード<br>
+                    2. プラットフォームの流行キーワードを分析<br>
+                    3. マニアに刺さるエモーショナルな紹介文を自動生成
+                </div>
+                <div class="impact">効果：PV数 150% 向上、問い合わせ率の劇的改善</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">Knowledge Management</span>
+                <h3>NotebookLM「整備秘伝の書」</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>過去数十年分の整備ノウハウが紙資料やベテランの頭の中にしかない。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <div class="solution-steps">
+                    1. 紙の整備手帳やマニュアルを全てスキャン<br>
+                    2. NotebookLMに学習させ「対話型検索」を実現<br>
+                    3. 若手でも過去の難修理事例を一瞬で検索可能に
+                </div>
+                <div class="impact">効果：技術継承コスト 60% 削減、作業時間の短縮</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1530046339160-ce3e5b0c7a2f?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">Operations</span>
+                <h3>熟練工の耳を再現するAI異音診断</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>エンジンや足回りの微かな異音診断には、長年の経験が必要。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <div class="solution-steps">
+                    1. 正常音と各種故障時の異音データを学習<br>
+                    2. スマートフォンで録音した音をAIが解析<br>
+                    3. 故障箇所と必要パーツを即座に推奨
+                </div>
+                <div class="impact">効果：診断精度の均一化、誤発注の防止</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">CS/Support</span>
+                <h3>レストア進捗自動報告システム</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>長期にわたるレストア中、顧客へのマメな連絡がメカニックの負担に。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <div class="solution-steps">
+                    1. メカニックが作業写真をアプリにアップ<br>
+                    2. AIが写真内容から「本日の工程」を言語化<br>
+                    3. 顧客のLINEやメールに丁寧な報告書を自動送信
+                </div>
+                <div class="impact">効果：顧客満足度(NPS) 最大化、工数削減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">Sales</span>
+                <h3>カスタムイメージ即時生成</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>ホイールや塗装の変更後の姿を顧客が想像できず、成約に時間がかかる。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <div class="solution-steps">
+                    1. 現車の写真に生成AI（In-painting）を適用<br>
+                    2. 希望のカラーやパーツをプロンプト入力<br>
+                    3. フォトリアルな完成予想図をその場で提示
+                </div>
+                <div class="impact">効果：成約スピード 2倍、アップセル率向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e787?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">Back Office</span>
+                <h3>パーツ探索AIエージェント</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>絶版パーツの検索に、多言語・多サイトを巡る膨大な時間がかかる。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <div class="solution-steps">
+                    1. AIが世界中のeBay、オークション、掲示板を監視<br>
+                    2. パーツ番号や画像から一致品を自動特定<br>
+                    3. 価格交渉や輸入手続きの翻訳までサポート
+                </div>
+                <div class="impact">効果：仕入れ力強化、車両完成までの期間短縮</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">Management</span>
+                <h3>グローバル相場リアルタイム分析</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>希少車の価格変動が激しく、仕入れ・販売価格の判断が難しい。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <div class="solution-steps">
+                    1. 世界のオークション落札結果を継続的にスクレイピング<br>
+                    2. AIが需要トレンドと個体価値を予測<br>
+                    3. 在庫車両の「今売るべきか」を経営者にアドバイス
+                </div>
+                <div class="impact">効果：粗利額の最大化、在庫リスク回避</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">Creative</span>
+                <h3>AIスタジオ背景生成</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>撮影場所の確保が難しく、在庫車両が生活感のある背景で撮影されている。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <div class="solution-steps">
+                    1. 車両の形を維持したまま背景のみを削除<br>
+                    2. ブランドイメージに合うガレージや風景を生成<br>
+                    3. 光の当たり方を自動調整し違和感を払拭
+                </div>
+                <div class="impact">効果：ブランド価値の向上、高単価成約の増加</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">Marketing</span>
+                <h3>24/7 多言語接客BOT</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>海外からの夜間の問い合わせに即レスできず、商機を逃している。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <div class="solution-steps">
+                    1. 自社の在庫情報を学習したGPT搭載チャットボット<br>
+                    2. 英語、中国語、アラビア語等で完璧に対応<br>
+                    3. 詳細な商談が必要なリードのみ人間に引き継ぎ
+                </div>
+                <div class="impact">効果：海外成約率 30% 向上、残業代削減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1554224155-1696413565d3?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">Back Office</span>
+                <h3>工数予測AI見積もり</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>一点もののカスタムやレストアの見積もりが甘く、赤字になるリスク。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <div class="solution-steps">
+                    1. 過去数千件の作業実績データをAIが学習<br>
+                    2. 車両状態と希望メニューを入力<br>
+                    3. 統計的に最も正確な工数（時間）を算出
+                </div>
+                <div class="impact">効果：見積精度向上、収益の安定化</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">Creative</span>
+                <h3>自動ショート動画エディター</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>YouTube等への投稿用動画編集に時間がかかり、投稿頻度が低い。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <div class="solution-steps">
+                    1. 作業中や走行中の動画をそのままアップロード<br>
+                    2. AIが排気音や見どころを自動抽出しカット<br>
+                    3. BGMとテロップを自動挿入し、Reels等に最適化
+                </div>
+                <div class="impact">効果：SNSリーチ数 3倍、認知度拡大</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">Risk Management</span>
+                <h3>AIハルシネーション・法令チェック</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>AI生成文や手動入力におけるスペック誤記、保安基準違反の記載ミス。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <div class="solution-steps">
+                    1. 公的な保安基準データベースをAIに統合<br>
+                    2. 外部公開前の全テキスト・写真を自動スキャン<br>
+                    3. リスクがある箇所を強調し、修正案を提示
+                </div>
+                <div class="impact">効果：法的リスク・クレームの極小化</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
