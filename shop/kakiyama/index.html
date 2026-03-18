@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赤坂柿山 AI DX戦略レポート</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #a88a5d;
+            --bg-ivory: #fdfcfb;
+            --accent-coral: #e27d60;
+            --text-dark: #333;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-ivory);
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 0;
+            border-bottom: 2px solid var(--primary-gold);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            color: var(--primary-gold);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 0.1em;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(168, 138, 93, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border-top: 5px solid var(--primary-gold);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary-gold);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .card h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.3rem;
+            color: var(--primary-gold);
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--accent-coral);
+            margin-top: 15px;
+            display: block;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            margin: 5px 0 15px 0;
+        }
+
+        .solution-steps {
+            background: #f9f6f2;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .impact {
+            margin-top: auto;
+            border-top: 1px solid #eee;
+            padding: 15px 25px;
+            background: #fdfcfb;
+            font-weight: bold;
+            color: var(--primary-gold);
+            display: flex;
+            align-items: center;
+        }
+
+        .impact i {
+            margin-right: 10px;
+            color: var(--accent-coral);
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>株式会社赤坂柿山 AI DX戦略</h1>
+        <p>伝統の「おかき」に、最先端の「知性」を。次世代のギフト体験を創造する12の施策</p>
+    </header>
+
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=800&q=80" class="card-img" alt="EC">
+            <div class="card-content">
+                <span class="badge">マーケティング</span>
+                <h3>ECモール自動運用エンジン</h3>
+                <span class="section-title">現状の課題</span>
+                <p>楽天・Amazon等への商品登録、季節ごとのキーワード調整が手作業で煩雑。</p>
+                <div class="solution-steps">
+                    1. LLMが季節のギフト検索トレンドを解析<br>
+                    2. 「お中元」「法事」等、用途別の紹介文を自動生成<br>
+                    3. 在庫状況に応じた広告出稿の自動最適化
+                </div>
+            </div>
+            <div class="impact"><i class="fas fa-chart-line"></i> 売上高 15% 向上</div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Knowledge">
+            <div class="card-content">
+                <span class="badge">製造・現場</span>
+                <h3>伝統の「焼き」ナレッジAI化</h3>
+                <span class="section-title">現状の課題</span>
+                <p>職人の勘（気温・湿度による調整）が属人化しており、技術継承に時間がかかる。</p>
+                <div class="solution-steps">
+                    1. 過去30年の製造日報をNotebookLMに学習<br>
+                    2. 若手職人が現場の数値を入力しAIと対話<br>
+                    3. 最適な乾燥・焼成時間を秒単位でサジェスト
+                </div>
+            </div>
+            <div class="impact"><i class="fas fa-sync"></i> 技術継承スピード 2倍</div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1549463010-14ec428f00b7?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Etiquette">
+            <div class="card-content">
+                <span class="badge">顧客対応</span>
+                <h3>贈答マナー画像判定AI</h3>
+                <span class="section-title">現状の課題</span>
+                <p>複雑な慶弔マナー（水引、表書き）の確認作業が店舗スタッフの負担。</p>
+                <div class="solution-steps">
+                    1. 店頭タブレットで包装後の熨斗を撮影<br>
+                    2. AIが目的（法要、内祝等）との整合性を判定<br>
+                    3. ミスを未然に防ぎ、即座に修正指示を出す
+                </div>
+            </div>
+            <div class="impact"><i class="fas fa-shield-alt"></i> ヒューマンエラー 0へ</div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1551288049-bbbda5366392?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Forecasting">
+            <div class="card-content">
+                <span class="badge">経営・物流</span>
+                <h3>AI需給マッチング</h3>
+                <span class="section-title">現状の課題</span>
+                <p>季節催事での欠品、または過剰在庫による廃棄ロスの発生。</p>
+                <div class="solution-steps">
+                    1. 百貨店別売上データと天候データを統合<br>
+                    2. 回帰モデル $Y = \beta X + \epsilon$ により需要予測<br>
+                    3. 賞味期限を考慮した生産・配送計画の自動生成
+                </div>
+            </div>
+            <div class="impact"><i class="fas fa-leaf"></i> 廃棄ロス 25% 削減</div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Design">
+            <div class="card-content">
+                <span class="badge">企画</span>
+                <h3>AIパッケージプロトタイピング</h3>
+                <span class="section-title">現状の課題</span>
+                <p>新商品パッケージのデザイン外注コストとリードタイムの増大。</p>
+                <div class="solution-steps">
+                    1. 既存の「柿山トーン」を画像生成AIに学習<br>
+                    2. 新テーマ（例：春の宵）をプロンプト入力<br>
+                    3. 数分で100案のバリエーションを生成
+                </div>
+            </div>
+            <div class="impact"><i class="fas fa-magic"></i> 企画リードタイム 80% 短縮</div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1512418490979-92798ccc93a0?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Cost">
+            <div class="card-content">
+                <span class="badge">経営・事務</span>
+                <h3>原材料コスト予測モデル</h3>
+                <span class="section-title">現状の課題</span>
+                <p>もち米や海苔の市場価格高騰が利益を圧迫している。</p>
+                <div class="solution-steps">
+                    1. 世界の穀物相場と為替データをリアルタイム取得<br>
+                    2. 利益率維持のための最適な価格設定を算出<br>
+                    3. バルク買い付けのベストタイミングを通知
+                </div>
+            </div>
+            <div class="impact"><i class="fas fa-coins"></i> 営業利益率 3% 改善</div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Sales">
+            <div class="card-content">
+                <span class="badge">営業</span>
+                <h3>法人ギフト提案オートメーション</h3>
+                <span class="section-title">現状の課題</span>
+                <p>大口顧客への季節の挨拶が形式的になり、掘り起こしが不十分。</p>
+                <div class="solution-steps">
+                    1. CRMから過去の注文履歴と担当者属性を抽出<br>
+                    2. AIが顧客企業の周年行事やニュースを検知<br>
+                    3. 文脈に沿った「心に響く」提案文を自動作成
+                </div>
+            </div>
+            <div class="impact"><i class="fas fa-envelope-open-text"></i> 法人リピート率 20% 増</div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1582213726893-ed9e0ff3aa72?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Language">
+            <div class="card-content">
+                <span class="badge">顧客対応</span>
+                <h3>多言語おもてなしボット</h3>
+                <span class="section-title">現状の課題</span>
+                <p>海外観光客への原材料（ハラール対応等）説明が困難。</p>
+                <div class="solution-steps">
+                    1. 翻訳AIを搭載したQRコードを店頭に設置<br>
+                    2. 商品背景やアレルギー情報を自国語で即答<br>
+                    3. 海外配送の手続き案内を自動化
+                </div>
+            </div>
+            <div class="impact"><i class="fas fa-globe"></i> 外国客単価 18% 向上</div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80" class="card-img" alt="HR">
+            <div class="card-content">
+                <span class="badge">事務</span>
+                <h3>AI適性マッチング</h3>
+                <span class="section-title">現状の課題</span>
+                <p>店舗スタッフの離職率が高く、採用・教育コストが重荷。</p>
+                <div class="solution-steps">
+                    1. 優秀な既存スタッフの行動特性をデータ化<br>
+                    2. 応募者の履歴書から「柿山DNA」とのマッチ度を測定<br>
+                    3. 早期離職リスクを事前に予測し面接で深掘り
+                </div>
+            </div>
+            <div class="impact"><i class="fas fa-user-check"></i> 採用コスト 30% 削減</div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Inspection">
+            <div class="card-content">
+                <span class="badge">製造</span>
+                <h3>「慶長・鳳凰」AI検品システム</h3>
+                <span class="section-title">現状の課題</span>
+                <p>主力商品の微細な欠けや焼きムラの目視チェックに多大な人員を投入。</p>
+                <div class="solution-steps">
+                    1. 高解像度カメラで製造ラインをリアルタイム監視<br>
+                    2. 異常検知アルゴリズムで規格外品を瞬時に排除<br>
+                    3. 職人の「目」をデジタル化し、集中力を要する作業を解放
+                </div>
+            </div>
+            <div class="impact"><i class="fas fa-eye"></i> 検品精度 99.9% 維持</div>
+        </div>
+
+        <div class="card" style="border-top: 5px solid var(--accent-coral);">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Risk">
+            <div class="card-content">
+                <span class="badge" style="background: var(--accent-coral);">ガバナンス</span>
+                <h3>AIセキュリティ・ガードレール</h3>
+                <span class="section-title">現状の課題</span>
+                <p>AI利用による顧客個人情報の漏洩や、誤情報の対外発信リスク。</p>
+                <div class="solution-steps">
+                    1. 顧客情報（住所・氏名）の自動マスキング機能<br>
+                    2. 生成物に対する「ハルシネーション（虚偽）」検知<br>
+                    3. ブランドイメージを損なわない表現制限の設定
+                </div>
+            </div>
+            <div class="impact"><i class="fas fa-user-shield"></i> ブランド価値の保護</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
