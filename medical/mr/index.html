@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR DX Strategic Portfolio - 4 Key Pillars</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #a88a5d;
+            --bg-ivory: #fdfcfb;
+            --accent-coral: #e27d60;
+            --dark-blue: #1a2a3a;
+            --text-dark: #333;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        body { background-color: var(--bg-ivory); color: var(--text-dark); font-family: 'Noto Sans JP', sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 40px; border-bottom: 2px solid var(--primary-gold); padding-bottom: 20px; }
+        header h1 { color: var(--primary-gold); font-size: 2.2rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 25px; }
+        .card { background: #fff; border-radius: 12px; padding: 25px; box-shadow: var(--shadow); border: 1px solid rgba(168, 138, 93, 0.1); display: flex; flex-direction: column; }
+        .role-badge { background-color: var(--primary-gold); color: #fff; font-size: 0.7rem; padding: 4px 10px; border-radius: 4px; align-self: flex-start; margin-bottom: 10px; font-weight: bold; }
+        h3 { color: var(--primary-gold); font-size: 1.3rem; margin: 10px 0; border-left: 5px solid var(--accent-coral); padding-left: 12px; }
+        .process-box { margin-bottom: 15px; }
+        .label { font-weight: bold; font-size: 0.85rem; color: var(--accent-coral); display: flex; align-items: center; margin-bottom: 5px; }
+        .label i { margin-right: 6px; }
+        .content { font-size: 0.9rem; color: #444; margin-bottom: 10px; line-height: 1.5; }
+        .after-box { background: #fef9f3; padding: 12px; border-radius: 6px; border-left: 3px solid var(--primary-gold); }
+        .impact-footer { margin-top: auto; padding-top: 15px; font-weight: bold; color: var(--dark-blue); font-size: 0.95rem; border-top: 1px solid #eee; }
+        .risk-card { grid-column: 1 / -1; background: var(--dark-blue); color: #fff; }
+        .risk-card h3 { color: #fff; }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>製薬MR業務変革：AI DX 4大ソリューション</h1>
+        <p>〜事務作業の自動化から、オンコロジー領域の戦略高度化まで〜</p>
+    </header>
+
+    <div class="grid">
+        <div class="card">
+            <span class="role-badge">EFFICIENCY</span>
+            <h3>① 日報(SFA)自動構造化入力</h3>
+            <div class="process-box">
+                <div class="label"><i class="fas fa-history"></i>Before: 夜間の残業対応</div>
+                <p class="content">帰宅後に1日の面談を思い出しながらスマホでポチポチ入力。年間300時間が事務作業に消える。</p>
+            </div>
+            <div class="process-box after-box">
+                <div class="label"><i class="fas fa-bolt"></i>After: 音声で即時完了</div>
+                <p class="content">車内での「独り言」をAIが完璧な日報に構造化。Veevaの各項目へ自動転記され、帰宅時には仕事が終わっている。</p>
+            </div>
+            <div class="impact-footer">効果：日報作成工数を 92% 削減</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">COMPLIANCE</span>
+            <h3>② 講演会資材の薬機法自動チェック</h3>
+            <div class="process-box">
+                <div class="label"><i class="fas fa-history"></i>Before: 終わらない審査往復</div>
+                <p class="content">作成したスライドがプロモーションコード違反で何度も差し戻し。法務・学術との調整に数週間を要する。</p>
+            </div>
+            <div class="process-box after-box">
+                <div class="label"><i class="fas fa-bolt"></i>After: セルフ校閲の実現</div>
+                <p class="content">アップロードした瞬間に、薬機法違反リスクをAIが警告。代替表現もセットで提案されるため、一発審査通過が可能に。</p>
+            </div>
+            <div class="impact-footer">効果：審査リードタイムを 80% 短縮</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">ACADEMIC</span>
+            <h3>③ 論文要約・スライド自動作成</h3>
+            <div class="process-box">
+                <div class="label"><i class="fas fa-history"></i>Before: 英語論文の解読地獄</div>
+                <p class="content">最新論文を医師へ紹介するために、数時間かけて抄読・図表作成。統計データの読み間違いリスクも常にある。</p>
+            </div>
+            <div class="process-box after-box">
+                <div class="label"><i class="fas fa-bolt"></i>After: 1分でプレゼン準備完了</div>
+                <p class="content">PDFを読み込むだけで、$p$値や$HR$を正確に反映した「医師向け納得資料」が完成。MRは対話の準備に専念できる。</p>
+            </div>
+            <div class="impact-footer">効果：資料作成時間を 85% 削減</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">STRATEGY</span>
+            <h3>④ オンコロジー支援Agent</h3>
+            <div class="process-box">
+                <div class="label"><i class="fas fa-history"></i>Before: 属人的な専門準備</div>
+                <p class="content">ベテランだけが持つ「施設・医師・エビデンス」の紐付け。若手は情報の波に溺れ、対等な議論ができない。</p>
+            </div>
+            <div class="process-box after-box">
+                <div class="label"><i class="fas fa-bolt"></i>After: トップMRの軍師を全装備</div>
+                <p class="content">AIが「今、先生が知りたい情報」を特定し、トークスクリプトとして提供。irAE報告ドラフトも数秒で自動生成。</p>
+            </div>
+            <div class="impact-footer">効果：若手の提案精度がトップ層へ向上</div>
+        </div>
+
+        <div class="card risk-card">
+            <span class="role-badge" style="background-color:var(--accent-coral);">GOVERNANCE</span>
+            <h3>AI導入における安全策（ガードレール）</h3>
+            <p class="content">
+                1. <b>匿名化:</b> 患者・医師の個人情報は社内環境外へ流出させないマスキング処理。 <br>
+                2. <b>根拠明示:</b> 全ての回答に出典（添付文書・論文ページ）を紐付け、ハルシネーションを防止。<br>
+                3. <b>24時間ルール遵守:</b> 有害事象（AE）検知時は、全作業を中断して報告ドラフト作成を最優先。
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
