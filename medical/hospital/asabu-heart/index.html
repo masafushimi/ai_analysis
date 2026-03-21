@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DX Strategy Report - あさぶハート心リハクリニック</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --dark-text: #2c2c2c;
+            --light-text: #666;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        body {
+            background-color: var(--ivory);
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--dark-text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c2c2c 0%, #4a4a4a 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            color: var(--gold);
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #eee;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            background-color: var(--gold);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: var(--coral);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .section-content {
+            font-size: 0.85rem;
+            color: var(--light-text);
+            margin-bottom: 10px;
+        }
+
+        .impact-box {
+            background-color: #fdfcfb;
+            border-left: 4px solid var(--coral);
+            padding: 10px;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--light-text);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AI DX 戦略事例集 2026</h1>
+    <p>あさぶハート心リハクリニック 様</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">現場・施術</span>
+                <div class="card-title"><i class="fas fa-microphone"></i>音声AIリアルタイムカルテ作成</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-content">リハビリ指導中のメモが困難で、終了後にまとめて入力するため残業が発生。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-content">ウェアラブルマイクで会話を録音。AIが医学用語を認識し、SOAP形式で自動要約。</div>
+                <div class="impact-box">入力時間 85%削減 / 記録の正確性向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">マネジメント</span>
+                <div class="card-title"><i class="fas fa-book"></i>NotebookLM 院内ナレッジAI</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-content">循環器学会のガイドラインや院内ルールが膨大で、若手への共有が不十分。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-content">PDF資料をNotebookLMに集約。スタッフが対話形式で治療プロトコルを確認可能に。</div>
+                <div class="impact-box">教育コスト 50%削減 / 医療安全の強化</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">営業・マーケ</span>
+                <div class="card-title"><i class="fas fa-map-marker-alt"></i>MEO運用自動最適化</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-content">Googleビジネスプロフィールの更新が止まっており、地域検索での順位が低い。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-content">口コミへの自動返信と、院内活動写真からのAI投稿生成で地域1位を維持。</div>
+                <div class="impact-box">新規問い合わせ数 1.4倍 / 地域認知度UP</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">現場・施術</span>
+                <div class="card-title"><i class="fas fa-heartbeat"></i>個別運動処方AIエンジン</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-content">患者ごとの運動負荷設定（$Watt$数や心拍数）の算出に時間がかかる。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-content">過去の心肺運動負荷試験（CPX）データから、最適な負荷をAIが自動算出・提示。</div>
+                <div class="impact-box">処方作成スピード 3倍 / リハビリ効果の最大化</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=800&q=80" class="card-content card-img">
+            <div class="card-content">
+                <span class="role-badge">CS・サポート</span>
+                <div class="card-title"><i class="fab fa-line"></i>LINE個別モチベーターAI</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-content">通院の間隔が空くと、患者の運動意欲が低下しドロップアウトが発生。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-content">LINEで歩数データ等と連携。AIが患者の性格に合わせた励ましメッセージを自動送信。</div>
+                <div class="impact-box">リハビリ継続率 25%向上 / 顧客満足度向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">事務・バック</span>
+                <div class="card-title"><i class="fas fa-file-invoice-dollar"></i>レセプト点検自動AI</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-content">査定・返戻を防ぐためのレセプトダブルチェックが事務員の大きな負担。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-content">算定漏れや不適切な病名記述をAIが自動検知し、修正案を提示。</div>
+                <div class="impact-box">返戻率 ほぼゼロ化 / 事務工数 60%削減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">クリエイティブ</span>
+                <div class="card-title"><i class="fas fa-paint-brush"></i>パーソナライズ啓発パンフ生成</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-content">画一的なパンフレットでは、高齢者や若年層など多様な層に響かない。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-content">患者の属性を入力。画像生成AIとDTP自動化で「その人のための案内」を即時作成。</div>
+                <div class="impact-box">生活習慣改善率の向上 / 差別化戦略</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1504868584819-f8e90526354c?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">マネジメント</span>
+                <div class="card-title"><i class="fas fa-chart-line"></i>紹介元病院分析ダッシュボード</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-content">どの病院から、どのような症例の患者が来ているかの分析がアナログ。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-content">紹介状データをAIで構造化。地域連携の穴を可視化し、営業戦略に反映。</div>
+                <div class="impact-box">戦略的紹介獲得 / 売上最大化</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">現場・施術</span>
+                <div class="card-title"><i class="fas fa-video"></i>歩行解析AIセラピスト</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-content">歩容の変化を定量的・客観的に記録することが難しい。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-content">スマホ動画から骨格抽出AIで歩行周期や関節角度を数値化。</div>
+                <div class="impact-box">リハビリ成果の可視化 / 患者への動機付け</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=800&q=80" class="card-img">
+            <div class="card-content">
+                <span class="role-badge">事務・バック</span>
+                <div class="card-title"><i class="fas fa-calendar-alt"></i>スマート・シフト調整AI</div>
+                <div class="section-title">現状の課題</div>
+                <div class="section-content">有給希望やリハビリ予約枠に合わせたスタッフ配置の調整がパズル状態。</div>
+                <div class="section-title">AI活用ステップ</div>
+                <div class="section-content">複雑な条件（資格、相性、労働時間）を考慮した最適シフトを1分で生成。</div>
+                <div class="impact-box">管理職の事務作業 90%削減 / スタッフ満足度向上</div>
+            </div>
+        </div>
+
+        <div class="card" style="border: 2px solid var(--coral);">
+            <div class="card-content">
+                <span class="role-badge" style="background-color: var(--coral);">リスク管理</span>
+                <div class="card-title" style="color: var(--coral);"><i class="fas fa-exclamation-triangle"></i>AI運用の安全管理指針</div>
+                <div class="section-title">重要事項</div>
+                <div class="section-content">
+                    * **ハルシネーション対策:** AIが生成したカルテや診断補助案は、必ず医師・理学療法士が最終確認（Human-in-the-loop）を行います。<br>
+                    * **個人情報保護:** 患者データは匿名化処理を行い、クローズド環境のAPI（Azure OpenAI等）を利用してセキュリティを担保します。
+                </div>
+                <div class="impact-box" style="border-left-color: var(--dark-text);">安全・安心な医療DXの実現</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 AI DX Strategic Consulting - For あさぶハート心リハクリニック
+</footer>
+
+</body>
+</html>
