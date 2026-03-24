@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DX Strategy Report | Medtronic Japan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --dark-blue: #002554;
+            --text-color: #333;
+        }
+
+        body {
+            background-color: var(--ivory);
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+        }
+
+        header h1 {
+            margin: 0;
+            letter-spacing: 2px;
+            font-size: 2rem;
+        }
+
+        header p {
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--gold);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            color: var(--dark-blue);
+            margin: 10px 0;
+            border-left: 4px solid var(--coral);
+            padding-left: 10px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: var(--gold);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-text {
+            font-size: 0.9rem;
+            margin: 5px 0 15px 0;
+            color: #555;
+        }
+
+        .impact-box {
+            background-color: #fff9f0;
+            border: 1px dashed var(--coral);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: auto;
+        }
+
+        .impact-box strong {
+            color: var(--coral);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AI DX STRATEGY REPORT</h1>
+    <p>日本メドトロニック株式会社 | 次世代医療ソリューション構想</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card">
+            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80')"></div>
+            <div class="card-content">
+                <span class="badge">営業・マーケティング</span>
+                <h2>Veeva活用：医師別「最適エビデンス」自動リコメンド</h2>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="section-text">膨大な論文・臨床データから、担当医師の専門や関心に合う情報を探すのに時間がかかる。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="section-text">CRMの活動履歴と公開論文データをLLMで解析。医師の処方傾向に合わせた最新エビデンスを要約し、訪問前にMRへ提示。</p>
+                <div class="impact-box">
+                    <strong>Impact:</strong> 準備時間 40% 削減 / 資材活用率 2.5倍
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1532187875605-2fe358a3d46a?auto=format&fit=crop&w=800&q=80')"></div>
+            <div class="card-content">
+                <span class="badge">学術・R&D</span>
+                <h2>NotebookLM：社内ナレッジの対話型エンジン化</h2>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="section-text">数千ページの製品IFU（添付文書）やトレーニング資料が散在し、検索が困難。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="section-text">NotebookLMに全製品資料をセキュアに学習。現場スタッフが自然言語で「XX症例での禁忌事項は？」と問えばソース付で回答。</p>
+                <div class="impact-box">
+                    <strong>Impact:</strong> 内部問い合わせ工数 60% 削減
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=800&q=80')"></div>
+            <div class="card-content">
+                <span class="badge">現場・実務</span>
+                <h2>オペ立ち会い支援：音声AIによるリアルタイム記録</h2>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="section-text">症例サポート後のレポート作成が深夜に及び、MR・臨床工学技士の大きな負担に。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="section-text">専用端末で音声を拾い、専門用語を補完しながら症例記録を自動生成。薬機法に抵触する表現をリアルタイムで検知。</p>
+                <div class="impact-box">
+                    <strong>Impact:</strong> 残業代 30% 削減 / 報告精度向上
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1504868584819-f8e905263543?auto=format&fit=crop&w=800&q=80')"></div>
+            <div class="card-content">
+                <span class="badge">マネジメント</span>
+                <h2>高度需要予測：ベイズ統計による在庫最適化</h2>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="section-text">医療機器の欠品は許されないが、過剰在庫は経営圧迫要因。特に高額機器の予測が困難。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="section-text">ベイズ予測モデルを適用。不確実性 $P(\theta|D)$ を考慮し、各病院の術式トレンドから動的に適正在庫を算出。</p>
+                <div class="impact-box">
+                    <strong>Impact:</strong> 在庫回転率 15% 改善 / 廃棄ロス削減
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80')"></div>
+            <div class="card-content">
+                <span class="badge">事務・バックオフィス</span>
+                <h2>AI OCR 2.0：納品伝票・請求書の完全自動処理</h2>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="section-text">病院ごとの独自様式の伝票、手書きの受領印などが自動読み取りを阻害。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="section-text">マルチモーダルAIにより、非定型文書を構造化データへ変換。ERPシステム（SAP等）へ自動連携。</p>
+                <div class="impact-box">
+                    <strong>Impact:</strong> 入力事務コスト 80% 削減
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80')"></div>
+            <div class="card-content">
+                <span class="badge">CS・サポート</span>
+                <h2>患者向けAIチャット：糖尿病ケアの24時間支援</h2>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="section-text">インスリンポンプ等のデバイス利用者からの、夜間の初歩的な問い合わせが急増。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="section-text">厳格なガイドラインに基づいたRAG（検索拡張生成）チャット。トラブルシューティングを動画付きで即時回答。</p>
+                <div class="impact-box">
+                    <strong>Impact:</strong> 患者満足度 20% 向上 / コールセンター負荷軽減
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80')"></div>
+            <div class="card-content">
+                <span class="badge">クリエイティブ</span>
+                <h2>研修動画自動生成：アバターによる製品解説</h2>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="section-text">新製品のトレーニング動画制作に、撮影・編集の外注費と時間がかかりすぎる。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="section-text">テキストからAIアバターが解説する動画を生成。多言語展開もボタン一つで完了（グローバル連携）。</p>
+                <div class="impact-box">
+                    <strong>Impact:</strong> コンテンツ制作コスト 70% 削減
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80')"></div>
+            <div class="card-content">
+                <span class="badge">営業・マーケティング</span>
+                <h2>学会イベント運営：参加者属性のAI分析</h2>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="section-text">学会でのブース集客が、その後のリード獲得にどの程度貢献したか可視化しにくい。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="section-text">来場者の質問内容を音声解析し、関心キーワードを抽出。最適なフォローアップメールを自動生成。</p>
+                <div class="impact-box">
+                    <strong>Impact:</strong> 有効リード転換率 1.8倍
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1579154235602-3c32e088390b?auto=format&fit=crop&w=800&q=80')"></div>
+            <div class="card-content">
+                <span class="badge">現場・実務</span>
+                <h2>フィールドサービス：AR×AIによる機器修理支援</h2>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="section-text">修理技術の属人化。若手エンジニアが現場で複雑な故障に直面した際のダウンタイム。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="section-text">スマートグラス越しに故障箇所をAIが特定。修理マニュアルをオーバーレイ表示し、手順を指示。</p>
+                <div class="impact-box">
+                    <strong>Impact:</strong> 初回修理完了率(FTFR) 25% 向上
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1454165833767-027ffea9e78a?auto=format&fit=crop&w=800&q=80')"></div>
+            <div class="card-content">
+                <span class="badge">マネジメント</span>
+                <h2>透明性ガイドライン遵守：自動照合システム</h2>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="section-text">医療従事者への支払い（講演謝礼等）と記録の照合、公開データ作成の膨大なチェック。 </p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="section-text">領収書データ、活動ログ、社内規定をAIが突合。不正や記載ミス、重複を自動でアラート。</p>
+                <div class="impact-box">
+                    <strong>Impact:</strong> 監査準備工数 50% 削減
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1518152006812-edab29b069ac?auto=format&fit=crop&w=800&q=80')"></div>
+            <div class="card-content">
+                <span class="badge">事務・バックオフィス</span>
+                <h2>薬事申請：ドラフト自動作成・整合性チェック</h2>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="section-text">PMDA提出用の膨大な申請書類。過去の承認例との整合性確認が手作業。 </p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="section-text">既存製品のデータと新規開発データを統合。規定のフォーマットに合わせて下書きを自動生成し、不備を指摘。</p>
+                <div class="impact-box">
+                    <strong>Impact:</strong> 申請リードタイム 2ヶ月短縮
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border: 2px solid var(--coral);">
+            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80')"></div>
+            <div class="card-content">
+                <span class="badge" style="background-color: var(--coral);">リスク管理・ガバナンス</span>
+                <h2>AIハルシネーション対策：人手による最終検証プロセス</h2>
+                <div class="section-title"><i class="fas fa-shield-alt"></i> 現状の課題</div>
+                <p class="section-text">AIによる誤回答（ハルシネーション）が患者の生命や薬機法違反に直結するリスク。</p>
+                <div class="section-title"><i class="fas fa-user-check"></i> 安全な導入ステップ</div>
+                <p class="section-text">全てのAI生成物に「Human-in-the-loop（人間の確認）」を必須化。医療知識専用のフィルタリング層を設置。</p>
+                <div class="impact-box">
+                    <strong>Safety First:</strong> コンプライアンス 100% 担保
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 AI DX Strategic Consulting - Specialized for Medtronic Japan
+</footer>
+
+</body>
+</html>
