@@ -2,86 +2,192 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>AI Venue Logistics - Hardcore Tactics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TKP 15 AI-DX Implementation Cases</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #a88a5d; --ivory: #fdfcfb; --coral: #e27d60; --dark: #333; }
-        body { background-color: var(--ivory); font-family: 'Noto Sans JP', sans-serif; color: var(--dark); padding: 25px; line-height: 1.6; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 25px; max-width: 1400px; margin: 0 auto; }
-        .card { background: #fff; border-radius: 4px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-top: 8px solid var(--gold); }
-        .badge { background: var(--dark); color: #fff; font-size: 0.7rem; font-weight: bold; padding: 2px 10px; border-radius: 2px; margin-bottom: 12px; display: inline-block; }
-        .title { font-size: 1.25rem; font-weight: bold; margin-bottom: 15px; color: var(--gold); display: flex; align-items: center; gap: 10px; }
-        .label { font-size: 0.9rem; font-weight: bold; color: var(--coral); margin-top: 15px; }
-        .text { font-size: 0.95rem; margin: 5px 0 15px 0; }
-        .impact { background: #f9f9f9; border-left: 4px solid var(--gold); padding: 12px; font-weight: bold; font-size: 0.9rem; margin-top: 15px; }
-        h1 { text-align: center; color: var(--gold); margin-bottom: 50px; font-size: 2.2rem; letter-spacing: 0.1em; }
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --dark: #2c2c2c;
+            --gray: #f4f4f4;
+        }
+        body { background-color: var(--ivory); font-family: 'Noto Sans JP', sans-serif; color: var(--dark); margin: 0; padding: 20px; line-height: 1.5; }
+        header { text-align: center; padding: 40px 0; border-bottom: 3px solid var(--gold); margin-bottom: 40px; background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        header h1 { color: var(--gold); font-size: 2.2rem; margin: 0; letter-spacing: 1px; }
+        header p { font-size: 1rem; color: #777; margin-top: 10px; }
+        .container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .card { background: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; position: relative; overflow: hidden; transition: all 0.3s ease; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(168,138,93,0.15); border-color: var(--gold); }
+        .badge { background: var(--gold); color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; width: fit-content; margin-bottom: 12px; }
+        .card h2 { font-size: 1.15rem; margin: 5px 0 15px 0; color: var(--dark); min-height: 3rem; display: flex; align-items: center; border-bottom: 1px solid var(--gray); padding-bottom: 10px; }
+        .section-title { font-weight: bold; color: var(--gold); font-size: 0.85rem; margin-top: 12px; margin-bottom: 5px; }
+        .text-content { font-size: 0.85rem; color: #555; margin-bottom: 10px; flex-grow: 1; }
+        .impact { background: #fffcf5; padding: 12px; border-radius: 8px; border: 1px dashed var(--gold); margin-top: 15px; }
+        .impact-val { font-weight: bold; color: var(--coral); font-size: 0.9rem; }
+        i { margin-right: 6px; }
+        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-<h1>会場手配の「地獄」をハックする AI 戦略</h1>
+<header>
+    <h1>TKP AI-DX SOLUTION MAP</h1>
+    <p>現場タスク完全網羅型 AI導入事例集（15選）</p>
+</header>
 
-<div class="grid">
+<div class="container">
 
     <div class="card">
-        <span class="badge">事務 / 契約手続</span>
-        <div class="title"><i class="fas fa-file-invoice"></i> 施設別PDF申込書の「全自動座標埋め」</div>
-        <div class="label">現状の課題</div>
-        <p class="text">施設ごとに異なる非定型PDF。住所や社名の入力箇所を毎回手動で特定・入力するのが苦痛。</p>
-        <div class="label">AI活用ステップ</div>
-        <p class="text">AIが初見のPDF枠を認識。「住所」「担当者」等の座標を自動特定し、社内データを一括流し込み。</p>
-        <div class="impact">入力時間を1枚10分→10秒へ。誤字脱字リスクをゼロに。</div>
+        <span class="badge">Sales Automation</span>
+        <h2>1. 空き確認＆返信自動生成</h2>
+        <p class="section-title"><i class="fas fa-search"></i> 現状の課題</p>
+        <p class="text-content">複数拠点のカレンダー照合と、丁寧なビジネスメール作成に1件15分以上を要している。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">基幹システムから空き情報を抽出し、LLMが顧客属性に合わせた最適な代替案含む返信文を生成。</p>
+        <div class="impact"><span class="impact-val">効果：</span> レスポンス速度の「即時化」による競合優位。</div>
     </div>
 
     <div class="card">
-        <span class="badge">事務 / 手配</span>
-        <div class="title"><i class="fas fa-paper-plane"></i> AI×クラウドFAXによる一斉予約送信</div>
-        <div class="label">現状の課題</div>
-        <p class="text">「FAXのみ」対応の施設。送信のために複合機へ向かい、リトライを待つ時間の浪費。</p>
-        <div class="label">AI活用ステップ</div>
-        <p class="text">AIが作成した書類をAPI経由で自動FAX送信。送信結果の「OK/NG」を即座に通知。</p>
-        <div class="impact">デスクを離れず完結。物理的なFAX待ち時間を完全消滅。</div>
+        <span class="badge">Back Office</span>
+        <h2>2. 申込書AI-OCR連携</h2>
+        <p class="section-title"><i class="fas fa-file-invoice"></i> 現状の課題</p>
+        <p class="text-content">FAXやPDFで届く手書き・記名式の申込書を、基幹システムへ手動転記。ミスが許されない。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">AI-OCRで項目を自動抽出。不備（印影なし等）を検知し、不足分を自動で顧客へ通知。</p>
+        <div class="impact"><span class="impact-val">効果：</span> 入力工数85%削減、登録ミスの撲滅。</div>
     </div>
 
     <div class="card">
-        <span class="badge">事務 / 空き照会</span>
-        <div class="title"><i class="fas fa-phone-volume"></i> ボイスAIによる施設一斉「空き状況」電話</div>
-        <div class="label">現状の課題</div>
-        <p class="text">複数箇所の「空き」を確認する電話。繋がるまでの待機と、同じ説明の繰り返し。</p>
-        <div class="label">AI活用ステップ</div>
-        <p class="text">AIが全候補施設へ同時架電。「◯日の空き、収容人数、ネット環境」を聞き出し、回答をExcel化。</p>
-        <div class="impact">電話確認の工数を1/10へ。自分は「空いている所」を選ぶだけ。</div>
+        <span class="badge">Sales Automation</span>
+        <h2>3. インテリジェント見積作成</h2>
+        <p class="section-title"><i class="fas fa-calculator"></i> 現状の課題</p>
+        <p class="text-content">飲食、備品、延長料金等の複雑な計算をExcelで行い、PDF化。作業が重い。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">「80名で懇親会付き」のチャット指示のみで、過去の採算データを元に最適見積を瞬時に構成。</p>
+        <div class="impact"><span class="impact-val">効果：</span> 事務作業のゼロ化、見積精度の均質化。</div>
     </div>
 
     <div class="card">
-        <span class="badge">事務 / 事後精算</span>
-        <div class="title"><i class="fas fa-receipt"></i> 領収書・請求書の「仕訳・入力代行AI」</div>
-        <div class="label">現状の課題</div>
-        <p class="text">イベント後の大量の領収書。金額、インボイス番号、勘定科目を手打ちする終わらない作業。</p>
-        <div class="label">AI活用ステップ</div>
-        <p class="text">スマホで連続撮影。AIが日付・金額・品目を抽出し、経理システム用CSVを一元生成。</p>
-        <div class="impact">精算工数を80%削減。手入力による金額ミスを根絶。</div>
+        <span class="badge">Field Operations</span>
+        <h2>4. AI図面レイアウター</h2>
+        <p class="section-title"><i class="fas fa-draw-polygon"></i> 現状の課題</p>
+        <p class="text-content">「スクール型」等の基本配置から、顧客の独自要望を反映した図面作成に専門性が求められる。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">会場寸法と要望を読み込み、消防法や避難経路を遵守した最適なテーブル配置図を自動生成。</p>
+        <div class="impact"><span class="impact-val">効果：</span> 図面作成時間1/10。顧客への即時プレゼン。</div>
     </div>
 
     <div class="card">
-        <span class="badge">運営 / 報告</span>
-        <div class="title"><i class="fas fa-brain"></i> 現場の「不満・ヒヤリハット」自動ナレッジ化</div>
-        <div class="label">現状の課題</div>
-        <p class="text">「搬入口が狭い」「担当者がFAX派」等の、選定に不可欠な「生きた情報」が属人化して消える。</p>
-        <div class="label">AI活用ステップ</div>
-        <p class="text">気づきをボイスメモ。AIが施設DBに自動紐付け。次回の選定時にアラートとして自動表示。</p>
-        <div class="impact">新人の「地雷踏み」を防止。会社の知見を資産化。</div>
+        <span class="badge">CS Support</span>
+        <h2>5. 問い合わせ緊急度診断</h2>
+        <p class="section-title"><i class="fas fa-bolt"></i> 現状の課題</p>
+        <p class="text-content">大量のメールの中から、当日利用客の「機材トラブル」等の緊急案件が埋もれるリスク。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">受信メールをリアルタイム解析し、緊急度を5段階評価。高リスク案件を現場担当へ即通知。</p>
+        <div class="impact"><span class="impact-val">効果：</span> 重大クレーム化を99%未然防止。</div>
     </div>
 
     <div class="card">
-        <span class="badge">事務 / 交渉</span>
-        <div class="title"><i class="fas fa-handshake"></i> キャンセル料発生日の「自動延長交渉」FAX</div>
-        <div class="label">現状の課題</div>
-        <p class="text">演者の確認待ちで、キャンセル料発生日の「延期」をホテル側に頼み込まなければならない心理的負担。</p>
-        <div class="label">AI活用ステップ</div>
-        <p class="text">過去の利用実績データをAIが分析。「年間◯件利用」の実績を武器に、論理的かつ丁寧な「期限延長のお願い」を自動生成し送信。</p>
-        <div class="impact">施設の「貸し借り」をデータ化。事務的な延長承諾率を最大化。</div>
+        <span class="badge">Sales Strategy</span>
+        <h2>6. 対競合AIセールスアシスト</h2>
+        <p class="section-title"><i class="fas fa-shield-alt"></i> 現状の課題</p>
+        <p class="text-content">「他社と迷っている」と言われた際、その場で自社の優位性を説得力ある言葉で返せない。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">競合名を入力すると、最新の競合スペックと比較。TKPの「立地」「ケータリング質」等の強みを文脈化。</p>
+        <div class="impact"><span class="impact-val">効果：</span> 若手営業の成約率をベテラン水準へ。</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">Marketing</span>
+        <h2>7. アンケート自動回収ループ</h2>
+        <p class="section-title"><i class="fas fa-clipboard-check"></i> 現状の課題</p>
+        <p class="text-content">利用後のアンケート回収率が低く、サービス改善に活かせていない。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">利用終了時刻に合わせ、個別最適化されたサンクスメールと回答しやすいAIチャット式アンケートを送付。</p>
+        <div class="impact"><span class="impact-val">効果：</span> 回収率300%向上。顧客の声（VoC）を資産化。</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">Field Operations</span>
+        <h2>8. ミスゼロ設営指示書</h2>
+        <p class="section-title"><i class="fas fa-directions"></i> 現状の課題</p>
+        <p class="text-content">営業と現場の伝達ミスにより、備品の不足や配置間違いが発生する。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">確定した見積・図面から、現場スタッフ専用の「チェックリスト付き指示書」を自動生成。</p>
+        <div class="impact"><span class="impact-val">効果：</span> 設営トラブルゼロ。外部委託への指示精度UP。</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">Tech / IoT</span>
+        <h2>9. AI忘れ物判別システム</h2>
+        <p class="section-title"><i class="fas fa-box-open"></i> 現状の課題</p>
+        <p class="text-content">日々発生する大量の忘れ物の管理、特徴の入力、照合に現場の手がかかっている。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">スマホで撮影するだけで、品目・色・特徴をAIが自動タグ付け。保管期限も自動管理。</p>
+        <div class="impact"><span class="impact-val">効果：</span> 忘れ物管理工数70%削減、顧客満足度向上。</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">Creative</span>
+        <h2>10. 空室埋めAIイベント企画</h2>
+        <p class="section-title"><i class="fas fa-lightbulb"></i> 現状の課題</p>
+        <p class="text-content">稼働率の低い「平日夕方」や「特定拠点」を埋めるための斬新な企画が枯渇している。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">地域データとSNSトレンドを分析し、その拠点に最適なビジネスセミナーや展示会企画を自動立案。</p>
+        <div class="impact"><span class="impact-val">効果：</span> 自社主催イベントによる休眠拠点の収益化。</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">Knowledge</span>
+        <h2>11. クレーム対応知恵袋AI</h2>
+        <p class="section-title"><i class="fas fa-user-shield"></i> 現状の課題</p>
+        <p class="text-content">クレーム発生時、過去の解決事例を探すのに時間がかかり、初期対応が遅れる。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">NotebookLMに全拠点の過去トラブル事例を学習させ、類似案件の「黄金の解決法」を瞬時に抽出。</p>
+        <div class="impact"><span class="impact-val">効果：</span> 二次クレームの防止、現場責任者の心理的負担減。</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">Management</span>
+        <h2>12. 勝利の法則・音声解析AI</h2>
+        <p class="section-title"><i class="fas fa-microphone-alt"></i> 現状の課題</p>
+        <p class="text-content">なぜトップ営業マンだけが高い成約率を維持しているのか、その「トーク」が可視化されていない。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">商談音声をAI解析。共通のキーワードや「間」を抽出し、誰でも真似できるスクリプトへ昇華。</p>
+        <div class="impact"><span class="impact-val">効果：</span> 全営業員の成約ボトムアップ。</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">Knowledge</span>
+        <h2>13. 社内RAG「TKP-Brain」</h2>
+        <p class="section-title"><i class="fas fa-book-reader"></i> 現状の課題</p>
+        <p class="text-content">就業規則、備品操作、宿泊連携など、マニュアルが分散しすぎていて誰も読んでいない。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">全ての社内ドキュメントをベクトル化。Slack等から自然言語で質問すれば根拠付きで即回答。</p>
+        <div class="impact"><span class="impact-val">効果：</span> 本部への「確認電話」を60%削減。</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">HR</span>
+        <h2>14. 拠点別・最適求人AI生成</h2>
+        <p class="section-title"><i class="fas fa-user-plus"></i> 現状の課題</p>
+        <p class="text-content">拠点ごとに必要な人材像が異なるが、求人票がテンプレ化しており応募率が低い。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">各拠点の周辺属性（学生街、ビジネス街等）に合わせ、心に刺さるキャッチコピーをAIが個別生成。</p>
+        <div class="impact"><span class="impact-val">効果：</span> 応募数20%増加、採用単価の抑制。</div>
+    </div>
+
+    <div class="card">
+        <span class="badge">Back Office</span>
+        <h2>15. AI自動消込・照合エージェント</h2>
+        <p class="section-title"><i class="fas fa-coins"></i> 現状の課題</p>
+        <p class="text-content">入金額と請求額の不一致、振込名義人不明の照合作業に膨大な工数を費やしている。</p>
+        <p class="section-title"><i class="fas fa-magic"></i> AIステップ</p>
+        <p class="text-content">不一致データをAIがパターン照合（社名と代表者名の紐付け等）。高精度な「推測結果」を提示。</p>
+        <div class="impact"><span class="impact-val">効果：</span> 月末月初の経理残業時間を80%削減。</div>
     </div>
 
 </div>
