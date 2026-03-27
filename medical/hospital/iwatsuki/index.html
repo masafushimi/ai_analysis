@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>岩槻南病院 AI DX戦略ロードマップ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --dark: #2c3e50;
+            --gray: #7f8c8d;
+        }
+
+        body {
+            background-color: var(--ivory);
+            color: var(--dark);
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 0;
+            background: linear-gradient(135deg, #fff, #f4eee1);
+            border-bottom: 3px solid var(--gold);
+            margin-bottom: 40px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: var(--gold);
+            font-size: 2.5rem;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-top: 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            padding: 25px;
+            border-top: 5px solid var(--gold);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .role-badge {
+            background-color: var(--coral);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 15px;
+            width: fit-content;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 15px;
+            border-left: 3px solid var(--gold);
+            padding-left: 8px;
+        }
+
+        .content {
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .impact-box {
+            background-color: #f9f6f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: auto;
+            border: 1px dashed var(--gold);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>岩槻南病院 AI DX 戦略事例集</h1>
+    <p class="subtitle">次世代医療提供体制の構築：効率化と質の向上を両立する15の施策</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <span class="role-badge">看護・コメディカル</span>
+        <div class="card-title"><i class="fas fa-book-medical"></i> 院内マニュアルのNotebookLM化</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">数百ページに及ぶ看護・業務手順書が形骸化。新人スタッフが情報を探すのに時間を要している。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. 全手順書・事故対策事例をNotebookLMに集約。2. LINE等からチャット形式で即座に参照可能な環境を構築。</p>
+        <div class="impact-box">
+            <strong>導入効果:</strong> 教育コスト 30%削減。自己判断によるミスを$P < 0.05$の水準で有意に抑制。
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">医師・診療</span>
+        <div class="card-title"><i class="fas fa-microphone-alt"></i> AIボイスカルテ生成</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">診察後の電子カルテ入力業務が深夜まで及び、医師のバーンアウトの要因となっている。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. 診察時の会話を音声認識。2. LLMでSOAP形式に要約。3. 医師が最終確認しカルテに転記。</p>
+        <div class="impact-box">
+            <strong>導入効果:</strong> 書類作成時間 50%削減。患者との対面時間の大幅な増加。
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">営業・マーケティング</span>
+        <div class="card-title"><i class="fas fa-network-wired"></i> 地域連携室の営業自動化</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">近隣クリニックへの訪問営業が属人化しており、紹介率の向上が停滞している。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. 公開情報から近隣施設の標榜科目・混雑状況を分析。2. 病院広報誌のパーソナライズ化。3. 訪問タイミングの最適化。</p>
+        <div class="impact-box">
+            <strong>導入効果:</strong> 新規紹介患者数 15%増。連携室スタッフの事務作業を自動化。
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">放射線科・臨床</span>
+        <div class="card-title"><i class="fas fa-x-ray"></i> AI画像診断スクリーニング</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">CT/MRIの読影件数が増加し、放射線科医のダブルチェック体制に限界がきている。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. 画像解析AIをPACSと連携。2. 微小病変を自動ハイライト。3. 優先順位をAIが判定し、重症例を優先読影。</p>
+        <div class="impact-box">
+            <strong>導入効果:</strong> 読影速度 40%向上。見落としリスクの極小化。
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">医事・バックオフィス</span>
+        <div class="card-title"><i class="fas fa-file-invoice-dollar"></i> レセプト自動点検AI</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">月初のレセプト点検期に事務員に多大な負荷。人為的な突合ミスによる返戻が発生。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. 診療報酬点数表を学習したAIによる不整合検知。2. 適応病名の漏れを自動提案。3. 過去の返戻パターンとの照合。</p>
+        <div class="impact-box">
+            <strong>導入効果:</strong> 返戻率 0.5%以下を達成。残業代削減によるコストダウン。
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">マネジメント</span>
+        <div class="card-title"><i class="fas fa-calendar-alt"></i> 看護師シフト最適化AI</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">スキルバランス、休暇希望、法令遵守を考慮したシフト作成に師長が毎月数日を費やしている。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. 制約プログラミングとLLMによる条件抽出。2. 数千パターンのシミュレーション。3. 公平性の高いシフトを数秒で出力。</p>
+        <div class="impact-box">
+            <strong>導入効果:</strong> シフト作成時間 90%削減。スタッフの希望休充足率向上。
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">CS・サポート</span>
+        <div class="card-title"><i class="fas fa-smile"></i> 患者満足度VoC分析</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">退院時のアンケートが膨大で、貴重な意見が「読みっぱなし」になっている。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. 自由記述を感情分析。2. 苦情の予兆を検知。3. 具体的改善策（例：待ち時間短縮）をデータに基づき立案。</p>
+        <div class="impact-box">
+            <strong>導入効果:</strong> 再診率向上。クレーム発生率の低減。
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">人事・採用</span>
+        <div class="card-title"><i class="fas fa-user-plus"></i> 求人・ブランディング自動化</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">看護師等の専門職採用競争が激化。魅力的な情報発信が追いついていない。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. インタビュー記事のAI生成。2. SNS向けの院内風景動画生成（Veo活用）。3. 候補者との一次面談設定ボット。</p>
+        <div class="impact-box">
+            <strong>導入効果:</strong> 自社媒体からの応募 2倍。採用エージェント費用を年間数百万円削減。
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">受付・CS</span>
+        <div class="card-title"><i class="fas fa-language"></i> 多言語リアルタイム翻訳</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">外国人患者の増加に対し、医療通訳の確保が困難。説明不足によるトラブルリスク。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. 音声AIによる医療用語対応の同時通訳。2. 問診票のスマホ入力・多言語変換。3. 薬の説明書の自動翻訳。</p>
+        <div class="impact-box">
+            <strong>導入効果:</strong> 受付混雑の解消。医療安全の向上。
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">マネジメント</span>
+        <div class="card-title"><i class="fas fa-chart-line"></i> DPC経営予測ダッシュボード</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">経営数値の集計が月次で、翌月にならないと改善アクションが取れない。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. 電子カルテから日次で入院単価を予測。2. 平均在院日数の最適値をAIが提示。3. 病床稼働率の将来予測。</p>
+        <div class="impact-box">
+            <strong>導入効果:</strong> 医業利益率 5%向上。データに基づいた迅速な経営判断。
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">事務・バックオフィス</span>
+        <div class="card-title"><i class="fas fa-boxes"></i> AI需要予測による発注最適化</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">医療消耗品の過剰在庫、または突発的な欠品が発生している。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. 過去の使用実績と手術予定を突合。2. 自動発注システムの構築。3. デッドストックの自動検知。</p>
+        <div class="impact-box">
+            <strong>導入効果:</strong> 在庫回転率向上。棚卸し作業時間を 60%削減。
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">現場・実務</span>
+        <div class="card-title"><i class="fas fa-walking"></i> AI骨格検知によるリハビリ解析</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">リハビリの効果測定が理学療法士の主観に頼りがちで、患者への説明が難しい。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. 動画から関節可動域を自動測定。2. 回復過程をグラフで可視化。3. 最適なリハビリメニューをAIが推薦。</p>
+        <div class="impact-box">
+            <strong>導入効果:</strong> 患者のモチベーション維持。治療成績の標準化。
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">受付・CS</span>
+        <div class="card-title"><i class="fas fa-bell"></i> AI電話・LINE予約管理</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">無断キャンセル（No-show）による損失と、予約変更の電話対応負荷。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. AI音声による自動電話リマインド。2. LINEでのキャンセル・変更の24時間対応。3. 予約の穴を自動で埋める提案。</p>
+        <div class="impact-box">
+            <strong>導入効果:</strong> キャンセル率 20%減。電話件数 40%削減。
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">クリエイティブ・企画</span>
+        <div class="card-title"><i class="fas fa-flask"></i> 臨床統計・論文要約支援</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">日常業務が多忙で、臨床研究の成果を論文にする時間が確保できない。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. 匿名化済みデータの統計処理自動化。2. 英語論文の要約と翻訳支援。3. 学会発表用スライドの下書き作成。</p>
+        <div class="impact-box">
+            <strong>導入効果:</strong> 学術実績の増加による病院のブランド力向上。
+        </div>
+    </div>
+
+    <div class="card" style="border-top-color: var(--coral);">
+        <span class="role-badge" style="background-color: var(--dark);">リスク管理</span>
+        <div class="card-title"><i class="fas fa-shield-alt"></i> 医療AIガバナンス構築</div>
+        <div class="section-title">現状の課題</div>
+        <p class="content">個人情報漏洩、AIのハルシネーション（嘘）による医療過誤への懸念。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="content">1. クローズド環境（Azure OpenAI等）の構築。2. 医師の最終確認を必須とするワークフロー。3. 倫理委員会のガイドライン作成。</p>
+        <div class="impact-box" style="background-color: #fcece8;">
+            <strong>必須要件:</strong> 患者情報の匿名化徹底、AI出力に対する専門職の責任所在の明確化。
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    &copy; 2026 全業界対応型 AI DX戦略コンサルタント - 岩槻南病院 DXプロジェクトチーム
+</footer>
+
+</body>
+</html>
