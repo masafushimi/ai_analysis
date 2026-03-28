@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>静岡ガス AI DX 戦略レポート</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --dark-text: #2c3e50;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--ivory);
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--dark-text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 0;
+            border-bottom: 2px solid var(--gold);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            color: var(--gold);
+            font-size: 2.5rem;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--dark-text);
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            padding: 25px;
+            border-top: 5px solid var(--gold);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .badge {
+            background: var(--gold);
+            color: white;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            width: fit-content;
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            margin: 0 0 15px 0;
+            color: var(--dark-text);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: var(--coral);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .section-title i {
+            margin-right: 8px;
+        }
+
+        .content {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .impact {
+            background: #fff9f0;
+            border-left: 3px solid var(--coral);
+            padding: 10px;
+            margin-top: auto;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>AI DX STRATEGY REPORT</h1>
+        <p>静岡ガス株式会社：次世代エネルギー・プラットフォーム構築案</p>
+    </header>
+
+    <div class="grid">
+        <div class="card">
+            <span class="badge">営業・マーケティング</span>
+            <h2><i class="fa-solid fa-house-signal"></i> エネファーム導入シミュレーションAI</h2>
+            <div class="section-title"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+            <p class="content">顧客ごとの光熱費削減メリットの算出に時間がかかり、営業担当のスキルに依存している。</p>
+            <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+            <p class="content">検針データと住宅設備、家族構成を入力。数理モデルで期待削減額を即座に可視化し、パーソナライズ提案書を自動生成。</p>
+            <div class="impact">成約率 25% 向上 / 提案書作成時間 80% 削減</div>
+        </div>
+
+        <div class="card">
+            <span class="badge">現場・実務</span>
+            <h2><i class="fa-solid fa-eye"></i> 画像解析によるガス管劣化予測</h2>
+            <div class="section-title"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+            <p class="content">埋設管の腐食リスク判断が現場写真の目視確認に頼っており、見落としリスクがある。</p>
+            <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+            <p class="content">過去の腐食データと土壌情報を学習。現場写真を撮るだけでAIが劣化度合いをランク付け。優先更新順位を自動決定。</p>
+            <div class="impact">保安レベルの均質化 / 事故リスク 15% 低減</div>
+        </div>
+
+        <div class="card">
+            <span class="badge">教育・研修</span>
+            <h2><i class="fa-solid fa-book-open"></i> 全社保安マニュアルのNotebookLM化</h2>
+            <div class="section-title"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+            <p class="content">数千ページにおよぶ技術基準、法令、社内マニュアルから必要な情報を探すのが困難。</p>
+            <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+            <p class="content">NotebookLMに全ドキュメントを学習させ、現場用タブレットから音声対話で「○○管の接続基準は？」と即座に回答を得る。</p>
+            <div class="impact">現場問い合わせ 40% 削減 / 技術伝承の高速化</div>
+        </div>
+
+        <div class="card">
+            <span class="badge">営業・マーケティング</span>
+            <h2><i class="fa-solid fa-map-location-dot"></i> 地図連動型・訪問ルート最適化AI</h2>
+            <div class="section-title"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+            <p class="content">開閉栓や点検巡回ルートがベテランの勘に頼り、移動時間に無駄が生じている。</p>
+            <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+            <p class="content">Google Maps APIと連携。緊急度、顧客の在宅予測、道路状況を加味した巡回ルートを毎朝自動配信。</p>
+            <div class="impact">走行距離 15% 短縮 / 燃料コスト・CO2削減</div>
+        </div>
+
+        <div class="card">
+            <span class="badge">需給管理</span>
+            <h2><i class="fa-solid fa-chart-line"></i> 気象連動型・ガス需要予測モデル</h2>
+            <div class="section-title"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+            <p class="content">気温変化によるガスのデマンド予測の誤差がLNG調達コストに直結する。</p>
+            <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+            <p class="content">アメダスデータと過去の需要量を深層学習。数式 $D_{t} = \alpha T_t + \beta P_t + \epsilon$ に基づき、翌日の必要量を高精度に算出。</p>
+            <div class="impact">調達コスト 年間数千万円の最適化</div>
+        </div>
+
+        <div class="card">
+            <span class="badge">顧客対応</span>
+            <h2><i class="fa-solid fa-robot"></i> 24/7 緊急電話AIエージェント</h2>
+            <div class="section-title"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+            <p class="content">夜間のガス漏れ通報や故障受付の有人体制維持コストが高く、多忙時に繋がりにくい。</p>
+            <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+            <p class="content">音声認識AIが一次受付を完全自動化。緊急度を判別し、最寄りの宿直担当者の端末へ詳細データをプッシュ通知。</p>
+            <div class="impact">応答率 100% 達成 / オペレーター負荷 50% 軽減</div>
+        </div>
+
+        <div class="card">
+            <span class="badge">マーケティング</span>
+            <h2><i class="fa-solid fa-camera-retro"></i> 生成AIによる「食と暮らし」コンテンツ生成</h2>
+            <div class="section-title"><i class="fa-solid fa-triangle-exclamation"></i> 現状
