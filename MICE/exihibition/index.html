@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>展示会レイアウトジェネレーター</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root {
+  --bg: #F5F3EE;
+  --surface: #FDFCFA;
+  --surface2: #F0EDE6;
+  --border: #DDD9D0;
+  --border2: #C8C3B8;
+  --text: #1A1814;
+  --text2: #6B6660;
+  --text3: #9E9990;
+  --accent: #2D5BE3;
+  --accent-bg: #EEF2FD;
+  --success: #1A7A4A;
+  --success-bg: #E8F5EE;
+  --warn: #8A5000;
+  --warn-bg: #FFF3E0;
+  --danger: #C0392B;
+  --danger-bg: #FDEDEB;
+  --radius: 8px;
+  --radius-lg: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+}
+
+/* ── Header ── */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 52px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-logo {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--text);
+}
+.header-logo span { color: var(--accent); }
+.header-sep { flex: 1; }
+.header-badge {
+  font-size: 11px;
+  color: var(--text3);
+  font-family: 'DM Mono', monospace;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+/* ── Layout ── */
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: calc(100vh - 52px);
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 16px 0;
+}
+.sidebar-section {
+  padding: 0 12px;
+  margin-bottom: 4px;
+}
+.sidebar-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text3);
+  padding: 8px 4px 4px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  color: var(--text2);
+  font-size: 13px;
+  transition: all 0.15s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+.nav-item:hover { background: var(--surface2); color: var(--text); }
+.nav-item.active { background: var(--accent-bg); color: var(--accent); font-weight: 500; }
+.nav-icon { font-size: 14px; width: 18px; text-align: center; }
+.nav-divider { border: none; border-top: 1px solid var(--border); margin: 8px 12px; }
+
+/* ── Main ── */
+.main { padding: 24px; overflow-y: auto; }
+.panel { display: none; }
+.panel.active { display: block; }
+.panel-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.panel-sub { font-size: 13px; color: var(--text2); margin-bottom: 20px; }
+
+/* ── Cards ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.card-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+.card-desc { font-size: 12px; color: var(--text2); margin-bottom: 12px; }
+
+/* ── Form ── */
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.field label { font-size: 11px; color: var(--text2); display: block; margin-bottom: 4px; font-weight: 500; }
+input[type=text], input[type=number], select, textarea {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: var(--radius);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  color: var(--text);
+  transition: all 0.15s;
+}
+.btn:hover { background: var(--surface2); border-color: var(--border2); }
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-primary:hover { background: #2449C0; border-color: #2449C0; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+
+/* ── Upload ── */
+.upload-zone {
+  border: 1.5px dashed var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 32px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--bg);
+}
+.upload-zone:hover, .upload-zone.drag { background: var(--accent-bg); border-color: var(--accent); }
+.upload-icon { font-size: 32px; margin-bottom: 8px; }
+.upload-label { font-size: 13px; color: var(--text2); font-weight: 500; }
+.upload-sub { font-size: 11px; color: var(--text3); margin-top: 4px; }
+.template-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+}
+.template-icon { font-size: 22px; }
+.template-info { flex: 1; }
+.template-name { font-size: 13px; font-weight: 500; }
+.template-desc { font-size: 11px; color: var(--text2); }
+
+/* ── Booth table ── */
+.booth-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.booth-table th {
+  text-align: left;
+  color: var(--text2);
+  font-weight: 600;
+  font-size: 11px;
+  padding: 6px 8px;
+  border-bottom: 1.5px solid var(--border);
+  background: var(--surface2);
+}
+.booth-table td { padding: 4px 6px; border-bottom: 1px solid var(--border); }
+.booth-table input[type=text] { padding: 3px 6px; height: 26px; font-size: 12px; }
+.booth-table select { padding: 3px 6px; height: 26px; font-size: 12px; }
+.table-wrap { overflow-x: auto; max-height: 420px; overflow-y: auto; }
+
+/* ── Layout SVG ── */
+.svg-wrap {
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #F8F7F3;
+  padding: 8px;
+}
+#layout-svg text { font-family: 'Noto Sans JP', sans-serif; }
+
+/* ── Stats ── */
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.stat-box {
+  background: var(--surface2);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+}
+.stat-lbl { font-size: 11px; color: var(--text2); margin-bottom: 4px; }
+.stat-val { font-size: 24px; font-weight: 700; color: var(--text); }
+.stat-unit { font-size: 12px; color: var(--text2); font-weight: 400; }
+
+/* ── Legend ── */
+.legend { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; padding: 3px 10px; border-radius: 4px; font-weight: 500; }
+.badge-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+/* ── Chat ── */
+.chat-wrap {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.chat-area {
+  min-height: 180px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 14px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.msg { padding: 9px 13px; border-radius: var(--radius); font-size: 13px; line-height: 1.6; max-width: 86%; }
+.msg.user { background: var(--accent); color: #fff; align-self: flex-end; border-bottom-right-radius: 2px; }
+.msg.ai { background: var(--surface); border: 1px solid var(--border); color: var(--text); align-self: flex-start; border-bottom-left-radius: 2px; }
+.msg.err { background: var(--danger-bg); color: var(--danger); align-self: flex-start; }
+.msg.thinking { opacity: 0.6; font-style: italic; }
+.chat-input-row {
+  display: flex;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.chat-input-row input {
+  flex: 1;
+  border: none;
+  border-radius: 0;
+  padding: 10px 14px;
+  font-size: 13px;
+  background: transparent;
+}
+.chat-input-row input:focus { outline: none; }
+.chat-send {
+  padding: 10px 16px;
+  border: none;
+  border-left: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif;
+  transition: background 0.15s;
+}
+.chat-send:hover { background: var(--accent-bg); }
+.chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Quick cmds ── */
+.quick-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.quick-btn {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  font-size: 12px;
+  color: var(--text2);
+  cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif;
+  transition: all 0.15s;
+}
+.quick-btn:hover { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
+
+/* ── Alerts ── */
+.alert { border-radius: var(--radius); padding: 9px 13px; font-size: 12px; margin-bottom: 10px; }
+.alert-info { background: var(--accent-bg); color: var(--accent); }
+.alert-success { background: var(--success-bg); color: var(--success); }
+.alert-warn { background: var(--warn-bg); color: var(--warn); }
+.alert-danger { background: var(--danger-bg); color: var(--danger); }
+
+/* ── Export cards ── */
+.export-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 12px;
+}
+.export-icon { font-size: 28px; }
+.export-info { flex: 1; }
+.export-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+.export-desc { font-size: 12px; color: var(--text2); margin-bottom: 10px; }
+.hint { font-size: 11px; color: var(--text3); margin-top: 6px; }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-logo">展示会<span>Layout</span>AI</div>
+  <div class="header-sep"></div>
+  <div class="header-badge">Excel → AI → PDF</div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">ワークフロー</div>
+      <button class="nav-item active" onclick="showTab('upload')" id="nav-upload">
+        <span class="nav-icon">📂</span> データ取込
+      </button>
+      <button class="nav-item" onclick="showTab('edit')" id="nav-edit">
+        <span class="nav-icon">✏️</span> 出展者編集
+      </button>
+      <button class="nav-item" onclick="showTab('layout')" id="nav-layout">
+        <span class="nav-icon">🗺️</span> レイアウト図
+      </button>
+      <button class="nav-item" onclick="showTab('ai')" id="nav-ai">
+        <span class="nav-icon">✨</span> AI変更
+      </button>
+      <button class="nav-item" onclick="showTab('export')" id="nav-export">
+        <span class="nav-icon">💾</span> 出力・保存
+      </button>
+    </div>
+    <hr class="nav-divider">
+    <div class="sidebar-section">
+      <div class="sidebar-label">会場設定</div>
+      <div style="padding: 4px;">
+        <div class="field" style="margin-bottom:8px">
+          <label>横幅 (m)</label>
+          <input type="number" id="hall-w" value="40" min="10" max="200">
+        </div>
+        <div class="field" style="margin-bottom:8px">
+          <label>奥行き (m)</label>
+          <input type="number" id="hall-h" value="30" min="10" max="200">
+        </div>
+        <div class="field" style="margin-bottom:8px">
+          <label>通路幅 (m)</label>
+          <input type="number" id="aisle" value="2.5" step="0.5" min="1" max="5">
+        </div>
+        <div class="field" style="margin-bottom:8px">
+          <label>S (m×m)</label>
+          <input type="text" id="size-s" value="2×2">
+        </div>
+        <div class="field" style="margin-bottom:8px">
+          <label>M (m×m)</label>
+          <input type="text" id="size-m" value="3×3">
+        </div>
+        <div class="field">
+          <label>L (m×m)</label>
+          <input type="text" id="size-l" value="4×4">
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main">
+
+    <!-- ① Upload -->
+    <div id="tab-upload" class="panel active">
+      <p class="panel-title">データ取込</p>
+      <p class="panel-sub">ExcelまたはCSVをアップロードするか、サンプルで試してください</p>
+
+      <div class="card">
+        <div class="card-title">Excelテンプレート</div>
+        <div class="template-row">
+          <div class="template-icon">📄</div>
+          <div class="template-info">
+            <div class="template-name">exhibition_template.xlsx</div>
+            <div class="template-desc">ブースID・社名・サイズ(S/M/L)・ゾーンの列が入ったテンプレート</div>
+          </div>
+          <button class="btn" onclick="downloadTemplate()">ダウンロード</button>
+        </div>
+        <div class="upload-zone" id="drop-zone"
+          onclick="document.getElementById('file-input').click()"
+          ondragover="event.preventDefault();this.classList.add('drag')"
+          ondragleave="this.classList.remove('drag')"
+          ondrop="handleDrop(event)">
+          <div class="upload-icon">📊</div>
+          <div class="upload-label">Excelファイルをドロップ、またはクリックして選択</div>
+          <div class="upload-sub">.xlsx / .xls / .csv に対応 ・ 列名は自動認識</div>
+        </div>
+        <input type="file" id="file-input" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile(this.files[0])">
+        <div id="upload-msg"></div>
+        <p class="hint">必須列: ブースID、社名、サイズ(S/M/L)、ゾーン ※ 列名の表記ゆれは自動認識します</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">サンプルデータで試す</div>
+        <div class="card-desc">12社のサンプルブースを使ってすぐに試せます</div>
+        <button class="btn btn-primary" onclick="loadSample();showTab('edit')">サンプルデータを読み込む →</button>
+      </div>
+    </div>
+
+    <!-- ② Edit -->
+    <div id="tab-edit" class="panel">
+      <p class="panel-title">出展者リスト</p>
+      <p class="panel-sub" id="booth-count-label">ブースを編集してください</p>
+      <div class="card">
+        <div class="table-wrap">
+          <table class="booth-table">
+            <thead>
+              <tr>
+                <th style="width:70px">ブースID</th>
+                <th>社名</th>
+                <th style="width:60px">サイズ</th>
+                <th style="width:120px">ゾーン</th>
+                <th style="width:40px"></th>
+              </tr>
+            </thead>
+            <tbody id="booth-tbody"></tbody>
+          </table>
+        </div>
+        <div class="btn-row">
+          <button class="btn" onclick="addBooth()">+ 行を追加</button>
+          <button class="btn btn-primary" onclick="showTab('layout');generateLayout()">レイアウト生成 →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ③ Layout -->
+    <div id="tab-layout" class="panel">
+      <p class="panel-title">レイアウト図</p>
+      <p class="panel-sub">ゾーンごとに色分けされた自動配置図です</p>
+      <div class="card">
+        <div class="legend" id="legend"></div>
+        <div class="svg-wrap">
+          <svg id="layout-svg" width="720" height="480"></svg>
+        </div>
+        <div class="btn-row">
+          <button class="btn" onclick="generateLayout()">再生成</button>
+          <button class="btn" onclick="showTab('ai')">✨ AIで変更</button>
+          <button class="btn btn-primary" onclick="showTab('export')">出力 →</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">配置サマリ</div>
+        <div class="stat-grid" id="stats"></div>
+      </div>
+    </div>
+
+    <!-- ④ AI -->
+    <div id="tab-ai" class="panel">
+      <p class="panel-title">AIでレイアウト変更</p>
+      <p class="panel-sub">自然言語でブース配置の変更を指示できます</p>
+      <div class="card">
+        <div class="alert alert-info" style="margin-bottom:12px">
+          💡 例：「IT・テックゾーンを入口付近に配置して」「A-01とA-02を隣接させて」「食品ゾーンを右端にまとめて」
+        </div>
+        <div class="chat-wrap">
+          <div class="chat-area" id="chat-area">
+            <div class="msg ai">こんにちは！ブース配置の変更を日本語で指示してください。変更内容を確認してレイアウトに反映します。</div>
+          </div>
+          <div class="chat-input-row">
+            <input type="text" id="ai-input" placeholder="変更指示を入力... (Enterで送信)" onkeydown="if(event.key==='Enter')sendAI()">
+            <button class="chat-send" onclick="sendAI()" id="ai-btn">送信</button>
+          </div>
+        </div>
+        <div class="card-title" style="margin-bottom:8px;font-size:13px">クイック指示</div>
+        <div class="quick-grid">
+          <button class="quick-btn" onclick="quickCmd('IT・テックゾーンを入口（左上）付近に優先配置して')">IT系を入口へ</button>
+          <button class="quick-btn" onclick="quickCmd('食品・飲料ゾーンを右端にまとめて')">食品を右端へ</button>
+          <button class="quick-btn" onclick="quickCmd('Lサイズブースを中央に移動して目立たせて')">大型ブースを中央へ</button>
+          <button class="quick-btn" onclick="quickCmd('同じゾーンのブースが隣接するよう並べ直して')">ゾーンをまとめる</button>
+          <button class="quick-btn" onclick="quickCmd('医療・健康ゾーンと教育・研修ゾーンを隣接させて')">医療×教育を近くに</button>
+          <button class="quick-btn" onclick="quickCmd('全体のバランスを見て最適なレイアウトに並べ直して')">全体最適化</button>
+        </div>
+        <p class="hint" style="margin-top:10px">※ APIキーをページ内の設定で入力してください（下記）</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Claude APIキー設定</div>
+        <div class="card-desc">Anthropic の APIキーを入力してください。このページ内のみで使用し、外部送信はしません。</div>
+        <div class="field">
+          <label>APIキー (sk-ant-...)</label>
+          <input type="password" id="api-key" placeholder="sk-ant-api03-..." oninput="saveKey()">
+        </div>
+        <p class="hint">取得先: <a href="https://console.anthropic.com" target="_blank" style="color:var(--accent)">console.anthropic.com</a></p>
+      </div>
+    </div>
+
+    <!-- ⑤ Export -->
+    <div id="tab-export" class="panel">
+      <p class="panel-title">出力・保存</p>
+      <p class="panel-sub">SVG・PDF・CSVの3形式でダウンロードできます</p>
+
+      <div class="export-card">
+        <div class="export-icon">🖼️</div>
+        <div class="export-info">
+          <div class="export-title">SVGで保存</div>
+          <div class="export-desc">ベクター形式。Illustratorや高解像度印刷に最適です。</div>
+          <button class="btn" onclick="downloadSVG()">SVGをダウンロード</button>
+        </div>
+      </div>
+
+      <div class="export-card">
+        <div class="export-icon">📄</div>
+        <div class="export-info">
+          <div class="export-title">PDFで保存</div>
+          <div class="export-desc">A4横向きの印刷・配布用PDFを生成します。</div>
+          <div class="row2" style="margin-bottom:8px">
+            <div class="field"><label>タイトル</label><input type="text" id="pdf-title" value="展示会レイアウト図"></div>
+            <div class="field"><label>日付</label><input type="text" id="pdf-date"></div>
+          </div>
+          <div id="pdf-msg"></div>
+          <button class="btn btn-primary" onclick="downloadPDF()" id="pdf-btn">PDFを生成・ダウンロード</button>
+        </div>
+      </div>
+
+      <div class="export-card">
+        <div class="export-icon">📊</div>
+        <div class="export-info">
+          <div class="export-title">出展者一覧をCSV保存</div>
+          <div class="export-desc">ブースID・社名・サイズ・ゾーンの一覧をCSV形式で保存します。</div>
+          <button class="btn" onclick="downloadCSV()">CSVをダウンロード</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+let booths = [];
+let chatHistory = [];
+
+const ZONE_COLORS = {
+  'IT・テック':  { fill:'#E6F1FB', stroke:'#185FA5', text:'#0C447C' },
+  '製造・機械':  { fill:'#EAF3DE', stroke:'#3B6D11', text:'#27500A' },
+  '食品・飲料':  { fill:'#FAEEDA', stroke:'#854F0B', text:'#633806' },
+  '医療・健康':  { fill:'#FBEAF0', stroke:'#993556', text:'#72243E' },
+  '教育・研修':  { fill:'#EEEDFE', stroke:'#534AB7', text:'#3C3489' },
+  'その他':      { fill:'#F1EFE8', stroke:'#5F5E5A', text:'#444441' },
+};
+const ZONES = Object.keys(ZONE_COLORS);
+
+function getZoneColor(z) { return ZONE_COLORS[z] || ZONE_COLORS['その他']; }
+
+function parseSizeStr(s) {
+  const m = s.replace(/\s/g,'').match(/^(\d+)[×x×*](\d+)$/i);
+  return m ? [parseInt(m[1]), parseInt(m[2])] : [3,3];
+}
+function getSizeDim(k) {
+  const map = {
+    'S': parseSizeStr(document.getElementById('size-s').value),
+    'M': parseSizeStr(document.getElementById('size-m').value),
+    'L': parseSizeStr(document.getElementById('size-l').value),
+  };
+  return map[k] || [3,3];
+}
+
+// ── Tab switching ──
+function showTab(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  if (name === 'layout') generateLayout();
+}
+
+// ── Sample ──
+function loadSample() {
+  booths = [
+    {id:'A-01',name:'テックコープ株式会社',size:'M',zone:'IT・テック'},
+    {id:'A-02',name:'デジタルソリューションズ',size:'S',zone:'IT・テック'},
+    {id:'A-03',name:'クラウドジャパン',size:'L',zone:'IT・テック'},
+    {id:'B-01',name:'製造技研工業',size:'L',zone:'製造・機械'},
+    {id:'B-02',name:'精密部品工業',size:'M',zone:'製造・機械'},
+    {id:'B-03',name:'ロボテックス',size:'M',zone:'製造・機械'},
+    {id:'C-01',name:'ヘルスケア研究所',size:'M',zone:'医療・健康'},
+    {id:'C-02',name:'メディカルデバイス社',size:'S',zone:'医療・健康'},
+    {id:'D-01',name:'グルメフーズ',size:'S',zone:'食品・飲料'},
+    {id:'D-02',name:'有機農産物協会',size:'S',zone:'食品・飲料'},
+    {id:'E-01',name:'エデュケーションラボ',size:'M',zone:'教育・研修'},
+    {id:'E-02',name:'スキルアップ社',size:'S',zone:'教育・研修'},
+  ];
+  renderBoothTable();
+}
+
+// ── Booth table ──
+function renderBoothTable() {
+  document.getElementById('booth-count-label').textContent = `${booths.length} 件の出展者`;
+  const tbody = document.getElementById('booth-tbody');
+  tbody.innerHTML = booths.map((b, i) => `
+    <tr>
+      <td><input type="text" value="${escHtml(b.id)}" onchange="booths[${i}].id=this.value" style="width:60px"></td>
+      <td><input type="text" value="${escHtml(b.name)}" onchange="booths[${i}].name=this.value"></td>
+      <td>
+        <select onchange="booths[${i}].size=this.value" style="width:52px">
+          ${['S','M','L'].map(s=>`<option ${b.size===s?'selected':''}>${s}</option>`).join('')}
+        </select>
+      </td>
+      <td>
+        <select onchange="booths[${i}].zone=this.value" style="width:110px">
+          ${ZONES.map(z=>`<option ${b.zone===z?'selected':''}>${z}</option>`).join('')}
+        </select>
+      </td>
+      <td><button class="btn" style="padding:2px 8px;font-size:11px" onclick="booths.splice(${i},1);renderBoothTable()">削除</button></td>
+    </tr>`).join('');
+}
+
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+function addBooth() {
+  booths.push({ id: `Z-${String(booths.length+1).padStart(2,'0')}`, name: '新規出展者', size: 'M', zone: 'その他' });
+  renderBoothTable();
+}
+
+// ── File upload ──
+function handleDrop(e) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag');
+  if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+}
+function handleFile(file) {
+  if (!file) return;
+  const msg = document.getElementById('upload-msg');
+  msg.innerHTML = '<div class="alert alert-info">読み込み中...</div>';
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = new Uint8Array(e.target.result);
+      const wb = XLSX.read(data, { type: 'array' });
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(ws, { defval: '' });
+      if (!rows.length) { msg.innerHTML = '<div class="alert alert-warn">データが見つかりません</div>'; return; }
+      const colMap = detectColumns(Object.keys(rows[0]));
+      if (!colMap) { msg.innerHTML = '<div class="alert alert-warn">列が認識できません。テンプレートをご利用ください。</div>'; return; }
+      booths = rows.map((r,i) => ({
+        id: String(r[colMap.id] || `B-${String(i+1).padStart(2,'0')}`).trim(),
+        name: String(r[colMap.name] || '').trim() || '（社名なし）',
+        size: normalizeSize(String(r[colMap.size] || 'M')),
+        zone: normalizeZone(String(r[colMap.zone] || 'その他')),
+      })).filter(b => b.name && b.name !== '（社名なし）');
+      msg.innerHTML = `<div class="alert alert-success">✓ ${booths.length} 件のブースを読み込みました</div>`;
+      renderBoothTable();
+      setTimeout(() => showTab('edit'), 700);
+    } catch(err) {
+      msg.innerHTML = '<div class="alert alert-warn">読み込みエラー: ' + err.message + '</div>';
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+function detectColumns(keys) {
+  const find = (pats) => keys.find(k => pats.some(p => k.toLowerCase().includes(p)));
+  const id   = find(['id','番号','ブース']);
+  const name = find(['名','name','社名','会社','出展']);
+  const size = find(['サイズ','size','種別','タイプ','型']);
+  const zone = find(['ゾーン','zone','区分','カテゴリ','業種']);
+  if (!name) return null;
+  return { id: id || keys[0], name, size: size || null, zone: zone || null };
+}
+function normalizeSize(s) {
+  if (/^l$/i.test(s) || s.includes('大')) return 'L';
+  if (/^s$/i.test(s) || s.includes('小')) return 'S';
+  return 'M';
+}
+function normalizeZone(z) {
+  return ZONES.find(zn => zn.includes(z) || z.includes(zn)) || 'その他';
+}
+
+// ── Template ──
+function downloadTemplate() {
+  const ws = XLSX.utils.aoa_to_sheet([
+    ['ブースID','社名','サイズ(S/M/L)','ゾーン'],
+    ['A-01','サンプル株式会社','M','IT・テック'],
+    ['A-02','テスト工業','L','製造・機械'],
+    ['B-01','フードカンパニー','S','食品・飲料'],
+  ]);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, '出展者リスト');
+  XLSX.writeFile(wb, 'exhibition_template.xlsx');
+}
+
+// ── Layout ──
+function generateLayout() {
+  if (!booths.length) loadSample();
+  const hallW = parseFloat(document.getElementById('hall-w').value) || 40;
+  const hallH = parseFloat(document.getElementById('hall-h').value) || 30;
+  const aisleW = parseFloat(document.getElementById('aisle').value) || 2.5;
+  const marginM = 2;
+
+  const SVG_W = 720, SVG_H = 480;
+  const scale = Math.min((SVG_W - 60) / hallW, (SVG_H - 50) / hallH);
+  const offX = 36, offY = 22;
+  const tx = m => offX + m * scale;
+  const ty = m => offY + m * scale;
+  const tl = m => m * scale;
+
+  const svg = document.getElementById('layout-svg');
+  svg.setAttribute('width', SVG_W);
+  svg.setAttribute('height', SVG_H);
+
+  const zones = [...new Set(booths.map(b => b.zone))];
+  let placed = [];
+  let cx = marginM, cy = marginM;
+
+  zones.forEach(zone => {
+    const bs = booths.filter(b => b.zone === zone);
+    let rx = cx, ry = cy, rh = 0;
+    bs.forEach(b => {
+      const [bw, bh] = getSizeDim(b.size);
+      if (rx + bw > hallW - marginM && rx > cx) { ry += rh + aisleW; rx = cx; rh = 0; }
+      if (ry + bh > hallH - marginM) { cy = marginM; cx += 10; rx = cx; ry = cy; }
+      placed.push({ ...b, x: rx, y: ry, w: bw, h: bh });
+      rx += bw + aisleW;
+      rh = Math.max(rh, bh);
+    });
+    cy += rh + aisleW * 1.8;
+    if (cy > hallH - marginM) cy = marginM;
+  });
+
+  let html = '';
+  html += `<rect x="${offX}" y="${offY}" width="${tl(hallW)}" height="${tl(hallH)}" fill="#F8F7F3" stroke="#AAA" stroke-width="1.5" rx="3"/>`;
+
+  placed.forEach(b => {
+    const c = getZoneColor(b.zone);
+    const sx = tx(b.x), sy = ty(b.y), sw = tl(b.w), sh = tl(b.h);
+    const fs = Math.max(8, Math.min(11, sw / 5.5));
+    const nm = b.name.length > 8 ? b.name.slice(0,8) + '…' : b.name;
+    html += `<rect x="${sx}" y="${sy}" width="${sw}" height="${sh}" fill="${c.fill}" stroke="${c.stroke}" stroke-width="0.8" rx="2"/>`;
+    html += `<text x="${sx+sw/2}" y="${sy+sh/2-fs*0.2}" text-anchor="middle" font-size="${fs}" fill="${c.text}" font-weight="500">${nm}</text>`;
+    html += `<text x="${sx+sw/2}" y="${sy+sh/2+fs*1.2}" text-anchor="middle" font-size="${Math.max(7,fs-1.5)}" fill="${c.stroke}">${b.id}</text>`;
+  });
+
+  html += `<rect x="${offX}" y="${offY}" width="${tl(hallW)}" height="${tl(hallH)}" fill="none" stroke="#666" stroke-width="1.5" rx="3"/>`;
+  html += `<text x="${offX+tl(hallW)/2}" y="${offY+tl(hallH)+17}" text-anchor="middle" font-size="11" fill="#999">← ${hallW}m →</text>`;
+  html += `<text x="${offX-18}" y="${offY+tl(hallH)/2}" text-anchor="middle" font-size="11" fill="#999" transform="rotate(-90,${offX-18},${offY+tl(hallH)/2})">${hallH}m</text>`;
+  html += `<text x="${offX+5}" y="${offY-7}" font-size="10" fill="#AAA">▼ 入口</text>`;
+
+  svg.innerHTML = html;
+  window._placed = placed;
+
+  const legend = document.getElementById('legend');
+  legend.innerHTML = zones.map(z => {
+    const c = getZoneColor(z);
+    return `<span class="badge" style="background:${c.fill};color:${c.text};border:0.5px solid ${c.stroke}">
+      <span class="badge-dot" style="background:${c.stroke}"></span>${z}
+    </span>`;
+  }).join('');
+
+  const totalArea = placed.reduce((s,b) => s + b.w * b.h, 0);
+  document.getElementById('stats').innerHTML = `
+    <div class="stat-box"><div class="stat-lbl">総ブース数</div><div class="stat-val">${placed.length}<span class="stat-unit"> 社</span></div></div>
+    <div class="stat-box"><div class="stat-lbl">使用面積合計</div><div class="stat-val">${totalArea}<span class="stat-unit"> m²</span></div></div>
+    <div class="stat-box"><div class="stat-lbl">ゾーン数</div><div class="stat-val">${zones.length}<span class="stat-unit"> 区</span></div></div>`;
+}
+
+// ── AI ──
+function saveKey() {
+  // キーはメモリにのみ保持（localStorage不使用）
+  window._apiKey = document.getElementById('api-key').value;
+}
+
+async function sendAI() {
+  const input = document.getElementById('ai-input');
+  const text = input.value.trim();
+  if (!text) return;
+  const key = window._apiKey || document.getElementById('api-key').value;
+  if (!key) {
+    appendMsg('err', 'APIキーを「AI変更」タブの下部に入力してください。');
+    return;
+  }
+  input.value = '';
+  appendMsg('user', text);
+  const btn = document.getElementById('ai-btn');
+  btn.disabled = true;
+  const thinkId = 'think-' + Date.now();
+  appendMsg('ai', '考えています...', thinkId, true);
+
+  const systemPrompt = `あなたは展示会のブース配置を管理するAIアシスタントです。
+現在の出展者リスト（JSON）:
+${JSON.stringify(booths)}
+
+ゾーン一覧: ${ZONES.join(', ')}
+サイズ: S, M, L
+
+ユーザーの変更指示を理解し、必ず以下のJSON形式のみで返答してください（説明文・コードブロック不要）:
+{"message":"変更内容の説明（日本語・1〜2文）","booths":[...変更後の全ブース配列（id,name,size,zone）...]}`;
+
+  chatHistory.push({ role: 'user', content: text });
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: chatHistory,
+      })
+    });
+    const data = await res.json();
+    const raw = (data.content || []).map(c => c.text || '').join('');
+    document.getElementById(thinkId)?.remove();
+
+    let parsed;
+    try {
+      const m = raw.match(/\{[\s\S]*\}/);
+      parsed = JSON.parse(m ? m[0] : raw);
+    } catch {
+      appendMsg('err', 'レスポンスの解析に失敗しました。もう一度お試しください。');
+      btn.disabled = false; return;
+    }
+    chatHistory.push({ role: 'assistant', content: raw });
+    appendMsg('ai', parsed.message || '変更を適用しました');
+    if (parsed.booths && Array.isArray(parsed.booths)) {
+      booths = parsed.booths;
+      renderBoothTable();
+      generateLayout();
+    }
+  } catch(err) {
+    document.getElementById(thinkId)?.remove();
+    appendMsg('err', 'エラー: ' + err.message);
+  }
+  btn.disabled = false;
+}
+
+function appendMsg(type, text, id = '', thinking = false) {
+  const area = document.getElementById('chat-area');
+  const div = document.createElement('div');
+  div.className = 'msg ' + type + (thinking ? ' thinking' : '');
+  if (id) div.id = id;
+  div.textContent = text;
+  area.appendChild(div);
+  area.scrollTop = area.scrollHeight;
+}
+
+function quickCmd(cmd) {
+  document.getElementById('ai-input').value = cmd;
+  sendAI();
+}
+
+// ── SVG ──
+function downloadSVG() {
+  const svg = document.getElementById('layout-svg');
+  const blob = new Blob([svg.outerHTML], { type: 'image/svg+xml' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'exhibition_layout.svg';
+  a.click();
+}
+
+// ── PDF ──
+async function downloadPDF() {
+  const btn = document.getElementById('pdf-btn');
+  const msg = document.getElementById('pdf-msg');
+  btn.disabled = true;
+  msg.innerHTML = '<div class="alert alert-info">PDF生成中...</div>';
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+    const W = 297, H = 210;
+    const title = document.getElementById('pdf-title').value || '展示会レイアウト図';
+    const dateStr = document.getElementById('pdf-date').value || new Date().toLocaleDateString('ja-JP');
+    const hallW = parseFloat(document.getElementById('hall-w').value) || 40;
+    const hallH = parseFloat(document.getElementById('hall-h').value) || 30;
+    const aisleW = parseFloat(document.getElementById('aisle').value) || 2.5;
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.text(title, W / 2, 14, { align: 'center' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(130, 130, 130);
+    doc.text(dateStr, W - 12, 14, { align: 'right' });
+
+    const MAP_X = 14, MAP_Y = 22, MAP_W = W - 28, MAP_H = H - 52;
+    const scale = Math.min(MAP_W / hallW, MAP_H / hallH);
+    const tx = m => MAP_X + m * scale;
+    const ty = m => MAP_Y + m * scale;
+    const tl = m => m * scale;
+
+    const hex = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+
+    doc.setFillColor(248, 247, 243);
+    doc.setDrawColor(150, 150, 150);
+    doc.setLineWidth(0.4);
+    doc.rect(MAP_X, MAP_Y, tl(hallW), tl(hallH), 'FD');
+
+    const placed = window._placed || [];
+    placed.forEach(b => {
+      const c = getZoneColor(b.zone);
+      doc.setFillColor(...hex(c.fill));
+      doc.setDrawColor(...hex(c.stroke));
+      doc.setLineWidth(0.25);
+      doc.rect(tx(b.x), ty(b.y), tl(b.w), tl(b.h), 'FD');
+      doc.setTextColor(...hex(c.text));
+      const nm = b.name.length > 7 ? b.name.slice(0,7) + '…' : b.name;
+      const fs = Math.max(5, Math.min(8, tl(b.w) / 3.5));
+      doc.setFontSize(fs);
+      doc.text(nm, tx(b.x) + tl(b.w) / 2, ty(b.y) + tl(b.h) / 2 - 0.5, { align: 'center' });
+      doc.setFontSize(Math.max(4, fs - 1.5));
+      doc.text(b.id, tx(b.x) + tl(b.w) / 2, ty(b.y) + tl(b.h) / 2 + 2.5, { align: 'center' });
+    });
+
+    doc.setDrawColor(80, 80, 80);
+    doc.setLineWidth(0.5);
+    doc.rect(MAP_X, MAP_Y, tl(hallW), tl(hallH), 'S');
+
+    const zones = [...new Set(booths.map(b => b.zone))];
+    const LEG_Y = MAP_Y + tl(hallH) + 7;
+    let lx = MAP_X;
+    doc.setFontSize(7);
+    zones.forEach(z => {
+      const c = getZoneColor(z);
+      doc.setFillColor(...hex(c.fill));
+      doc.setDrawColor(...hex(c.stroke));
+      doc.setLineWidth(0.2);
+      doc.rect(lx, LEG_Y - 2.5, 4, 3, 'FD');
+      doc.setTextColor(...hex(c.text));
+      doc.text(z, lx + 5.5, LEG_Y);
+      lx += doc.getTextWidth(z) + 14;
+    });
+
+    doc.setTextColor(170, 170, 170);
+    doc.setFontSize(7);
+    doc.text(`会場 ${hallW}m × ${hallH}m　通路幅 ${aisleW}m　総ブース数 ${placed.length}社`, MAP_X, H - 6);
+    doc.save('exhibition_layout.pdf');
+    msg.innerHTML = '<div class="alert alert-success">✓ PDFを保存しました</div>';
+  } catch(err) {
+    msg.innerHTML = '<div class="alert alert-warn">PDFエラー: ' + err.message + '</div>';
+  }
+  btn.disabled = false;
+}
+
+// ── CSV ──
+function downloadCSV() {
+  const rows = [['ブースID','社名','サイズ','ゾーン'], ...booths.map(b => [b.id, b.name, b.size, b.zone])];
+  const csv = rows.map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'booths.csv';
+  a.click();
+}
+
+// ── Init ──
+document.getElementById('pdf-date').value = new Date().toLocaleDateString('ja-JP');
+loadSample();
+</script>
+</body>
+</html>
