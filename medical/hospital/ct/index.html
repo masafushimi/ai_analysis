@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CT レポート 匿名化ツール</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Sans',sans-serif;background:#F4F6F9;min-height:100vh;color:#1C2833}
+header{background:#1A6FA8;padding:14px 24px;display:flex;align-items:center;gap:12px}
+header h1{font-size:18px;font-weight:600;color:#fff}
+header p{font-size:12px;color:#A9CCE3;margin-top:2px}
+.main{max-width:960px;margin:0 auto;padding:24px 16px}
+.card{background:#fff;border:1px solid #D5DBE4;border-radius:12px;padding:20px;margin-bottom:16px}
+.section-label{font-size:11px;font-weight:600;color:#5D6D7E;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.drop-zone{border:2px dashed #B0BEC5;border-radius:10px;padding:32px 16px;text-align:center;cursor:pointer;transition:background .15s;position:relative}
+.drop-zone:hover,.drop-zone.over{background:#EBF5FB}
+.drop-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.drop-zone svg{display:block;margin:0 auto 10px;opacity:.4}
+.drop-zone p{font-size:14px;color:#5D6D7E}
+.drop-zone small{font-size:12px;color:#95A5A6;display:block;margin-top:4px}
+.pdfjs-status{font-size:12px;color:#95A5A6;text-align:center;margin-top:8px;min-height:18px}
+.file-list{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+.file-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F8F9FA;border-radius:8px;font-size:13px}
+.file-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.badge{font-size:11px;padding:2px 8px;border-radius:20px;flex-shrink:0;font-weight:500}
+.badge-pdf{background:#EBF5FB;color:#1A6FA8}
+.badge-done{background:#EAFAF1;color:#1E8449}
+.badge-err{background:#FDEDEC;color:#C0392B}
+.badge-proc{background:#FEF9E7;color:#B7950B}
+.rm{background:none;border:none;cursor:pointer;color:#BDC3C7;font-size:16px;padding:0 2px;line-height:1;flex-shrink:0}
+.rm:hover{color:#E74C3C}
+.progress{height:4px;background:#EBF5FB;border-radius:4px;overflow:hidden;margin-top:10px;display:none}
+.progress-bar{height:100%;background:#1A6FA8;width:0;transition:width .3s}
+.btn-row{display:flex;gap:8px;margin-top:12px}
+.btn{flex:1;padding:10px;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:opacity .15s}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn-primary{background:#1E8449;color:#fff}
+.btn-primary:hover:not(:disabled){opacity:.88}
+.stats{display:flex;gap:8px;margin-bottom:16px}
+.stat{flex:1;background:#F4F6F9;border-radius:8px;padding:10px 12px}
+.stat-n{font-size:22px;font-weight:600;color:#1C2833}
+.stat-l{font-size:11px;color:#5D6D7E;margin-top:2px}
+.file-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.file-tab{font-size:12px;padding:4px 12px;border:1px solid #D5DBE4;border-radius:20px;cursor:pointer;background:none;color:#5D6D7E;transition:all .1s;white-space:nowrap;max-width:180px;overflow:hidden;text-overflow:ellipsis}
+.file-tab.active{background:#1A6FA8;color:#fff;border-color:transparent}
+.tabs{display:flex;gap:0;border-bottom:1px solid #D5DBE4;margin-bottom:12px}
+.tab{padding:8px 16px;font-size:13px;cursor:pointer;border:none;background:none;color:#5D6D7E;border-bottom:2px solid transparent;margin-bottom:-1px;font-weight:500}
+.tab.active{color:#1A6FA8;border-bottom-color:#1A6FA8}
+.result-wrap{position:relative}
+.result-text{width:100%;min-height:280px;max-height:420px;overflow-y:auto;background:#F8F9FA;border:1px solid #D5DBE4;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:12px;line-height:1.8;color:#1C2833;white-space:pre-wrap;word-break:break-all}
+.mask{background:#FEF3CD;color:#7D6608;border-radius:3px;padding:0 3px;font-weight:600}
+.log-box{font-family:'Courier New',monospace;font-size:12px;line-height:1.8;color:#5D6D7E;background:#F8F9FA;border:1px solid #D5DBE4;border-radius:8px;padding:14px;min-height:100px;max-height:300px;overflow-y:auto;white-space:pre-wrap}
+.log-hit{color:#C0392B;font-weight:500}
+.copy-btn{font-size:12px;padding:5px 14px;border:1px solid #D5DBE4;border-radius:8px;background:#fff;cursor:pointer;color:#5D6D7E;position:absolute;top:10px;right:10px;transition:background .1s}
+.copy-btn:hover{background:#EBF5FB}
+.empty{text-align:center;padding:40px;color:#95A5A6;font-size:13px}
+.warn{background:#FEF9E7;border:1px solid #F9E79F;border-radius:8px;padding:10px 14px;font-size:12px;color:#7D6608;margin-bottom:12px}
+footer{text-align:center;padding:20px;font-size:12px;color:#95A5A6}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>🔒 CT レポート 匿名化ツール</h1>
+    <p>個人情報をマスクしてから AI へ安全に送信 — すべてブラウザ内で処理、サーバーへの送信ゼロ</p>
+  </div>
+</header>
+
+<div class="main">
+  <div class="card">
+    <div class="section-label">ファイルを選択</div>
+    <div class="drop-zone" id="dz">
+      <input type="file" id="fi" multiple accept=".pdf">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <path d="M18 4L27 13H22.5V28H13.5V13H9L18 4Z" fill="#1A6FA8"/>
+        <rect x="7" y="30" width="22" height="3" rx="1.5" fill="#1A6FA8"/>
+      </svg>
+      <p>クリックまたはドラッグ＆ドロップ</p>
+      <small>PDF ファイル対応（複数まとめて処理可）</small>
+    </div>
+    <div class="pdfjs-status" id="pdfjs-status">PDF.js を読み込み中…</div>
+    <div class="file-list" id="fl"></div>
+    <div class="progress" id="pw"><div class="progress-bar" id="pb"></div></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="runBtn" disabled>▶ 匿名化を実行</button>
+    </div>
+  </div>
+
+  <div class="card" id="resultCard" style="display:none">
+    <div class="warn" id="warnBox" style="display:none"></div>
+    <div class="stats" id="statsRow"></div>
+    <div class="file-tabs" id="ftabs"></div>
+    <div class="tabs">
+      <button class="tab active" data-tab="result">匿名化済みテキスト</button>
+      <button class="tab" data-tab="log">マスクログ（院内保管用）</button>
+    </div>
+    <div id="tab-result" class="result-wrap">
+      <div class="result-text" id="rt"><div class="empty">処理結果がここに表示されます</div></div>
+      <button class="copy-btn" id="copyBtn">コピー</button>
+    </div>
+    <div id="tab-log" style="display:none">
+      <div class="log-box" id="lt"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  すべての処理はブラウザ内で完結します。ファイルは外部サーバーへ一切送信されません。
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+const WORKER_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+/* ── 匿名化ルール ────────────────────────────── */
+const RULES = [
+  [/(患者氏名)[　 ]*[：:]\s*(\S+[　 ]+\S+)/, '患者氏名', '【氏名マスク済】'],
+  [/(患者氏名)[　 ]*[：:]\s*(?!【)(\S+)/, '患者氏名', '【氏名マスク済】'],
+  [/(生年月日)[　 ]*[：:]\s*(\d{4}[\/\-年]\d{1,2}[\/\-月]\d{1,2}日?)/, '生年月日', '【生年月日マスク済】'],
+  [/(生年月日)[　 ]*[：:]\s*((昭和|平成|令和)\d+年\d+月\d+日)/, '生年月日(元号)', '【生年月日マスク済】'],
+  [/(依頼医|担当医|主治医|診断医|確定医|読影医|オーダー医|紹介医)[　 ]*[：:]\s*(\S+[　 ]+\S+)/, '医師名', '【医師名マスク済】'],
+  [/(依頼医|担当医|主治医|診断医|確定医|読影医|オーダー医|紹介医)[　 ]*[：:]\s*(?!【)(\S+)/, '医師名', '【医師名マスク済】'],
+  [/(住所|ご住所)[　 ]*[：:]\s*([^\n]{5,60})/, '住所', '【住所マスク済】'],
+  [/(〒\d{3}-\d{4}[^\n]*)/, '郵便番号付き住所', '【住所マスク済】'],
+  [/(電話|TEL|Tel|連絡先)[　 ]*[：:]\s*([\d\-\(\)]{10,15})/, '電話番号', '【電話番号マスク済】'],
+  [/(0\d{1,4}-\d{1,4}-\d{4})/, '電話番号', '【電話番号マスク済】'],
+  [/(保険者番号|保険番号|記号番号)[　 ]*[：:]\s*([\w\-]{4,20})/, '保険番号', '【保険番号マスク済】'],
+];
+
+function anonymize(text) {
+  const log = [];
+  let result = text;
+  for (const [re, label, mask] of RULES) {
+    const gre = new RegExp(re.source, 'g');
+    result = result.replace(gre, (full, g1, g2) => {
+      const target = (g2 !== undefined && !String(g2).startsWith('【')) ? g2
+                   : (!String(g1).startsWith('【') && g2 === undefined) ? g1
+                   : null;
+      if (!target) return full;
+      log.push({ label, orig: full.trim(), rep: full.trim().replace(target, mask) });
+      return full.replace(target, mask);
+    });
+  }
+  return { result, log };
+}
+
+/* ── PDF.js 初期化 ───────────────────────────── */
+let pdfjsReady = false;
+const statusEl = document.getElementById('pdfjs-status');
+
+function waitForPdfJs() {
+  if (typeof pdfjsLib !== 'undefined') {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = WORKER_SRC;
+    pdfjsReady = true;
+    statusEl.textContent = '✓ PDF.js 読み込み完了';
+    statusEl.style.color = '#1E8449';
+    setTimeout(() => { statusEl.style.display = 'none'; }, 2000);
+  } else {
+    setTimeout(waitForPdfJs, 300);
+  }
+}
+waitForPdfJs();
+
+async function extractPdfText(file) {
+  const buf = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+  let text = '';
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    /* アイテムを x 座標でソートして行を再構成 */
+    const items = content.items;
+    let line = '', lastY = null;
+    for (const item of items) {
+      const y = item.transform[5];
+      if (lastY !== null && Math.abs(y - lastY) > 3) {
+        text += line.trimEnd() + '\n';
+        line = '';
+      }
+      line += item.str;
+      lastY = y;
+    }
+    if (line) text += line + '\n';
+    text += '\n';
+  }
+  return text;
+}
+
+/* ── ファイル管理 ────────────────────────────── */
+const files = [], results = {};
+let currentFile = null, currentTab = 'result';
+
+const dz = document.getElementById('dz');
+const fi = document.getElementById('fi');
+const fl = document.getElementById('fl');
+const runBtn = document.getElementById('runBtn');
+const pw = document.getElementById('pw');
+const pb = document.getElementById('pb');
+
+fi.addEventListener('change', e => addFiles(Array.from(e.target.files)));
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('over');
+  addFiles(Array.from(e.dataTransfer.files));
+});
+
+function addFiles(newFiles) {
+  for (const f of newFiles) {
+    if (!f.name.match(/\.pdf$/i)) continue;
+    if (files.find(x => x.name === f.name)) continue;
+    files.push(f);
+  }
+  renderList();
+  runBtn.disabled = files.length === 0;
+}
+
+function renderList() {
+  fl.innerHTML = '';
+  files.forEach((f, i) => {
+    const r = results[f.name];
+    const badge = r
+      ? (r.error
+          ? `<span class="badge badge-err">エラー</span>`
+          : `<span class="badge badge-done">完了 ${r.log.length}件マスク</span>`)
+      : `<span class="badge badge-pdf">PDF</span>`;
+    const div = document.createElement('div');
+    div.className = 'file-item';
+    div.innerHTML = `<span style="font-size:16px">📄</span>
+      <span class="file-name">${esc(f.name)}</span>
+      ${badge}
+      <button class="rm" data-i="${i}" title="削除">×</button>`;
+    fl.appendChild(div);
+  });
+  fl.querySelectorAll('.rm').forEach(b => b.addEventListener('click', e => {
+    const i = +e.target.dataset.i;
+    const name = files[i].name;
+    files.splice(i, 1);
+    delete results[name];
+    if (currentFile === name) { currentFile = null; clearDisplay(); }
+    renderList();
+    runBtn.disabled = files.length === 0;
+    if (Object.keys(results).length === 0) document.getElementById('resultCard').style.display = 'none';
+  }));
+}
+
+/* ── 実行 ───────────────────────────────────── */
+runBtn.addEventListener('click', async () => {
+  if (!pdfjsReady) { alert('PDF.js がまだ読み込まれていません。少し待ってから再試行してください。'); return; }
+  runBtn.disabled = true;
+  runBtn.textContent = '処理中…';
+  pw.style.display = 'block';
+  pb.style.width = '0%';
+
+  for (let i = 0; i < files.length; i++) {
+    pb.style.width = Math.round((i / files.length) * 90) + '%';
+    const f = files[i];
+    try {
+      const text = await extractPdfText(f);
+      const { result, log } = anonymize(text);
+      results[f.name] = { result, log };
+    } catch(err) {
+      results[f.name] = { error: err.message, result: '', log: [] };
+    }
+  }
+
+  pb.style.width = '100%';
+  setTimeout(() => { pw.style.display = 'none'; }, 600);
+  runBtn.textContent = '▶ 匿名化を実行';
+  runBtn.disabled = false;
+
+  renderList();
+  document.getElementById('resultCard').style.display = 'block';
+  currentFile = files.find(f => results[f.name] && !results[f.name].error)?.name || files[0]?.name;
+  renderStats();
+  renderFileTabs();
+  showCurrent();
+
+  const errors = Object.entries(results).filter(([,v]) => v.error);
+  const wb = document.getElementById('warnBox');
+  if (errors.length) {
+    wb.style.display = 'block';
+    wb.textContent = `⚠ ${errors.length} 件のファイルでエラーが発生しました: ${errors.map(([k])=>k).join(', ')}`;
+  } else {
+    wb.style.display = 'none';
+  }
+});
+
+/* ── 結果表示 ───────────────────────────────── */
+function renderStats() {
+  const allLog = Object.values(results).flatMap(r => r.log || []);
+  const fc = Object.keys(results).length;
+  const mc = allLog.length;
+  const kinds = [...new Set(allLog.map(l => l.label))].length;
+  document.getElementById('statsRow').innerHTML = [
+    ['処理ファイル数', fc],
+    ['マスク件数（合計）', mc],
+    ['検出した情報の種類', kinds]
+  ].map(([l,n]) => `<div class="stat"><div class="stat-n">${n}</div><div class="stat-l">${l}</div></div>`).join('');
+}
+
+function renderFileTabs() {
+  const ftabs = document.getElementById('ftabs');
+  ftabs.innerHTML = '';
+  files.forEach(f => {
+    if (!results[f.name]) return;
+    const btn = document.createElement('button');
+    btn.className = 'file-tab' + (f.name === currentFile ? ' active' : '');
+    btn.title = f.name;
+    btn.textContent = f.name.length > 22 ? f.name.slice(0,20) + '…' : f.name;
+    btn.addEventListener('click', () => { currentFile = f.name; renderFileTabs(); showCurrent(); });
+    ftabs.appendChild(btn);
+  });
+}
+
+function showCurrent() {
+  const rt = document.getElementById('rt');
+  const lt = document.getElementById('lt');
+  if (!currentFile || !results[currentFile]) { clearDisplay(); return; }
+  const { result, log, error } = results[currentFile];
+  if (error) {
+    rt.innerHTML = `<span style="color:#C0392B">エラー: ${esc(error)}<br>スキャン画像PDFは非対応です。テキスト埋め込み型PDFをお使いください。</span>`;
+    lt.innerHTML = '';
+    return;
+  }
+  rt.innerHTML = hlMask(result);
+  lt.innerHTML = log.length === 0
+    ? '<span style="color:#95A5A6">個人情報の検出なし</span>'
+    : log.map(l => `<div>[${esc(l.label)}]　${esc(l.orig)}　→　<span class="log-hit">${esc(l.rep)}</span></div>`).join('');
+}
+
+function clearDisplay() {
+  document.getElementById('rt').innerHTML = '<div class="empty">ファイルを選択して「匿名化を実行」を押してください</div>';
+  document.getElementById('lt').innerHTML = '';
+}
+
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentTab = btn.dataset.tab;
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-result').style.display = currentTab === 'result' ? '' : 'none';
+    document.getElementById('tab-log').style.display = currentTab === 'log' ? '' : 'none';
+  });
+});
+
+document.getElementById('copyBtn').addEventListener('click', () => {
+  if (!currentFile || !results[currentFile]) return;
+  navigator.clipboard.writeText(results[currentFile].result).then(() => {
+    const b = document.getElementById('copyBtn');
+    b.textContent = 'コピーしました ✓';
+    setTimeout(() => { b.textContent = 'コピー'; }, 1800);
+  });
+});
+
+/* ── ユーティリティ ─────────────────────────── */
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function hlMask(s) {
+  return esc(s).replace(/【[^】]+】/g, m => `<span class="mask">${m}</span>`);
+}
+</script>
+</body>
+</html>
