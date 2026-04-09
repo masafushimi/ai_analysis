@@ -7,16 +7,16 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Sans',sans-serif;background:#F4F6F9;min-height:100vh;color:#1C2833}
-header{background:#1A6FA8;padding:14px 24px;display:flex;align-items:center;gap:12px}
+header{background:#1A6FA8;padding:14px 24px}
 header h1{font-size:18px;font-weight:600;color:#fff}
-header p{font-size:12px;color:#A9CCE3;margin-top:2px}
+header p{font-size:12px;color:#A9CCE3;margin-top:3px}
 .main{max-width:960px;margin:0 auto;padding:24px 16px}
 .card{background:#fff;border:1px solid #D5DBE4;border-radius:12px;padding:20px;margin-bottom:16px}
 .section-label{font-size:11px;font-weight:600;color:#5D6D7E;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
 .drop-zone{border:2px dashed #B0BEC5;border-radius:10px;padding:32px 16px;text-align:center;cursor:pointer;transition:background .15s;position:relative}
 .drop-zone:hover,.drop-zone.over{background:#EBF5FB}
 .drop-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.drop-zone svg{display:block;margin:0 auto 10px;opacity:.4}
+.drop-zone svg{display:block;margin:0 auto 10px}
 .drop-zone p{font-size:14px;color:#5D6D7E}
 .drop-zone small{font-size:12px;color:#95A5A6;display:block;margin-top:4px}
 .pdfjs-status{font-size:12px;color:#95A5A6;text-align:center;margin-top:8px;min-height:18px}
@@ -27,45 +27,39 @@ header p{font-size:12px;color:#A9CCE3;margin-top:2px}
 .badge-pdf{background:#EBF5FB;color:#1A6FA8}
 .badge-done{background:#EAFAF1;color:#1E8449}
 .badge-err{background:#FDEDEC;color:#C0392B}
-.badge-proc{background:#FEF9E7;color:#B7950B}
 .rm{background:none;border:none;cursor:pointer;color:#BDC3C7;font-size:16px;padding:0 2px;line-height:1;flex-shrink:0}
 .rm:hover{color:#E74C3C}
 .progress{height:4px;background:#EBF5FB;border-radius:4px;overflow:hidden;margin-top:10px;display:none}
 .progress-bar{height:100%;background:#1A6FA8;width:0;transition:width .3s}
-.btn-row{display:flex;gap:8px;margin-top:12px}
-.btn{flex:1;padding:10px;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:opacity .15s}
-.btn:disabled{opacity:.35;cursor:not-allowed}
-.btn-primary{background:#1E8449;color:#fff}
-.btn-primary:hover:not(:disabled){opacity:.88}
+.run-btn{width:100%;padding:10px;background:#1E8449;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;margin-top:12px;transition:opacity .15s}
+.run-btn:hover:not(:disabled){opacity:.88}
+.run-btn:disabled{opacity:.35;cursor:not-allowed}
 .stats{display:flex;gap:8px;margin-bottom:16px}
 .stat{flex:1;background:#F4F6F9;border-radius:8px;padding:10px 12px}
 .stat-n{font-size:22px;font-weight:600;color:#1C2833}
 .stat-l{font-size:11px;color:#5D6D7E;margin-top:2px}
 .file-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-.file-tab{font-size:12px;padding:4px 12px;border:1px solid #D5DBE4;border-radius:20px;cursor:pointer;background:none;color:#5D6D7E;transition:all .1s;white-space:nowrap;max-width:180px;overflow:hidden;text-overflow:ellipsis}
+.file-tab{font-size:12px;padding:4px 12px;border:1px solid #D5DBE4;border-radius:20px;cursor:pointer;background:none;color:#5D6D7E;white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis}
 .file-tab.active{background:#1A6FA8;color:#fff;border-color:transparent}
-.tabs{display:flex;gap:0;border-bottom:1px solid #D5DBE4;margin-bottom:12px}
+.tabs{display:flex;border-bottom:1px solid #D5DBE4;margin-bottom:12px}
 .tab{padding:8px 16px;font-size:13px;cursor:pointer;border:none;background:none;color:#5D6D7E;border-bottom:2px solid transparent;margin-bottom:-1px;font-weight:500}
 .tab.active{color:#1A6FA8;border-bottom-color:#1A6FA8}
 .result-wrap{position:relative}
-.result-text{width:100%;min-height:280px;max-height:420px;overflow-y:auto;background:#F8F9FA;border:1px solid #D5DBE4;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:12px;line-height:1.8;color:#1C2833;white-space:pre-wrap;word-break:break-all}
+.result-text{min-height:280px;max-height:440px;overflow-y:auto;background:#F8F9FA;border:1px solid #D5DBE4;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:12px;line-height:1.8;color:#1C2833;white-space:pre-wrap;word-break:break-all}
 .mask{background:#FEF3CD;color:#7D6608;border-radius:3px;padding:0 3px;font-weight:600}
 .log-box{font-family:'Courier New',monospace;font-size:12px;line-height:1.8;color:#5D6D7E;background:#F8F9FA;border:1px solid #D5DBE4;border-radius:8px;padding:14px;min-height:100px;max-height:300px;overflow-y:auto;white-space:pre-wrap}
 .log-hit{color:#C0392B;font-weight:500}
-.copy-btn{font-size:12px;padding:5px 14px;border:1px solid #D5DBE4;border-radius:8px;background:#fff;cursor:pointer;color:#5D6D7E;position:absolute;top:10px;right:10px;transition:background .1s}
+.copy-btn{font-size:12px;padding:5px 14px;border:1px solid #D5DBE4;border-radius:8px;background:#fff;cursor:pointer;color:#5D6D7E;position:absolute;top:10px;right:10px}
 .copy-btn:hover{background:#EBF5FB}
-.empty{text-align:center;padding:40px;color:#95A5A6;font-size:13px}
 .warn{background:#FEF9E7;border:1px solid #F9E79F;border-radius:8px;padding:10px 14px;font-size:12px;color:#7D6608;margin-bottom:12px}
+.empty{text-align:center;padding:48px;color:#95A5A6;font-size:13px}
 footer{text-align:center;padding:20px;font-size:12px;color:#95A5A6}
 </style>
 </head>
 <body>
-
 <header>
-  <div>
-    <h1>🔒 CT レポート 匿名化ツール</h1>
-    <p>個人情報をマスクしてから AI へ安全に送信 — すべてブラウザ内で処理、サーバーへの送信ゼロ</p>
-  </div>
+  <h1>🔒 CT レポート 匿名化ツール</h1>
+  <p>個人情報をマスクしてから AI へ安全に送信 — すべてブラウザ内で処理、サーバーへの送信ゼロ</p>
 </header>
 
 <div class="main">
@@ -73,8 +67,8 @@ footer{text-align:center;padding:20px;font-size:12px;color:#95A5A6}
     <div class="section-label">ファイルを選択</div>
     <div class="drop-zone" id="dz">
       <input type="file" id="fi" multiple accept=".pdf">
-      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-        <path d="M18 4L27 13H22.5V28H13.5V13H9L18 4Z" fill="#1A6FA8"/>
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" opacity=".4">
+        <path d="M18 4L27 13H22.5V26H13.5V13H9L18 4Z" fill="#1A6FA8"/>
         <rect x="7" y="30" width="22" height="3" rx="1.5" fill="#1A6FA8"/>
       </svg>
       <p>クリックまたはドラッグ＆ドロップ</p>
@@ -83,9 +77,7 @@ footer{text-align:center;padding:20px;font-size:12px;color:#95A5A6}
     <div class="pdfjs-status" id="pdfjs-status">PDF.js を読み込み中…</div>
     <div class="file-list" id="fl"></div>
     <div class="progress" id="pw"><div class="progress-bar" id="pb"></div></div>
-    <div class="btn-row">
-      <button class="btn btn-primary" id="runBtn" disabled>▶ 匿名化を実行</button>
-    </div>
+    <button class="run-btn" id="runBtn" disabled>▶ 匿名化を実行</button>
   </div>
 
   <div class="card" id="resultCard" style="display:none">
@@ -106,47 +98,106 @@ footer{text-align:center;padding:20px;font-size:12px;color:#95A5A6}
   </div>
 </div>
 
-<footer>
-  すべての処理はブラウザ内で完結します。ファイルは外部サーバーへ一切送信されません。
-</footer>
+<footer>すべての処理はブラウザ内で完結します。ファイルは外部サーバーへ一切送信されません。</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
 const WORKER_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-/* ── 匿名化ルール ────────────────────────────── */
+/* =====================================================
+   匿名化ルール
+   優先度順に適用。各ルール: [ラベル, 正規表現, 置換関数]
+   対応フォーマット:
+     患者氏名 田中 太郎 様          （コロンなし・様あり）
+     患者氏名：田中 太郎            （コロンあり）
+     生年月日 1958/04/12            （コロンなし）
+     依頼科 / 依頼医 〇〇科 / 氏名 先生
+     読影医：放射線科　田中 恵子    （科名付き）
+     読影医：田中 恵子              （コロン直後）
+===================================================== */
 const RULES = [
-  [/(患者氏名)[　 ]*[：:]\s*(\S+[　 ]+\S+)/, '患者氏名', '【氏名マスク済】'],
-  [/(患者氏名)[　 ]*[：:]\s*(?!【)(\S+)/, '患者氏名', '【氏名マスク済】'],
-  [/(生年月日)[　 ]*[：:]\s*(\d{4}[\/\-年]\d{1,2}[\/\-月]\d{1,2}日?)/, '生年月日', '【生年月日マスク済】'],
-  [/(生年月日)[　 ]*[：:]\s*((昭和|平成|令和)\d+年\d+月\d+日)/, '生年月日(元号)', '【生年月日マスク済】'],
-  [/(依頼医|担当医|主治医|診断医|確定医|読影医|オーダー医|紹介医)[　 ]*[：:]\s*(\S+[　 ]+\S+)/, '医師名', '【医師名マスク済】'],
-  [/(依頼医|担当医|主治医|診断医|確定医|読影医|オーダー医|紹介医)[　 ]*[：:]\s*(?!【)(\S+)/, '医師名', '【医師名マスク済】'],
-  [/(住所|ご住所)[　 ]*[：:]\s*([^\n]{5,60})/, '住所', '【住所マスク済】'],
-  [/(〒\d{3}-\d{4}[^\n]*)/, '郵便番号付き住所', '【住所マスク済】'],
-  [/(電話|TEL|Tel|連絡先)[　 ]*[：:]\s*([\d\-\(\)]{10,15})/, '電話番号', '【電話番号マスク済】'],
-  [/(0\d{1,4}-\d{1,4}-\d{4})/, '電話番号', '【電話番号マスク済】'],
-  [/(保険者番号|保険番号|記号番号)[　 ]*[：:]\s*([\w\-]{4,20})/, '保険番号', '【保険番号マスク済】'],
+  // ── 患者氏名 ──────────────────────────────────────────────
+  ['患者氏名',
+   /患者氏名\s+(\S+\s+\S+)\s+様/g,
+   m => `患者氏名 【氏名マスク済】 様`],
+
+  ['患者氏名(コロン)',
+   /患者氏名\s*[：:]\s*(?!【)(\S+[\s　]\S+)/g,
+   m => m[0].replace(m[1], '【氏名マスク済】')],
+
+  // ── 生年月日 ──────────────────────────────────────────────
+  ['生年月日',
+   /生年月日\s*[：:]?\s*(\d{4}[\/\-年]\d{1,2}[\/\-月]\d{1,2}日?)/g,
+   m => m[0].replace(m[1], '【生年月日マスク済】')],
+
+  ['生年月日(元号)',
+   /生年月日\s*[：:]?\s*((昭和|平成|令和)\d+年\d+月\d+日)/g,
+   m => m[0].replace(m[1], '【生年月日マスク済】')],
+
+  // ── 依頼医 ────────────────────────────────────────────────
+  // 形式: 依頼科 / 依頼医 〇〇科 / 氏名 先生
+  ['依頼医(スラッシュ)',
+   /(依頼科\s*\/\s*依頼医\s+\S+\s*\/\s*)(\S+\s+\S+)(\s+先生)/g,
+   m => `${m[1]}【医師名マスク済】${m[3]}`],
+
+  // 形式: 依頼医：氏名
+  ['依頼医(コロン)',
+   /(依頼医|担当医|主治医)\s*[：:]\s*(?!【)(\S+[\s　]\S+)/g,
+   m => m[0].replace(m[2], '【医師名マスク済】')],
+
+  // ── 読影医・診断医・確定医 ────────────────────────────────
+  // 形式: 読影医：放射線科　田中 恵子（科名付き全角スペース）
+  ['読影医(科名付き)',
+   /(読影医|診断医|確定医)[：:]\s*\S+[\s　]+(?!【)(\S+\s+\S+)/g,
+   m => m[0].replace(m[2], '【医師名マスク済】')],
+
+  // 形式: 読影医：田中 恵子（コロン直後）
+  ['読影医(コロン)',
+   /(読影医|診断医|確定医)\s*[：:]\s*(?!【)(\S+[\s　]\S+)/g,
+   m => m[0].replace(m[2], '【医師名マスク済】')],
+
+  // ── 住所・電話・保険 ──────────────────────────────────────
+  ['住所',
+   /(住所|ご住所)\s*[：:]\s*([^\n]{5,60})/g,
+   m => m[0].replace(m[2], '【住所マスク済】')],
+
+  ['郵便番号付き住所',
+   /〒\d{3}-\d{4}[^\n]*/g,
+   () => '【住所マスク済】'],
+
+  ['電話番号',
+   /(電話|TEL|Tel|連絡先)\s*[：:]\s*([\d\-\(\)]{10,15})/g,
+   m => m[0].replace(m[2], '【電話番号マスク済】')],
+
+  ['電話番号(単独)',
+   /0\d{1,4}-\d{1,4}-\d{4}/g,
+   () => '【電話番号マスク済】'],
+
+  ['保険番号',
+   /(保険者番号|保険番号|記号番号)\s*[：:]\s*([\w\-]{4,20})/g,
+   m => m[0].replace(m[2], '【保険番号マスク済】')],
 ];
 
 function anonymize(text) {
   const log = [];
   let result = text;
-  for (const [re, label, mask] of RULES) {
-    const gre = new RegExp(re.source, 'g');
-    result = result.replace(gre, (full, g1, g2) => {
-      const target = (g2 !== undefined && !String(g2).startsWith('【')) ? g2
-                   : (!String(g1).startsWith('【') && g2 === undefined) ? g1
-                   : null;
-      if (!target) return full;
-      log.push({ label, orig: full.trim(), rep: full.trim().replace(target, mask) });
-      return full.replace(target, mask);
+  for (const [label, re, fn] of RULES) {
+    result = result.replace(re, (...args) => {
+      // args: [fullMatch, g1, g2, ..., offset, string]
+      const groups = args.slice(0, -2);
+      const rep = fn(groups);
+      if (rep !== groups[0]) {
+        log.push({ label, orig: groups[0].trim(), rep: rep.trim() });
+      }
+      return rep;
     });
   }
   return { result, log };
 }
 
-/* ── PDF.js 初期化 ───────────────────────────── */
+/* =====================================================
+   PDF.js テキスト抽出（行順序を保持）
+===================================================== */
 let pdfjsReady = false;
 const statusEl = document.getElementById('pdfjs-status');
 
@@ -166,29 +217,29 @@ waitForPdfJs();
 async function extractPdfText(file) {
   const buf = await file.arrayBuffer();
   const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
-  let text = '';
-  for (let i = 1; i <= pdf.numPages; i++) {
-    const page = await pdf.getPage(i);
+  let fullText = '';
+  for (let p = 1; p <= pdf.numPages; p++) {
+    const page = await pdf.getPage(p);
     const content = await page.getTextContent();
-    /* アイテムを x 座標でソートして行を再構成 */
-    const items = content.items;
-    let line = '', lastY = null;
-    for (const item of items) {
-      const y = item.transform[5];
-      if (lastY !== null && Math.abs(y - lastY) > 3) {
-        text += line.trimEnd() + '\n';
-        line = '';
-      }
-      line += item.str;
-      lastY = y;
+    // Y座標でグループ化して行を再構成（PDF内の列レイアウト対応）
+    const byY = {};
+    for (const item of content.items) {
+      const y = Math.round(item.transform[5]);
+      if (!byY[y]) byY[y] = [];
+      byY[y].push({ x: item.transform[4], str: item.str });
     }
-    if (line) text += line + '\n';
-    text += '\n';
+    const lines = Object.keys(byY)
+      .map(Number)
+      .sort((a, b) => b - a)  // 上から下
+      .map(y => byY[y].sort((a, b) => a.x - b.x).map(i => i.str).join(''));
+    fullText += lines.join('\n') + '\n\n';
   }
-  return text;
+  return fullText;
 }
 
-/* ── ファイル管理 ────────────────────────────── */
+/* =====================================================
+   ファイル管理・UI
+===================================================== */
 const files = [], results = {};
 let currentFile = null, currentTab = 'result';
 
@@ -222,16 +273,14 @@ function renderList() {
   files.forEach((f, i) => {
     const r = results[f.name];
     const badge = r
-      ? (r.error
-          ? `<span class="badge badge-err">エラー</span>`
-          : `<span class="badge badge-done">完了 ${r.log.length}件マスク</span>`)
+      ? (r.error ? `<span class="badge badge-err">エラー</span>`
+                 : `<span class="badge badge-done">完了 ${r.log.length}件マスク</span>`)
       : `<span class="badge badge-pdf">PDF</span>`;
     const div = document.createElement('div');
     div.className = 'file-item';
     div.innerHTML = `<span style="font-size:16px">📄</span>
-      <span class="file-name">${esc(f.name)}</span>
-      ${badge}
-      <button class="rm" data-i="${i}" title="削除">×</button>`;
+      <span class="file-name">${esc(f.name)}</span>${badge}
+      <button class="rm" data-i="${i}">×</button>`;
     fl.appendChild(div);
   });
   fl.querySelectorAll('.rm').forEach(b => b.addEventListener('click', e => {
@@ -242,11 +291,10 @@ function renderList() {
     if (currentFile === name) { currentFile = null; clearDisplay(); }
     renderList();
     runBtn.disabled = files.length === 0;
-    if (Object.keys(results).length === 0) document.getElementById('resultCard').style.display = 'none';
+    if (!Object.keys(results).length) document.getElementById('resultCard').style.display = 'none';
   }));
 }
 
-/* ── 実行 ───────────────────────────────────── */
 runBtn.addEventListener('click', async () => {
   if (!pdfjsReady) { alert('PDF.js がまだ読み込まれていません。少し待ってから再試行してください。'); return; }
   runBtn.disabled = true;
@@ -256,48 +304,41 @@ runBtn.addEventListener('click', async () => {
 
   for (let i = 0; i < files.length; i++) {
     pb.style.width = Math.round((i / files.length) * 90) + '%';
-    const f = files[i];
     try {
-      const text = await extractPdfText(f);
+      const text = await extractPdfText(files[i]);
       const { result, log } = anonymize(text);
-      results[f.name] = { result, log };
+      results[files[i].name] = { result, log };
     } catch(err) {
-      results[f.name] = { error: err.message, result: '', log: [] };
+      results[files[i].name] = { error: err.message, result: '', log: [] };
     }
   }
 
   pb.style.width = '100%';
-  setTimeout(() => { pw.style.display = 'none'; }, 600);
+  setTimeout(() => { pw.style.display = 'none'; }, 500);
   runBtn.textContent = '▶ 匿名化を実行';
   runBtn.disabled = false;
-
   renderList();
+
   document.getElementById('resultCard').style.display = 'block';
   currentFile = files.find(f => results[f.name] && !results[f.name].error)?.name || files[0]?.name;
-  renderStats();
-  renderFileTabs();
-  showCurrent();
+  renderStats(); renderFileTabs(); showCurrent();
 
-  const errors = Object.entries(results).filter(([,v]) => v.error);
+  const errs = Object.entries(results).filter(([,v]) => v.error);
   const wb = document.getElementById('warnBox');
-  if (errors.length) {
+  if (errs.length) {
     wb.style.display = 'block';
-    wb.textContent = `⚠ ${errors.length} 件のファイルでエラーが発生しました: ${errors.map(([k])=>k).join(', ')}`;
+    wb.textContent = `⚠ ${errs.length} 件のファイルでエラーが発生しました: ${errs.map(([k])=>k).join(', ')}`;
   } else {
     wb.style.display = 'none';
   }
 });
 
-/* ── 結果表示 ───────────────────────────────── */
 function renderStats() {
   const allLog = Object.values(results).flatMap(r => r.log || []);
-  const fc = Object.keys(results).length;
-  const mc = allLog.length;
-  const kinds = [...new Set(allLog.map(l => l.label))].length;
   document.getElementById('statsRow').innerHTML = [
-    ['処理ファイル数', fc],
-    ['マスク件数（合計）', mc],
-    ['検出した情報の種類', kinds]
+    ['処理ファイル数', Object.keys(results).length],
+    ['マスク件数（合計）', allLog.length],
+    ['検出した情報の種類', [...new Set(allLog.map(l => l.label))].length]
   ].map(([l,n]) => `<div class="stat"><div class="stat-n">${n}</div><div class="stat-l">${l}</div></div>`).join('');
 }
 
@@ -309,7 +350,7 @@ function renderFileTabs() {
     const btn = document.createElement('button');
     btn.className = 'file-tab' + (f.name === currentFile ? ' active' : '');
     btn.title = f.name;
-    btn.textContent = f.name.length > 22 ? f.name.slice(0,20) + '…' : f.name;
+    btn.textContent = f.name.length > 24 ? f.name.slice(0,22)+'…' : f.name;
     btn.addEventListener('click', () => { currentFile = f.name; renderFileTabs(); showCurrent(); });
     ftabs.appendChild(btn);
   });
@@ -321,7 +362,7 @@ function showCurrent() {
   if (!currentFile || !results[currentFile]) { clearDisplay(); return; }
   const { result, log, error } = results[currentFile];
   if (error) {
-    rt.innerHTML = `<span style="color:#C0392B">エラー: ${esc(error)}<br>スキャン画像PDFは非対応です。テキスト埋め込み型PDFをお使いください。</span>`;
+    rt.innerHTML = `<span style="color:#C0392B">エラー: ${esc(error)}<br>スキャン画像型PDFは非対応です。テキスト埋め込み型PDFをお使いください。</span>`;
     lt.innerHTML = '';
     return;
   }
@@ -355,11 +396,8 @@ document.getElementById('copyBtn').addEventListener('click', () => {
   });
 });
 
-/* ── ユーティリティ ─────────────────────────── */
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function hlMask(s) {
-  return esc(s).replace(/【[^】]+】/g, m => `<span class="mask">${m}</span>`);
-}
+function hlMask(s) { return esc(s).replace(/【[^】]+】/g, m => `<span class="mask">${m}</span>`); }
 </script>
 </body>
 </html>
