@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大成株式会社 AI DX戦略事例集</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #a88a5d;
+            --ivory: #fdfcfb;
+            --coral: #e27d60;
+            --dark-text: #2c2c2c;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--ivory);
+            color: var(--dark-text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        header h1 {
+            color: var(--gold);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 0.1em;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #eee;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            background-color: var(--gold);
+            color: white;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .card h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.3rem;
+            color: var(--gold);
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: var(--coral);
+            font-size: 0.9rem;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 8px;
+        }
+
+        .solution-steps {
+            font-size: 0.9rem;
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .impact-box {
+            background-color: #f9f4ee;
+            border-left: 4px solid var(--gold);
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--dark-text);
+            color: white;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AI DX STRATEGY REPORT</h1>
+    <p>大成株式会社 次世代ビルマネジメント・トランスフォーメーション</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800" alt="Building" class="card-image">
+            <div class="card-content">
+                <span class="role-badge">営業部：新規開拓</span>
+                <h3>AIオーナー課題推論エンジン</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>登記簿や外観からオーナーの悩みを推測する際、個人の経験則に頼り切り、提案が標準化されていない。</p>
+                <div class="section-title"><i class="fas fa-cog"></i> AI活用ステップ</div>
+                <ul class="solution-steps">
+                    <li>物件のスペック情報をAIに入力</li>
+                    <li>築年数、エリア、市況から潜在課題を3点抽出</li>
+                    <li>「刺さる」提案書ストーリーを自動構成</li>
+                </ul>
+                <div class="impact-box">商談獲得率：約40%向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800" alt="Report" class="card-image">
+            <div class="card-content">
+                <span class="role-badge">PM部：オーナー報告</span>
+                <h3>インテリジェント・レポーティング</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>清掃・警備・設備の膨大な日報から、オーナーが喜ぶ「安心感のある要約」を作るのに多大な時間を要している。</p>
+                <div class="section-title"><i class="fas fa-cog"></i> AI活用ステップ</div>
+                <ul class="solution-steps">
+                    <li>月次の稼働データと異常ログをLLMに流し込む</li>
+                    <li>プロ視点の「今月の特記ポイント」を自動生成</li>
+                    <li>資産価値維持への貢献をロジカルに強調</li>
+                </ul>
+                <div class="impact-box">月次報告書作成工数：75%削減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1553484771-047a44eee27b?q=80&w=800" alt="Brain" class="card-image">
+            <div class="card-content">
+                <span class="role-badge">全社共通：ナレッジ資産化</span>
+                <h3>NotebookLM「大成・知恵袋」</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>過去10年のトラブル対応記録やベテランのノウハウが散逸しており、若手が現場で即答できない。</p>
+                <div class="section-title"><i class="fas fa-cog"></i> AI活用ステップ</div>
+                <ul class="solution-steps">
+                    <li>全マニュアル・過去ログをNotebookLMに集約</li>
+                    <li>現場からスマホで「〇〇のエラー対応」と音声入力</li>
+                    <li>社内規定に基づいた正解を即時に回答</li>
+                </ul>
+                <div class="impact-box">現場待機時間：50%削減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1581092921461-eab62e92c73e?q=80&w=800" alt="Robot" class="card-image">
+            <div class="card-content">
+                <span class="role-badge">清掃管理：ロボット連携</span>
+                <h3>ハイブリッド清掃最適化AI</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>ロボットと人間の作業範囲が重複したり、効率的な動線設計が担当者の勘で行われている。</p>
+                <div class="section-title"><i class="fas fa-cog"></i> AI活用ステップ</div>
+                <ul class="solution-steps">
+                    <li>フロア図面からロボットの最適走行ルートを算出</li>
+                    <li>ロボットが入れない「隙間」をAIが特定</li>
+                    <li>人間が担当すべき箇所をスマート端末へ指示</li>
+                </ul>
+                <div class="impact-box">清掃効率：30%向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=800" alt="Sensor" class="card-image">
+            <div class="card-content">
+                <span class="role-badge">設備管理：予防保全</span>
+                <h3>AI故障予兆検知アラート</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>設備が故障してから対応する「事後保守」が中心で、突発的な修理コストとテナント不満が発生。</p>
+                <div class="section-title"><i class="fas fa-cog"></i> AI活用ステップ</div>
+                <ul class="solution-steps">
+                    <li>振動・電流等のセンサーデータをAIで常時監視</li>
+                    <li>異常予兆を多変量解析で特定</li>
+                    <li>完全故障前の最適な交換時期をレコメンド</li>
+                </ul>
+                <div class="impact-box">突発修理費：25%削減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800" alt="Green" class="card-image">
+            <div class="card-content">
+                <span class="role-badge">クリエイティブ：ESG</span>
+                <h3>自動ESGレポート生成</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>SDGsやCO2削減実績を外部へアピールするための資料作成が属人的で、品質にバラツキがある。</p>
+                <div class="section-title"><i class="fas fa-cog"></i> AI活用ステップ</div>
+                <ul class="solution-steps">
+                    <li>BEMSのエネルギーデータをAIが分析</li>
+                    <li>SDGs各目標への貢献度を定量的・定性的に言語化</li>
+                    <li>多言語対応の投資家向けレポートを自動出力</li>
+                </ul>
+                <div class="impact-box">企業価値（非財務）評価向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800" alt="HR" class="card-image">
+            <div class="card-content">
+                <span class="role-badge">管理部門：人事採用</span>
+                <h3>スカウト・パーソナライズAI</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>ビル管理士等の有資格者へのスカウトメールが定型文で、返信率が低下している。</p>
+                <div class="section-title"><i class="fas fa-cog"></i> AI活用ステップ</div>
+                <ul class="solution-steps">
+                    <li>候補者の経歴をAIが解析</li>
+                    <li>「なぜあなたなのか」を各年代別に最適化</li>
+                    <li>当社のDX戦略を盛り込んだ未来志向の文面生成</li>
+                </ul>
+                <div class="impact-box">スカウト返信率：2.5倍</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=800" alt="Law" class="card-image">
+            <div class="card-content">
+                <span class="role-badge">管理部門：法務</span>
+                <h3>契約書リスク検知エンジン</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>委託契約書の免責事項や損害賠償範囲のチェックに専門知識が必要で、確認に時間がかかる。</p>
+                <div class="section-title"><i class="fas fa-cog"></i> AI活用ステップ</div>
+                <ul class="solution-steps">
+                    <li>ドラフト契約書をAIにアップロード</li>
+                    <li>当社に不利な条項や法改正への不適合を即時指摘</li>
+                    <li>代替となる修正案をその場で提示</li>
+                </ul>
+                <div class="impact-box">法務審査リードタイム：80%短縮</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?q=80&w=800" alt="CS" class="card-image">
+            <div class="card-content">
+                <span class="role-badge">PM部：クレーム対応</span>
+                <h3>共感型一次回答アシスタント</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>テナントからの厳しいクレームに対し、担当者が精神的に疲弊し、回答が遅れる悪循環。</p>
+                <div class="section-title"><i class="fas fa-cog"></i> AI活用ステップ</div>
+                <ul class="solution-steps">
+                    <li>不満内容をAIに入力</li>
+                    <li>心理学的な「共感」をベースにした誠実な回答案作成</li>
+                    <li>責任範囲を明確にしつつ、解決策を3案提示</li>
+                </ul>
+                <div class="impact-box">クレーム鎮静化スピード：向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800" alt="Finance" class="card-image">
+            <div class="card-content">
+                <span class="role-badge">経理部：資金管理</span>
+                <h3>予測CFシミュレーター</h3>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p>大規模修繕や物価高騰の影響を織り込んだ資金繰り予測が複雑で、精度に課題。</p>
+                <div class="section-title"><i class="fas fa-cog"></i> AI活用ステップ</div>
+                <ul class="solution-steps">
+                    <li>全物件の入出金予定データを一括読み込み</li>
+                    <li>インフレ率を考慮した3ヶ月〜1年後のCF予測</li>
+                    <li>資金不足が発生しそうな時期を自動アラート</li>
+                </ul>
+                <div class="impact-box">予測精度：95%以上</div>
+            </div>
+        </div>
+
+        <div class="card" style="border: 2px solid var(--coral);">
+            <div class="card-content">
+                <span class="role-badge" style="background-color: var(--coral);">リスク管理・重要事項</span>
+                <h3>AI導入におけるガバナンス</h3>
+                <div class="section-title"><i class="fas fa-shield-alt"></i> セキュリティ指針</div>
+                <p>1. 顧客名・建物名は匿名化してAIに送信すること。<br>
+                   2. 生成された回答は必ず有資格者が最終確認すること。<br>
+                   3. 入力データがAIの学習に利用されない設定（API利用）を徹底すること。</p>
+                <div class="impact-box" style="background-color: #fcece8; border-color: var(--coral);">信頼性の担保は人間の責任</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 大成株式会社 DX推進委員会 & AIコンサルティング・プロジェクト</p>
+</footer>
+
+</body>
+</html>
