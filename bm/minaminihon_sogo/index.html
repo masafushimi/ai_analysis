@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI DX 30 Cases Strategic Report - 南日本総合サービス</title>
+    <title>AI DX Strategic Report - 南日本総合サービス</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
@@ -12,112 +12,243 @@
             --ivory: #fdfcfb;
             --coral: #e27d60;
             --dark: #2c3e50;
-            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow: 0 10px 40px rgba(0,0,0,0.08);
         }
         body { background-color: var(--ivory); font-family: 'Noto Sans JP', sans-serif; color: var(--dark); margin: 0; line-height: 1.6; }
-        header { background: linear-gradient(135deg, #1a1a1a 0%, #333 100%); color: white; padding: 50px 20px; text-align: center; border-bottom: 5px solid var(--gold); }
-        header h1 { margin: 0; font-size: 2rem; letter-spacing: 2px; }
-        
-        /* Tabs */
-        .tabs-container { max-width: 1400px; margin: 30px auto; padding: 0 20px; }
-        .tabs-menu { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
-        .tab-button { background: white; border: 2px solid var(--gold); color: var(--gold); padding: 15px 30px; cursor: pointer; font-weight: bold; border-radius: 5px; transition: 0.3s; font-size: 1rem; }
+        header { background: #1a1a1a; color: white; padding: 60px 20px; text-align: center; border-bottom: 4px solid var(--gold); }
+        header h1 { margin: 0; font-size: 2.2rem; letter-spacing: 2px; }
+        header p { color: var(--gold); font-size: 1.1rem; margin-top: 10px; }
+
+        .tabs-container { max-width: 1400px; margin: -30px auto 40px; padding: 0 20px; }
+        .tabs-menu { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
+        .tab-button { background: white; border: none; color: var(--dark); padding: 15px 35px; cursor: pointer; font-weight: bold; border-radius: 50px; transition: 0.3s; box-shadow: var(--shadow); font-size: 1rem; }
         .tab-button.active { background: var(--gold); color: white; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
         
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .tab-content { display: none; padding: 20px; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(168, 138, 93, 0.1); display: flex; flex-direction: column; }
-        .card-image { width: 100%; height: 140px; object-fit: cover; filter: sepia(20%); }
-        .card-content { padding: 20px; flex-grow: 1; }
-        .role-badge { display: inline-block; background: var(--gold); color: white; padding: 2px 10px; border-radius: 4px; font-size: 0.7rem; margin-bottom: 10px; }
-        .card-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; color: var(--gold); min-height: 2.8em; display: flex; align-items: center; }
-        .section-title { font-size: 0.8rem; font-weight: bold; color: var(--coral); margin-top: 10px; }
-        .text { font-size: 0.85rem; margin: 5px 0; }
-        .impact { background: #fef5f2; padding: 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-top: 15px; color: #d35400; border-left: 4px solid var(--coral); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 30px; }
+        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(168, 138, 93, 0.1); display: flex; flex-direction: column; }
+        .card-image { width: 100%; height: 200px; object-fit: cover; }
+        .card-content { padding: 30px; flex-grow: 1; }
+        .role-badge { display: inline-block; background: var(--gold); color: white; padding: 4px 15px; border-radius: 5px; font-size: 0.75rem; margin-bottom: 15px; }
+        .card-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 15px; color: #1a1a1a; border-bottom: 2px solid var(--ivory); padding-bottom: 10px; }
+        
+        .section { margin-bottom: 15px; }
+        .section-label { font-size: 0.85rem; font-weight: bold; color: var(--coral); display: block; margin-bottom: 5px; }
+        .section-text { font-size: 0.9rem; color: #555; margin: 0; }
+        
+        .impact-box { background: #fffcf0; border-left: 5px solid var(--gold); padding: 15px; margin-top: 20px; }
+        .impact-label { font-size: 0.8rem; font-weight: bold; color: var(--gold); text-transform: uppercase; }
+        .impact-text { font-size: 1rem; font-weight: bold; color: #444; margin: 5px 0 0; }
 
-        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } .tab-button { flex: 1; padding: 10px; font-size: 0.8rem; } }
+        footer { text-align: center; padding: 60px; color: #999; font-size: 0.9rem; }
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } .tabs-menu { flex-direction: column; } }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>AI DX STRATEGY MASTER REPORT</h1>
-    <p>南日本総合サービス株式会社 30事例 統合版</p>
+    <h1>AI DX MASTER STRATEGY</h1>
+    <p>南日本総合サービス株式会社 - 全社横断AI活用事例集（30事例）</p>
 </header>
 
 <div class="tabs-container">
     <div class="tabs-menu">
-        <button class="tab-button active" onclick="openTab(event, 'medical')">メディカル (10)</button>
-        <button class="tab-button" onclick="openTab(event, 'cleaning')">クリーニング (10)</button>
-        <button class="tab-button" onclick="openTab(event, 'facility')">設備管理 (10)</button>
+        <button class="tab-button active" onclick="openTab(event, 'medical')"><i class="fas fa-user-md"></i> メディカルサービス</button>
+        <button class="tab-button" onclick="openTab(event, 'cleaning')"><i class="fas fa-quidditch"></i> ビルクリーニング</button>
+        <button class="tab-button" onclick="openTab(event, 'facility')"><i class="fas fa-cogs"></i> 建築設備管理</button>
     </div>
 
     <div id="medical" class="tab-content active">
         <div class="grid">
-            <div class="card"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400" class="card-image"><div class="card-content"><span class="role-badge">実務</span><div class="card-title">AIレセプト自動精査</div><div class="section-title">課題</div><p class="text">点検の属人化と返戻リスク。</p><div class="impact">返戻率 $R_{rej}$ 40%削減</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=400" class="card-image"><div class="card-content"><span class="role-badge">ナレッジ</span><div class="card-title">NotebookLM 診療報酬Bot</div><div class="section-title">課題</div><p class="text">複雑な官報・告示の解釈に時間がかかる。</p><div class="impact">検索工数 90%削減</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1521791136364-798a7bc0d262?w=400" class="card-image"><div class="card-content"><span class="role-badge">実務</span><div class="card-title">AI医師事務作業補助</div><div class="section-title">課題</div><p class="text">診察中の電子カルテ代行入力の負担。</p><div class="impact">入力時間 70%削減</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400" class="card-image"><div class="card-content"><span class="role-badge">CS</span><div class="card-title">多言語AI患者受付</div><div class="section-title">課題</div><p class="text">増加する外国人患者への対応遅延。</p><div class="impact">窓口滞留時間 35%削減</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1454165833767-131f72a5a7d?w=400" class="card-image"><div class="card-content"><span class="role-badge">経営</span><div class="card-title">DPC分析収益最適化AI</div><div class="section-title">課題</div><p class="text">包括支払い制度での収益構造の不透明さ。</p><div class="impact">診療単価 $U$ 5%向上</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=400" class="card-image"><div class="card-content"><span class="role-badge">事務</span><div class="card-title">AI自動シフト作成(病院版)</div><div class="section-title">課題</div><p class="text">病棟・外来の複雑な人員配置の調整。</p><div class="impact">管理職の事務工数 60%削減</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1540350394557-8d14678e7f91?w=400" class="card-image"><div class="card-content"><span class="role-badge">営業</span><div class="card-title">地域医療構想分析AI</div><div class="section-title">課題</div><p class="text">新規病院開拓時のニーズ予測の欠如。</p><div class="impact">新規提案成功率 25%向上</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?w=400" class="card-image"><div class="card-content"><span class="role-badge">実務</span><div class="card-title">診断書下書き自動生成</div><div class="section-title">課題</div><p class="text">各種証明書作成にかかる医師の負担。</p><div class="impact">作成スピード 3倍</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400" class="card-image"><div class="card-content"><span class="role-badge">事務</span><div class="card-title">未収金回収優先度予測</div><div class="section-title">課題</div><p class="text">膨大な未収金への督促効率が悪い。</p><div class="impact">回収率 15%向上</div></div></div>
-            <div class="card risk-card" style="border: 2px solid var(--coral);"><div class="card-content"><span class="role-badge" style="background: var(--coral);">リスク管理</span><div class="card-title">医療ハルシネーション監視</div><div class="section-title">課題</div><p class="text">AIの誤情報による医療事故・誤請求リスク。</p><div class="impact">確認漏れゼロの担保</div></div></div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">現場・実務</span>
+                    <div class="card-title">AIレセプト自動精査システム</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">毎月数万件のレセプトをベテランが目視点検しており、疲労による見落としや、人によって判断基準が異なる「属人化」が起きている。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">過去の返戻パターンと診療報酬ルールを学習したAIが全件を自動スキャン。疑わしい箇所を理由付きでアラート表示し、人間は最終確認のみ行う。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">返戻率 $R_{rej}$ 40%削減、点検時間 65%短縮</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">ナレッジ資産化</span>
+                    <div class="card-title">NotebookLM 診療報酬知恵袋</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">2年に1度の診療報酬改定のたびに、数百ページの厚労省通知を読み込む必要があり、現場からの疑義回答に時間がかかりすぎている。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">最新の告示・通知PDFをNotebookLMに一括学習。現場スタッフが「〜の算定条件は？」とチャットするだけで、出典根拠付きで即座に回答を得る。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">問い合わせ対応工数 80%削減、回答精度の均一化</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">事務・バックオフィス</span>
+                    <div class="card-title">AI自動シフト最適化エンジン</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">医療事務員の「早番・遅番」「有給希望」「スキルレベル」を考慮したシフト作成がパズルのように複雑で、管理者の休日を潰している。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">制約条件を数理最適化AIに入力。数分間で全条件を満たす「不公平感のない」シフト案を生成。修正もドラッグ＆ドロップで即座に再計算。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">シフト作成時間 月20時間削減 → 現場巡回へ転換</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">顧客対応（CS）</span>
+                    <div class="card-title">多言語AI患者コンシェルジュ</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">外国人患者の来院時、言語の壁で受付に時間がかかり、待合室の混雑と他患者の不満を招いている。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">タブレット端末で、患者の母国語での問診を音声AIがリアルタイム翻訳。内容はそのまま日本語で電子カルテの下書きとして送信される。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">受付待ち時間 30%短縮、医療ミス防止</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">現場・実務</span>
+                    <div class="card-title">医師事務補助AIクラーク</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">医師が診察後に大量のカルテ記載や診断書作成に追われ、患者と向き合う時間が削られ、長時間労働の原因になっている。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">診察室の会話をAIが録音・要約。SOAP形式に整理した下書きを生成。医師は内容を確認し「承認」ボタンを押すだけで入力が完了する。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">医師の事務作業 70%削減、残業代の大幅抑制</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1454165833767-131f72a5a7d?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">マネジメント・経営</span>
+                    <div class="card-title">DPC増収シミュレーター</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">DPC（包括支払い制度）下で、どの診断群分類を選択するのが病院経営上最適か、事後の分析しかできていない。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">入院時点の検査データから、AIが予測されるDPCコードを複数提示。より適正で収益性の高い治療パスを事前にシミュレーションする。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">病床利用効率向上、平均診療単価 5%改善</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">事務・バックオフィス</span>
+                    <div class="card-title">未収金回収AI優先度スコアリング</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">未収金（医療費未払い）の催促リストが膨大で、誰から優先的に連絡すべきか分からず、回収効率が上がらない。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">過去の支払い履歴や属性から、AIが「連絡すれば支払う可能性が高い人」を抽出。電話・ハガキの送付優先順位を毎日自動生成する。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">回収率 20%向上、事務員の精神的負担軽減</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1540350394557-8d14678e7f91?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">営業・マーケティング</span>
+                    <div class="card-title">地域医療連携AIターゲティング</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">近隣クリニックへの連携営業（紹介患者の獲得）が担当者の「勘」に頼っており、適切なアプローチができていない。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">オープンデータ（病床稼働率や人口推移）を解析。将来的に紹介患者が不足するリスクのあるエリアや診療科を特定し、重点営業先を提示する。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">紹介患者数 15%増加、営業訪問の効率化</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1512418490979-92798ccc13b0?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">クリエイティブ・企画</span>
+                    <div class="card-title">AI患者満足度(NPS)分析</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">患者アンケートの自由記述欄に貴重な意見があるが、集計が大変で「なんとなくの傾向」しか把握できていない。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">生成AIが大量の自由記述をポジ・ネガ分析。感情の裏にある「本当の不満原因（例：会計機の場所が分かりづらい等）」を具体的に抽出する。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">改善施策の精度向上、患者満足度向上</p></div>
+                </div>
+            </div>
+            <div class="card" style="border: 2px solid var(--coral);">
+                <div class="card-content">
+                    <span class="role-badge" style="background: var(--coral);">リスク管理</span>
+                    <div class="card-title">AIハルシネーション・ダブルチェック</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">AIがもっともらしい嘘（ハルシネーション）をつき、誤った病名やコードを提案するリスクをどう排除するか。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">AIの提案には必ず「根拠（カルテの記述箇所）」をセットで表示。医療事務資格者がその根拠をワンクリックで確認できるUIを構築し、人間が最終責任を持つ。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">法的・倫理的リスクの完全排除、スタッフの安心感</p></div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div id="cleaning" class="tab-content">
         <div class="grid">
-            <div class="card"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400" class="card-image"><div class="card-content"><span class="role-badge">実務</span><div class="card-title">IoT連動 汚れ予測清掃</div><div class="section-title">課題</div><p class="text">人流無視の定時清掃による無駄。</p><div class="impact">稼働効率 30%向上</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400" class="card-image"><div class="card-content"><span class="role-badge">ナレッジ</span><div class="card-title">洗剤・素材相性AI判定</div><div class="section-title">課題</div><p class="text">建材と薬剤のミスマッチによる変色事故。</p><div class="impact">事故率 95%削減</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=400" class="card-image"><div class="card-content"><span class="role-badge">マネジメント</span><div class="card-title">画像解析AIインスペクション</div><div class="section-title">課題</div><p class="text">清掃品質評価のばらつき。</p><div class="impact">品質スコアの標準化</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400" class="card-image"><div class="card-content"><span class="role-badge">営業</span><div class="card-title">図面自動解析AI見積</div><div class="section-title">課題</div><p class="text">現地調査と面積算出の手間。</p><div class="impact">見積回答速度 5倍</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400" class="card-image"><div class="card-content"><span class="role-badge">実務</span><div class="card-title">清掃ロボットフリート管理</div><div class="section-title">課題</div><p class="text">ロボットの稼働状況が見えない。</p><div class="impact">ロボット実稼働率 40%増</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1551288049-bbbda536339a?w=400" class="card-image"><div class="card-content"><span class="role-badge">事務</span><div class="card-title">資材需要予測・自動発注</div><div class="section-title">課題</div><p class="text">在庫過多と欠品による作業遅延。</p><div class="impact">在庫コスト 20%削減</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?w=400" class="card-image"><div class="card-content"><span class="role-badge">CS</span><div class="card-title">AI報告書作成アシスト</div><div class="section-title">課題</div><p class="text">オーナーへの報告書が画一的。</p><div class="impact">満足度指標 $NPS$ の向上</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400" class="card-image"><div class="card-content"><span class="role-badge">企画</span><div class="card-title">SDGsエコ清掃プラン作成AI</div><div class="section-title">課題</div><p class="text">環境負荷軽減の具体的根拠出し。</p><div class="impact">受注単価 15%向上</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1507206130118-b5907f817163?w=400" class="card-image"><div class="card-content"><span class="role-badge">マネジメント</span><div class="card-title">スタッフ離職予兆検知AI</div><div class="section-title">課題</div><p class="text">清掃業界の高い離職率。</p><div class="impact">離職率 18%低下</div></div></div>
-            <div class="card risk-card" style="border: 2px solid var(--coral);"><div class="card-content"><span class="role-badge" style="background: var(--coral);">リスク管理</span><div class="card-title">プライバシー匿名化処理</div><div class="section-title">課題</div><p class="text">AIカメラによるプライバシー侵害。</p><div class="impact">法的トラブル 0件の維持</div></div></div>
-        </div>
-    </div>
-
-    <div id="facility" class="tab-content">
-        <div class="grid">
-            <div class="card"><img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400" class="card-image"><div class="card-content"><span class="role-badge">実務</span><div class="card-title">振動・電流解析AI予兆保全</div><div class="section-title">課題</div><p class="text">設備停止によるビル機能のマヒ。</p><div class="impact">突発故障 90%削減</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1451187530230-b81e73b95616?w=400" class="card-image"><div class="card-content"><span class="role-badge">ナレッジ</span><div class="card-title">AI不具合対応ナレッジ</div><div class="section-title">課題</div><p class="text">ベテランの引退に伴う技術消失。</p><div class="impact">技術承継のデジタル化</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1558444479-c8f0105099a2?w=400" class="card-image"><div class="card-content"><span class="role-badge">実務</span><div class="card-title">外気温連動 空調最適AI</div><div class="section-title">課題</div><p class="text">エネルギー消費の無駄。</p><div class="impact">電力量平均 12%削減</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=400" class="card-image"><div class="card-content"><span class="role-badge">事務</span><div class="card-title">音声入力AI点検報告</div><div class="section-title">課題</div><p class="text">現場と事務所の往復、転記作業。</p><div class="impact">事務工数 80%削減</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400" class="card-image"><div class="card-content"><span class="role-badge">マネジメント</span><div class="card-title">LCC最適修繕AI予測</div><div class="section-title">課題</div><p class="text">過剰または過少な修繕投資。</p><div class="impact">修繕費効率 20%向上</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400" class="card-image"><div class="card-content"><span class="role-badge">教育</span><div class="card-title">VR/AI 災害対応訓練</div><div class="section-title">課題</div><p class="text">実地訓練が困難な危険作業の習得。</p><div class="impact">教育時間 50%短縮</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400" class="card-image"><div class="card-content"><span class="role-badge">営業</span><div class="card-title">省エネ見える化AI提案書</div><div class="section-title">課題</div><p class="text">ZEB化提案の説得力不足。</p><div class="impact">受注率 1.5倍</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=400" class="card-image"><div class="card-content"><span class="role-badge">CS</span><div class="card-title">テナント不満予測AI</div><div class="section-title">課題</div><p class="text">クレーム後の対応（事後対応）。</p><div class="impact">解約率 5%低減</div></div></div>
-            <div class="card"><img src="https://images.unsplash.com/photo-1512418490979-92798ccc13b0?w=400" class="card-image"><div class="card-content"><span class="role-badge">事務</span><div class="card-title">法定点検自動アラートAI</div><div class="section-title">課題</div><p class="text">法改正への追従と点検漏れ。</p><div class="impact">コンプラリスク ゼロ</div></div></div>
-            <div class="card risk-card" style="border: 2px solid var(--coral);"><div class="card-content"><span class="role-badge" style="background: var(--coral);">リスク管理</span><div class="card-title">AI操作指示 専門家承認</div><div class="section-title">課題</div><p class="text">AIによる誤操作指示による設備事故。</p><div class="impact">安全第一のAI運用徹底</div></div></div>
-        </div>
-    </div>
-</div>
-
-<footer>
-    &copy; 2026 AI DX Strategic Consulting - 南日本総合サービス 30事例 統合版
-</footer>
-
-<script>
-    function openTab(evt, tabName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; tabcontent[i].classList.remove("active"); }
-        tablinks = document.getElementsByClassName("tab-button");
-        for (i = 0; i < tablinks.length; i++) { tablinks[i].classList.remove("active"); }
-        document.getElementById(tabName).style.display = "block";
-        document.getElementById(tabName).classList.add("active");
-        evt.currentTarget.classList.add("active");
-    }
-</script>
-
-</body>
-</html>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">現場・実務</span>
+                    <div class="card-title">IoT連動・汚れ蓄積予測清掃</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">「1時間おきにトイレ清掃」のように定時で回っているが、誰も使っていないのに清掃したり、逆に激しく汚れたまま放置される時間が生じている。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">人流センサーで利用回数をカウント。AIが「汚れの閾値」に達すると予測したタイミングでスマホに通知し、必要な場所だけを重点清掃する。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">清掃工数 20%削減、常に清潔な状態の維持</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">ナレッジ資産化</span>
+                    <div class="card-title">石材・建材判別AIアシスタント</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">新人が高級ビルの特殊な石材に誤った洗剤を使用し、変色させてしまう事故が業界全体で後を絶たない。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">床材をスマホで撮影すると、画像解析AIが素材（大理石、御影石等）を即座に判定。使用禁止洗剤と推奨する施工法を現場で提示する。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">資材損傷事故 ゼロ化、新人研修期間の短縮</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">マネジメント</span>
+                    <div class="card-title">AI画像解析インスペクション</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">品質点検（インスペクション）が点検者の主観。厳しい人と甘い人がおり、オーナーへの説得力に欠ける。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">清掃後の床を撮影。AIが光沢度（グロス値）や隅の埃の有無を数値化し、客観的な「清掃品質証明書」を自動生成する。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">顧客満足度向上、再清掃の手間の削減</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">営業・マーケティング</span>
+                    <div class="card-title">図面AI解析・自動積算システム</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">見積作成時、平面図から手作業で面積を測り、什器の数を数えるのに丸一日かかっている。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">図面PDFをAIが読み込み、床面積・什器数・床材を自動抽出。歩掛（作業時間）を掛け合わせて、利益の出る見積案を数分で生成する。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">見積回答スピード 80%短縮 → 他社に先んじる提案力</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">現場・実務</span>
+                    <div class="card-title">清掃ロボット・人間協調管理AI</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">清掃ロボットを導入したが、スタッフとの担当分けが適当で、ロボットが止まっていても気づかないことがある。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">広大なフロアを「ロボットが得意な直線エリア」と「人間が必要な複雑エリア」にAIが自動分割。進捗状況を一括管理画面で可視化する。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">ロボット稼働率 45%向上、人間はより細部へ集中</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1551288049-bbbda536339a?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">事務・バックオフィス</span>
+                    <div class="card-title">洗剤・消耗品AI需要予測</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">各ビルの資材置き場に洗剤やトイレットペーパーの過剰在庫があったり、逆に欠品して緊急配送する無駄が生じている。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">清掃頻度と過去の消費実績から、AIが今後の必要量を予測。Amazon等のプラットフォームと連携し、最適なタイミングで自動注文をかける。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">資材管理の事務負担 ゼロ、在庫スペースの20%削減</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1521791136364-798a7bc0d262?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">顧客対応（CS）</span>
+                    <div class="card-title">AI現場報告書ジェネレーター</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">現場責任者が、清掃後の日報作成に毎日1時間費やしており、その間は現場指導ができていない。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">現場の写真を撮り「今日はWAXがけをしました、特に問題なし」と音声入力するだけで、AIが専門的な言葉遣いの綺麗な報告書を自動生成する。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">日報作成時間 90%削減、オーナーへの報告頻度向上</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">クリエイティブ・企画</span>
+                    <div class="card-title">脱炭素・省エネ清掃シミュレーター</div>
+                    <div class="section"><span class="section-label">現状の課題</span><p class="section-text">ビルオーナーからSDGsへの貢献を求められているが、清掃で具体的にどう貢献できるか数値で示せない。</p></div>
+                    <div class="section"><span class="section-label">AI活用ステップ</span><p class="section-text">AIが節水ノズルやエコ洗剤導入時の「CO2削減量」と「コスト削減額」を算出。環境価値を盛り込んだ次世代清掃プランを作成する。</p></div>
+                    <div class="impact-box"><div class="impact-label">導入効果</div><p class="impact-text">高付加価値プランの受注、企業ブランディング</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1507206130118-b5907f817163?w=600" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">マネジメント</span>
+                    <div
