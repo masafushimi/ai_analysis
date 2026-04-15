@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI DX 統合戦略レポート - 南日本総合サービス</title>
+    <title>AI DX 30 Cases Strategic Report - 南日本総合サービス</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
@@ -12,320 +12,110 @@
             --ivory: #fdfcfb;
             --coral: #e27d60;
             --dark: #2c3e50;
-            --light-gray: #f4f4f4;
             --shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-
-        body {
-            background-color: var(--ivory);
-            font-family: 'Noto Sans JP', sans-serif;
-            color: var(--dark);
-            margin: 0;
-            line-height: 1.6;
-        }
-
-        header {
-            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 5px solid var(--gold);
-        }
-
-        header h1 { margin: 0; font-size: 2.2rem; letter-spacing: 2px; }
-        header p { color: var(--gold); font-weight: bold; margin-top: 10px; }
-
-        /* Tabs Styling */
-        .tabs-container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .tabs-menu {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .tab-button {
-            background-color: white;
-            border: 2px solid var(--gold);
-            color: var(--gold);
-            padding: 12px 25px;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .tab-button.active {
-            background-color: var(--gold);
-            color: white;
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Grid & Card Styling */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(168, 138, 93, 0.2);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease;
-        }
+        body { background-color: var(--ivory); font-family: 'Noto Sans JP', sans-serif; color: var(--dark); margin: 0; line-height: 1.6; }
+        header { background: linear-gradient(135deg, #1a1a1a 0%, #333 100%); color: white; padding: 50px 20px; text-align: center; border-bottom: 5px solid var(--gold); }
+        header h1 { margin: 0; font-size: 2rem; letter-spacing: 2px; }
         
-        .card:hover { transform: translateY(-5px); }
+        /* Tabs */
+        .tabs-container { max-width: 1400px; margin: 30px auto; padding: 0 20px; }
+        .tabs-menu { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
+        .tab-button { background: white; border: 2px solid var(--gold); color: var(--gold); padding: 15px 30px; cursor: pointer; font-weight: bold; border-radius: 5px; transition: 0.3s; font-size: 1rem; }
+        .tab-button.active { background: var(--gold); color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .card-image { width: 100%; height: 160px; object-fit: cover; }
-
+        /* Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(168, 138, 93, 0.1); display: flex; flex-direction: column; }
+        .card-image { width: 100%; height: 140px; object-fit: cover; filter: sepia(20%); }
         .card-content { padding: 20px; flex-grow: 1; }
+        .role-badge { display: inline-block; background: var(--gold); color: white; padding: 2px 10px; border-radius: 4px; font-size: 0.7rem; margin-bottom: 10px; }
+        .card-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; color: var(--gold); min-height: 2.8em; display: flex; align-items: center; }
+        .section-title { font-size: 0.8rem; font-weight: bold; color: var(--coral); margin-top: 10px; }
+        .text { font-size: 0.85rem; margin: 5px 0; }
+        .impact { background: #fef5f2; padding: 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-top: 15px; color: #d35400; border-left: 4px solid var(--coral); }
 
-        .role-badge {
-            display: inline-block;
-            background: var(--gold);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            margin-bottom: 12px;
-        }
-
-        .card-title {
-            font-size: 1.15rem;
-            font-weight: bold;
-            margin-bottom: 12px;
-            color: var(--gold);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .section-title {
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-top: 12px;
-            margin-bottom: 4px;
-            color: var(--coral);
-            border-left: 3px solid var(--coral);
-            padding-left: 8px;
-        }
-
-        .step-list { font-size: 0.8rem; padding-left: 15px; margin: 5px 0; }
-        
-        .impact {
-            background: rgba(226, 125, 96, 0.1);
-            padding: 8px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-top: 12px;
-            color: #d35400;
-        }
-
-        .risk-card { border: 2px solid var(--coral); }
-
-        footer { text-align: center; padding: 50px; color: #777; font-size: 0.8rem; }
-
-        @media (max-width: 600px) {
-            .grid { grid-template-columns: 1fr; }
-            .tab-button { width: 100%; justify-content: center; }
-        }
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } .tab-button { flex: 1; padding: 10px; font-size: 0.8rem; } }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>AI DX INTEGRATED REPORT</h1>
-    <p>南日本総合サービス株式会社 - 総合サービス AI 戦略事例集</p>
+    <h1>AI DX STRATEGY MASTER REPORT</h1>
+    <p>南日本総合サービス株式会社 30事例 統合版</p>
 </header>
 
 <div class="tabs-container">
     <div class="tabs-menu">
-        <button class="tab-button active" onclick="openTab(event, 'medical')">
-            <i class="fas fa-hospital-user"></i> メディカルサービス
-        </button>
-        <button class="tab-button" onclick="openTab(event, 'cleaning')">
-            <i class="fas fa-broom"></i> ビルクリーニング
-        </button>
-        <button class="tab-button" onclick="openTab(event, 'facility')">
-            <i class="fas fa-tools"></i> 建築設備管理
-        </button>
+        <button class="tab-button active" onclick="openTab(event, 'medical')">メディカル (10)</button>
+        <button class="tab-button" onclick="openTab(event, 'cleaning')">クリーニング (10)</button>
+        <button class="tab-button" onclick="openTab(event, 'facility')">設備管理 (10)</button>
     </div>
 
     <div id="medical" class="tab-content active">
         <div class="grid">
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&q=80" class="card-image">
-                <div class="card-content">
-                    <span class="role-badge">現場・実務</span>
-                    <div class="card-title">AIレセプト点検</div>
-                    <div class="section-title">現状の課題</div>
-                    <p style="font-size: 0.8rem;">膨大なレセプト点検が属人的。算定漏れリスクがある。</p>
-                    <div class="impact">査定率 $R_{ass}$ 30%削減</div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=400&q=80" class="card-image">
-                <div class="card-content">
-                    <span class="role-badge">ナレッジ資産化</span>
-                    <div class="card-title">NotebookLM 診療報酬</div>
-                    <div class="section-title">現状の課題</div>
-                    <p style="font-size: 0.8rem;">厚労省の複雑な通知検索に多大な時間を要する。</p>
-                    <div class="impact">即戦力化スピード 2倍</div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1521791136364-798a7bc0d262?auto=format&fit=crop&w=400&q=80" class="card-image">
-                <div class="card-content">
-                    <span class="role-badge">実務</span>
-                    <div class="card-title">医師事務補助AI</div>
-                    <div class="section-title">現状の課題</div>
-                    <p style="font-size: 0.8rem;">診察後のカルテ記載が重労働。補助者の負担大。</p>
-                    <div class="impact">カルテ入力時間 70%削減</div>
-                </div>
-            </div>
-            <div class="card risk-card">
-                <div class="card-content">
-                    <span class="role-badge" style="background: var(--coral);">リスク管理</span>
-                    <div class="card-title">医療データガバナンス</div>
-                    <p style="font-size: 0.8rem;">ハルシネーションによる誤請求や個人情報保護の徹底。</p>
-                    <div class="impact">セキュリティ事故 0件</div>
-                </div>
-            </div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400" class="card-image"><div class="card-content"><span class="role-badge">実務</span><div class="card-title">AIレセプト自動精査</div><div class="section-title">課題</div><p class="text">点検の属人化と返戻リスク。</p><div class="impact">返戻率 $R_{rej}$ 40%削減</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=400" class="card-image"><div class="card-content"><span class="role-badge">ナレッジ</span><div class="card-title">NotebookLM 診療報酬Bot</div><div class="section-title">課題</div><p class="text">複雑な官報・告示の解釈に時間がかかる。</p><div class="impact">検索工数 90%削減</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1521791136364-798a7bc0d262?w=400" class="card-image"><div class="card-content"><span class="role-badge">実務</span><div class="card-title">AI医師事務作業補助</div><div class="section-title">課題</div><p class="text">診察中の電子カルテ代行入力の負担。</p><div class="impact">入力時間 70%削減</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400" class="card-image"><div class="card-content"><span class="role-badge">CS</span><div class="card-title">多言語AI患者受付</div><div class="section-title">課題</div><p class="text">増加する外国人患者への対応遅延。</p><div class="impact">窓口滞留時間 35%削減</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1454165833767-131f72a5a7d?w=400" class="card-image"><div class="card-content"><span class="role-badge">経営</span><div class="card-title">DPC分析収益最適化AI</div><div class="section-title">課題</div><p class="text">包括支払い制度での収益構造の不透明さ。</p><div class="impact">診療単価 $U$ 5%向上</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=400" class="card-image"><div class="card-content"><span class="role-badge">事務</span><div class="card-title">AI自動シフト作成(病院版)</div><div class="section-title">課題</div><p class="text">病棟・外来の複雑な人員配置の調整。</p><div class="impact">管理職の事務工数 60%削減</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1540350394557-8d14678e7f91?w=400" class="card-image"><div class="card-content"><span class="role-badge">営業</span><div class="card-title">地域医療構想分析AI</div><div class="section-title">課題</div><p class="text">新規病院開拓時のニーズ予測の欠如。</p><div class="impact">新規提案成功率 25%向上</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?w=400" class="card-image"><div class="card-content"><span class="role-badge">実務</span><div class="card-title">診断書下書き自動生成</div><div class="section-title">課題</div><p class="text">各種証明書作成にかかる医師の負担。</p><div class="impact">作成スピード 3倍</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400" class="card-image"><div class="card-content"><span class="role-badge">事務</span><div class="card-title">未収金回収優先度予測</div><div class="section-title">課題</div><p class="text">膨大な未収金への督促効率が悪い。</p><div class="impact">回収率 15%向上</div></div></div>
+            <div class="card risk-card" style="border: 2px solid var(--coral);"><div class="card-content"><span class="role-badge" style="background: var(--coral);">リスク管理</span><div class="card-title">医療ハルシネーション監視</div><div class="section-title">課題</div><p class="text">AIの誤情報による医療事故・誤請求リスク。</p><div class="impact">確認漏れゼロの担保</div></div></div>
         </div>
     </div>
 
     <div id="cleaning" class="tab-content">
         <div class="grid">
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400&q=80" class="card-image">
-                <div class="card-content">
-                    <span class="role-badge">現場・実務</span>
-                    <div class="card-title">AI汚れ予測清掃</div>
-                    <div class="section-title">現状の課題</div>
-                    <p style="font-size: 0.8rem;">一定周期の清掃による無駄や、突発的な汚れへの未対応。</p>
-                    <div class="impact">清掃効率 25%向上</div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=400&q=80" class="card-image">
-                <div class="card-content">
-                    <span class="role-badge">マネジメント</span>
-                    <div class="card-title">AIインスペクション</div>
-                    <div class="section-title">現状の課題</div>
-                    <p style="font-size: 0.8rem;">品質評価が主観的で、建物ごとのばらつきが激しい。</p>
-                    <div class="impact">品質均一化 100%達成</div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=400&q=80" class="card-image">
-                <div class="card-content">
-                    <span class="role-badge">営業</span>
-                    <div class="card-title">図面解析AI見積</div>
-                    <div class="section-title">現状の課題</div>
-                    <p style="font-size: 0.8rem;">見積作成に多大な労力がかかり、提案スピードが遅い。</p>
-                    <div class="impact">見積作成工数 80%削減</div>
-                </div>
-            </div>
-            <div class="card risk-card">
-                <div class="card-content">
-                    <span class="role-badge" style="background: var(--coral);">リスク管理</span>
-                    <div class="card-title">プライバシー保護AI</div>
-                    <p style="font-size: 0.8rem;">カメラ解析時のプライバシー保護、匿名化処理の徹底。</p>
-                    <div class="impact">社会的信頼の高度維持</div>
-                </div>
-            </div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400" class="card-image"><div class="card-content"><span class="role-badge">実務</span><div class="card-title">IoT連動 汚れ予測清掃</div><div class="section-title">課題</div><p class="text">人流無視の定時清掃による無駄。</p><div class="impact">稼働効率 30%向上</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400" class="card-image"><div class="card-content"><span class="role-badge">ナレッジ</span><div class="card-title">洗剤・素材相性AI判定</div><div class="section-title">課題</div><p class="text">建材と薬剤のミスマッチによる変色事故。</p><div class="impact">事故率 95%削減</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=400" class="card-image"><div class="card-content"><span class="role-badge">マネジメント</span><div class="card-title">画像解析AIインスペクション</div><div class="section-title">課題</div><p class="text">清掃品質評価のばらつき。</p><div class="impact">品質スコアの標準化</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400" class="card-image"><div class="card-content"><span class="role-badge">営業</span><div class="card-title">図面自動解析AI見積</div><div class="section-title">課題</div><p class="text">現地調査と面積算出の手間。</p><div class="impact">見積回答速度 5倍</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400" class="card-image"><div class="card-content"><span class="role-badge">実務</span><div class="card-title">清掃ロボットフリート管理</div><div class="section-title">課題</div><p class="text">ロボットの稼働状況が見えない。</p><div class="impact">ロボット実稼働率 40%増</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1551288049-bbbda536339a?w=400" class="card-image"><div class="card-content"><span class="role-badge">事務</span><div class="card-title">資材需要予測・自動発注</div><div class="section-title">課題</div><p class="text">在庫過多と欠品による作業遅延。</p><div class="impact">在庫コスト 20%削減</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?w=400" class="card-image"><div class="card-content"><span class="role-badge">CS</span><div class="card-title">AI報告書作成アシスト</div><div class="section-title">課題</div><p class="text">オーナーへの報告書が画一的。</p><div class="impact">満足度指標 $NPS$ の向上</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400" class="card-image"><div class="card-content"><span class="role-badge">企画</span><div class="card-title">SDGsエコ清掃プラン作成AI</div><div class="section-title">課題</div><p class="text">環境負荷軽減の具体的根拠出し。</p><div class="impact">受注単価 15%向上</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1507206130118-b5907f817163?w=400" class="card-image"><div class="card-content"><span class="role-badge">マネジメント</span><div class="card-title">スタッフ離職予兆検知AI</div><div class="section-title">課題</div><p class="text">清掃業界の高い離職率。</p><div class="impact">離職率 18%低下</div></div></div>
+            <div class="card risk-card" style="border: 2px solid var(--coral);"><div class="card-content"><span class="role-badge" style="background: var(--coral);">リスク管理</span><div class="card-title">プライバシー匿名化処理</div><div class="section-title">課題</div><p class="text">AIカメラによるプライバシー侵害。</p><div class="impact">法的トラブル 0件の維持</div></div></div>
         </div>
     </div>
 
     <div id="facility" class="tab-content">
         <div class="grid">
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=400&q=80" class="card-image">
-                <div class="card-content">
-                    <span class="role-badge">現場・実務</span>
-                    <div class="card-title">AI予兆保全</div>
-                    <div class="section-title">現状の課題</div>
-                    <p style="font-size: 0.8rem;">事後保全による突発的な故障。多額の修繕費発生。</p>
-                    <div class="impact">突発故障リスク 90%削減</div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1558444479-c8f0105099a2?auto=format&fit=crop&w=400&q=80" class="card-image">
-                <div class="card-content">
-                    <span class="role-badge">実務</span>
-                    <div class="card-title">空調最適化AI</div>
-                    <div class="section-title">現状の課題</div>
-                    <p style="font-size: 0.8rem;">固定設定による電力ロス。カーボンニュートラル対応の不足。</p>
-                    <div class="impact">電気代平均 12%削減</div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1451187530230-b81e73b95616?auto=format&fit=crop&w=400&q=80" class="card-image">
-                <div class="card-content">
-                    <span class="role-badge">ナレッジ</span>
-                    <div class="card-title">NotebookLM トラブルQ&A</div>
-                    <div class="section-title">現状の課題</div>
-                    <p style="font-size: 0.8rem;">特殊な不具合への対応がベテランの経験に依存している。</p>
-                    <div class="impact">復旧時間(MTTR) 50%短縮</div>
-                </div>
-            </div>
-            <div class="card risk-card">
-                <div class="card-content">
-                    <span class="role-badge" style="background: var(--coral);">リスク管理</span>
-                    <div class="card-title">安全管理ダブルチェック</div>
-                    <p style="font-size: 0.8rem;">高圧設備等の操作におけるAI情報の人間による最終承認。</p>
-                    <div class="impact">人的事故 ゼロ更新</div>
-                </div>
-            </div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400" class="card-image"><div class="card-content"><span class="role-badge">実務</span><div class="card-title">振動・電流解析AI予兆保全</div><div class="section-title">課題</div><p class="text">設備停止によるビル機能のマヒ。</p><div class="impact">突発故障 90%削減</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1451187530230-b81e73b95616?w=400" class="card-image"><div class="card-content"><span class="role-badge">ナレッジ</span><div class="card-title">AI不具合対応ナレッジ</div><div class="section-title">課題</div><p class="text">ベテランの引退に伴う技術消失。</p><div class="impact">技術承継のデジタル化</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1558444479-c8f0105099a2?w=400" class="card-image"><div class="card-content"><span class="role-badge">実務</span><div class="card-title">外気温連動 空調最適AI</div><div class="section-title">課題</div><p class="text">エネルギー消費の無駄。</p><div class="impact">電力量平均 12%削減</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=400" class="card-image"><div class="card-content"><span class="role-badge">事務</span><div class="card-title">音声入力AI点検報告</div><div class="section-title">課題</div><p class="text">現場と事務所の往復、転記作業。</p><div class="impact">事務工数 80%削減</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400" class="card-image"><div class="card-content"><span class="role-badge">マネジメント</span><div class="card-title">LCC最適修繕AI予測</div><div class="section-title">課題</div><p class="text">過剰または過少な修繕投資。</p><div class="impact">修繕費効率 20%向上</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400" class="card-image"><div class="card-content"><span class="role-badge">教育</span><div class="card-title">VR/AI 災害対応訓練</div><div class="section-title">課題</div><p class="text">実地訓練が困難な危険作業の習得。</p><div class="impact">教育時間 50%短縮</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400" class="card-image"><div class="card-content"><span class="role-badge">営業</span><div class="card-title">省エネ見える化AI提案書</div><div class="section-title">課題</div><p class="text">ZEB化提案の説得力不足。</p><div class="impact">受注率 1.5倍</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=400" class="card-image"><div class="card-content"><span class="role-badge">CS</span><div class="card-title">テナント不満予測AI</div><div class="section-title">課題</div><p class="text">クレーム後の対応（事後対応）。</p><div class="impact">解約率 5%低減</div></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1512418490979-92798ccc13b0?w=400" class="card-image"><div class="card-content"><span class="role-badge">事務</span><div class="card-title">法定点検自動アラートAI</div><div class="section-title">課題</div><p class="text">法改正への追従と点検漏れ。</p><div class="impact">コンプラリスク ゼロ</div></div></div>
+            <div class="card risk-card" style="border: 2px solid var(--coral);"><div class="card-content"><span class="role-badge" style="background: var(--coral);">リスク管理</span><div class="card-title">AI操作指示 専門家承認</div><div class="section-title">課題</div><p class="text">AIによる誤操作指示による設備事故。</p><div class="impact">安全第一のAI運用徹底</div></div></div>
         </div>
     </div>
 </div>
 
 <footer>
-    &copy; 2026 AI DX Strategic Consulting - 南日本総合サービス統合戦略レポート
+    &copy; 2026 AI DX Strategic Consulting - 南日本総合サービス 30事例 統合版
 </footer>
 
 <script>
     function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
+        for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; tabcontent[i].classList.remove("active"); }
         tablinks = document.getElementsByClassName("tab-button");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
+        for (i = 0; i < tablinks.length; i++) { tablinks[i].classList.remove("active"); }
         document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
     }
 </script>
 
