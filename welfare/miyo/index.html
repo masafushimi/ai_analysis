@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>株式会社MIYO AI DX 戦略事例レポート</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #a88a5d; /* Gold */
+            --secondary: #fdfcfb; /* Ivory */
+            --accent: #e27d60; /* Soft Coral */
+            --text: #333;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--secondary);
+            color: var(--text);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--primary);
+            transition: transform 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .role-badge {
+            display: inline-block;
+            background-color: var(--accent);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+
+        .card h3 {
+            margin: 0 0 15px 0;
+            color: var(--primary);
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-top: 15px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .problem, .solution, .impact {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .impact-text {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .footer-note {
+            grid-column: 1 / -1;
+            background: #fdf2f0;
+            border: 1px dashed var(--accent);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AI DX STRATEGY REPORT</h1>
+    <p>株式会社MIYO : 「正しく人と関わる」をAIで最大化する15の施策</p>
+</header>
+
+<div class="grid">
+    <div class="card">
+        <span class="role-badge">計画相談 / 記録</span>
+        <h3><i class="fas fa-file-signature"></i> 支援記録のAI自動構造化</h3>
+        <div class="section-title">現状の課題</div>
+        <p class="problem">面談後の経過記録入力に膨大な時間がかかり、利用者と向き合う時間が削られている。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="solution">音声メモや箇条書きをAIに入力。「行政提出用」の専門用語を用いた客観的文体に即座に整形する。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">事務時間 60% 削減。</span> 記録の質の平準化と、本来の支援時間の創出。</p>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">経営 / 教育</span>
+        <h3><i class="fas fa-brain"></i> NotebookLM MIYOナレッジ化</h3>
+        <div class="section-title">現状の課題</div>
+        <p class="problem">200項目の業務知見や理念がドキュメント化されているが、現場で即座に引き出せない。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="solution">全マニュアルと棚卸シートをNotebookLMに学習させ、スタッフ専用の「MIYOコンシェルジュ」を構築。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">教育コスト 40% 削減。</span> 誰でも「MIYOらしい」判断が即座に可能に。</p>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">広報 / マーケティング</span>
+        <h3><i class="fas fa-camera-retro"></i> Instagram 運用自動化</h3>
+        <div class="section-title">現状の課題</div>
+        <p class="problem">「素敵な空間」の発信が重要だが、投稿文作成が負担になり更新が滞りがち。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="solution">撮影写真から「温かみ」「共感」を重視したキャプションとタグを自動生成。予約投稿まで連携。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">月間リーチ数 2.5倍。</span> 潜在的な利用者や求職者への認知拡大。</p>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">就労支援 / 営業</span>
+        <h3><i class="fas fa-handshake"></i> 「光」ツール連携清掃案件創出</h3>
+        <div class="section-title">現状の課題</div>
+        <p class="problem">不動産管理ツールとの連携が手動であり、利用者の仕事としての切り出しが限定的。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="solution">不動産管理データから清掃ニーズをAIが抽出し、nico walkの利用者適性と自動マッチング。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">新規受注数 30% 増。</span> 利用者の工賃向上と社会参画の促進。</p>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">生活支援 / 健康管理</span>
+        <h3><i class="fas fa-chart-line"></i> 睡眠・情緒相関アラート</h3>
+        <div class="section-title">現状の課題</div>
+        <p class="problem">入居者の不調が起きてから対応する「後手」の支援になりがち。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="solution">睡眠データと日中の気分を相関分析。「不調の予兆」を検知し、スタッフに個別の声掛けを提案。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">パニック発生率 20% 低減。</span> 入居者の安心感と夜勤スタッフの心理的負担軽減。</p>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">就労支援 / 訓練</span>
+        <h3><i class="fas fa-magic"></i> 生成AI活用ワークシート</h3>
+        <div class="section-title">現状の課題</div>
+        <p class="problem">利用者が一般就労した際、PC作業やメール作成に強い不安を感じる。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="solution">ChatGPTを「相談相手」として使い、お礼メールや報告書を作る訓練プログラムを導入。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">就職定着率の向上。</span> AIを使いこなすという新しい自信の提供。</p>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">管理・広報 / 採用</span>
+        <h3><i class="fas fa-user-plus"></i> 理念共感型スカウト代行</h3>
+        <div class="section-title">現状の課題</div>
+        <p class="problem">「女性支援への想い」が強い人材を求めているが、一般的な求人票ではミスマッチが起きる。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="solution">MIYOの理念を学習したAIが、求職者のプロフィールを分析し、一人ひとりに刺さるラブレターを起案。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">採用ミスマッチ 50% 削減。</span> 質の高い支援員の安定確保。</p>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">事務 / 経理</span>
+        <h3><i class="fas fa-receipt"></i> 領収書AI自動仕分け</h3>
+        <div class="section-title">現状の課題</div>
+        <p class="problem">細かい領収書の整理と会計ソフトへの入力がスタッフの負担になっている。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="solution">スマホで撮るだけで、勘定科目をAIが自動判別し、会計データとして出力。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">経理事務工数 80% 削減。</span> 現場スタッフが支援に集中できる環境を構築。</p>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">就労支援 / 商品開発</span>
+        <h3><i class="fas fa-lightbulb"></i> アップサイクル商品企画AI</h3>
+        <div class="section-title">現状の課題</div>
+        <p class="problem">内職作業が単調になりやすく、利用者の意欲向上と収益性の両立が難しい。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="solution">端材の画像とターゲット（女性）をAIに入力し、市場トレンドを汲んだ雑貨デザインを生成。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">商品単価 1.5倍。</span> 「作る喜び」と「稼ぐ喜び」の同時実現。</p>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">生活支援 / 調理</span>
+        <h3><i class="fas fa-utensils"></i> パーソナライズ献立提案</h3>
+        <div class="section-title">現状の課題</div>
+        <p class="problem">栄養バランスだけでなく、入居者個々の「食の好み」や「体調（PMS等）」への配慮が複雑。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="solution">管理栄養士の基本メニューを、入居者の体調データに基づきAIが微調整して提案。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">喫食率の向上と健康増進。</span> 「大切にされている」という実感の醸成。</p>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">事務 / 運行</span>
+        <h3><i class="fas fa-route"></i> 送迎ルート最適化AI</h3>
+        <div class="section-title">現状の課題</div>
+        <p class="problem">毎日の通院や通所の送迎パズルを手動で組むのが非効率で、待ち時間が発生している。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="solution">複数地点の住所と到着時間を一括入力。最短かつ安全なルートをAIが数秒で算出。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">車両維持費 10% 削減。</span> 利用者の移動ストレスを最小化。</p>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">経営 / リスク管理</span>
+        <h3><i class="fas fa-shield-alt"></i> ヒヤリハット予兆分析</h3>
+        <div class="section-title">現状の課題</div>
+        <p class="problem">ヒヤリハット報告は上がっているが、多忙でデータの蓄積・分析まで手が回らない。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="solution">過去100件以上の報告をAIが分析。事故が起きやすい「時間帯・場所・状況」を特定し警告。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">重大事故ゼロの継続。</span> 安心・安全な「素敵な空間」の維持。</p>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">生活支援 / メンタル</span>
+        <h3><i class="fas fa-heart"></i> 感情言語化支援カード</h3>
+        <div class="section-title">現状の課題</div>
+        <p class="problem">自分の気持ちを言葉にするのが苦手な利用者が多く、意思疎通に時間がかかる。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="solution">「モヤモヤ」等の曖昧な言葉をAIが深掘り。適切な感情語を選択肢として提示し、対話を支援。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">信頼関係構築スピードの向上。</span> 自己理解の促進。</p>
+    </div>
+
+    <div class="card">
+        <span class="role-badge">共通事務 / 総務</span>
+        <h3><i class="fas fa-pen-fancy"></i> 感謝の温もりメール生成</h3>
+        <div class="section-title">現状の課題</div>
+        <p class="problem">家族や関係機関への報告が「事務的」になり、MIYOの温かみが伝わりにくい。</p>
+        <div class="section-title">AI活用ステップ</div>
+        <p class="solution">日々のポジティブなエピソードを1つ入れるだけで、温かみのある手紙体文面をAIが作成。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">家族満足度（NPS）の向上。</span> 地域でのファン作りを自動化。</p>
+    </div>
+
+    <div class="card" style="border-top-color: var(--accent);">
+        <span class="role-badge" style="background: #666;">リスク管理</span>
+        <h3><i class="fas fa-exclamation-triangle"></i> AI安全運用ガイドライン</h3>
+        <div class="section-title">基本原則</div>
+        <p class="problem">AIは万能ではなく、福祉の現場では「人間による最終確認」が不可欠です。</p>
+        <div class="section-title">運用ルール</div>
+        <p class="solution">1. 個人情報は匿名化して入力。<br>2. ハルシネーション（嘘）の確認。<br>3. 利用者の意思決定を最優先する。</p>
+        <div class="section-title">導入効果</div>
+        <p class="impact"><span class="impact-text">安全なDXの推進。</span> 法令遵守と倫理的配慮の両立。</p>
+    </div>
+</div>
+
+</body>
+</html>
