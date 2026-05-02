@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>飲食×美容 AI DX戦略事例集 20選</title>
+    <title>飲食×美容 AI DX戦略詳細レポート 20選</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
@@ -12,232 +12,220 @@
             --ivory: #fdfcfb;
             --coral: #e27d60;
             --dark: #2c2c2c;
+            --gray: #f4f4f4;
         }
-        body { background-color: var(--ivory); color: var(--dark); font-family: 'Noto Sans JP', sans-serif; margin: 0; }
-        header { background: white; padding: 40px 20px; text-align: center; border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 100; }
-        header h1 { margin: 0; color: var(--gold); font-size: 1.8rem; }
-        .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-        .industry-tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.7rem; margin-bottom: 8px; color: white; }
-        .tag-food { background-color: #8b4513; }
-        .tag-beauty { background-color: #d11d53; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #eee; display: flex; flex-direction: column; }
-        .card-content { padding: 20px; flex-grow: 1; }
-        .role-badge { font-size: 0.7rem; font-weight: bold; color: var(--gold); margin-bottom: 5px; display: block; }
-        .card-title { font-size: 1rem; font-weight: bold; margin-bottom: 12px; color: var(--dark); line-height: 1.4; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
-        .section-title { font-size: 0.8rem; font-weight: bold; color: var(--coral); margin-top: 10px; }
-        .section-text { font-size: 0.75rem; margin-top: 2px; color: #666; line-height: 1.5; }
-        .impact-box { background: #fef8f5; padding: 10px; border-radius: 6px; margin-top: 15px; border-left: 4px solid var(--coral); font-size: 0.8rem; font-weight: bold; color: #444; }
-        footer { text-align: center; padding: 30px; color: #999; font-size: 0.7rem; }
+        body { background-color: var(--ivory); color: var(--dark); font-family: 'Noto Sans JP', sans-serif; margin: 0; line-height: 1.6; }
+        header { background: white; padding: 60px 20px; text-align: center; border-bottom: 4px solid var(--gold); }
+        header h1 { margin: 0; color: var(--gold); font-size: 2.2rem; letter-spacing: 0.1em; }
+        header p { font-size: 1.1rem; color: #666; margin-top: 15px; }
+        .container { max-width: 1400px; margin: 40px auto; padding: 0 30px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 35px; }
+        .card { background: white; border-radius: 16px; box-shadow: 0 15px 45px rgba(0,0,0,0.07); overflow: hidden; border: 1px solid #e0e0e0; display: flex; flex-direction: column; position: relative; }
+        .card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px; }
+        .card-food::before { background: var(--gold); }
+        .card-beauty::before { background: var(--coral); }
+        .card-content { padding: 30px; flex-grow: 1; }
+        .industry-label { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; display: block; color: #888; }
+        .role-badge { display: inline-block; padding: 4px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: bold; margin-bottom: 15px; background: var(--gray); color: var(--gold); }
+        .card-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 20px; color: var(--dark); line-height: 1.4; min-height: 3.6rem; display: flex; align-items: center; }
+        .section { margin-bottom: 18px; }
+        .section-title { font-size: 0.9rem; font-weight: bold; color: var(--gold); margin-bottom: 6px; display: flex; align-items: center; }
+        .section-title i { margin-right: 8px; font-size: 1rem; }
+        .section-text { font-size: 0.85rem; color: #444; text-align: justify; }
+        .impact-box { background: #fafafa; padding: 20px; border-radius: 10px; margin-top: auto; border: 1px solid #eee; }
+        .impact-label { font-size: 0.75rem; font-weight: bold; color: var(--coral); display: block; margin-bottom: 5px; }
+        .impact-value { font-size: 0.95rem; font-weight: bold; color: var(--dark); }
+        footer { text-align: center; padding: 60px; color: #999; font-size: 0.9rem; border-top: 1px solid #eee; }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>YUDAI Group & Wako-site AI Portfolio</h1>
-    <p>飲食・美容 2大事業を加速させる20のAI戦略</p>
+    <h1>Strategic AI Implementation Portfolio</h1>
+    <p>飲食・美容事業における業務プロセス革新 20選</p>
 </header>
 
 <div class="container">
     <div class="grid">
 
-        <div class="card">
+        <div class="card card-food">
             <div class="card-content">
-                <span class="industry-tag tag-food">飲食店</span>
-                <span class="role-badge">店舗運営</span>
-                <div class="card-title">HACCAP管理日報の自動生成</div>
-                <div class="section-text">冷蔵庫温度や清掃状況をAIが記録・解析し、法的基準に沿った日報を自動作成。</div>
-                <div class="impact-box">工数削減: 月間20時間</div>
+                <span class="industry-label">Hospitality Sector</span>
+                <span class="role-badge">店舗運営・衛生管理</span>
+                <div class="card-title">HACCAP準拠 衛生管理日報の完全自動生成</div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+                    <p class="section-text">義務化されたHACCAP対応。冷蔵庫温度や清掃状況を毎日手書きで記録しているが、多忙な現場では記録漏れや「まとめて記入」が常態化し、保健所監査時のリスクとなっている（項21）。</p>
+                </div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-microchip"></i> AI活用ステップ</div>
+                    <p class="section-text">IoT温度センサーと連携し、異常値を自動取得。清掃完了時にスマホで撮影した画像をAIが解析し、清掃品質をスコアリング。これらのデータを統合し、HACCAP準拠の日報をワンタップで自動出力する。</p>
+                </div>
+                <div class="impact-box">
+                    <span class="impact-label">Expected Impact</span>
+                    <span class="impact-value">事務作業時間 月間25時間削減 / コンプライアンス違反リスクのゼロ化</span>
+                </div>
             </div>
         </div>
 
-        <div class="card">
+        <div class="card card-food">
             <div class="card-content">
-                <span class="industry-tag tag-food">飲食店</span>
-                <span class="role-badge">経営・在庫</span>
-                <div class="card-title">需要予測AIによる精密発注</div>
-                <div class="section-text">天気・イベント・客数データを解析し、廃棄ロスを最小化する発注量を提案。</div>
-                <div class="impact-box">廃棄ロス 25% 削減</div>
+                <span class="industry-label">Hospitality Sector</span>
+                <span class="role-badge">仕入れ・在庫管理</span>
+                <div class="card-title">多変数需要予測に基づく「ロスゼロ」発注システム</div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+                    <p class="section-text">店長の経験則による発注。天候の急変や近隣イベントによる客数変動に対応できず、生鮮食品の廃棄ロスや、逆に品切れによる機会損失が頻発している（項27, 54）。</p>
+                </div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-microchip"></i> AI活用ステップ</div>
+                    <p class="section-text">過去3年のPOS売上、1時間ごとの気象予測、周辺施設のイベントカレンダー、曜日の特殊要因を統合。機械学習モデル $y = f(x_1, x_2, ...)$ が翌日の最適発注量を算出。発注画面に推奨値を自動入力する。</p>
+                </div>
+                <div class="impact-box">
+                    <span class="impact-label">Expected Impact</span>
+                    <span class="impact-value">廃棄ロス 20-30% 削減 / 原価率 2.5% 改善による利益底上げ</span>
+                </div>
             </div>
         </div>
 
-        <div class="card">
+        <div class="card card-beauty">
             <div class="card-content">
-                <span class="industry-tag tag-food">飲食店</span>
-                <span class="role-badge">マーケ・MEO</span>
-                <div class="card-title">口コミ返信・MEO最適化AI</div>
-                <div class="section-text">Googleマップ等の全店舗口コミに対し、ブランドイメージを守った返信を自動生成。</div>
-                <div class="impact-box">返信時間 90% 削減</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <span class="industry-tag tag-food">飲食店</span>
-                <span class="role-badge">教育・CS</span>
-                <div class="card-title">新人教育AIメンター (NotebookLM)</div>
-                <div class="section-text">散在する全マニュアルを学習。現場の「これどうやる？」にAIが即答。</div>
-                <div class="impact-box">教育コスト 30% 低減</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <span class="industry-tag tag-food">飲食店</span>
-                <span class="role-badge">メニュー開発</span>
-                <div class="card-title">トレンド×在庫 利益最大化メニュー</div>
-                <div class="section-text">滞留在庫とSNSトレンドを掛け合わせ、高利益な新メニューを自動構成。</div>
-                <div class="impact-box">不動在庫解消率 40%</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <span class="industry-tag tag-food">飲食店</span>
-                <span class="role-badge">事務・労務</span>
-                <div class="card-title">適正人件費シフト自動作成</div>
-                <div class="section-text">売上予測に基づき、人件費率15%を維持する最適シフトをAIが秒速で算出。</div>
-                <div class="impact-box">人件費 5% 削減</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <span class="industry-tag tag-food">飲食店</span>
-                <span class="role-badge">接客・CRM</span>
-                <div class="card-title">常連客の超詳細・嗜好分析</div>
-                <div class="section-text">会話ログから顧客の潜在的好みを抽出し、次回来店時の驚きの演出を提案。</div>
-                <div class="impact-box">リピート率 18% 向上</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <span class="industry-tag tag-food">飲食店</span>
-                <span class="role-badge">クリエイティブ</span>
-                <div class="card-title">AIシズル感POP自動生成</div>
-                <div class="section-text">撮影不要。レシピ情報から「最も美味しそうな」画像を生成し販促物を内製化。</div>
-                <div class="impact-box">制作コスト 90% 削減</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <span class="industry-tag tag-food">飲食店</span>
-                <span class="role-badge">顧客対応</span>
-                <div class="card-title">感情鎮静型・謝罪文生成AI</div>
-                <div class="section-text">クレーム客の深層心理を分析し、怒りを鎮めるための最適スクリプトを提示。</div>
-                <div class="impact-box">炎上リスク ゼロ化</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <span class="industry-tag tag-food">飲食店</span>
-                <span class="role-badge">経営分析</span>
-                <div class="card-title">自律型店舗経営ダッシュボード</div>
-                <div class="section-text">全200項目のKPIをAIが常時監視し、店長に具体的な改善アクションを毎朝指示。</div>
-                <div class="impact-box">店長生産性 2倍向上</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <span class="industry-tag tag-beauty">美容室</span>
+                <span class="industry-label">Beauty & Wellness</span>
                 <span class="role-badge">技術・カウンセリング</span>
-                <div class="card-title">顔型診断×トレンド 似合わせAI提案</div>
-                <div class="section-text">顔写真から骨格を解析し、20代女性等ターゲット別の最適スタイルを提示（項10, 106）。</div>
-                <div class="impact-box">単価アップ率 15% 向上</div>
+                <div class="card-title">黄金比診断×トレンド 似合わせスタイル提案AI</div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+                    <p class="section-text">顧客の「お任せ」に対する提案がスタイリストの主観に偏り、仕上がりの満足度にバラつきがある。また、言葉だけでは完成イメージの共有が難しく、認識の齟齬が発生しやすい（項10）。</p>
+                </div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-microchip"></i> AI活用ステップ</div>
+                    <p class="section-text">タブレットで撮影した顔写真から、骨格・パーツ配置の黄金比を解析。AIがトレンドスタイル5,000件の中から「最も小顔に見える」「肌の色に合う」スタイルを3案生成し、論理的な根拠と共に提示する。</p>
+                </div>
+                <div class="impact-box">
+                    <span class="impact-label">Expected Impact</span>
+                    <span class="impact-value">指名リピート率 15% 向上 / カウンセリング成約率（高単価メニュー）の倍増</span>
+                </div>
             </div>
         </div>
 
-        <div class="card">
+        <div class="card card-beauty">
             <div class="card-content">
-                <span class="industry-tag tag-beauty">美容室</span>
-                <span class="role-badge">技術・施術</span>
-                <div class="card-title">ダメージ最小限 薬剤配合レシピAI</div>
-                <div class="section-text">髪質データと希望明度から、メーカー薬剤の最適比率を算出（項14, 15）。</div>
-                <div class="impact-box">仕上がりミス ゼロ化</div>
+                <span class="industry-label">Beauty & Wellness</span>
+                <span class="role-badge">顧客フォロー・CRM</span>
+                <div class="card-title">髪の賞味期限予測：超パーソナライズ・ステップ配信</div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+                    <p class="section-text">3ヶ月以上来店がない「休眠顧客」が毎年一定数発生。一律のクーポン配信は開封率が低く、顧客一人ひとりの施術内容（カラーの退色具合など）に合わせた連絡ができていない（項102, 117）。</p>
+                </div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-microchip"></i> AI活用ステップ</div>
+                    <p class="section-text">施術で使用した薬剤、顧客の髪質、生活習慣から「色の抜け具合」や「フォルムの崩れ」が起きる日をAIが予測。「そろそろ根元が気になりませんか？」と、最適なタイミングでパーソナライズされたLINEを自動送信する。</p>
+                </div>
+                <div class="impact-box">
+                    <span class="impact-label">Expected Impact</span>
+                    <span class="impact-value">離反率 18% 削減 / 年間来店回数 1.2回 増加による売上向上</span>
+                </div>
             </div>
         </div>
 
-        <div class="card">
+        <div class="card card-food">
             <div class="card-content">
-                <span class="industry-tag tag-beauty">美容室</span>
-                <span class="role-badge">デジタル戦略</span>
-                <div class="card-title">髪の賞味期限・ステップLINE配信</div>
-                <div class="section-text">前回の施術から「色が落ちる時期」を予測し、予約を促す自動メッセージを送信（項102）。</div>
-                <div class="impact-box">離反率 12% 低減</div>
+                <span class="industry-label">Hospitality Sector</span>
+                <span class="role-badge">マーケティング・SNS</span>
+                <div class="card-title">AIシズル感クリエイティブ：撮影不要の販促物量産</div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+                    <p class="section-text">新メニューが出るたびにプロのカメラマンを呼ぶコストがなく、スマホで撮った暗い写真でメニュー表を作成。SNS投稿も文章がマンネリ化し、インプレッションが伸び悩んでいる（項29, 30）。</p>
+                </div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-microchip"></i> AI活用ステップ</div>
+                    <p class="section-text">試作段階の「素人写真」と「レシピ」を入力。画像生成AIが、光の反射や蒸気を強調した「最強に美味しそうな写真」へ加工。同時にターゲット層（20代女性、サラリーマン等）別のSNS投稿文を5パターン生成する。</p>
+                </div>
+                <div class="impact-box">
+                    <span class="impact-label">Expected Impact</span>
+                    <span class="impact-value">クリエイティブ外注費 90% 削減 / SNS経由の来店数 2.5倍</span>
+                </div>
             </div>
         </div>
 
-        <div class="card">
+        <div class="card card-beauty">
             <div class="card-content">
-                <span class="industry-tag tag-beauty">美容室</span>
-                <span class="role-badge">人事・採用</span>
-                <div class="card-title">Z世代に刺さる 求人・スカウトAI</div>
-                <div class="section-text">美容師不足を解消するため、ターゲットの心理を突く求人票とスカウト文を量産（項58, 138）。</div>
-                <div class="impact-box">採用単価 40% 削減</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <span class="industry-tag tag-beauty">美容室</span>
-                <span class="role-badge">物販・EC</span>
-                <div class="card-title">悩み解決型 セールストーク自動構成</div>
-                <div class="section-text">施術内容に合わせ、押し売り感なくホームケア商品を勧めるプロンプトを提示（項35, 107）。</div>
-                <div class="impact-box">店販比率 8% 向上</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <span class="industry-tag tag-beauty">美容室</span>
-                <span class="role-badge">経営戦略</span>
-                <div class="card-title">熟練工の「勘」と言語化マニュアル化</div>
-                <div class="section-text">トップスタイリストのカウンセリング時の思考プロセスをAIが抽出し共有（項86）。</div>
-                <div class="impact-box">アシスタント戦力化速度 2倍</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <span class="industry-tag tag-beauty">美容室</span>
-                <span class="role-badge">労務・組織</span>
-                <div class="card-title">スタッフ幸福度・メンタルケアAI</div>
-                <div class="section-text">アンケートの潜在的不満を読み解き、バーンアウトの兆候を早期発見（項90）。</div>
-                <div class="impact-box">離職率 15% 改善</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <span class="industry-tag tag-beauty">美容室</span>
+                <span class="industry-label">Beauty & Wellness</span>
                 <span class="role-badge">教育・研修</span>
-                <div class="card-title">AI画像診断 技術検定（添削）</div>
-                <div class="section-text">ウィッグのカット結果やワインディングの角度を写真からAIが即座に添削（項22, 83）。</div>
-                <div class="impact-box">自主練効率 3倍 向上</div>
+                <div class="card-title">AI画像診断：新人技術検定のデジタル化</div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+                    <p class="section-text">アシスタントの自主練習を先輩が付きっきりで見る必要があり、教育者の残業が増加。また、合格基準が教育者によって曖昧で、新人の納得感が得られにくい（項22, 83）。</p>
+                </div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-microchip"></i> AI活用ステップ</div>
+                    <p class="section-text">カット後のウィッグを多角的に撮影。AIが「毛先のズレ（mm単位）」「フォルムの角度」を解析し、お手本との差異を数値化してフィードバック。合格基準に達した時のみ、先輩が最終確認を行うハイブリッド体制を構築する。</p>
+                </div>
+                <div class="impact-box">
+                    <span class="impact-label">Expected Impact</span>
+                    <span class="impact-value">教育担当者の残業 月間30時間削減 / 技術デビューまでの期間 25% 短縮</span>
+                </div>
             </div>
         </div>
 
-        <div class="card">
+        <div class="card card-food">
             <div class="card-content">
-                <span class="industry-tag tag-beauty">美容室</span>
-                <span class="role-badge">顧客対応</span>
-                <div class="card-title">お直し・不満足回避 感情分析</div>
-                <div class="section-text">表情や声調から不満足サインを検知。退店前のリカバリーアクションを指示（項34）。</div>
-                <div class="impact-box">お直し発生率 20% 削減</div>
+                <span class="industry-label">Hospitality Sector</span>
+                <span class="role-badge">経営判断・分析</span>
+                <div class="card-title">AI経営プラットフォーム：200項目の全自動モニタリング</div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+                    <p class="section-text">200に及ぶ業務プロセスがあるが、どれが利益に直結しているか不明。月末にPL（損益計算書）を見るまで対策が打てず、人件費や光熱費の無駄が見過ごされている（項74, 100）。</p>
+                </div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-microchip"></i> AI活用ステップ</div>
+                    <p class="section-text">POS、勤怠、仕入れデータをAIがリアルタイムで統合管理。労働分配率が基準を超えた瞬間、店長に「シフト調整」の指示をプッシュ通知。異常値を早期発見し、翌月の利益予測を毎日更新する。</p>
+                </div>
+                <div class="impact-box">
+                    <span class="impact-label">Expected Impact</span>
+                    <span class="impact-value">営業利益率 3-5% 向上 / 経営会議の資料作成工数 ゼロ化</span>
+                </div>
             </div>
         </div>
 
-        <div class="card">
+        <div class="card card-beauty">
             <div class="card-content">
-                <span class="industry-tag tag-beauty">美容室</span>
-                <span class="role-badge" style="color: var(--coral);">リスク管理</span>
-                <div class="card-title">個人情報×カルテ セキュア管理</div>
-                <div class="section-text">顧客の悩みやデリケートな情報を扱う美容室向けに、入力データを厳格に匿名化処理。</div>
-                <div class="impact-box">信頼性維持 / 法規制遵守</div>
+                <span class="industry-label">Beauty & Wellness</span>
+                <span class="role-badge">技術・専門</span>
+                <div class="card-title">AIケミカル・コンシェルジュ：最適薬剤レシピの自動提案</div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-exclamation-triangle"></i> 現状の課題</div>
+                    <p class="section-text">カラー剤やパーマ剤の配合は、スタイリストの「勘」に頼る部分が大きく、履歴が複雑な顧客（ハイダメージ等）への対応ミスで、お直しやトラブルが発生する（項14, 15）。</p>
+                </div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-microchip"></i> AI活用ステップ</div>
+                    <p class="section-text">顧客の「髪の履歴（カルテ）」と「当日の髪の状態」を入力。数万通りの配合パターンから、ダメージを最小限に抑えつつ、発色を最大化する薬剤比率をAIが回答。薬剤在庫の減り具合も同時に記録する。</p>
+                </div>
+                <div class="impact-box">
+                    <span class="impact-label">Expected Impact</span>
+                    <span class="impact-value">技術ミスによるお直し 40% 削減 / 薬剤の過剰使用防止によるコストダウン</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border: 2px solid var(--coral);">
+            <div class="card-content">
+                <span class="industry-label">Governance & Ethics</span>
+                <span class="role-badge" style="background: var(--coral); color: white;">全社共通：リスクマネジメント</span>
+                <div class="card-title">AIガバナンス：ハルシネーションとプライバシーの完全防壁</div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-shield-alt"></i> 重要事項</div>
+                    <p class="section-text">飲食・美容ともに、顧客の氏名、嗜好、身体的特徴といった機密性の高い情報を扱います。AIの誤回答（ハルシネーション）が実務上の事故（アレルギー誤認や薬剤選定ミス）に繋がることは絶対に避けなければなりません。</p>
+                </div>
+                <div class="section">
+                    <div class="section-title"><i class="fas fa-check-double"></i> 具体的対策</div>
+                    <p class="section-text">1. 全AIシステムへのマスキングプロセスの導入（個人情報を送信しない）。2. 業務知識の「正確なデータソース（RAG）」を固定し、AIの妄想を封じる。3. 最終的な判断（薬剤塗布や予約確定）には必ず人間が介在するフローを構築する。</p>
+                </div>
+                <div class="impact-box">
+                    <span class="impact-label">Reliability Strategy</span>
+                    <span class="impact-value">法的リスク ゼロ / ブランド価値と顧客信頼の永続的保護</span>
+                </div>
             </div>
         </div>
 
@@ -245,7 +233,8 @@
 </div>
 
 <footer>
-    &copy; 2026 Yudai Group & Wako-site | All-Industry AI DX Strategy Consultant
+    &copy; 2026 AI DX Strategic Consultant - All Rights Reserved.<br>
+    本レポートは提示された200項目の業務フローに基づき、最大インパクトを想定して策定されました。
 </footer>
 
 </body>
