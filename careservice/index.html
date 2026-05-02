@@ -272,11 +272,11 @@
     </div>
 
     <div class="slide-preview-container" id="previewArea">
-        </div>
+    </div>
 </div>
 
 <script>
-    // --- スライドデータ定義（変更なし） ---
+    // --- スライドデータ定義 ---
     const slidesData = [
         {
             type: "title",
@@ -329,7 +329,15 @@
         },
         {
             type: "case",
-            title: "【事例5】マニュアル・基準検索",
+            title: "【事例5】勤務シフト作成の自動化",
+            subTitle: "複雑な条件も一瞬。公平性と効率を両立した「下書き」生成",
+            step1: { label: "Input (制約条件)", text: "条件とスタッフ希望を入力。\n\n・スタッフ20名の希望休\n・必要資格者の配置ルール\n・労働基準法/夜勤回数制限\n・新人/ベテランのペアリング" },
+            step2: { label: "Process (AIパズル)", text: "指示：「これらの条件をすべて満たし、不公平感のない1ヶ月分のシフト表案を作成して」\n\nAI案：\nルール違反をゼロにし、連休や夜勤間隔を自動調整したたたき台を提示。" },
+            step3: { label: "Output (管理者の判断)", text: "管理者は微調整するだけで完成。作成時間が数日→数十分に。\n\n効果：管理者の精神的負担の激減。ミスのない人員配置。" }
+        },
+        {
+            type: "case",
+            title: "【事例6】マニュアル・基準検索",
             subTitle: "分厚いファイルは不要。質問すれば「答え」が返ってくる",
             step1: { label: "Input (資料読込)", text: "Google NotebookLM等にPDFを読込。\n\n・運営基準解釈通知\n・事業所マニュアル\n・会議議事録" },
             step2: { label: "Process (検索)", text: "質問：「オンラインモニタリングの必須要件は何だっけ？」\n\nAI回答：\n「運営基準によると1.心身安定、2.医師の合意...が必要です」とソース付きで回答。" },
@@ -408,30 +416,25 @@
     function generatePPTX() {
         let pres = new PptxGenJS();
         
-        // レイアウト設定 (16:9)
         pres.layout = 'LAYOUT_16x9';
 
         // --- プロフェッショナルカラー定義 ---
-        const colorPrimary = '1A237E'; // ディープネイビー
-        const colorAccent = 'C5A572';  // マットゴールド
+        const colorPrimary = '1A237E'; 
+        const colorAccent = 'C5A572';  
         const colorText = '333333';
         const colorLightText = '757575';
         
-        // Step Box Colors
         const colorStep1Bg = 'F5F7FA'; const colorStep1Border = '5C6BC0';
         const colorStep2Bg = 'FAFAFA'; const colorStep2Border = 'BDBDBD';
         const colorStep3Bg = 'F1F8E9'; const colorStep3Border = '66BB6A';
 
-        // フォント設定
         const fontTitle = 'Montserrat';
         const fontBody = 'Noto Sans JP';
 
-        // マスターページ定義（スライド共通のデザイン）
         pres.defineSlideMaster({
             title: 'MASTER_SLIDE',
             background: { color: 'FFFFFF' },
             objects: [
-                // 上部のアクセントライン（タイトルスライド以外）
                 { rect: { x: 0, y: 0, w: '100%', h: 0.1, fill: { type: 'linear', color1: colorPrimary, color2: colorAccent, angle: 90 } } },
             ],
             slideNumber: { x: 12.8, y: 7.0, color: colorLightText, fontSize: 12, fontFace: fontTitle }
@@ -440,10 +443,8 @@
         pres.defineSlideMaster({
             title: 'TITLE_SLIDE_MASTER',
             background: { color: 'FFFFFF' },
-            // タイトルスライドは上部の線をなしにする
             slideNumber: { x: 12.8, y: 7.0, color: colorLightText, fontSize: 12, fontFace: fontTitle }
         });
-
 
         slidesData.forEach((slideData) => {
             let slide;
@@ -454,12 +455,10 @@
             }
 
             if (slideData.type === 'title') {
-                // --- タイトルスライド ---
                 slide.addText(slideData.title, { 
                     x: 0.8, y: 2.5, w: '85%', h: 2, 
                     fontSize: 44, color: colorPrimary, bold: true, fontFace: fontTitle, align: 'left' 
                 });
-                // アクセントバー
                 slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 4.8, w: 0.1, h: 1.5, fill: colorAccent });
                 slide.addText(slideData.sub, { 
                     x: 1.0, y: 4.8, w: '80%', h: 1.5, 
@@ -467,8 +466,6 @@
                 });
 
             } else if (slideData.type === 'concept') {
-                // --- コンセプト/まとめスライド ---
-                // タイトルと下線
                 slide.addText(slideData.title, { 
                     x: 0.8, y: 0.8, w: '90%', h: 0.8, 
                     fontSize: 32, color: colorPrimary, bold: true, fontFace: fontTitle, valign:'bottom'
@@ -482,33 +479,25 @@
                 });
 
             } else if (slideData.type === 'case') {
-                // --- 事例スライド (3カラム) ---
-                
-                // タイトルと下線
                 slide.addText(slideData.title, { 
                     x: 0.8, y: 0.6, w: '90%', h: 0.8, 
                     fontSize: 32, color: colorPrimary, bold: true, fontFace: fontTitle, valign:'bottom'
                 });
                 slide.addShape(pres.ShapeType.rect, { x: 0.8, y: 1.45, w: 1.2, h: 0.05, fill: colorAccent });
 
-                // サブタイトル
                 slide.addText(slideData.subTitle, {
                     x: 0.8, y: 1.6, w: '90%', h: 0.5,
                     fontSize: 18, color: colorLightText, fontFace: fontBody
                 });
 
-                // ボックス配置
                 const yPos = 2.5;
                 const boxW = 3.8;
                 const boxH = 4.0;
                 const arrowW = 0.6;
                 
-                // --- Step 1 ---
-                // 上部のカラーバー
+                // Step 1
                 slide.addShape(pres.ShapeType.rect, { x: 0.8, y: yPos, w: boxW, h: 0.1, fill: colorStep1Border });
-                // 背景ボックス
                 slide.addShape(pres.ShapeType.rect, { x: 0.8, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep1Bg });
-                
                 slide.addText("STEP-1", { x: 1.0, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
                 slide.addText(slideData.step1.label, { x: 1.0, y: yPos + 0.6, w: boxW-0.4, fontSize: 16, bold: true, color: colorPrimary, fontFace: fontTitle });
                 slide.addText(slideData.step1.text, { x: 1.0, y: yPos + 1.2, w: boxW-0.4, h: boxH-1.5, fontSize: 14, color: colorText, valign: 'top', fontFace: fontBody });
@@ -516,10 +505,9 @@
                 // Arrow 1
                 slide.addText("▶", { x: 4.7, y: yPos + 1.8, w: arrowW, fontSize: 24, color: colorAccent, align:'center' });
 
-                // --- Step 2 ---
+                // Step 2
                 slide.addShape(pres.ShapeType.rect, { x: 5.4, y: yPos, w: boxW, h: 0.1, fill: colorStep2Border });
                 slide.addShape(pres.ShapeType.rect, { x: 5.4, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep2Bg });
-                
                 slide.addText("STEP-2", { x: 5.6, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
                 slide.addText(slideData.step2.label, { x: 5.6, y: yPos + 0.6, w: boxW-0.4, fontSize: 16, bold: true, color: colorPrimary, fontFace: fontTitle });
                 slide.addText(slideData.step2.text, { x: 5.6, y: yPos + 1.2, w: boxW-0.4, h: boxH-1.5, fontSize: 14, color: colorText, valign: 'top', fontFace: fontBody });
@@ -527,23 +515,19 @@
                 // Arrow 2
                 slide.addText("▶", { x: 9.3, y: yPos + 1.8, w: arrowW, fontSize: 24, color: colorAccent, align:'center' });
 
-                // --- Step 3 ---
+                // Step 3
                 slide.addShape(pres.ShapeType.rect, { x: 10.0, y: yPos, w: boxW, h: 0.1, fill: colorStep3Border });
                 slide.addShape(pres.ShapeType.rect, { x: 10.0, y: yPos + 0.1, w: boxW, h: boxH, fill: colorStep3Bg });
-                
                 slide.addText("STEP-3", { x: 10.2, y: yPos + 0.3, w: boxW-0.4, fontSize: 10, color: colorLightText, fontFace: fontTitle });
                 slide.addText(slideData.step3.label, { x: 10.2, y: yPos + 0.6, w: boxW-0.4, fontSize: 16, bold: true, color: colorPrimary, fontFace: fontTitle });
                 slide.addText(slideData.step3.text, { x: 10.2, y: yPos + 1.2, w: boxW-0.4, h: boxH-1.5, fontSize: 14, color: colorText, valign: 'top', fontFace: fontBody });
             }
         });
 
-        // ファイル保存
         pres.writeFile({ fileName: 'AI_Care_Training_Pro.pptx' });
     }
 
-    // 初期化
     renderPreview();
-
 </script>
 </body>
 </html>
