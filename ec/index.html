@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EC業界 AI DX戦略事例集</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #a88a5d;
+            --bg-color: #fdfcfb;
+            --accent: #e27d60;
+            --text-main: #333;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            color: var(--primary);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent);
+            padding-left: 10px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 8px;
+        }
+
+        .card-p {
+            font-size: 0.95rem;
+            margin: 8px 0;
+            color: #555;
+        }
+
+        .impact-box {
+            background: #fff8f0;
+            border: 1px dashed var(--accent);
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AI DX STRATEGY REPORT</h1>
+    <p>EC事業最適化・生成AI導入事例集</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800')"></div>
+            <div class="card-content">
+                <span class="role-badge">マーケティング</span>
+                <div class="card-title">多モール並行SEO・メタデータ最適化</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="card-p">楽天、Amazon、Yahoo等の各モールで最適なキーワードが異なり、人力での更新が追いつかない。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="card-p">AIが各モールの売れ筋キーワードを抽出。商品特徴に合わせ、モールごとに最適なタイトル・商品説明文を自動生成。</p>
+                <div class="impact-box">想定効果: 検索流入数 +45%向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800')"></div>
+            <div class="card-content">
+                <span class="role-badge">クリエイティブ</span>
+                <div class="card-title">AIモデル生成・背景合成システム</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="card-p">モデル撮影のコスト（人件費・スタジオ代）が高く、商品バリエーションすべてを網羅できない。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="card-p">平置きの商品画像から、AIモデルに着用させた画像を生成。季節に合わせた背景も瞬時に合成。</p>
+                <div class="impact-box">想定効果: 制作コスト 80%削減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1454165833767-131f369677ea?w=800')"></div>
+            <div class="card-content">
+                <span class="role-badge">全社ナレッジ</span>
+                <div class="card-title">NotebookLMによる運営マニュアルAI化</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="card-p">配送トラブル対応や返金規定が属人化。マニュアルが膨大で新人が目的の情報を探せない。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="card-p">社内規程・過去の対応ログをNotebookLMに集約。スタッフが対話形式で「このケースはどう返金する？」と確認可能に。</p>
+                <div class="impact-box">想定効果: 研修期間 50%短縮</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=800')"></div>
+            <div class="card-content">
+                <span class="role-badge">CS / サポート</span>
+                <div class="card-title">レビュー・感情分析に基づく自動返信</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="card-p">低評価レビューへの対応が遅れ、ブランド毀損を招く。定型文返信は顧客満足度を下げる。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="card-p">投稿内容の感情を解析。低評価には真摯な謝罪と解決策、高評価には感謝を込めた個別の返信案を即時作成。</p>
+                <div class="impact-box">想定効果: ブランドロイヤリティ 30%向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800')"></div>
+            <div class="card-content">
+                <span class="role-badge">経営 / 分析</span>
+                <div class="card-title">在庫最適化・需要予測AI</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="card-p">勘に頼った発注により、人気商品の欠品と不人気商品の在庫滞留が同時に発生している。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="card-p">過去の販売データ、季節性、広告投資額を分析し、最適な発注量を算出。発注アラートを自動化。</p>
+                <div class="impact-box">想定効果: 在庫回転率 1.4倍向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800')"></div>
+            <div class="card-content">
+                <span class="role-badge">マーケティング</span>
+                <div class="card-title">SNS投稿（Insta/TikTok）台本自動生成</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="card-p">ショート動画が必須の時代だが、台本作成やトレンド調査に時間がかかりすぎる。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="card-p">商品URLを入力するだけで、ターゲットに刺さる「冒頭3秒」のフックと構成案、ハッシュタグをAIが生成。</p>
+                <div class="impact-box">想定効果: SNS運用工数 70%削減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800')"></div>
+            <div class="card-content">
+                <span class="role-badge">経営</span>
+                <div class="card-title">リアルタイムPLダッシュボード</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="card-p">広告費、原価、送料が変動する中、月末まで正確な利益が把握できない。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="card-p">API経由で各モールの売上と広告費を統合。AIが異常値を検知し、「このままでは赤字になる」等の警告を発信。</p>
+                <div class="impact-box">想定効果: 意思決定速度の劇的改善</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1512428559083-a4051d639dd9?w=800')"></div>
+            <div class="card-content">
+                <span class="role-badge">バックオフィス</span>
+                <div class="card-title">卸業者からの見積書・請求書自動処理</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="card-p">紙やPDFで届くバラバラな形式の見積書を、手入力でシステムに転記している。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="card-p">マルチモーダルAI（GPT-4o等）でレイアウトを認識。項目を自動抽出して在庫管理システムへ連携。</p>
+                <div class="impact-box">想定効果: 入力ミス・工数の90%削減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800')"></div>
+            <div class="card-content">
+                <span class="role-badge">マーケティング</span>
+                <div class="card-title">パーソナライズDM・メルマガ生成</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="card-p">全員に同じメルマガを送っているため、開封率が低下し配信停止が増えている。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="card-p">顧客の購入履歴、閲覧頻度から興味関心を予測。一人ひとりに最適化したタイトルとおすすめ商品を提案。</p>
+                <div class="impact-box">想定効果: LTV（顧客生涯価値） 20%向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800')"></div>
+            <div class="card-content">
+                <span class="role-badge">リスク管理</span>
+                <div class="card-title">景表法・薬機法自動チェック</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="card-p">LPや広告コピーが法律に抵触していないか、専門知識のある人間が目視で確認しており、時間がかかる。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="card-p">最新のガイドラインを学習したAIが、原稿内のリスク箇所を指摘。安全な言い換え案も同時に提示。</p>
+                <div class="impact-box">想定効果: 法務チェック工数 60%削減</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800')"></div>
+            <div class="card-content">
+                <span class="role-badge">企画</span>
+                <div class="card-title">市場トレンド分析・新商品着想支援</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="card-p">次に何が売れるかの予測が、担当者の「勘」や「流行りもの」の模倣に寄っている。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="card-p">SNSのトレンド、Google検索、他社売れ筋商品をAIが横断分析。競合がいない「穴場」の属性を抽出。</p>
+                <div class="impact-box">想定効果: 商品ヒット率の大幅改善</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800')"></div>
+            <div class="card-content">
+                <span class="role-badge">CS / サポート</span>
+                <div class="card-title">多言語対応・グローバル展開支援</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="card-p">海外販売（越境EC）を検討しているが、翻訳品質や外国語での問い合わせ対応が壁になっている。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="card-p">文脈を理解した高精度AI翻訳によるページ作成。問い合わせもAIが即座に翻訳・回答案作成。</p>
+                <div class="impact-box">想定効果: 海外売上比率の拡大</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=800')"></div>
+            <div class="card-content">
+                <span class="role-badge">実務</span>
+                <div class="card-title">ピッキング・梱包効率化（ルート最適化）</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                <p class="card-p">倉庫内での移動距離が長く、出荷作業に時間がかかっている。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> AI活用ステップ</div>
+                <p class="card-p">注文の組み合わせから、最も効率的に回れるピッキングルートをAIが計算し、タブレットに表示。</p>
+                <div class="impact-box">想定効果: 出荷能力 25%向上</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1586769852044-692d6e392394?w=800')"></div>
+            <div class="card-content">
+                <span class="role-badge">全社</span>
+                <div class="card-title">AIリスク・セキュリティ管理</div>
+                <div class="section-title"><i class="fas fa-exclamation-circle"></i> リスク管理</div>
+                <p class="card-p">個人情報の入力防止、AIのハルシネーション（嘘）による誤情報の公開を未然に防ぐ仕組みの導入。</p>
+                <div class="section-title"><i class="fas fa-magic"></i> 対策ステップ</div>
+                <p class="card-p">AI出力結果のダブルチェックフロー設定と、顧客情報（住所等）をAIに渡さないマスキング処理の自動化。</p>
+                <div class="impact-box">想定効果: セキュリティ事故 ゼロの徹底</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 AI DX Strategic Consulting. All rights reserved.
+</footer>
+
+</body>
+</html>
