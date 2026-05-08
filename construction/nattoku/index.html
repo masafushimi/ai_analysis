@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DX Strategy Report | nattoku住宅</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #a88a5d;
+            --bg: #fdfcfb;
+            --accent: #e27d60;
+            --text: #333;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+            width: 100%;
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            color: var(--accent);
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            padding: 30px;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(168, 138, 93, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .role-badge {
+            background-color: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-bottom: 15px;
+            width: fit-content;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .impact-box {
+            margin-top: auto;
+            background: rgba(168, 138, 93, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 15px 0;
+        }
+
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>nattoku住宅工房 AI DX Strategy</h1>
+        <p>次世代の住宅建築・顧客体験を創造する12のAIソリューション</p>
+    </div>
+
+    <div class="grid-container">
+
+        <div class="card">
+            <span class="role-badge">営業・マーケティング</span>
+            <h2><i class="fas fa-home"></i> ポータルサイト運用自動化</h2>
+            <div class="section-title">現状の課題</div>
+            <div class="content">SUUMOやHOME'Sへの物件登録・修正に膨大な時間がかかり、反響率も担当者の文章力に依存。</div>
+            <div class="section-title">AI活用ステップ</div>
+            <div class="content">1. 過去の成約事例から「響くキーワード」を抽出。<br>2. 物件スペックを元に、LLMが感情に訴えかけるキャッチコピーを自動生成。</div>
+            <div class="impact-box">反響数 1.5倍 / 登録工数 70%削減</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">クリエイティブ</span>
+            <h2><i class="fas fa-camera"></i> SNS施工事例自動生成</h2>
+            <div class="section-title">現状の課題</div>
+            <div class="content">魅力的な施工写真はあるが、Instagram投稿用の加工やハッシュタグ選定が後回しになっている。</div>
+            <div class="section-title">AI活用ステップ</div>
+            <div class="content">1. 画像認識AIが写真の特徴を分析。<br>2. トレンドに合わせたキャプションとタグを生成し、最適な時間に予約投稿。</div>
+            <div class="impact-box">リーチ数拡大による資料請求 20%増</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">ナレッジ資産化</span>
+            <h2><i class="fas fa-book"></i> AI設計・施工ナレッジ（NotebookLM）</h2>
+            <div class="section-title">現状の課題</div>
+            <div class="content">熟練設計士のノウハウが属人化し、若手が同じミスを繰り返したり、過去の仕様を調べるのに時間がかかる。</div>
+            <div class="section-title">AI活用ステップ</div>
+            <div class="content">1. 過去10年の設計図、Q&A、トラブル報告書を学習。<br>2. 現場から「○○工法の注意点は？」と聞けば即座に回答。</div>
+            <div class="impact-box">技術伝承スピード 2倍 / 調査時間 80%削減</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">クリエイティブ</span>
+            <h2><i class="fas fa-pencil-ruler"></i> AI間取りコンシェルジュ</h2>
+            <div class="section-title">現状の課題</div>
+            <div class="content">ヒアリングから最初のプラン提示まで数日〜1週間かかり、顧客の熱量が下がってしまう。</div>
+            <div class="section-title">AI活用ステップ</div>
+            <div class="content">1. 家族構成・動線希望を入力。<br>2. 生成AIが数秒で3つのラフプランを作成し、打ち合わせ中に可視化。</div>
+            <div class="impact-box">成約までの検討期間 15%短縮</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">営業</span>
+            <h2><i class="fas fa-calculator"></i> 住宅ローン審査予測AI</h2>
+            <div class="section-title">現状の課題</div>
+            <div class="content">事前審査の結果が出るまで不安。担当者の経験則でのアドバイスに限界がある。</div>
+            <div class="section-title">AI活用ステップ</div>
+            <div class="content">1. 属性データを統計モデル $P(success | data)$ で分析。<br>2. 最適な金融機関と、通過可能性を高めるための返済計画を提案。</div>
+            <div class="impact-box">審査通過率の向上 / 顧客の心理的安心感UP</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">現場・実務</span>
+            <h2><i class="fas fa-hard-hat"></i> 写真解析による工事報告自動化</h2>
+            <div class="section-title">現状の課題</div>
+            <div class="content">現場監督が夕方事務所に戻り、大量の写真を整理して日報を作る作業が残業の主因。</div>
+            <div class="section-title">AI活用ステップ</div>
+            <div class="content">1. 現場写真をスマホでアップ。<br>2. AIが工種（配筋、防水等）を判別し、定型文を流し込んで報告書を完結。</div>
+            <div class="impact-box">現場監督の事務作業時間 1日あたり 60分削減</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">設計・法規</span>
+            <h2><i class="fas fa-gavel"></i> AI建築基準法チェック</h2>
+            <div class="section-title">現状の課題</div>
+            <div class="content">複雑な法令確認に時間がかかり、ヒューマンエラーによる再申請コストが発生する。</div>
+            <div class="section-title">AI活用ステップ</div>
+            <div class="content">1. CADデータを読み込み、建ぺい率・容積率・斜線制限等を自動計算。<br>2. 違反箇所をリアルタイムでハイライト。</div>
+            <div class="impact-box">再申請率 0%への挑戦 / 確認作業 50%削減</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">顧客対応</span>
+            <h2><i class="fas fa-tools"></i> 24/7 アフターメンテBot</h2>
+            <div class="section-title">現状の課題</div>
+            <div class="content">夜間や休日の「水漏れ」「設備の故障」への対応が遅れ、顧客満足度が低下。</div>
+            <div class="section-title">AI活用ステップ</div>
+            <div class="content">1. LINE連携のAIが状況をヒアリング（写真送付含む）。<br>2. 緊急度を$Score \in [0, 100]$で算出し、業者へ自動アラート。</div>
+            <div class="impact-box">CS満足度 40%向上 / 休日対応負荷の平準化</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">クリエイティブ</span>
+            <h2><i class="fas fa-couch"></i> リアル家具合成パース生成</h2>
+            <div class="section-title">現状の課題</div>
+            <div class="content">標準のパースでは、顧客が今持っている家具や検討中のインテリアとの相性がイメージしにくい。</div>
+            <div class="section-title">AI活用ステップ</div>
+            <div class="content">1. 家具の写真をAIで切り抜き、パース内に自然な陰影で合成。<br>2. 照明シミュレーションと連動し、夜の雰囲気も再現。</div>
+            <div class="impact-box">インテリアオプション受注単価 1.3倍</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">マネジメント</span>
+            <h2><i class="fas fa-microphone-alt"></i> 打ち合わせ音声議事録AI</h2>
+            <div class="section-title">現状の課題</div>
+            <div class="content">言った・言わないのトラブルが追加工事費用負担の火種になる。</div>
+            <div class="section-title">AI活用ステップ</div>
+            <div class="content">1. 会議音声をWhisper等で高精度テキスト化。<br>2. 決定事項・宿題事項を抽出し、打ち合わせ終了後に施主へ自動送信。</div>
+            <div class="impact-box">トラブル発生率 90%削減 / 議事録作成ゼロ</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">経営</span>
+            <h2><i class="fas fa-chart-line"></i> 建築資材・需要予測モデル</h2>
+            <div class="section-title">現状の課題</div>
+            <div class="content">ウッドショック等の資材高騰が利益を圧迫。発注タイミングの判断が困難。</div>
+            <div class="section-title">AI活用ステップ</div>
+            <div class="content">1. 世界の市場データと自社の受注見込みを分析。<br>2. 最適な一括仕入れタイミングをリコメンド。</div>
+            <div class="impact-box">売上総利益率 3%改善</div>
+        </div>
+
+        <div class="card">
+            <span class="role-badge">リスク管理</span>
+            <h2><i class="fas fa-shield-alt"></i> AIガバナンス・ガードレール</h2>
+            <div class="section-title">現状の課題</div>
+            <div class="content">AIが誤った回答（ハルシネーション）をしたり、顧客の個人情報を学習データに含めてしまうリスク。</div>
+            <div class="section-title">AI活用ステップ</div>
+            <div class="content">1. PII（個人情報）フィルターによる自動マスキング。<br>2. 出力結果の根拠（ソース）を必ず明示する仕組みの導入。</div>
+            <div class="impact-box">安全なAI利用環境の構築 / 法的リスクの最小化</div>
+        </div>
+
+    </div>
+
+</body>
+</html>
