@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DX 戦略事例レポート - 山岸運送グループ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gold: #a88a5d;
+            --primary-gold-dark: #8c724b;
+            --bg-ivory: #fdfcfb;
+            --bg-card: #ffffff;
+            --accent-coral: #e27d60;
+            --text-dark: #2c2a29;
+            --text-muted: #6b6662;
+            --border-color: #f0ede9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-ivory);
+            color: var(--text-dark);
+            line-height: 1.7;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b18 0%, #3a3530 100%);
+            color: #ffffff;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 5px solid var(--primary-gold);
+            position: relative;
+        }
+
+        header::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 2px;
+            background-color: var(--primary-gold);
+            margin: 1.5rem auto 0;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        header p {
+            color: #ccc5be;
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+            border-left: 4px solid var(--primary-gold);
+            padding-left: 0.75rem;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Card Style */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(168, 138, 93, 0.06);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(168, 138, 93, 0.12);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-content {
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .role-badge {
+            align-self: flex-start;
+            background-color: var(--bg-ivory);
+            color: var(--primary-gold-dark);
+            border: 1px solid var(--primary-gold);
+            padding: 0.2rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .card-title i {
+            color: var(--primary-gold);
+            margin-right: 0.5rem;
+        }
+
+        .block-section {
+            margin-bottom: 1rem;
+        }
+
+        .block-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-gold-dark);
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .block-title i {
+            font-size: 0.8rem;
+            margin-right: 0.4rem;
+            width: 14px;
+        }
+
+        .block-text {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            text-align: justify;
+        }
+
+        .steps-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .steps-list li {
+            font-size: 0.9rem;
+            position: relative;
+            padding-left: 1.2rem;
+            margin-bottom: 0.25rem;
+            color: var(--text-dark);
+        }
+
+        .steps-list li::before {
+            content: "•";
+            color: var(--accent-coral);
+            font-weight: bold;
+            position: absolute;
+            left: 0.3rem;
+            top: 0;
+        }
+
+        .impact-box {
+            background-color: #faf8f5;
+            border-left: 3px solid var(--accent-coral);
+            padding: 0.75rem;
+            border-radius: 0 4px 4px 0;
+            margin-top: auto;
+        }
+
+        .impact-box .block-title {
+            color: var(--accent-coral);
+        }
+
+        .impact-box .block-text {
+            font-weight: 500;
+        }
+
+        /* Risk Card Explicit Styling */
+        .card.risk-card {
+            border: 1px dashed var(--accent-coral);
+            background-color: #fffbfb;
+        }
+        .card.risk-card .role-badge {
+            background-color: #ffece8;
+            color: var(--accent-coral);
+            border-color: var(--accent-coral);
+        }
+
+        footer {
+            background-color: #1e1b18;
+            color: #8c827a;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.85rem;
+            border-top: 1px solid #2c2a29;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>山岸運送グループ | AI DX 戦略実装事例集</h1>
+        <p>生成AIとデータアナリティクスによる物流2024年問題の克服と競争優位の確立</p>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">戦略的AI活用カード（14選）</h2>
+        
+        <div class="grid">
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=600&q=80" alt="Logistics Desk" class="card-img">
+                <div class="card-content">
+                    <span class="role-badge">配車・運行管理</span>
+                    <h3 class="card-title"><i class="fa-solid fa-file-invoice"></i>FAX/メール配送依頼書の超高速データ化</h3>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-triangle-exclamation"></i>現状の課題</div>
+                        <div class="block-text">荷主ごとに異なるフォーマットのFAXやメール受注書から、発着地、日時、品目を手動で基幹システムに入力しており、誤入力リスクと配車担当の大きな時間的負荷が発生している。</div>
+                    </div>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-gears"></i>AI活用ステップ</div>
+                        <ul class="steps-list">
+                            <li>マルチモーダルLLMにより、紙のFAX画像やメール文面から重要項目を99%の精度で自動抽出。</li>
+                            <li>抽出データを基幹システム連携用の構造化CSV形式へ瞬時に整形。</li>
+                        </ul>
+                    </div>
+                    <div class="impact-box">
+                        <div class="block-title"><i class="fa-solid fa-bolt"></i>導入効果</div>
+                        <div class="block-text">受注処理工数を85%削減。データ化が即座に完了するため、配車決定へのリードタイムが劇的に短縮。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1542744094-3a31f103e35f?auto=format&fit=crop&w=600&q=80" alt="Negotiation" class="card-img">
+                <div class="card-content">
+                    <span class="role-badge">顧客対応（CS）</span>
+                    <h3 class="card-title"><i class="fa-solid fa-handshake-slashed"></i>荷主向け待機料金請求・改善要望書の自動生成</h3>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-triangle-exclamation"></i>現状の課題</div>
+                        <div class="block-text">着地での長時間の荷待ち（待機時間）が発生しているが、既存荷主に対して角を立てずに待機料金の請求や入荷時間の分散を交渉するための書類作成に躊躇し、機会損失になっている。</div>
+                    </div>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-gears"></i>AI活用ステップ</div>
+                        <ul class="steps-list">
+                            <li>デジタコ等から集計した「平均待機時間2.5時間」などの動向データをLLMにインプット。</li>
+                            <li>「2024年問題（拘束時間規制）」の法規を実効性のある根拠として組み込み、低姿勢かつ実利的な交渉・提案書を生成。</li>
+                        </ul>
+                    </div>
+                    <div class="impact-box">
+                        <div class="block-title"><i class="fa-solid fa-bolt"></i>導入効果</div>
+                        <div class="block-text">交渉書類の作成時間を80%削減。エビデンスに基づく角の立たない請求により、適正な収益回収と現場負担の軽減を両立。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=600&q=80" alt="Sales Meeting" class="card-img">
+                <div class="card-content">
+                    <span class="role-badge">営業・顧客管理</span>
+                    <h3 class="card-title"><i class="fa-solid fa-brain"></i>商談時の感情バイアス検知による真の課題抽出</h3>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-triangle-exclamation"></i>現状の課題</div>
+                        <div class="block-text">顧客が商談で「コストが最優先」と口にしていても、実際は「現委託先の誤配送による自社信用の失墜」に強い危機感を持っているなど、真の訴求点（インサイト）を営業が見落とし失注する。</div>
+                    </div>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-gears"></i>AI活用ステップ</div>
+                        <ul class="steps-list">
+                            <li>商談の録音文字起こしテキストから、顧客の発言の矛盾、強調点、感情の揺らぎをAIが分析。</li>
+                            <li>言葉の裏にある「真のボトルネック」を抽出し、次回商談で突くべき明確な訴求ポイントを出力。</li>
+                        </ul>
+                    </div>
+                    <div class="impact-box">
+                        <div class="block-title"><i class="fa-solid fa-bolt"></i>導入効果</div>
+                        <div class="block-text">顧客の本音にジャストフィットした提案が可能になり、新規大口コンペにおける受注勝率が推定25%向上。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80" alt="Truck Highway" class="card-img">
+                <div class="card-content">
+                    <span class="role-badge">経営企画・営業</span>
+                    <h3 class="card-title"><i class="fa-solid fa-route"></i>復路実車率向上のための共同物流・戦略提案</h3>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-triangle-exclamation"></i>現状の課題</div>
+                        <div class="block-text">静岡〜関東エリア便において、復路（帰り荷）の実車率が40%に低迷。片荷運行による収益の圧迫を解消するための他社巻き込み型提案が作れていない。</div>
+                    </div>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-gears"></i>AI活用ステップ</div>
+                        <ul class="steps-list">
+                            <li>逆方向の物流ニーズ（定温貨物等）を持ち、周辺エリアに工場を構える食品メーカーや卸売業をAIが推計。</li>
+                            <li>共同配送化による「コスト10%削減」「$CO_2$排出量15%削減」等の数字シミュレーションを組み込んだ提案骨子を作成。</li>
+                        </ul>
+                    </div>
+                    <div class="impact-box">
+                        <div class="block-title"><i class="fa-solid fa-bolt"></i>導入効果</div>
+                        <div class="block-text">片荷便の共同物流化による復路実車率の向上（40% &rarr; 75%）。年間数千万円規模の運賃粗利の改善に寄与。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Data Analytics" class="card-img">
+                <div class="card-content">
+                    <span class="role-badge">料金計算・請求管理</span>
+                    <h3 class="card-title"><i class="fa-solid fa-calculator"></i>デジタコ・日報突合による「隠れ待機」自動監査</h3>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-triangle-exclamation"></i>現状の課題</div>
+                        <div class="block-text">ドライバーの自己申告日報とデジタコの運行時間データの一致を、毎月末に目視で確認・照合しているため膨大な時間がかかり、かつ手待ち時間の不自然なカウント漏れを見落としている。</div>
+                    </div>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-gears"></i>AI活用ステップ</div>
+                        <ul class="steps-list">
+                            <li>デジタコの時間ログと、ドライバーのテキスト日報をAIが一括してクロスチェック。</li>
+                            <li>連続運転4時間ごとの休憩未取得や、特定の着地における「荷待ち」とみなすべき不自然な滞留時間帯を自動抽出。</li>
+                        </ul>
+                    </div>
+                    <div class="impact-box">
+                        <div class="block-title"><i class="fa-solid fa-bolt"></i>導入効果</div>
+                        <div class="block-text">月次の請求監査工数を75%削減。請求漏れの待機料金を正当に可視化し、労務監査の網羅性を100%に。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80" alt="Invoice Finance" class="card-img">
+                <div class="card-content">
+                    <span class="role-badge">事務・バックオフィス</span>
+                    <h3 class="card-title"><i class="fa-solid fa-receipt"></i>傭車先請求書のインボイス・端数処理自動監査</h3>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-triangle-exclamation"></i>現状の課題</div>
+                        <div class="block-text">多数の協力運送会社から届く請求明細に対し、適格請求書発行事業者登録番号（T+13桁）の有無や、税率別消費税の端数処理が正しく行われているかの目視点検に莫大な時間を要している。</div>
+                    </div>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-gears"></i>AI活用ステップ</div>
+                        <ul class="steps-list">
+                            <li>スキャンされた請求書画像をAI-OCRおよびLLMで読み取り、登録番号の有無を自動判定。</li>
+                            <li>適用税率（10%/8%）と端数処理ロジックの不備を検出し、不備がある場合は差し戻し文面を自動生成。</li>
+                        </ul>
+                    </div>
+                    <div class="impact-box">
+                        <div class="block-title"><i class="fa-solid fa-bolt"></i>導入効果</div>
+                        <div class="block-text">請求書査定の確認スピードが5倍に。税務コンプライアンス違反リスクを完全に排除。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80" alt="Cyber Security" class="card-img">
+                <div class="card-content">
+                    <span class="role-badge">情報システム（情シス）</span>
+                    <h3 class="card-title"><i class="fa-solid fa-shield-halved"></i>プロキシログ解析によるシャドーIT・情報漏洩検知</h3>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-triangle-exclamation"></i>現状の課題</div>
+                        <div class="block-text">現場や営業拠点で、会社の許可を得ていない個人のクラウドストレージや未承認のAI翻訳、ファイル転送サービスに、荷主の機密運賃データや個人情報を含む運行指示書を入力・アップロードするリスクが潜在。</div>
+                    </div>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-gears"></i>AI活用ステップ</div>
+                        <ul class="steps-list">
+                            <li>社内ファイアウォールおよびプロキシの通信ログ統計データをAIが定常的に機械学習解析。</li>
+                            <li>未承認の外部ツールへの大量データ送信など、セキュリティ規則を脅かす異常値を自動でスクリーニング。</li>
+                        </ul>
+                    </div>
+                    <div class="impact-box">
+                        <div class="block-title"><i class="fa-solid fa-bolt"></i>導入効果</div>
+                        <div class="block-text">シャドーITの発見率を100%に。荷主の機密情報漏洩リスクを未然に防ぎ、グループのガバナンスを担保。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Platform Optimization" class="card-img">
+                <div class="card-content">
+                    <span class="role-badge">支配的プラットフォーム最適化</span>
+                    <h3 class="card-title"><i class="fa-solid fa-network-wired"></i>求荷求車プラットフォーム向けの投稿文自動最適化</h3>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-triangle-exclamation"></i>現状の課題</div>
+                        <div class="block-text">自社で対応しきれない案件を「トラボックス」等の外部マッチングプラットフォームへ登録する際、担当者ごとに文章の魅力度やわかりやすさが異なり、傭車会社とのマッチング率にバラつきがある。</div>
+                    </div>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-gears"></i>AI活用ステップ</div>
+                        <ul class="steps-list">
+                            <li>溢れ案件の生データ（ルート、荷姿、運賃）を入力。</li>
+                            <li>各求荷求車サービスの文字数制限や表示規則に合わせ、傭車会社が最も飛びつきやすい「魅力的なアピール表現」へAIが自動リライト。</li>
+                        </ul>
+                    </div>
+                    <div class="impact-box">
+                        <div class="block-title"><i class="fa-solid fa-bolt"></i>導入効果</div>
+                        <div class="block-text">プラットフォームへの登録作業時間を70%削減。魅力的な条件提示により、マッチング成約率が18%向上。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80" alt="Mechanic Workshop" class="card-img">
+                <div class="card-content">
+                    <span class="role-badge">ナレッジの資産化 (NotebookLM)</span>
+                    <h3 class="card-title"><i class="fa-solid fa-book-bookmark"></i>熟練整備士の「異音・振動トラブル予兆」資産化AI</h3>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-triangle-exclamation"></i>現状の課題</div>
+                        <div class="block-text">ベテラン整備士が持つ「この金属が擦れるようなシャーという音は、ハブベアリングの摩耗初期」といった、経験に根差した故障予兆の判断基準（勘）が若手やドライバーに継承されず、路上故障リスクとなる。</div>
+                    </div>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-gears"></i>AI活用ステップ</div>
+                        <ul class="steps-list">
+                            <li>ベテラン整備士の音声メモや過去の特殊修繕履歴をNotebookLM等に流し込み、独自の車両ナレッジベースを構築。</li>
+                            <li>現場の若手が「4軸目から音がする」と自然言語で質問すると、即座に可能性の高い原因と点検手順を回答。</li>
+                        </ul>
+                    </div>
+                    <div class="impact-box">
+                        <div class="block-title"><i class="fa-solid fa-bolt"></i>導入効果</div>
+                        <div class="block-text">熟練の勘の言語化により、トラブルシューティングのスピードが向上。重大な路上事故・故障の発生率を最小化。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&w=600&q=80" alt="Clock Compliance" class="card-img">
+                <div class="card-content">
+                    <span class="role-badge">マネジメント・労務</span>
+                    <h3 class="card-title"><i class="fa-solid fa-clock"></i>新・改善基準告示に準拠した継続休息の自動違反監査</h3>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-triangle-exclamation"></i>現状の課題</div>
+                        <div class="block-text">2024年4月適用の新・改善基準告示（勤務終了後、継続11時間以上の休息期間の確保推奨）を満たしているかを、直前の遅番・翌朝の早番の組み合わせから配車係が手動でチェックするのは限界がある。</div>
+                    </div>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-gears"></i>AI活用ステップ</div>
+                        <ul class="steps-list">
+                            <li>翌日の配車シミュレーションデータと、本日の運行帰着予測時刻をAIが自動でリアルタイムに突き合わせ。</li>
+                            <li>インターバルが推奨11時間（または法的限界9時間）を割り込むリスクのあるドライバーを検出し、配車変更警告を出す。</li>
+                        </ul>
+                    </div>
+                    <div class="impact-box">
+                        <div class="block-title"><i class="fa-solid fa-bolt"></i>導入効果</div>
+                        <div class="block-text">労務配車違反を100%未然防止。配車作成段階でのコンプライアンスチェック自動化により、配車係の精神的負荷を解消。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Driver Meeting" class="card-img">
+                <div class="card-content">
+                    <span class="role-badge">人事・定着・エンゲージメント</span>
+                    <h3 class="card-title"><i class="fa-solid fa-user-heart"></i>日報のテキスト変化から紐解く退職予兆早期検知</h3>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-triangle-exclamation"></i>現状の課題</div>
+                        <div class="block-text">ドライバーが不満を内に秘め、突然退職届を提出する「サイレント離職」が多発。日報のフリーコメントの些細なニュアンスの変化に所長が気づくことができない。</div>
+                    </div>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-gears"></i>AI活用ステップ</div>
+                        <ul class="steps-list">
+                            <li>各ドライバーが書き込む日報のコメント量、使用ワードのネガティブ化、感情のトーン変化を定常分析。</li>
+                            <li>「以前に比べ発言が急に事務的・寡黙になった」などのシグナルを捉え、所長へ能動的なフォロー面談のアプローチを提案。</li>
+                        </ul>
+                    </div>
+                    <div class="impact-box">
+                        <div class="block-title"><i class="fa-solid fa-bolt"></i>導入効果</div>
+                        <div class="block-text">ドライバーの早期離職を未然に防止。離職率を大幅に低下させ、採用・教育コストの流出を抑止。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80" alt="Job Interview" class="card-img">
+                <div class="card-content">
+                    <span class="role-badge">人事・採用・労務</span>
+                    <h3 class="card-title"><i class="fa-solid fa-user-check"></i>面接官の主観・バイアスを排除した構造化面接支援</h3>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-triangle-exclamation"></i>現状の課題</div>
+                        <div class="block-text">人手不足による採用焦りや、面接官（営業所長）の主観・好みによって、安全運転意識や協調性の低い不適格なドライバーを雇用してしまい、入社後の事故やトラブルに繋がっている。</div>
+                    </div>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-gears"></i>AI活用ステップ</div>
+                        <ul class="steps-list">
+                            <li>「安全意識」「ストレス耐性」に特化した、過去の行動（行動特性）を引き出すプロンプト・質問シートをAIが策定。</li>
+                            <li>面接官が相手の発言のどの部分に注目すべきか、客観的な「◎・◯・△」の評価軸基準を自動生成して標準化。</li>
+                        </ul>
+                    </div>
+                    <div class="impact-box">
+                        <div class="block-title"><i class="fa-solid fa-bolt"></i>導入効果</div>
+                        <div class="block-text">採用ミスマッチによる早期退職や事故リスクを減少。全営業所で均一かつ高品質な選考基準の維持が可能に。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=600&q=80" alt="Finance Risk" class="card-img">
+                <div class="card-content">
+                    <span class="role-badge">経営企画・役員業務</span>
+                    <h3 class="card-title"><i class="fa-solid fa-chart-line-down"></i>最悪の環境変化を見据えたシナリオプランニング</h3>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-triangle-exclamation"></i>現状の課題</div>
+                        <div class="block-text">「軽油価格が1.3倍に高騰し、主要荷主からの運賃への転嫁（燃料サーチャージ）が50%しか認められない」といった最悪の外部マクロ環境変化に直面した際、場当たり的な対応になり利益を致命的に失う。</div>
+                    </div>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-gears"></i>AI活用ステップ</div>
+                        <ul class="steps-list">
+                            <li>マクロ予測（燃料高騰・荷主離れリスク）と、自社の固定費（車両割賦、拠点維持費）データをAIに結合。</li>
+                            <li>損益分岐を死守するために間引くべき低利益ルート・車両数、逆に開拓すべき高利益スポット案件の必要比率を逆算プランニング。</div>
+                        </ul>
+                    </div>
+                    <div class="impact-box">
+                        <div class="block-title"><i class="fa-solid fa-bolt"></i>導入効果</div>
+                        <div class="block-text">市場急変時における経営の意思決定スピードが激変。予測に基づいた「攻めと守り」の機先を制する対応が可能に。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card risk-card">
+                <div class="card-content">
+                    <span class="role-badge"><i class="fa-solid fa-triangle-exclamation"></i> リスク管理・ガバナンス</span>
+                    <h3 class="card-title" style="color: var(--accent-coral);"><i class="fa-solid fa-shield"></i>生成AI利用におけるハルシネーション・データ保護盾</h3>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-triangle-exclamation"></i>発生しうるリスク</div>
+                        <div class="block-text">1. 荷主との特約運賃やドライバーの個人情報（氏名・健康状態等）を外部の公開型生成AIに入力し学習データとして漏洩するリスク。<br>2. AIが出力した迂回ルートや運賃積算根拠の嘘（ハルシネーション）を鵜呑みにし、荷主とのトラブルや配車遅延を引き起こすリスク。</div>
+                    </div>
+                    <div class="block-section">
+                        <div class="block-title"><i class="fa-solid fa-gears"></i>AIガバナンス規定・対策</div>
+                        <ul class="steps-list">
+                            <li><strong>入力保護:</strong> API経由かつデータが再学習に利用されないオプトアウト環境（LLM）のみを社内業務システムに制限構築。</li>
+                            <li><strong>監査体制:</strong> AIが出力した「運行指示書サマリー」や「見積もり基本額」は、運行管理者・営業所長が必ず目視で最終クロスチェックを行う「Human-in-the-Loop」体制を完全義務化。</li>
+                        </ul>
+                    </div>
+                    <div class="impact-box" style="border-left-color: var(--accent-coral); background-color: #fff5f2;">
+                        <div class="block-title" style="color: var(--accent-coral);"><i class="fa-solid fa-bolt"></i>順守KPI</div>
+                        <div class="block-text" style="color: var(--text-dark);">情報漏洩インシデント発生率 0.0%、ハルシネーションに起因する運行トラブル件数 0件の維持。</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 山岸運送グループ &middot; AI DX戦略コンサルティングレポート</p>
+    </footer>
+
+</body>
+</html>
