@@ -3,329 +3,548 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>赤坂柿山 AI DX戦略レポート</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>株式会社赤坂柿山 AI駆動型DX戦略事例集</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-gold: #a88a5d;
-            --bg-ivory: #fdfcfb;
-            --accent-coral: #e27d60;
-            --text-dark: #333;
-            --card-bg: #ffffff;
+            --color-gold: #a88a5d;
+            --color-gold-dark: #8e724a;
+            --color-ivory: #fdfcfb;
+            --color-coral: #e27d60;
+            --color-charcoal: #1c1a17;
+            --color-gray: #75716b;
+            --color-card-bg: #ffffff;
+            --shadow: 0 10px 30px rgba(28, 26, 23, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            background-color: var(--bg-ivory);
             font-family: 'Noto Sans JP', sans-serif;
-            color: var(--text-dark);
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
+            background-color: var(--color-ivory);
+            color: var(--color-charcoal);
+            line-height: 1.7;
+            padding: 0;
         }
 
         header {
+            background-color: var(--color-charcoal);
+            color: #ffffff;
+            padding: 4rem 2rem;
             text-align: center;
-            padding: 50px 0;
-            border-bottom: 2px solid var(--primary-gold);
-            margin-bottom: 40px;
+            border-bottom: 3px solid var(--color-gold);
+            position: relative;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 1px;
+            background-color: var(--color-gold);
         }
 
         header h1 {
-            color: var(--primary-gold);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            letter-spacing: 0.1em;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 0.15rem;
+            margin-bottom: 1rem;
+            color: var(--color-ivory);
         }
 
         header p {
-            font-size: 1.1rem;
-            color: #666;
-        }
-
-        .container {
-            max-width: 1200px;
+            font-size: 1rem;
+            color: var(--color-gold);
+            font-weight: 300;
+            max-width: 800px;
             margin: 0 auto;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
         }
 
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.5rem;
+            color: var(--color-charcoal);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background-color: var(--color-gold);
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Card Style */
         .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(168, 138, 93, 0.1);
-            overflow: hidden;
+            background-color: var(--color-card-bg);
+            border: 1px solid rgba(168, 138, 93, 0.15);
+            border-radius: 8px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
             display: flex;
             flex-direction: column;
-            border-top: 5px solid var(--primary-gold);
-            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--color-gold);
+            transition: var(--transition);
         }
 
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(168, 138, 93, 0.12);
+            border-color: var(--color-gold);
         }
 
-        .card-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
+        .card:hover::before {
+            background-color: var(--color-coral);
+            width: 6px;
         }
 
-        .card-content {
-            padding: 25px;
-            flex-grow: 1;
-        }
-
+        /* Badge */
         .badge {
-            display: inline-block;
-            background: var(--primary-gold);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-
-        .card h3 {
-            margin: 0 0 15px 0;
-            font-size: 1.3rem;
-            color: var(--primary-gold);
-        }
-
-        .section-title {
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: var(--accent-coral);
-            margin-top: 15px;
-            display: block;
-        }
-
-        .card p {
-            font-size: 0.95rem;
-            margin: 5px 0 15px 0;
-        }
-
-        .solution-steps {
-            background: #f9f6f2;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
-
-        .impact {
-            margin-top: auto;
-            border-top: 1px solid #eee;
-            padding: 15px 25px;
-            background: #fdfcfb;
-            font-weight: bold;
-            color: var(--primary-gold);
+            align-self: flex-start;
+            background-color: rgba(168, 138, 93, 0.1);
+            color: var(--color-gold-dark);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.35rem 0.8rem;
+            border-radius: 50px;
+            letter-spacing: 0.05rem;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
             display: flex;
             align-items: center;
+            gap: 0.4rem;
         }
 
-        .impact i {
-            margin-right: 10px;
-            color: var(--accent-coral);
+        .badge i {
+            font-size: 0.8rem;
         }
 
-        @media (max-width: 600px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
+        /* Card Content */
+        .card h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 1.5rem;
+            color: var(--color-charcoal);
+        }
+
+        .card-section {
+            margin-bottom: 1.2rem;
+        }
+
+        .card-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-gold-dark);
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-label i {
+            width: 16px;
+            color: var(--color-gold);
+        }
+
+        .card p, .card ul {
+            font-size: 0.9rem;
+            color: var(--color-charcoal);
+            font-weight: 400;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 1.2rem;
+        }
+
+        .card ul li {
+            position: relative;
+            margin-bottom: 0.3rem;
+        }
+
+        .card ul li::before {
+            content: '•';
+            color: var(--color-coral);
+            font-weight: bold;
+            position: absolute;
+            left: -1.2rem;
+        }
+
+        /* Impact Visual */
+        .impact-box {
+            background-color: rgba(226, 125, 96, 0.04);
+            border: 1px dashed rgba(226, 125, 96, 0.3);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: auto;
+        }
+
+        .impact-box p {
+            color: var(--color-charcoal);
+            font-weight: 500;
+        }
+
+        .impact-box strong {
+            color: var(--color-coral);
+        }
+
+        /* Risk Card Specific */
+        .card.risk-card {
+            border: 1px solid rgba(226, 125, 96, 0.3);
+            background-color: #fffdfc;
+        }
+        .card.risk-card::before {
+            background-color: var(--color-coral);
+        }
+        .card.risk-card .badge {
+            background-color: rgba(226, 125, 96, 0.1);
+            color: var(--color-coral);
+        }
+
+        footer {
+            background-color: var(--color-charcoal);
+            color: var(--color-gray);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(168, 138, 93, 0.2);
         }
     </style>
 </head>
 <body>
 
-<div class="container">
     <header>
-        <h1>株式会社赤坂柿山 AI DX戦略</h1>
-        <p>伝統の「おかき」に、最先端の「知性」を。次世代のギフト体験を創造する12の施策</p>
+        <h1>赤坂柿山 AI駆動型DX戦略事例集</h1>
+        <p>100年の伝統と最先端生成AIの融合による、営業利益の劇的改善およびブランドUXの高度化ロードマップ</p>
     </header>
 
-    <div class="grid">
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=800&q=80" class="card-img" alt="EC">
-            <div class="card-content">
-                <span class="badge">マーケティング</span>
-                <h3>ECモール自動運用エンジン</h3>
-                <span class="section-title">現状の課題</span>
-                <p>楽天・Amazon等への商品登録、季節ごとのキーワード調整が手作業で煩雑。</p>
-                <div class="solution-steps">
-                    1. LLMが季節のギフト検索トレンドを解析<br>
-                    2. 「お中元」「法事」等、用途別の紹介文を自動生成<br>
-                    3. 在庫状況に応じた広告出稿の自動最適化
-                </div>
-            </div>
-            <div class="impact"><i class="fas fa-chart-line"></i> 売上高 15% 向上</div>
-        </div>
+    <div class="container">
+        <h2 class="section-title">戦略的AI活用ケース（11事例）</h2>
+        
+        <div class="grid">
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Knowledge">
-            <div class="card-content">
-                <span class="badge">製造・現場</span>
-                <h3>伝統の「焼き」ナレッジAI化</h3>
-                <span class="section-title">現状の課題</span>
-                <p>職人の勘（気温・湿度による調整）が属人化しており、技術継承に時間がかかる。</p>
-                <div class="solution-steps">
-                    1. 過去30年の製造日報をNotebookLMに学習<br>
-                    2. 若手職人が現場の数値を入力しAIと対話<br>
-                    3. 最適な乾燥・焼成時間を秒単位でサジェスト
+            <div class="card">
+                <div class="badge"><i class="fa-solid fa-share-nodes"></i> Marketing / CRM</div>
+                <h2>優良顧客の離脱防止（LTV死守）</h2>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                    <p>毎年お中元・お歳暮を大口購入していた優良顧客（LTV上位層）が購入をストップした際、画一的なDMでは他社（高級洋菓子・カタログギフト）への流出を止められない。</p>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <ul>
+                        <li>CRM内の直近購入データから、過去5年連続購入かつ今期未購入の「離脱兆候顧客」を自動セグメント。</li>
+                        <li>LLMが「新大正糯米」の今年の出来栄えを品格ある時候の挨拶に織り込み、手書き調の個別お伺い状を自動起草。</li>
+                        <li>「法人の配送先リストを一括アップロード可能になった」というECの利便性向上（事務負担激減）を強力に訴求。</li>
+                    </ul>
+                </div>
+                
+                <div class="impact-box">
+                    <div class="section-label"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                    <p>休眠大口顧客の<strong>カムバック率25%向上</strong>。競合への乗り換えを阻止し、既存高LTV層からの利益額を最大化。</p>
                 </div>
             </div>
-            <div class="impact"><i class="fas fa-sync"></i> 技術継承スピード 2倍</div>
-        </div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1549463010-14ec428f00b7?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Etiquette">
-            <div class="card-content">
-                <span class="badge">顧客対応</span>
-                <h3>贈答マナー画像判定AI</h3>
-                <span class="section-title">現状の課題</span>
-                <p>複雑な慶弔マナー（水引、表書き）の確認作業が店舗スタッフの負担。</p>
-                <div class="solution-steps">
-                    1. 店頭タブレットで包装後の熨斗を撮影<br>
-                    2. AIが目的（法要、内祝等）との整合性を判定<br>
-                    3. ミスを未然に防ぎ、即座に修正指示を出す
+            <div class="card">
+                <div class="badge"><i class="fa-solid fa-magnifying-glass-chart"></i> VoC Analysis</div>
+                <h2>顧客の「誇り（自己肯定感）」評価分析</h2>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                    <p>楽天市場や自社ECのレビューから、「先方にセンスが良いと褒められた」「誇らしかった」という、贈答における顧客の最重要インサイト（心理的成功率）が数値化されておらず、VMDや商品開発に活かせていない。</p>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <ul>
+                        <li>外部ECおよび自社サイトの全レビューをスクレイピングし、生成AIへ投入。</li>
+                        <li>単なる商品の美味・不味ではなく、「贈答先がどのような肯定的な反応を示したか」「贈り主の自己肯定感が満たされたか」に特化して感情分析（センチメントスコアリング：$0 \sim 100$）を実行。</li>
+                        <li>「誇りスコア」が突出して高い商品を特定し、百貨店店頭の一等地（ゴールデンゾーン）へ緊急配置するようVMDを最適化。</li>
+                    </ul>
+                </div>
+                
+                <div class="impact-box">
+                    <div class="section-label"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                    <p>購入者の「手土産としての自信」を刺激し、店頭での<strong>クロスセル・買上率が18%向上</strong>。平均客単価の押し上げに貢献。</p>
                 </div>
             </div>
-            <div class="impact"><i class="fas fa-shield-alt"></i> ヒューマンエラー 0へ</div>
-        </div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1551288049-bbbda5366392?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Forecasting">
-            <div class="card-content">
-                <span class="badge">経営・物流</span>
-                <h3>AI需給マッチング</h3>
-                <span class="section-title">現状の課題</span>
-                <p>季節催事での欠品、または過剰在庫による廃棄ロスの発生。</p>
-                <div class="solution-steps">
-                    1. 百貨店別売上データと天候データを統合<br>
-                    2. 回帰モデル $Y = \beta X + \epsilon$ により需要予測<br>
-                    3. 賞味期限を考慮した生産・配送計画の自動生成
+            <div class="card">
+                <div class="badge"><i class="fa-solid fa-headset"></i> Customer Support</div>
+                <h2>激怒・炎上リスクの超早期検知</h2>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                    <p>お歳暮期など大口配送時の「缶の凹み」「おかき割れ」は、顧客の贈答先に対するメンツを潰すため極めて激しい怒りに繋がりやすいが、CSのメール確認ラグによる初動の遅れがSNS拡散リスクを孕む。</p>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <ul>
+                        <li>メール・問い合わせフォームに流入するテキストをLLMがリアルタイム監視。</li>
+                        <li>怒りの深刻度を1〜5で判定し、「二度と買わない」「法事に間に合わなかった」等の重要キーワードからSNS炎上リスクを予測。</li>
+                        <li>深刻度4以上の案件は、AIが瞬時に経緯を要約した「重大トラブル初期対応レポート」を自動作成し、社長・工場長・品質保証部へビジネスチャットで即時エスカレーション。</li>
+                    </ul>
+                </div>
+                
+                <div class="impact-box">
+                    <div class="section-label"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                    <p>深刻なクレームへの<strong>初期対応スピードを90%短縮</strong>。老舗ブランドの信用毀損（見えない大損失）を未然に100%防衛。</p>
                 </div>
             </div>
-            <div class="impact"><i class="fas fa-leaf"></i> 廃棄ロス 25% 削減</div>
-        </div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Design">
-            <div class="card-content">
-                <span class="badge">企画</span>
-                <h3>AIパッケージプロトタイピング</h3>
-                <span class="section-title">現状の課題</span>
-                <p>新商品パッケージのデザイン外注コストとリードタイムの増大。</p>
-                <div class="solution-steps">
-                    1. 既存の「柿山トーン」を画像生成AIに学習<br>
-                    2. 新テーマ（例：春の宵）をプロンプト入力<br>
-                    3. 数分で100案のバリエーションを生成
+            <div class="card">
+                <div class="badge"><i class="fa-solid fa-hashtag"></i> SNS Marketing</div>
+                <h2>「おかきの音（ASMR）」音声・動画販促</h2>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                    <p>贈答用としての「格」を重視するあまり、若年層（20〜30代）に対して「堅苦しい老舗」というイメージを持たれ、日常の晩酌や自分へのご褒美需要をフックにした新規獲得ができていない。</p>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <ul>
+                        <li>「琥珀」や「慶長」をかじった際のサクッという高音質な咀嚼音（ASMR）をベースにした、公式X・Instagram用の縦型動画構成（台本・テロップ）をAIが自動生成。</li>
+                        <li>「#柿山でお茶会」「#ウイスキーとおかき」等のハッシュタグを用いて、フォロワーが自分の「美味しい音」やアレンジ（クリームチーズ乗せ等）を投稿する参加型キャンペーンを設計。</li>
+                        <li>食べログや外部レビュー、SNSトレンドから若者の「おうち晩酌」インサイトを抽出し、クリエイティブコピーを毎日ABテスト自動最適化。</li>
+                    </ul>
+                </div>
+                
+                <div class="impact-box">
+                    <div class="section-label"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                    <p>SNS経由の自社ECへの<strong>若年層流入数が300%増加</strong>。高粗利な自家用小袋の売上が高度化し、ポートフォリオが多角化。</p>
                 </div>
             </div>
-            <div class="impact"><i class="fas fa-magic"></i> 企画リードタイム 80% 短縮</div>
-        </div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1512418490979-92798ccc93a0?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Cost">
-            <div class="card-content">
-                <span class="badge">経営・事務</span>
-                <h3>原材料コスト予測モデル</h3>
-                <span class="section-title">現状の課題</span>
-                <p>もち米や海苔の市場価格高騰が利益を圧迫している。</p>
-                <div class="solution-steps">
-                    1. 世界の穀物相場と為替データをリアルタイム取得<br>
-                    2. 利益率維持のための最適な価格設定を算出<br>
-                    3. バルク買い付けのベストタイミングを通知
+            <div class="card">
+                <div class="badge"><i class="fa-solid fa-users"></i> Management / HR</div>
+                <h2>店長用1on1対話・シフトネゴシエーション</h2>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                    <p>百貨店のお帳場会やセールに伴う「土日祝日シフトの拡大」において、50代主婦層を中心とするベテランパートスタッフへの出勤交渉は店長の心理的負担が非常に大きく、下手をすると離職を招く。</p>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <ul>
+                        <li>スタッフの「強み（例：高い熨斗マナー知識、顧客対応力）」と現在のシフト提出状況をAIに入力。</li>
+                        <li>AIが心理学的アプローチ（心理的安全性の確保とポジティブフィードバック）を取り入れた、店長向けの1on1トークスクリプトを生成。</li>
+                        <li>彼女の職人技とも言える「おもてなしスキル」を徹底的に称賛・感謝した上で、「あなたが土日にいてくれる安心感」を伝え、無理なく月2回から4回へシフト出勤を増やしてもらうためのマイルドな交渉術をガイド。</li>
+                    </ul>
+                </div>
+                
+                <div class="impact-box">
+                    <div class="section-label"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                    <p>ベテランスタッフの離職率をゼロに維持したまま、繁忙期の<strong>土日シフト充足率を95%以上に向上</strong>。採用・教育費を大幅抑制。</p>
                 </div>
             </div>
-            <div class="impact"><i class="fas fa-coins"></i> 営業利益率 3% 改善</div>
-        </div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Sales">
-            <div class="card-content">
-                <span class="badge">営業</span>
-                <h3>法人ギフト提案オートメーション</h3>
-                <span class="section-title">現状の課題</span>
-                <p>大口顧客への季節の挨拶が形式的になり、掘り起こしが不十分。</p>
-                <div class="solution-steps">
-                    1. CRMから過去の注文履歴と担当者属性を抽出<br>
-                    2. AIが顧客企業の周年行事やニュースを検知<br>
-                    3. 文脈に沿った「心に響く」提案文を自動作成
+            <div class="card">
+                <div class="badge"><i class="fa-solid fa-database"></i> Backoffice / Cost Cut</div>
+                <h2>DM発送リストのAI名寄せクレンジング</h2>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                    <p>CRMデータベース内で「港区赤坂3-1-1 柿山ビル3F」と「港区赤坂3丁目1番1号 3階」のように、同一人物でありながら住所表記の揺れによって、お中元・お歳暮の高級カタログDMが二重発送され、郵送費・印刷費を大きくロスしている。</p>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <ul>
+                        <li>従来の正規表現ルールでは検出不可能だった、漢数字・英数字の混在、建物名の省略、氏名の間のスペースなどの表記揺れに対し、LLMによるセマンティック（意味論的）マッチングを適用。</li>
+                        <li>名寄せアルゴリズムにより、重複レコードを自動で検出し統合（クレンジング）。</li>
+                        <li>発送直前のCSVリストを自動でフィルタリングし、無駄な二重発送を100%遮断するRPAを構築。</li>
+                    </ul>
+                </div>
+                
+                <div class="impact-box">
+                    <div class="section-label"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                    <p>DM発送コスト（印刷・郵送費）を年間で<strong>15〜20%の劇的削減</strong>。浮いたコストがそのまま純利益へダイレクトにスライド。</p>
                 </div>
             </div>
-            <div class="impact"><i class="fas fa-envelope-open-text"></i> 法人リピート率 20% 増</div>
-        </div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1582213726893-ed9e0ff3aa72?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Language">
-            <div class="card-content">
-                <span class="badge">顧客対応</span>
-                <h3>多言語おもてなしボット</h3>
-                <span class="section-title">現状の課題</span>
-                <p>海外観光客への原材料（ハラール対応等）説明が困難。</p>
-                <div class="solution-steps">
-                    1. 翻訳AIを搭載したQRコードを店頭に設置<br>
-                    2. 商品背景やアレルギー情報を自国語で即答<br>
-                    3. 海外配送の手続き案内を自動化
+            <div class="card">
+                <div class="badge"><i class="fa-solid fa-book"></i> 社内ナレッジ資産化</div>
+                <h2>NotebookLMを用いた伝統製法・贈答マナーのAI化</h2>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solidsm fa-triangle-exclamation"></i> 現状の課題</div>
+                    <p>新大正糯米の浸漬時間の相関式や、冠婚葬祭の厳格な「熨斗（のし）の使い分けマニュアル」が属人化しており、新人販売員や工場スタッフの教育に多大な時間を要している。</p>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <ul>
+                        <li>秘伝の製造ログ、過去の官能検査データ、店舗の接客トラブルFAQ、および社内規程マニュアルをNotebookLM（RAG基盤）にすべて格納。</li>
+                        <li>「本日の水温18℃・新大正糯米水分量14.2%時の最適浸漬時間は？」や「お客様が『曖昧なお返し』を求めた際の失礼のない引き出しトークは？」に対し、確実な社内ソースから10秒で回答するAIアシスタントを全スタッフに支給。</li>
+                    </ul>
+                </div>
+                
+                <div class="impact-box">
+                    <div class="section-label"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                    <p>新人オンボーディング期間を50%短縮。店頭での案内ミス（ハルシネーションによる失礼）をゼロ化し、マナー品質を均一化。</p>
                 </div>
             </div>
-            <div class="impact"><i class="fas fa-globe"></i> 外国客単価 18% 向上</div>
-        </div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80" class="card-img" alt="HR">
-            <div class="card-content">
-                <span class="badge">事務</span>
-                <h3>AI適性マッチング</h3>
-                <span class="section-title">現状の課題</span>
-                <p>店舗スタッフの離職率が高く、採用・教育コストが重荷。</p>
-                <div class="solution-steps">
-                    1. 優秀な既存スタッフの行動特性をデータ化<br>
-                    2. 応募者の履歴書から「柿山DNA」とのマッチ度を測定<br>
-                    3. 早期離職リスクを事前に予測し面接で深掘り
+            <div class="card">
+                <div class="badge"><i class="fa-solid fa-shop"></i> EC / Platform</div>
+                <h2>百貨店ECおよび外部モール（楽天市場）の運用自動化</h2>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                    <p>「お中元 米菓」「老舗 おかき」「個包装 ギフト」といった超激戦キーワードで、楽天市場や百貨店ECモール内のSEO/アルゴリズムに合わせた商品説明文の最適化リライトが追いついていない。</p>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <ul>
+                        <li>各モールの直近の検索アルゴリズムトレンドを自動収集。</li>
+                        <li>「慶長 30枚入」等のフラッグシップ商品に対し、スマートフォンの狭い画面でも米の香ばしさ（シズル感）が伝わる商品説明文と、検索キーワードを自然に埋め込んだSEOテキストをAIが5パターン同時生成。</li>
+                        <li>Meta広告・Google広告用のクリエイティブコピーと連動させ、クリック率（CTR）を最大化する自動運用スキームを構築。</li>
+                    </ul>
+                </div>
+                
+                <div class="impact-box">
+                    <div class="section-label"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                    <p>モール内検索順位が平均上位へシフト。広告費用対効果（ROAS）が<strong>35%改善</strong>し、売上高の高度化を牽引。</p>
                 </div>
             </div>
-            <div class="impact"><i class="fas fa-user-check"></i> 採用コスト 30% 削減</div>
-        </div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Inspection">
-            <div class="card-content">
-                <span class="badge">製造</span>
-                <h3>「慶長・鳳凰」AI検品システム</h3>
-                <span class="section-title">現状の課題</span>
-                <p>主力商品の微細な欠けや焼きムラの目視チェックに多大な人員を投入。</p>
-                <div class="solution-steps">
-                    1. 高解像度カメラで製造ラインをリアルタイム監視<br>
-                    2. 異常検知アルゴリズムで規格外品を瞬時に排除<br>
-                    3. 職人の「目」をデジタル化し、集中力を要する作業を解放
+            <div class="card">
+                <div class="badge"><i class="fa-solid fa-industry"></i> Factory / Craft</div>
+                <h2>精米・乾燥工程におけるAI最適設定</h2>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                    <p>玄米の水分量や外気温の微変動による、精米時の「胴割れ（米のひび割れ）」や長期乾燥時の「表面ひび割れ」による不良（製造ロス）の発生原因が、ベテランの勘に頼り切っている。</p>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <ul>
+                        <li>当日の外気温、湿度、ロット別の新大正糯米の初期水分量を入力。</li>
+                        <li>過去の「最適精米・乾燥ログ」データベースを参照し、最も美しいおかきに仕上がるための精米機の推奨回転数と、4日間の乾燥温湿度シフトのリカバリープランをAIが算出。</li>
+                        <li>設定値に対する製品厚みのブレ（目標値 $1.85\,\text{mm}$ に対する偏り傾向）を時系列データ分析で自動判定。</li>
+                    </ul>
+                </div>
+                
+                <div class="impact-box">
+                    <div class="section-label"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                    <p>「ふくれ不良」「割れ」による製造ロスを<strong>年22%削減</strong>。原材料（高級糯米）の歩留まりが向上し、ダイレクトに原価率を下げる劇的コスト削減。</p>
                 </div>
             </div>
-            <div class="impact"><i class="fas fa-eye"></i> 検品精度 99.9% 維持</div>
-        </div>
 
-        <div class="card" style="border-top: 5px solid var(--accent-coral);">
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Risk">
-            <div class="card-content">
-                <span class="badge" style="background: var(--accent-coral);">ガバナンス</span>
-                <h3>AIセキュリティ・ガードレール</h3>
-                <span class="section-title">現状の課題</span>
-                <p>AI利用による顧客個人情報の漏洩や、誤情報の対外発信リスク。</p>
-                <div class="solution-steps">
-                    1. 顧客情報（住所・氏名）の自動マスキング機能<br>
-                    2. 生成物に対する「ハルシネーション（虚偽）」検知<br>
-                    3. ブランドイメージを損なわない表現制限の設定
+            <div class="card">
+                <div class="badge"><i class="fa-solid fa-calculator"></i> Finance / Strategy</div>
+                <h2>原材料高騰に伴う製品値上げの最適価格シミュレーション</h2>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                    <p>新大正糯米などの原材料価格、資材（ギフト缶）の価格、配送費が高騰する中、老舗ブランドのプレミアム価値を維持しつつ、顧客離れを起こさない「最適値上げ額」の算出が困難。</p>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <ul>
+                        <li>仕入単価20%高騰の条件下で、活動基準原価計算（ABC）をベースに製品別の真の限界利益率をコストドライバー分解。</li>
+                        <li>過去の購買データから需要の価格弾力性をLLMを交えて数理モデル化し、価格を10%引き上げた際に「客数が何％減少すると総利益を下回るか」の損益分岐点数量減少限界値を算出。</li>
+                        <li>経営陣が取締役会や銀行折衝にそのまま提示できる「価格改定提案書」のロジックを自動構築。</li>
+                    </ul>
+                </div>
+                
+                <div class="impact-box">
+                    <div class="section-label"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                    <p>利益を最大化するピンポイントな価格設定が可能になり、高騰局面でも<strong>売上総利益率（粗利率）を前年並みに完全防衛</strong>。</p>
                 </div>
             </div>
-            <div class="impact"><i class="fas fa-user-shield"></i> ブランド価値の保護</div>
+
+            <div class="card risk-card">
+                <div class="badge"><i class="fa-solid fa-shield-halved"></i> Risk Management</div>
+                <h2>【必須リスク管理】個人情報・ハルシネーション防衛</h2>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                    <p>AI導入にあたり、顧客の購買履歴（住所、氏名、ギフト送付先）の外部漏洩リスク、およびAIがもっともらしい嘘（ハルシネーション）をつくことによる「不正確な熨斗（のし）マナー」の店頭案内リスク。</p>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-label"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <ul>
+                        <li><strong>個人情報保護:</strong> 各百貨店システム（EDI）やCRMからデータをLLMへ連携する際、特定の識別番号（MyNumber、Aadhaar、RRN等の政府発行ID）や顧客の生データを直接流さず、マスキングおよびローカルプロキシサーバーを通した匿名化を徹底。</li>
+                        <li><strong>ハルシネーション対策:</strong> 接客マニュアルや冠婚葬祭マナーの回答生成には、AIの自由演技を禁止し、厳格な社内検証済みPDFのみをデータソースとする「RAG（Retrieval-Augmented Generation）」の閾値を極限まで厳しく設定（厳密一致ルール）。</li>
+                    </ul>
+                </div>
+                
+                <div class="impact-box">
+                    <div class="section-label"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                    <p>個人情報漏洩・誤案内リスクを<strong>完全にゼロ化</strong>。伝統ある「赤坂柿山」のブランドの格とガバナンスを強固に保護。</p>
+                </div>
+            </div>
+
         </div>
     </div>
-</div>
+
+    <footer>
+        <p>&copy; 2026 株式会社赤坂柿山 AI駆動型DXグランドデザイン報告書 / 全業界対応型 AI DX戦略コンサルタント</p>
+    </footer>
 
 </body>
 </html>
