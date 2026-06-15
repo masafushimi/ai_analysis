@@ -57,17 +57,14 @@
             margin: 0;
         }
 
-        /* タブインターフェース構造 */
         .tabs-container {
             margin-top: 20px;
         }
 
-        /* ラジオボタン本体は非表示 */
         .tab-radio {
             display: none;
         }
 
-        /* タブナビゲーション */
         .tabs-nav {
             display: table;
             width: 100%;
@@ -98,13 +95,11 @@
             margin-right: 6px;
         }
 
-        /* コンテンツパネル初期設定 */
         .tab-content {
             display: none;
             animation: fadeIn 0.4s ease;
         }
 
-        /* ラジオボタンのチェック状態に応じたアクティブタブの装飾 */
         #tab1:checked ~ .tabs-nav .label-tab1,
         #tab2:checked ~ .tabs-nav .label-tab2,
         #tab3:checked ~ .tabs-nav .label-tab3,
@@ -116,7 +111,6 @@
             padding-top: 12px;
         }
 
-        /* チェックされたタブのコンテンツのみ表示 */
         #tab1:checked ~ .tabs-content-container #content1,
         #tab2:checked ~ .tabs-content-container #content2,
         #tab3:checked ~ .tabs-content-container #content3,
@@ -125,7 +119,6 @@
             display: block;
         }
 
-        /* カード構造 */
         .card {
             background: var(--card-bg);
             border-radius: 8px;
@@ -222,7 +215,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* モバイル対応：タブを縦並びに変形 */
         @media (max-width: 768px) {
             .tabs-nav {
                 display: block;
@@ -255,26 +247,30 @@
 <div class="container">
     <header>
         <h1>株式会社赤坂柿山 AI DX戦略事例集</h1>
-        <p>【部門別タブ表示】伝統と知性の融合 — 河合社長のご関心と現場ニーズに基づく全社施策</p>
+        <p>伝統と知性の融合 — 河合社長のご関心と現場ニーズに基づく全社施策</p>
     </header>
 
     <div class="tabs-container">
+        <!-- ラジオコントロール -->
         <input type="radio" name="strategy-tabs" id="tab1" class="tab-radio" checked>
         <input type="radio" name="strategy-tabs" id="tab2" class="tab-radio">
         <input type="radio" name="strategy-tabs" id="tab3" class="tab-radio">
         <input type="radio" name="strategy-tabs" id="tab4" class="tab-radio">
         <input type="radio" name="strategy-tabs" id="tab5" class="tab-radio">
 
+        <!-- タブナビゲーションバー -->
         <div class="tabs-nav">
             <label for="tab1" class="tab-label label-tab1"><i class="fas fa-coins"></i> 1. 労務・会計</label>
             <label for="tab2" class="tab-label label-tab2"><i class="fas fa-industry"></i> 2. 製造・工程</label>
-            <label for="tab3" class="tab-label label-tab3"><i class="fas fa-store"></i> 3. 販売・営業・CS</label>
+            <label for="tab3" class="tab-label label-tab3"><i class="fas fa-store"></i> 3. 販売・営業・マーケ</label>
             <label for="tab4" class="tab-label label-tab4"><i class="fas fa-lightbulb"></i> 4. 企画・経営</label>
             <label for="tab5" class="tab-label label-tab5"><i class="fas fa-shield-alt"></i> 5. ガバナンス</label>
         </div>
 
+        <!-- タブコンテンツエリア -->
         <div class="tabs-content-container">
             
+            <!-- TAB 1: 労務・会計 -->
             <div class="tab-content" id="content1">
                 <div class="card">
                     <span class="badge">労務・会計</span>
@@ -294,7 +290,7 @@
                     <span class="badge">労務・会計</span>
                     <h3>遊撃手型エリアシフト最適化エンジン</h3>
                     <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題 【河合社長ご関心事項】</div>
-                    <p>短期バイトをパッチワークのようにつなぎ合わせるシフト調整はコストと接客質の双方で限界がある。「固定3名」を軸としつつ、近隣エリア内を動く「遊撃手」を回すことでコストを最適化したい。</p>
+                    <p>短期バイトをパッチワークのようにつなぎ合わせるシフト調整はコストと接客質の双方で限界がある。「固定3名」を軸としつつ、近鄰エリア内を動く「遊撃手」を回すことでコストを最適化したい。</p>
                     <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
                     <div class="solution-steps">
                         <div class="step-item">① 各店舗（百貨店・駅ビル）の過去の曜日・時間帯別売上データから繁閑の波を予測。</div>
@@ -319,6 +315,7 @@
                 </div>
             </div>
 
+            <!-- TAB 2: 製造・工程 -->
             <div class="tab-content" id="content2">
                 <div class="card">
                     <span class="badge">製造・工程</span>
@@ -327,7 +324,7 @@
                     <p>最終商品の販売予測（需要予測）から、精米・浸漬・餅搗き・裁断・乾燥・焼成・味付けといった、連動する複数の製造工程へと逆算・分解してスケジュールを組む工程管理が非常に複雑。</p>
                     <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
                     <div class="solution-steps">
-                        <div class="step-item">① 需要予測モデルが算出した「最終商品」の必要出荷数をリアルタイムに連動.</div>
+                        <div class="step-item">① 需要予測モデルが算出した「最終商品」の必要出荷数をリアルタイムに連動。</div>
                         <div class="step-item">② 各工程が持つ固有のリードタイムや、仕掛品の乾燥基準、ラインの稼働制限をAIに学習させる。</div>
                         <div class="step-item">③ 各工程にタスクを自動でバラし、ボトルネックを回避する最適な日次生産指示を自動出力。</div>
                     </div>
@@ -363,9 +360,24 @@
                 </div>
             </div>
 
+            <!-- TAB 3: 販売・営業・マーケ -->
             <div class="tab-content" id="content3">
                 <div class="card">
-                    <span class="badge">販売・営業・CS</span>
+                    <span class="badge">販売・営業・マーケ</span>
+                    <h3>Dify活用・SNS完全自動化エージェント</h3>
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題 【新規導入施策】</div>
+                    <p>駅ビルや百貨店店舗の認知拡大、若年層へのブランド浸透のためのSNS運用（トレンド分析、テーマ選定、投稿文作成、シズル感のある画像生成）に、本部マーケターの手間と時間がかかりすぎている。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① Dify上で、Web上の和菓子・ギフトトレンドを自律的にスクレイピング・分析するノードを構築。</div>
+                        <div class="step-item">② 柿山のブランドイメージ（高級感・気品）に即した今週の「季節テーマ」を自動で策定。</div>
+                        <div class="step-item">③ LLMが格調高い投稿文章を書き上げ、同時に画像生成AI（FLUX等）が「お煎餅の美しさ」を引き立てるビジュアルを創出。これら一連のワークフローを一気通貫で完全自動実行する。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-chart-line"></i> 本部マーケティング工数を90%削減、SNS経由の若年層認知度45%向上</div>
+                </div>
+
+                <div class="card">
+                    <span class="badge">販売・営業・マーケ</span>
                     <h3>接客事例・販売マニュアル対話システム (NotebookLM活用)</h3>
                     <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題 【河合社長ご関心事項】</div>
                     <p>百貨店や駅ビルへの出店主軸のため、いわゆる外回り営業よりは店頭接客が命。長年の高度な接客事例やマニュアルを効率化し、現場へ浸透させる必要がある。</p>
@@ -379,7 +391,7 @@
                 </div>
 
                 <div class="card">
-                    <span class="badge">販売・営業・CS</span>
+                    <span class="badge">販売・営業・マーケ</span>
                     <h3>1on1精神的負荷軽減システム</h3>
                     <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題 【河合社長ご関心事項】</div>
                     <p>「遊撃手型シフト」などの変則的な配置を導入する際、従業員に深く納得してもらいエンゲージメントを保つための定期1on1面談が、店長や管理職の精神的・時間的負荷となっている。</p>
@@ -393,7 +405,7 @@
                 </div>
 
                 <div class="card">
-                    <span class="badge">販売・営業・CS</span>
+                    <span class="badge">販売・営業・マーケ</span>
                     <h3>百貨店EC・モール運用自動化エンジン</h3>
                     <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
                     <p>各百貨店のオンラインストアや自社EC（楽天等）の厳しいレギュレーションに沿った商品登録、およびシーズン（お中元・お歳暮）ごとのギフトキーワード調整に膨大な手作業が発生している。</p>
@@ -407,21 +419,7 @@
                 </div>
 
                 <div class="card">
-                    <span class="badge">販売・営業・CS</span>
-                    <h3>おもてなし進物マナーAIボット</h3>
-                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
-                    <p>日本の複雑な慶弔マナー、表書き、水引の選定に関する顧客や店頭からの問い合わせ対応に時間を要し、待たせてしまうリスクがある。</p>
-                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
-                    <div class="solution-steps">
-                        <div class="step-item">① 日本伝統の贈答マナーと、赤坂柿山が大切にする「おもてなし基準」を融合した知識ベースを構築。</div>
-                        <div class="step-item">② 顧客の抽象的な要望（例：少し改まったお詫びに持参する等）から、適切な包装仕様を瞬時に推論。</div>
-                        <div class="step-item">③ 老舗ブランドの気品を体現した、美しい敬語表現で適切な回答文を即座に生成する。</div>
-                    </div>
-                    <div class="impact"><i class="fas fa-chart-line"></i> CS初期対応時間75%短縮、顧客体験（UX）の高度化</div>
-                </div>
-
-                <div class="card">
-                    <span class="badge">販売・営業・CS</span>
+                    <span class="badge">販売・営業・マーケ</span>
                     <h3>インバウンド多言語商品説明システム</h3>
                     <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
                     <p>百貨店や主要駅ビル店舗で急増している外国人観光客に対し、あられ・おかきの製法のこだわり、ハラール・アレルギー情報を正確に伝える語学の壁がある。</p>
@@ -435,6 +433,7 @@
                 </div>
             </div>
 
+            <!-- TAB 4: 企画・経営 -->
             <div class="tab-content" id="content4">
                 <div class="card">
                     <span class="badge">企画・経営</span>
@@ -444,7 +443,7 @@
                     <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
                     <div class="solution-steps">
                         <div class="step-item">① 国内外の穀物・資材相場データ、気象状況、為替の推移を定常的にスクレイピングして蓄積。</div>
-                        <div class="step-item">② 機械学習モデルを用いて将来の調達原価 を高精度に予測。</div>
+                        <div class="step-item">② 機械学習モデルを用いて将来の調達原価 $C_t$ を高精度に予測。</div>
                         <div class="step-item">③ 目標利益率を維持するための「買い付けのベストタイミング」および価格戦略の最適シナリオを経営陣に提示。</div>
                     </div>
                     <div class="impact"><i class="fas fa-chart-pie"></i> 原材料高騰リスクを先回りして回避、営業利益率2.5%改善</div>
@@ -458,23 +457,24 @@
                     <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
                     <div class="solution-steps">
                         <div class="step-item">① 歴代の「赤坂柿山」を象徴する高級感あふれるデザイン資産を画像生成AIに学習させる。</div>
-                        <div class="step-item">② 「伝統の和モダン×現代的なプチギフト」などのプロンプトからバリエーション案を生成。</div>
+                        <div class="step-item">② 「伝統の和モダン×現代的なプチギフト」などのプロンプトからバリエーション案を生成.</div>
                         <div class="step-item">③ ブランドのトーン＆マナーを決して崩さない洗練されたデザインプロトタイプを数分で100案生成。</div>
                     </div>
                     <div class="impact"><i class="fas fa-palette"></i> デザイン初期企画コスト80%削減、トレンド反映スピードの劇的向上</div>
                 </div>
             </div>
 
+            <!-- TAB 5: ガバナンス -->
             <div class="tab-content" id="content5">
                 <div class="card card-risk">
                     <span class="badge badge-risk">ガバナンス</span>
                     <h3>AIガバナンス・ガードレール（個人情報＆ハルシネーション対策）</h3>
                     <div class="section-label"><i class="fas fa-shield-alt"></i> リスク管理上の重要課題</div>
-                    <p>全社的なAI導入にあたり、百貨店顧客の個人情報が外部のAIモデルに漏洩するリスク、および接客・問い合わせAIがハルシネーション（虚偽の回答）をして老舗としての伝統と信頼を毀損するリスクの徹底排除。</p>
+                    <p>全社的なAI導入にあたり、百貨店顧客の個人情報が外部のAIモデルに漏洩するリスク、および接客・問い合わせAIやDifyなどの生成物がハルシネーション（虚偽の回答）をして老舗としての伝統と信頼を毀損するリスクの徹底排除。</p>
                     <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
                     <div class="solution-steps">
                         <div class="step-item">① 社内から外部AIに送信されるテキストに含まれる顧客情報を自動検知し、自動匿名化をかけるゲートウェイを配置。</div>
-                        <div class="step-item">② 生成された接客文に対し、公式の製品仕様データベースとリアルタイムに突合し、矛盾する回答を自動で遮断する二重フィルターを構築。</div>
+                        <div class="step-item">② 生成されたSNS文や接客文に対し、公式の製品仕様データベースとリアルタイムに突合し、矛盾する回答や不適切な表現を自動で遮断する二重フィルターを構築。</div>
                         <div class="step-item">③ 社内のAI利用権限を役職・部門ごとに厳格に階層化し、適切なガバナンス体制を敷く。</div>
                     </div>
                     <div class="impact"><i class="fas fa-user-shield"></i> 赤坂柿山のブランド信頼性を100%保護、情報セキュリティ事故の未然防止</div>
