@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>株式会社赤坂柿山 AI DX戦略事例集</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #a88a5d;
+            --bg-ivory: #faf8f5;
+            --accent-coral: #e27d60;
+            --text-dark: #2c2a29;
+            --card-bg: #ffffff;
+            --shadow-subtle: rgba(168, 138, 93, 0.08);
+            --border-light: #e0dacb;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-ivory);
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0 40px 0;
+            border-bottom: 2px solid var(--primary-gold);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            color: var(--primary-gold);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: 0.15em;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #555;
+            margin: 0;
+        }
+
+        /* タブインターフェース構造 */
+        .tabs-container {
+            margin-top: 20px;
+        }
+
+        /* ラジオボタン本体は非表示 */
+        .tab-radio {
+            display: none;
+        }
+
+        /* タブナビゲーション */
+        .tabs-nav {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .tab-label {
+            display: table-cell;
+            text-align: center;
+            padding: 15px 10px;
+            background: #f1ebd9;
+            color: #6d5b41;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid var(--border-light);
+            border-bottom: none;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .tab-label:hover {
+            background: #e6dfcb;
+        }
+
+        .tab-label i {
+            margin-right: 6px;
+        }
+
+        /* コンテンツパネル初期設定 */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* ラジオボタンのチェック状態に応じたアクティブタブの装飾 */
+        #tab1:checked ~ .tabs-nav .label-tab1,
+        #tab2:checked ~ .tabs-nav .label-tab2,
+        #tab3:checked ~ .tabs-nav .label-tab3,
+        #tab4:checked ~ .tabs-nav .label-tab4,
+        #tab5:checked ~ .tabs-nav .label-tab5 {
+            background: var(--card-bg);
+            color: var(--primary-gold);
+            border-top: 4px solid var(--primary-gold);
+            padding-top: 12px;
+        }
+
+        /* チェックされたタブのコンテンツのみ表示 */
+        #tab1:checked ~ .tabs-content-container #content1,
+        #tab2:checked ~ .tabs-content-container #content2,
+        #tab3:checked ~ .tabs-content-container #content3,
+        #tab4:checked ~ .tabs-content-container #content4,
+        #tab5:checked ~ .tabs-content-container #content5 {
+            display: block;
+        }
+
+        /* カード構造 */
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px var(--shadow-subtle);
+            border-top: 4px solid var(--primary-gold);
+            margin-bottom: 30px;
+            padding: 30px;
+            display: block;
+        }
+
+        .card-risk {
+            border-top: 4px solid var(--accent-coral);
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary-gold);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-risk {
+            background: var(--accent-coral);
+        }
+
+        .card h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            font-weight: 700;
+            border-left: 4px solid var(--accent-coral);
+            padding-left: 12px;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent-coral);
+            margin-top: 15px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .section-label i {
+            margin-right: 6px;
+            font-size: 0.85rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            margin: 0 0 15px 0;
+            color: #444;
+        }
+
+        .solution-steps {
+            background: #faf9f6;
+            padding: 15px 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            border: 1px solid #f1eeeb;
+            color: #555;
+        }
+
+        .step-item {
+            margin-bottom: 8px;
+        }
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .impact {
+            margin-top: 20px;
+            border-top: 1px solid #f5f2ee;
+            padding-top: 15px;
+            font-weight: 700;
+            color: var(--primary-gold);
+            display: block;
+            font-size: 1.05rem;
+        }
+
+        .impact i {
+            margin-right: 8px;
+            color: var(--accent-coral);
+            font-size: 1.1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* モバイル対応：タブを縦並びに変形 */
+        @media (max-width: 768px) {
+            .tabs-nav {
+                display: block;
+                border-bottom: none;
+            }
+            .tab-label {
+                display: block;
+                width: 100%;
+                text-align: left;
+                padding: 12px 15px;
+                border: 1px solid var(--border-light);
+                margin-bottom: 5px;
+                border-radius: 4px;
+            }
+            #tab1:checked ~ .tabs-nav .label-tab1,
+            #tab2:checked ~ .tabs-nav .label-tab2,
+            #tab3:checked ~ .tabs-nav .label-tab3,
+            #tab4:checked ~ .tabs-nav .label-tab4,
+            #tab5:checked ~ .tabs-nav .label-tab5 {
+                border-top: 1px solid var(--border-light);
+                border-left: 5px solid var(--primary-gold);
+                padding-top: 12px;
+                padding-left: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>株式会社赤坂柿山 AI DX戦略事例集</h1>
+        <p>【部門別タブ表示】伝統と知性の融合 — 河合社長のご関心と現場ニーズに基づく全社施策</p>
+    </header>
+
+    <div class="tabs-container">
+        <input type="radio" name="strategy-tabs" id="tab1" class="tab-radio" checked>
+        <input type="radio" name="strategy-tabs" id="tab2" class="tab-radio">
+        <input type="radio" name="strategy-tabs" id="tab3" class="tab-radio">
+        <input type="radio" name="strategy-tabs" id="tab4" class="tab-radio">
+        <input type="radio" name="strategy-tabs" id="tab5" class="tab-radio">
+
+        <div class="tabs-nav">
+            <label for="tab1" class="tab-label label-tab1"><i class="fas fa-coins"></i> 1. 労務・会計</label>
+            <label for="tab2" class="tab-label label-tab2"><i class="fas fa-industry"></i> 2. 製造・工程</label>
+            <label for="tab3" class="tab-label label-tab3"><i class="fas fa-store"></i> 3. 販売・営業・CS</label>
+            <label for="tab4" class="tab-label label-tab4"><i class="fas fa-lightbulb"></i> 4. 企画・経営</label>
+            <label for="tab5" class="tab-label label-tab5"><i class="fas fa-shield-alt"></i> 5. ガバナンス</label>
+        </div>
+
+        <div class="tabs-content-container">
+            
+            <div class="tab-content" id="content1">
+                <div class="card">
+                    <span class="badge">労務・会計</span>
+                    <h3>仕訳自動化AIエージェント</h3>
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題 【河合社長ご関心事項】</div>
+                    <p>通常の仕訳業務や、各百貨店ごとに完全に異なるフォーマットで届く売上報告書・手数料相殺データの突合・手入力作業が経理の大きな負担となっている。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① 各百貨店から届く非構造化データ（PDFやExcel）をOCRおよびLLMで自動解析。</div>
+                        <div class="step-item">② 社内の勘定科目ルールに則った仕訳データを自動的にマッピング・推論。</div>
+                        <div class="step-item">③ 金額の不一致などの異常値のみを抽出し、人間が確認・承認する座組みを構築。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-chart-line"></i> 通常仕訳・突合業務の85%を自動化、月次決算の大幅高速化</div>
+                </div>
+
+                <div class="card">
+                    <span class="badge">労務・会計</span>
+                    <h3>遊撃手型エリアシフト最適化エンジン</h3>
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題 【河合社長ご関心事項】</div>
+                    <p>短期バイトをパッチワークのようにつなぎ合わせるシフト調整はコストと接客質の双方で限界がある。「固定3名」を軸としつつ、近隣エリア内を動く「遊撃手」を回すことでコストを最適化したい。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① 各店舗（百貨店・駅ビル）の過去の曜日・時間帯別売上データから繁閑の波を予測。</div>
+                        <div class="step-item">② 拠点となる店舗の固定枠3名を除いた不足時間帯に対し、遊撃手の移動効率を考慮。</div>
+                        <div class="step-item">③ 数理最適化アルゴリズムにより、エリア全体での総人件費を最小化する統合シフト表を自動生成。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-chart-line"></i> 店舗人件費20%削減、採用・調整手間の激減</div>
+                </div>
+
+                <div class="card">
+                    <span class="badge">労務・会計</span>
+                    <h3>AI適性採用マッチングシステム</h3>
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                    <p>店舗スタッフの早期離職による、採用コストおよび店舗での再教育コストが経営の重荷となっている。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① 活躍している既存スタッフの行動特性や定着要因を定量データ化。</div>
+                        <div class="step-item">② 応募者の履歴書・アンケートから「赤坂柿山ブランドへの適性度」を事前解析。</div>
+                        <div class="step-item">③ ミスマッチによる離職リスクをシミュレーションし、面接での深掘り質問を自動生成。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-chart-line"></i> 初期離職率の半減、採用に関わる年間コスト30%削減</div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="content2">
+                <div class="card">
+                    <span class="badge">製造・工程</span>
+                    <h3>多工程生産管理最適化エンジン（工程バラし自動化）</h3>
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題 【河合社長ご関心事項】</div>
+                    <p>最終商品の販売予測（需要予測）から、精米・浸漬・餅搗き・裁断・乾燥・焼成・味付けといった、連動する複数の製造工程へと逆算・分解してスケジュールを組む工程管理が非常に複雑。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① 需要予測モデルが算出した「最終商品」の必要出荷数をリアルタイムに連動.</div>
+                        <div class="step-item">② 各工程が持つ固有のリードタイムや、仕掛品の乾燥基準、ラインの稼働制限をAIに学習させる。</div>
+                        <div class="step-item">③ 各工程にタスクを自動でバラし、ボトルネックを回避する最適な日次生産指示を自動出力。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-chart-line"></i> 工程管理業務の劇的な簡易化、仕掛品在庫の30%削減</div>
+                </div>
+
+                <div class="card">
+                    <span class="badge">製造・工程</span>
+                    <h3>物理ソーター連動型・外観画像検品システム</h3>
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題 【河合社長ご関心事項】</div>
+                    <p>あられの良品・不良品（割れ、欠け、変形、焼きムラ）の目視選別。単に画像で判別するだけでなく、最終的にNGのものを物理的にラインから弾く仕組みまで構築しなければ現場の省人化に繋がらない。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① 焼成ラインの冷却工程の下流に、超高速コンベア対応の高解像度カメラを設置。</div>
+                        <div class="step-item">② 独自に機械学習させたエッジAIモデルが、ミリ秒単位で流れるあられの外観不良を判定。</div>
+                        <div class="step-item">③ 不良品と判定された瞬間、下流の物理エアージェットソーターへ信号を送り、ライン外へ物理的に弾き落とす。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-chart-line"></i> 目視検品人員のゼロ化、顧客への不良品流出リスク 0.00% の達成</div>
+                </div>
+
+                <div class="card">
+                    <span class="badge">製造・工程</span>
+                    <h3>伝統の「焼き」暗黙知資産化 (NotebookLM)</h3>
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                    <p>職人の長年の勘（気温や湿度に応じた微妙な火加減・乾燥時間の調整）が属人化しており、次世代への技術継承に多くの時間を要する。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① ベテラン職人の手記、過去数十年の製造日報、失敗事例データをすべてNotebookLMに集約。</div>
+                        <div class="step-item">② 若手職人が現場から「今日の湿度と米の状態」を基に、適切な調整方法を自然言語で質問。</div>
+                        <div class="step-item">③ 伝統の味を守るための具体的なパラメータ設定や過去の類似対策をAIが即座に回答。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-chart-line"></i> 技術継承スピードの2倍加速、製造品質のブレを最小化</div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="content3">
+                <div class="card">
+                    <span class="badge">販売・営業・CS</span>
+                    <h3>接客事例・販売マニュアル対話システム (NotebookLM活用)</h3>
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題 【河合社長ご関心事項】</div>
+                    <p>百貨店や駅ビルへの出店主軸のため、いわゆる外回り営業よりは店頭接客が命。長年の高度な接客事例やマニュアルを効率化し、現場へ浸透させる必要がある。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① 赤坂柿山の長年の接客事例集、販売マニュアル、高度な進物・熨斗マナーをNotebookLMに構築。</div>
+                        <div class="step-item">② 店舗スタッフがインカムやスマホから「このような法要のお客様への最適なご案内は？」と質問。</div>
+                        <div class="step-item">③ 柿山らしい品格を持った具体的な切り返しトークや接客手順を即座にサジェスト。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-chart-line"></i> 新人・ヘルプスタッフの教育期間50%短縮、全店舗の接客均一化</div>
+                </div>
+
+                <div class="card">
+                    <span class="badge">販売・営業・CS</span>
+                    <h3>1on1精神的負荷軽減システム</h3>
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題 【河合社長ご関心事項】</div>
+                    <p>「遊撃手型シフト」などの変則的な配置を導入する際、従業員に深く納得してもらいエンゲージメントを保つための定期1on1面談が、店長や管理職の精神的・時間的負荷となっている。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① 事前アンケートや勤務ログ（移動頻度等）から、スタッフの小さなモチベーション低下をAIが検知。</div>
+                        <div class="step-item">② 面談前に「スタッフが抱きやすい不安（遊撃時の負担感等）」を解消するための対話の論点・対話例をAIが店長へ共有。</div>
+                        <div class="step-item">③ 面談後の議事録から、組織としてフォローすべき課題や定着リスクシグナルを自動でフィードバック。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-chart-line"></i> 管理職の面談ストレス40%軽減、変革に対する従業員の安心感醸成</div>
+                </div>
+
+                <div class="card">
+                    <span class="badge">販売・営業・CS</span>
+                    <h3>百貨店EC・モール運用自動化エンジン</h3>
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                    <p>各百貨店のオンラインストアや自社EC（楽天等）の厳しいレギュレーションに沿った商品登録、およびシーズン（お中元・お歳暮）ごとのギフトキーワード調整に膨大な手作業が発生している。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① 過去の贈答検索トレンドと顧客の購買行動文脈をLLMに学習させる。</div>
+                        <div class="step-item">② 「用途別」「価格帯別」の最適な商品紹介テキスト・SEOキーワードを自動生成。</div>
+                        <div class="step-item">③ 各モールの仕様に合わせた入稿データへの自動パース・一括登録を実現。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-chart-line"></i> EC運用コスト50%削減、検索流入数の25%向上</div>
+                </div>
+
+                <div class="card">
+                    <span class="badge">販売・営業・CS</span>
+                    <h3>おもてなし進物マナーAIボット</h3>
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                    <p>日本の複雑な慶弔マナー、表書き、水引の選定に関する顧客や店頭からの問い合わせ対応に時間を要し、待たせてしまうリスクがある。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① 日本伝統の贈答マナーと、赤坂柿山が大切にする「おもてなし基準」を融合した知識ベースを構築。</div>
+                        <div class="step-item">② 顧客の抽象的な要望（例：少し改まったお詫びに持参する等）から、適切な包装仕様を瞬時に推論。</div>
+                        <div class="step-item">③ 老舗ブランドの気品を体現した、美しい敬語表現で適切な回答文を即座に生成する。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-chart-line"></i> CS初期対応時間75%短縮、顧客体験（UX）の高度化</div>
+                </div>
+
+                <div class="card">
+                    <span class="badge">販売・営業・CS</span>
+                    <h3>インバウンド多言語商品説明システム</h3>
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                    <p>百貨店や主要駅ビル店舗で急増している外国人観光客に対し、あられ・おかきの製法のこだわり、ハラール・アレルギー情報を正確に伝える語学の壁がある。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① 商品タグのQRコード等から、スマートフォンで起動する多言語ガイドシステムを展開。</div>
+                        <div class="step-item">② 国産もち米や指定醤油のストーリー、アレルギー物質の含有状況を、AIが最適な各国語表現に翻訳。</div>
+                        <div class="step-item">③ インタラクティブなチャット機能により、外国のお客様の疑問にその場で店舗スタッフの代わりに回答。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-globe"></i> インバウンド客単価15%向上、店頭スタッフの対応負荷リセット</div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="content4">
+                <div class="card">
+                    <span class="badge">企画・経営</span>
+                    <h3>原材料相場予測・利益率シミュレーター</h3>
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                    <p>厳選もち米などの国産原材料や包装資材の市場価格高騰に対し、価格改定やバルクでの一括買い付け時期の判断が後手に回りやすい。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① 国内外の穀物・資材相場データ、気象状況、為替の推移を定常的にスクレイピングして蓄積。</div>
+                        <div class="step-item">② 機械学習モデルを用いて将来の調達原価 を高精度に予測。</div>
+                        <div class="step-item">③ 目標利益率を維持するための「買い付けのベストタイミング」および価格戦略の最適シナリオを経営陣に提示。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-chart-pie"></i> 原材料高騰リスクを先回りして回避、営業利益率2.5%改善</div>
+                </div>
+
+                <div class="card">
+                    <span class="badge">企画・経営</span>
+                    <h3>AIパッケージプロトタイピングシステム</h3>
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 現状の課題</div>
+                    <p>歳時記（バレンタイン、ひな祭り等）に合わせた限定パッケージやプチギフトのデザイン開発において、外注費の増大と企画リードタイムの長さが課題。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① 歴代の「赤坂柿山」を象徴する高級感あふれるデザイン資産を画像生成AIに学習させる。</div>
+                        <div class="step-item">② 「伝統の和モダン×現代的なプチギフト」などのプロンプトからバリエーション案を生成。</div>
+                        <div class="step-item">③ ブランドのトーン＆マナーを決して崩さない洗練されたデザインプロトタイプを数分で100案生成。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-palette"></i> デザイン初期企画コスト80%削減、トレンド反映スピードの劇的向上</div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="content5">
+                <div class="card card-risk">
+                    <span class="badge badge-risk">ガバナンス</span>
+                    <h3>AIガバナンス・ガードレール（個人情報＆ハルシネーション対策）</h3>
+                    <div class="section-label"><i class="fas fa-shield-alt"></i> リスク管理上の重要課題</div>
+                    <p>全社的なAI導入にあたり、百貨店顧客の個人情報が外部のAIモデルに漏洩するリスク、および接客・問い合わせAIがハルシネーション（虚偽の回答）をして老舗としての伝統と信頼を毀損するリスクの徹底排除。</p>
+                    <div class="section-label"><i class="fas fa-cogs"></i> AI活用ステップ</div>
+                    <div class="solution-steps">
+                        <div class="step-item">① 社内から外部AIに送信されるテキストに含まれる顧客情報を自動検知し、自動匿名化をかけるゲートウェイを配置。</div>
+                        <div class="step-item">② 生成された接客文に対し、公式の製品仕様データベースとリアルタイムに突合し、矛盾する回答を自動で遮断する二重フィルターを構築。</div>
+                        <div class="step-item">③ 社内のAI利用権限を役職・部門ごとに厳格に階層化し、適切なガバナンス体制を敷く。</div>
+                    </div>
+                    <div class="impact"><i class="fas fa-user-shield"></i> 赤坂柿山のブランド信頼性を100%保護、情報セキュリティ事故の未然防止</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
