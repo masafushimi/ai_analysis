@@ -3,406 +3,421 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>エステサロン向けAI研修スライド (Pro Design)</title>
-    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <title>エステサロン AI DX戦略事例集 | 株式会社プロフェショナル・コンサルティング</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* エステ向け：ラグジュアリーで落ち着いた「グレージュ×シャンパンゴールド」 */
-            --primary-color: #5d5c61; /* ダークグレー（上品・本物志向） */
-            --accent-color: #d4af37;  /* 濃いゴールド（高級感・成約） */
-            --text-color: #333333;
-            --light-text: #666666;
-            --bg-color: #fcfcfc;
-            --slide-bg: #ffffff;
-            
-            /* Step Colors */
-            --step1-bg: #fff5f7; --step1-border: #d4879c; /* Input: 悩み・課題 (Soft Pink) */
-            --step2-bg: #f5f7fa; --step2-border: #7b8fab; /* Process: AI分析 (Cool Blue) */
-            --step3-bg: #f0f7f4; --step3-border: #7fa898; /* Output: 解決・成約 (Sage Green) */
+            --primary-gold: #a88a5d;
+            --light-gold: #c5ab83;
+            --bg-ivory: #fdfcfb;
+            --card-bg: #ffffff;
+            --accent-coral: #e27d60;
+            --text-dark: #333230;
+            --text-muted: #666460;
+            --border-color: #f0ede8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 40px 20px;
-            color: var(--text-color);
+            background-color: var(--bg-ivory);
+            color: var(--text-dark);
+            line-height: 1.7;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b18 0%, #3a322b 100%);
+            color: #ffffff;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-bottom: 3px solid var(--primary-gold);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            color: var(--light-gold);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: #e6e2dd;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            text-align: center;
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
         }
 
-        h1.page-title {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2.5rem;
         }
 
-        .controls {
-            margin-bottom: 40px;
-            padding: 25px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            display: inline-block;
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            header h1 { font-size: 1.8rem; }
         }
 
-        button.download-btn {
-            background: linear-gradient(135deg, var(--primary-color), #2b2b2b);
-            color: white;
-            border: none;
-            padding: 16px 36px;
-            font-size: 18px;
-            font-weight: 700;
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            font-family: 'Montserrat', sans-serif;
-            box-shadow: 0 4px 10px rgba(93, 92, 97, 0.3);
-        }
-
-        button.download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(93, 92, 97, 0.4);
-        }
-
-        /* Slide Preview Styles */
-        .slide-preview-container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .slide {
-            width: 960px; /* 16:9 */
-            height: 540px;
-            background: var(--slide-bg);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
-            padding: 50px;
-            box-sizing: border-box;
-            text-align: left;
             overflow: hidden;
-            border-radius: 4px;
-        }
-
-        /* アクセントライン */
-        .slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 6px;
-            background: linear-gradient(90deg, var(--primary-color) 60%, var(--accent-color) 100%);
-        }
-
-        .slide-number {
-            position: absolute;
-            bottom: 15px;
-            right: 25px;
-            color: var(--light-text);
-            font-size: 14px;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .slide-title {
-            font-size: 30px;
-            color: var(--primary-color);
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 12px;
-            line-height: 1.3;
-        }
-        
-        .slide-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background-color: var(--accent-color);
-        }
-
-        .slide-sub-title {
-            font-size: 16px;
-            color: var(--light-text);
-            font-weight: 500;
-            margin-top: -10px;
-            margin-bottom: 20px;
-        }
-
-        .process-flow {
-            display: flex;
-            justify-content: space-between;
-            align-items: stretch;
-            height: 310px;
-            margin-top: 10px;
-            gap: 15px;
-        }
-
-        .step-box {
-            flex: 1;
-            border-radius: 8px;
-            padding: 15px;
+            box-shadow: 0 4px 15px rgba(168, 138, 93, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
-            font-size: 13px;
-            position: relative;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            background-color: white;
         }
 
-        .step-box h3 {
-            margin-top: 5px;
-            font-size: 15px;
-            color: var(--primary-color);
-            margin-bottom: 8px;
-            font-weight: 700;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding-bottom: 5px;
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(168, 138, 93, 0.12);
         }
 
-        .step-1 { background-color: var(--step1-bg); border-top: 4px solid var(--step1-border); }
-        .step-2 { background-color: var(--step2-bg); border-top: 4px solid var(--step2-border); }
-        .step-3 { background-color: var(--step3-bg); border-top: 4px solid var(--step3-border); }
-
-        .arrow-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 20px;
-        }
-        
-        .arrow {
-            font-size: 20px;
-            color: var(--accent-color);
+        .card-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .step-content {
+        .card-content {
+            padding: 2rem;
             flex-grow: 1;
-            line-height: 1.5;
-            white-space: pre-wrap;
+            display: flex;
+            flex-direction: column;
         }
 
-        .step-label {
-            font-size: 10px;
+        .role-badge {
+            align-self: flex-start;
+            background-color: var(--bg-ivory);
+            color: var(--primary-gold);
+            border: 1px solid var(--primary-gold);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
             text-transform: uppercase;
-            color: #888;
-            margin-bottom: 4px;
-            font-weight: 600;
-            font-family: 'Montserrat', sans-serif;
             letter-spacing: 0.05em;
         }
 
-        /* Title Slide */
-        .title-slide-content {
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: #2a2421;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 100%;
-            padding-left: 20px;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .slide.title-type::before { background: none; }
-        .main-title { 
-            font-size: 42px; 
-            color: var(--primary-color); 
-            margin-bottom: 25px; 
-            font-weight: 800; 
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1.2;
-        }
-        .sub-title { 
-            font-size: 20px; 
-            color: var(--text-color); 
-            line-height: 1.6;
-            border-left: 5px solid var(--accent-color);
-            padding-left: 25px;
-        }
-        
-        /* Bullet List */
-        .bullet-list { padding-left: 30px; margin-top: 20px; }
-        .bullet-list li { 
-            margin-bottom: 15px; 
-            font-size: 18px; 
-            line-height: 1.6;
-            color: var(--text-color);
-        }
-        .bullet-list li strong { color: var(--primary-color); }
-        .bullet-list li::marker { color: var(--accent-color); }
 
+        .card-title i {
+            color: var(--primary-gold);
+        }
+
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-top: 1rem;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .section-text {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            background-color: #faf9f6;
+            padding: 0.8rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--light-gold);
+        }
+
+        .prompt-box {
+            background-color: #f5f2eb;
+            border: 1px dashed var(--light-gold);
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #555;
+            font-family: monospace, sans-serif;
+            white-space: pre-wrap;
+            margin-bottom: 1rem;
+        }
+
+        .impact-box {
+            margin-top: auto;
+            background: linear-gradient(135deg, var(--bg-ivory) 0%, #f5f2eb 100%);
+            border: 1px solid var(--light-gold);
+            padding: 1rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .impact-box i {
+            color: var(--accent-coral);
+            font-size: 1.5rem;
+        }
+
+        .impact-text {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #4a3e3d;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background-color: #1e1b18;
+            color: #8c857b;
+            font-size: 0.9rem;
+            margin-top: 5rem;
+            border-top: 1px solid #322c27;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1 class="page-title">エステサロンAI研修スライド生成</h1>
-    <div class="controls">
-        <p>以下のボタンで、PowerPoint (.pptx) をダウンロードできます。</p>
-        <button class="download-btn" onclick="generatePPTX()">
-            📥 PowerPoint (.pptx) をダウンロード
-        </button>
+    <header>
+        <h1>BEAUTY SALON AI DX STRATEGY</h1>
+        <p>エステティックサロンの200業務棚卸しに基づく、劇的コスト削減とLTV最大化のための生成AI活用事例集。現場の泥臭いオペレーションをテクノロジーで至高の顧客体験へと昇華させます。</p>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&w=600&q=80" alt="Marketing" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">営業・マーケティング</span>
+                    <h2 class="card-title"><i class="fa-solid fa-gauge-high"></i> HPBクーポン名＆特集最適化AI</h2>
+                    <div class="section-title"><i class="fa-solid fa-circle-exclamation"></i> 現状の課題</div>
+                    <div class="section-text">Hot Pepper Beautyのクーポン名が「【新規】脂肪冷却マシン60分 9,800円」など画一的で、競合に埋もれてクリック率（CTR）が低迷している。</div>
+                    <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <div class="prompt-box">【プロンプト】「既存の『【新規】脂肪冷却マシン 60分 9,800円』というクーポン名を、ターゲット（40代の落ちにくいお腹痩せ志望）の心を掴みクリック率を上げるための魅力的なタイトル案に5パターン書き換えてください。ベネフィット、限定感を必ず含めること。」</div>
+                    <div class="impact-box">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <div class="impact-text">導入効果: クーポンクリック率1.4倍、新規予約獲得数25%増加。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=600&q=80" alt="Knowledge" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">マネジメント・教育</span>
+                    <h2 class="card-title"><i class="fa-solid fa-book-bookmark"></i> NotebookLM社内ナレッジ・SOP資産化</h2>
+                    <div class="section-title"><i class="fa-solid fa-circle-exclamation"></i> 現状の課題</div>
+                    <div class="section-text">200項目の業務手順、皮膚理論、各種マシンの禁忌事項、店販の切り返し等の膨大な知識が属人化しており、新人研修に多大な時間コストがかかる。</div>
+                    <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <div class="section-text">サロン内のすべての施術マニュアル、皮膚理論テキスト、カウンセリングSOP、成功事例レポートをNotebookLMに一元集約。新人がチャットで即座に知識を引き出せる体制を構築。</div>
+                    <div class="impact-box">
+                        <i class="fa-solid fa-clock"></i>
+                        <div class="impact-text">導入効果: 新人エステティシャンの座学・技術習得期間を50%短縮。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" alt="Counseling" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">顧客対応（CS）</span>
+                    <h2 class="card-title"><i class="fa-solid fa-wand-magic-sparkles"></i> カルテ事前アセスメントAI</h2>
+                    <div class="section-title"><i class="fa-solid fa-circle-exclamation"></i> 現状の課題</div>
+                    <div class="section-text">新規顧客が記入したカウンセリングシートの読み込みがスタッフ個人のスキルを頼りになっており、主訴の深掘りや既往歴のリスク検知に漏れが出る。</div>
+                    <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <div class="prompt-box">【プロンプト】「以下の新規顧客のカウンセリングシートデータから、本日の主訴（一番解決したい悩み）、生活習慣上のリスク（睡眠不足、冷え）、施術時に注意すべき既往歴を箇条書きでまとめてください。[シートデータ：...]」</div>
+                    <div class="impact-box">
+                        <i class="fa-solid fa-face-smile"></i>
+                        <div class="impact-text">導入効果: カウンセリング前の準備時間を10分から1分へ短縮。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="InBody" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">現場・施術</span>
+                    <h2 class="card-title"><i class="fa-solid fa-calculator"></i> 測定データ解釈＆モチベーション向上AI</h2>
+                    <div class="section-title"><i class="fa-solid fa-circle-exclamation"></i> 現状の課題</div>
+                    <div class="section-text">肌診断機や体組成計（InBody）の数値を顧客に見せるだけになっており、顧客へ伝える「納得感」や「改善への危機感」の演出が不足し、単発で終わる。</div>
+                    <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <div class="prompt-box">【プロンプト】「体組成計データ（体重〇kg、体脂肪率〇%、基礎代謝〇kcal）を入力します。この数値を基に、30代女性顧客が納得し、危機感とモチベーションを持てるような『解説スクリプト』を作成してください。」</div>
+                    <div class="impact-box">
+                        <i class="fa-solid fa-percent"></i>
+                        <div class="impact-text">導入効果: 体質改善ロードマップ提示時の新規コース成約率が18%向上。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Communication" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">顧客対応（CS）</span>
+                    <h2 class="card-title"><i class="fa-solid fa-comments"></i> 顧客タイプ別接客黄金ルール言語化AI</h2>
+                    <div class="section-title"><i class="fa-solid fa-circle-exclamation"></i> 現状の課題</div>
+                    <div class="section-text">「静かに眠りたい客」「知識を得たい客」「愚痴を聞いてほしい客」のタイプ見極めがスタッフ個人の直感任せで、ミスマッチによる失客が発生している。</div>
+                    <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <div class="prompt-box">【プロンプト】「エステ施術中の3タイプ（1.寝たい、2.知識、3.愚痴）を初期段階で見分けるための『質問と顧客の反応パターン』、およびそれぞれのタイプに対する会話の黄金ルールとNG態度を言語化してください。」</div>
+                    <div class="impact-box">
+                        <i class="fa-solid fa-users"></i>
+                        <div class="impact-text">導入効果: 接客に起因するサイレント失客（3回目未満の離脱）が40%減少。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80" alt="BeforeAfter" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">営業・マーケティング</span>
+                    <h2 class="card-title"><i class="fa-solid fa-camera"></i> Before/After 感動言語化スクリプトAI</h2>
+                    <div class="section-title"><i class="fa-solid fa-circle-exclamation"></i> 現状の課題</div>
+                    <div class="section-text">施術後のビフォーアフター写真を見せる際、スタッフの語彙力が乏しく、「すごいです！すっきりしました！」等の単調な表現になり、2回目予約へ繋がらない。</div>
+                    <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <div class="prompt-box">【プロンプト】
+「30代後半女性のフェイシャル施術後、フェイスラインが2cmリフトアップし、頬の赤みが引いた写真を見せる場面です。この変化をプロの視点で大げさにならず、劇的な感動を与えるように解説するトークスクリプトを作成してください。」</div>
+                    <div class="impact-box">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <div class="impact-text">導入効果: 当日中の「次回予約（2週間以内）」獲得率が72%へ向上。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1608248597481-496100c8c836?auto=format&fit=crop&w=600&q=80" alt="Cosmetics" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">営業・マーケティング</span>
+                    <h2 class="card-title"><i class="fa-solid fa-bag-shopping"></i> 心理的抵抗ゼロの店販アプローチAI</h2>
+                    <div class="section-title"><i class="fa-solid fa-circle-exclamation"></i> 現状の課題</div>
+                    <div class="section-text">物販（専売品化粧品）の提案時に「売り込まれている」と顧客に警戒されるのをスタッフが恐れ、店販比率（粗利の源泉）が伸び悩む。</div>
+                    <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <div class="prompt-box">【プロンプト】「お客様がプチプラ化粧水を愛用している前提で、それを否定せず『その化粧水は優秀ですのでそのまま保水に使い、その後にこのサロン専売の乳液で蓋をするだけで、もちもち感が3倍長持ちします』という心理的抵抗のないアプローチ文を作成して。」</div>
+                    <div class="impact-box">
+                        <i class="fa-solid fa-coins"></i>
+                        <div class="impact-text">導入効果: 店舗全体の物販売上高が前年同月比35%アップ。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="FollowLINE" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">顧客対応（CS）</span>
+                    <h2 class="card-title"><i class="fa-solid fa-paper-plane"></i> 超パーソナル追客・サンキューLINE生成</h2>
+                    <div class="section-title"><i class="fa-solid fa-circle-exclamation"></i> 現状の課題</div>
+                    <div class="section-text">施術後のサンキューメッセージが定型文送信になっており、顧客の満足度低下や、強力な施術後の好転反応（だるさ等）へのケア不足が起きている。</div>
+                    <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <div class="prompt-box">【プロンプト】「本日強力な痩身を受けられた〇〇様へ、感謝、老廃物が溜まっていた事実、好転反応（だるさ、筋肉痛のような痛み）の注意と水分補給の推奨、次回予約確認（〇月〇日）を含む温かみのある個別メッセージを生成して。」</div>
+                    <div class="impact-box">
+                        <i class="fa-solid fa-link"></i>
+                        <div class="impact-text">導入効果: 来店3日後の返信率が80%を突破、顧客とのエンゲージメント強化。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Finance" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">マネジメント・経営</span>
+                    <h2 class="card-title"><i class="fa-solid fa-chart-pie"></i> 店舗PL改善＆メニュー別粗利分析AI</h2>
+                    <div class="section-title"><i class="fa-solid fa-circle-exclamation"></i> 現状の課題</div>
+                    <div class="section-text">オールハンド施術（人件費のみ）と最新マシン施術（電気代・リース料・消耗ジェル）の本当の「時間あたり限界利益」が可視化されておらず、販促優先度が曖昧。</div>
+                    <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <div class="prompt-box">【プロンプト】「サロンの主要3メニュー（1.全身痩身マシン、2.小顔ハンド、3.ハーブピーリング）の施術時間、消耗品費、マシンリース費用をベースに、時間あたりの限界利益を算出し、どのメニューを最強化すべきか優先度を判定してください。」</div>
+                    <div class="impact-box">
+                        <i class="fa-solid fa-money-bill-trend-up"></i>
+                        <div class="impact-text">導入効果: 高利益率メニューの販促集中により、営業利益率が$12\%$から$22\%$へ改善。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80" alt="Compliance" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">クリエイティブ・企画</span>
+                    <h2 class="card-title"><i class="fa-solid fa-shield-halved"></i> 接客音声のコンプライアンス（薬機法・特商法）自動監査</h2>
+                    <div class="section-title"><i class="fa-solid fa-circle-exclamation"></i> 現状の課題</div>
+                    <div class="section-text">カウンセリングやSNS発信において、スタッフが「絶対にシミが消える」「3日で必ず痩せる」等の誇大表現（薬機法違反）や強引な勧誘（特商法違反）を行うリスクの把握が困難。</div>
+                    <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <div class="prompt-box">【プロンプト】「カウンセリングの録音テキストを分析し、特商法上の誇大広告にあたる表現や、お客様に過度なプレッシャーを与えている強引な勧誘表現を抽出し、法的に安全で魅力的な修正案を提示してください。[録音テキスト：...]」</div>
+                    <div class="impact-box">
+                        <i class="fa-solid fa-building-shield"></i>
+                        <div class="impact-text">導入効果: リーガルリスク・SNS炎上リスクの完全事前回避体制を構築。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=600&q=80" alt="Claim" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge">事務・バックオフィス</span>
+                    <h2 class="card-title"><i class="fa-solid fa-triangle-exclamation"></i> クレーム感情検知＆初期お詫び文生成AI</h2>
+                    <div class="section-title"><i class="fa-solid fa-circle-exclamation"></i> 現状の課題</div>
+                    <div class="section-text">万が一の施術後の肌トラブルや接客へのクレームが発生した際、初動のメール返信が遅れたり、言葉遣いを誤り、感情的な大炎上や返金・和解交渉の長期化を招く。</div>
+                    <div class="section-title"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                    <div class="prompt-box">【プロンプト】「お客様から届いた不満メールを分析し、感情のエスカレーション度を10段階で評価、これ以上怒らせない『地雷ワード』を特定した上で、誠意を伝えつつ皮膚科受診費用を負担する旨を伝えるお詫びメールを生成して。」</div>
+                    <div class="impact-box">
+                        <i class="fa-solid fa-handshake"></i>
+                        <div class="impact-text">導入効果: クレーム処理の平均解決日数が7日から1.5日へと劇的に短縮。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="border: 2px solid var(--accent-coral);">
+                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80" alt="Risk Management" class="card-image">
+                <div class="card-content">
+                    <span class="role-badge" style="color: var(--accent-coral); border-color: var(--accent-coral);">ガバナンス・リスク管理</span>
+                    <h2 class="card-title" style="color: var(--accent-coral);"><i class="fa-solid fa-lock"></i> 個人情報＆ハルシネーション防衛カード</h2>
+                    <div class="section-title" style="color: var(--accent-coral);"><i class="fa-solid fa-shield"></i> ガードレール規約</div>
+                    <div class="section-text" style="background-color: #fffaf9;">エステサロンで生成AIを運用する際、最も重大なリスクは「顧客のセンシティブなBefore/After写真や個人情報の流出」および「AIが医師のような医療診断（ハルシネーション）を下すこと」である。</div>
+                    <div class="section-title"><i class="fa-solid fa-user-shield"></i> 5大セキュリティ鉄則</div>
+                    <div class="section-text">
+                        1. 顧客写真は個人端末での撮影・保存を完全禁止、専用iPadのみ許可。<br>
+                        2. 外部LLMにプロンプトを入力する際、氏名・電話番号・詳細な住所は必ず伏字に変換。<br>
+                        3. AIが生成した肌トラブル等の解説は必ずスタッフが目視確認し、「医療診断ではない」旨を免責事項として追記。<br>
+                        4. API連携等、データが再学習に利用されないオプトアウト環境でのAI運用を徹底。<br>
+                        5. 毎月1回、スタッフ向けにAI安全利用と個人情報保護に関するセキュリティ研修を実施。
+                    </div>
+                    <div class="impact-box" style="background: linear-gradient(135deg, #fffaf9 0%, #ffece8 100%); border-color: var(--accent-coral);">
+                        <i class="fa-solid fa-circle-check" style="color: var(--accent-coral);"></i>
+                        <div class="impact-text" style="color: #6e3527;">安全指標: 情報漏洩ゼロ、ハルシネーションによる顧客トラブル発生率0%を厳守。</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <div class="slide-preview-container" id="previewArea"></div>
-</div>
+    <footer>
+        <p>&copy; 2026 AI DX Strategic Consulting Report for Aesthetic Salon. All Rights Reserved.</p>
+    </footer>
 
-<script>
-    // --- スライドデータ定義（エステサロン特化版） ---
-    const slidesData = [
-        {
-            type: "title",
-            title: "エステティックサロンにおける\n生成AI活用実践トレーニング",
-            sub: "高額契約の「クロージング」、規制を守る「発信」、\n顧客を離さない「伴走」をAIで強化する"
-        },
-        {
-            type: "concept",
-            title: "エステ特有の3大課題をAIで解決",
-            content: [
-                "**1. コース契約率の向上:** 「考えます」を「やりたい」に変える、ベテランのトークを再現。",
-                "**2. コンプライアンス遵守:** 薬機法（旧薬事法）・景表法に抵触しない、安全で魅力的な広告作成。",
-                "**3. 施術外のサポート:** 食事指導やホームケア提案をAIで自動化し、結果を出させる。",
-                "AIは「トップカウンセラー」であり「専属の管理栄養士」です。"
-            ]
-        },
-        // --- 接客・クロージング ---
-        {
-            type: "case",
-            title: "【成約】クロージング研修 & 答えの用意",
-            subTitle: "高額コース契約の「断り文句」を突破するロールプレイング",
-            step1: { label: "Input (顧客属性・NG理由)", text: "・対象：30代独身、痩身希望\n・性格：優柔不断\n・断り文句：「高いので一度持ち帰って親に相談します」" },
-            step2: { label: "Process (AI: ChatGPT音声対話)", text: "ロールプレイング：「私は月々1万円なら払えると考えている顧客です。総額30万円のコースを提示し、私が断った後に『分割払い』と『未来のベネフィット』で切り返す練習をさせて」" },
-            step3: { label: "Output (自信)", text: "AI相手に何度も練習し、震えずにクロージング可能に。\n成約率の大幅アップ。" }
-        },
-        {
-            type: "case",
-            title: "【顧客】食事・生活習慣の指導",
-            subTitle: "知識がなくても「専属トレーナー」並みのアドバイスを",
-            step1: { label: "Input (食事写真・生活)", text: "・お客様からLINEで届いたコンビニ弁当の写真\n・生活：デスクワーク、夜型、むくみが悩み" },
-            step2: { label: "Process (AI: GPT-4o 画像解析)", text: "解析：「この写真の食事のカロリーと栄養バランスを計算し、むくみ解消のために『コンビニで追加すべき1品』と、寝る前にベッドでできるストレッチを提案して」" },
-            step3: { label: "Output (信頼)", text: "プロフェッショナルな食事指導返信が一瞬で完成。\n「ここまでしてくれるの？」という感動を生む。" }
-        },
-        // --- 広告・集客 ---
-        {
-            type: "case",
-            title: "【集客】Hotpepper/SNS & 薬機法対策",
-            subTitle: "「治る」「痩せる」を使わずに、魅力を伝える表現技術",
-            step1: { label: "Input (伝えたい効果)", text: "・施術：ハイパーナイフ＋ハンド\n・言いたいこと：1回で激痩せ、脂肪が消える（※そのまま書くとNG）" },
-            step2: { label: "Process (AI: Claude/Gemini)", text: "校正：「エステサロンの広告として、薬機法・景表法に違反しない範囲で、最大限効果が伝わる魅力的なキャッチコピーに書き換えて」\n例：『脂肪燃焼』→『ボディラインを整える』等" },
-            step3: { label: "Output (安全な集客)", text: "媒体審査落ち（掲載NG）を防ぎつつ、\nクリック率の高いクーポン名・本文を作成。" }
-        },
-        {
-            type: "case",
-            title: "【販促】DM作成 & 店販への誘導",
-            subTitle: "「売り込み」と感じさせずに、ホームケア商品を買ってもらう",
-            step1: { label: "Input (顧客情報・商品)", text: "・顧客：フェイシャルコース終了間近\n・課題：冬の乾燥\n・売りたい商品：高保湿クリーム(1.5万円)" },
-            step2: { label: "Process (AI: ChatGPT)", text: "作成：「コース終了後も綺麗でいたいという気持ちに寄り添い、冬の乾燥対策としてこのクリームが必要な理由を、親しみやすいLINEメッセージにして（絵文字あり）」" },
-            step3: { label: "Output (LTV向上)", text: "来店がない期間も商品が売れる仕組み化。\nスタッフの文章作成ストレスをゼロに。" }
-        },
-        // --- 事務・管理 ---
-        {
-            type: "case",
-            title: "【管理】電子カルテ & 音声入力",
-            subTitle: "施術直後の「熱い情報」を逃さず資産化する",
-            step1: { label: "Input (音声メモ)", text: "施術後のバックヤードで発話\n「〇〇様、太もものセルライト硬め。痛み弱いので出力下げた。夏までに水着着たい目標あり」" },
-            step2: { label: "Process (AI: Whisper/Notion AI)", text: "構造化：「音声から【施術内容】【身体の状態】【会話のネタ】【次回の目標】を抽出してカルテに登録して」" },
-            step3: { label: "Output (共有)", text: "担当が変わっても、前回の痛みの強さや会話を完璧に引き継ぎ。\n顧客の安心感につなげる。" }
-        },
-        {
-            type: "case",
-            title: "【経営】採用 & 内装レコメンド",
-            subTitle: "サロンの「世界観」を可視化し、マッチする人を集める",
-            step1: { label: "Input (コンセプト)", text: "・ターゲット：40代〜50代富裕層\n・テーマ：非日常、バリのリゾート、完全個室" },
-            step2: { label: "Process (AI: Midjourney/DALL-E)", text: "画像生成：「高級感のあるダークウッドと間接照明を使い、バリのリゾート風リラクゼーションサロンの個室イメージを生成して」\n求人：「この世界観で働きたい、おもてなし重視のエステティシャンに響く求人票を書いて」" },
-            step3: { label: "Output (ブランディング)", text: "内装業者への指示書用イメージ画像と、\nミスマッチのない求人原稿の完成。" }
-        },
-        {
-            type: "concept",
-            title: "まとめ：AIで「手」と「心」を空ける",
-            content: [
-                "**手:** 事務作業やカルテ入力は、音声とAIに任せる。",
-                "**脳:** 広告規制や栄養計算は、AIの知識を借りる。",
-                "**心:** 空いた余裕で、お客様のコンプレックスに寄り添う。",
-                "Next Action: 「苦手なクロージングの練習」と「薬機法チェック」から始めましょう。"
-            ]
-        }
-    ];
-
-    // --- プレビュー生成 ---
-    function renderPreview() {
-        const container = document.getElementById('previewArea');
-        container.innerHTML = "";
-        
-        slidesData.forEach((slide, index) => {
-            const slideDiv = document.createElement('div');
-            slideDiv.className = 'slide';
-            if (slide.type === 'title') slideDiv.classList.add('title-type');
-            
-            slideDiv.innerHTML += `<div class="slide-number">${index + 1}</div>`;
-
-            if (slide.type === 'title') {
-                slideDiv.innerHTML += `
-                    <div class="title-slide-content">
-                        <div class="main-title">${slide.title.replace(/\n/g, '<br>')}</div>
-                        <div class="sub-title">${slide.sub.replace(/\n/g, '<br>')}</div>
-                    </div>`;
-            } else if (slide.type === 'concept') {
-                slideDiv.innerHTML += `<div class="slide-title">${slide.title}</div>`;
-                let ul = `<ul class="bullet-list">`;
-                slide.content.forEach(item => {
-                    const formatted = item.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                    ul += `<li>${formatted.replace(/\n/g, '<br>')}</li>`;
-                });
-                ul += `</ul>`;
-                slideDiv.innerHTML += ul;
-            } else if (slide.type === 'case') {
-                slideDiv.innerHTML += `<div class="slide-title">${slide.title}</div>`;
-                slideDiv.innerHTML += `<div class="slide-sub-title">${slide.subTitle}</div>`;
-                slideDiv.innerHTML += `
-                    <div class="process-flow">
-                        <div class="step-box step-1">
-                            <div class="step-label">Step-1</div>
-                            <h3>${slide.step1.label}</h3>
-                            <div class="step-content">${slide.step1.text.replace(/\n/g, '<br>')}</div>
-                        </div>
-                        <div class="arrow-container"><div class="arrow">▶</div></div>
-                        <div class="step-box step-2">
-                            <div class="step-label">Step-2</div>
-                            <h3>${slide.step2.label}</h3>
-                            <div class="step-content">${slide.step2.text.replace(/\n/g, '<br>')}</div>
-                        </div>
-                        <div class="arrow-container"><div class="arrow">▶</div></div>
-                        <div class="step-box step-3">
-                            <div class="step-label">Step-3</div>
-                            <h3>${slide.step3.label}</h3>
-                            <div class="step-content">${slide.step3.text.replace(/\n/g, '<br>')}</div>
-                        </div>
-                    </div>`;
-            }
-            container.appendChild(slideDiv);
-        });
-    }
-
-    // --- PPTX生成 ---
-    function generatePPTX() {
-        let pres = new PptxGenJS();
-        pres.layout = 'LAYOUT_16x9';
-
-        // エステ向けカラー定義
-        const colorPrimary = '5d5c61'; // ダークグレー
-        const colorAccent = 'd4af37';  // ゴールド
-        const colorText
+</body>
+</html>
