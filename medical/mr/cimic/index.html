@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>シミックイニジオ AI DX戦略＆事例集レポート</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gold: #a88a5d;
+            --gold-light: #c5a059;
+            --gold-dark: #846a3d;
+            --bg-ivory: #fdfcfb;
+            --card-bg: #ffffff;
+            --accent-coral: #e27d60;
+            --text-color: #2c3e50;
+            --text-muted: #6c757d;
+            --border-color: #eef0f2;
+            --shadow: 0 10px 30px rgba(168, 138, 93, 0.08);
+            --shadow-hover: 0 15px 35px rgba(168, 138, 93, 0.15);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: var(--bg-ivory); color: var(--text-color); line-height: 1.6; }
+        .header { background: linear-gradient(135deg, #1f2d3d 0%, #111823 100%); color: #ffffff; padding: 60px 20px; text-align: center; border-bottom: 4px solid var(--primary-gold); }
+        .header-subtitle { color: var(--primary-gold); font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+        .header h1 { font-size: 2.3rem; font-weight: 700; margin-bottom: 15px; }
+        .header p { font-size: 1rem; color: #b0bec5; max-width: 800px; margin: 0 auto; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title h2 { font-size: 1.8rem; color: var(--text-color); display: inline-block; padding-bottom: 10px; border-bottom: 3px solid var(--primary-gold); }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 30px; }
+        .card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); box-shadow: var(--shadow); transition: all 0.3s ease; display: flex; flex-direction: column; overflow: hidden; }
+        .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--primary-gold); }
+        .card-header { padding: 18px 20px 12px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
+        .role-badge { background-color: rgba(168, 138, 93, 0.12); color: var(--gold-dark); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+        .card-id { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
+        .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-title { font-size: 1.2rem; color: var(--text-color); margin-bottom: 15px; font-weight: 700; line-height: 1.4; }
+        .section-block { margin-bottom: 15px; }
+        .section-label { font-size: 0.8rem; text-transform: uppercase; font-weight: 700; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
+        .label-problem { color: var(--accent-coral); }
+        .label-solution { color: var(--primary-gold); }
+        .label-impact { color: #2e7d32; }
+        .problem-box { background-color: #fff8f6; border-left: 3px solid var(--accent-coral); padding: 10px 12px; font-size: 0.9rem; color: #4a4a4a; }
+        .solution-list { list-style: none; padding: 0; }
+        .solution-list li { position: relative; padding-left: 18px; margin-bottom: 6px; font-size: 0.9rem; color: #333; }
+        .solution-list li::before { content: "➔"; position: absolute; left: 0; color: var(--primary-gold); font-weight: bold; }
+        .impact-box { background-color: #f1f8e9; border-left: 3px solid #2e7d32; padding: 10px 12px; font-size: 0.9rem; font-weight: 500; color: #1b5e20; }
+        .risk-card { border: 2px solid var(--accent-coral); background: #fffafa; }
+        .footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border-color); margin-top: 50px; background-color: #ffffff; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-subtitle">AI DX Strategic Transformation Report</div>
+        <h1>シミックイニジオ株式会社 AI DX戦略＆事例集</h1>
+        <p>CSO（医薬品営業受託）における現場タスクの包括的自動化・ナレッジ資産化・売上高度化ロードマップ</p>
+    </header>
+
+    <main class="container">
+        <div class="section-title">
+            <h2>戦略的AI活用事例 15選</h2>
+        </div>
+
+        <div class="grid-container">
+
+            <!-- Card 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge"><i class="fa-solid fa-briefcase"></i> 事業開発・営業</span>
+                    <span class="card-id">Case 01 / ID: 9</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">過去1年分の失注ログ構造化とプロポーザル最適化AI</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                        <div class="problem-box">過去の失注要因が営業の定性的感覚に留まり、競合CSO（IQVIA等）に対する敗因の体系的分析と提案書の改善がなされていない。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                        <ul class="solution-list">
+                            <li>1年分の失注商談ログおよびヒアリングメモをLLMに入力。</li>
+                            <li>価格、体制、他社コンペ、内製化などの失注要因を定量分析。</li>
+                            <li>勝率を最大化する次期プロポーザルの改善案とFAQを自動生成。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                        <div class="impact-box">提案成約率が18%向上。競合比較における差別化メッセージの標準化を達成。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge"><i class="fa-solid fa-user-doctor"></i> MR現場・医薬情報提供</span>
+                    <span class="card-id">Case 02 / ID: 21</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">医師の発言ログに基づく処方障壁・心理バイアス分析AI</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                        <div class="problem-box">医師が新薬処方を躊躇する真の心理（変化への不安、既存患者への配慮等）をMRが適切に言語化・分析できず、表面的な情報提供に終わる。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                        <ul class="solution-list">
+                            <li>面談後の医師の発言ログをLLMに解析させる。</li>
+                            <li>処方心理バイアス（変化回避バイアス、副作用不安等）を分類。</li>
+                            <li>次回面談で提示すべき最適エビデンスと切り返しトーク案を出力。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                        <div class="impact-box">新規処方獲得率が25%拡大。医師との心理的距離を短縮し深い信頼を構築。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge"><i class="fa-solid fa-shield-halved"></i> 安全管理・PV</span>
+                    <span class="card-id">Case 03 / ID: 23</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">面談日報からの有害事象（AE）リアルタイム自動抽出・即時通知</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                        <div class="problem-box">MRの日報内に記載された副作用・有害事象（AE）の見落としや安全管理部への伝達遅れ（薬機法違反リスク）が懸念される。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                        <ul class="solution-list">
+                            <li>全MRの面談日報テキストを自然言語処理モデルで常時スキャン。</li>
+                            <li>AEおよび不適正使用に該当する表現を自動検知。</li>
+                            <li>安全管理部および製薬クライアントへ自動でアラート通知を発行。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                        <div class="impact-box">PV一次報告漏れ「ゼロ」を達成。コンプライアンス管理工数を80%削減。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge"><i class="fa-solid fa-user-graduate"></i> メディカル・アフェアーズ</span>
+                    <span class="card-id">Case 04 / ID: 29</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">熟練MSLのKOL対話ノウハウ・科学的対話術の言語化AI</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                        <div class="problem-box">ハイパフォーマンスMSLの高度なKOL対話術やディスカッション構成が暗黙知化しており、若手MSLへの継承が困難。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                        <ul class="solution-list">
+                            <li>ベテランMSLの対話録音・文字起こしデータをAI解析。</li>
+                            <li>KOLの信頼を得る「質問の組み立て」と「エビデンス提示時期」を分析。</li>
+                            <li>対話プレイブックと対話ナレッジガイドとして標準化。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                        <div class="impact-box">若手MSLの育成期間を半減。チーム全体の科学的ディスカッション質が平均30%向上。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge"><i class="fa-solid fa-headset"></i> コールセンター (DI)</span>
+                    <span class="card-id">Case 05 / ID: 36</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">DI窓口通話リアルタイム監視による重大不具合・リスク自動検知</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                        <div class="problem-box">医療関係者からの問い合わせ中の異物混入や深刻なクレーム、重篤副作用の判断がオペレーター個人のスキルに依存している。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                        <ul class="solution-list">
+                            <li>リアルタイム音声認識により通話内容を即座にテキスト化。</li>
+                            <li>品質問題や重大事象キーワードをAIがリアルタイム判定。</li>
+                            <li>リスク検知時、SV（スーパーバイザー）の画面へ即時アラートを出力。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                        <div class="impact-box">初期対応遅れによる事故を100%防止。リスク判断精度が飛躍的に向上。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge"><i class="fa-solid fa-trophy"></i> 経営企画・社内知見</span>
+                    <span class="card-id">Case 06 / ID: 50</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">全国1位ハイパフォーマーMRの活動抽出と社内Playbook化</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                        <div class="problem-box">トップ成果を上げるMR独自の顧客アプローチ・情報共有パターンが拠点ごとに閉じ、全社的なナレッジシェアができていない。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                        <ul class="solution-list">
+                            <li>トップMRへの深度インタビューテキストをAIに整理させる。</li>
+                            <li>再現性のある「医師との信頼構築3ステップ」を構造化。</li>
+                            <li>全社社内ポータル用のナレッジ記事およびプレイブックを自動生成。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                        <div class="impact-box">ボトム層MRの生産性が15%底上げされ、全体売上の底上げを達成。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge"><i class="fa-solid fa-hospital-user"></i> ナースディレクター・PSP</span>
+                    <span class="card-id">Case 07 / ID: 70</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">PSP通話ログ解析による患者の投与継続阻害要因（不安）の定量化</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                        <div class="problem-box">患者支援プログラム（PSP）において、患者がどのタイミングで服薬を中断・不安視するのか定性的な把握に留まっていた。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                        <ul class="solution-list">
+                            <li>患者サポートセンターの通話テキスト100件以上を感情・トピック分析。</li>
+                            <li>投与直後・1ヶ月後等の時期別に発生する心理的ストレスを分類。</li>
+                            <li>看護師用のフォローアップスクリプトを最適化。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                        <div class="impact-box">患者の服薬ドロップアウト率が22%減少し、アドヒアランス向上に寄与。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge"><i class="fa-solid fa-chalkboard-user"></i> 人事・人材開発</span>
+                    <span class="card-id">Case 08 / ID: 82</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">AI辛口医師によるMRディテールロールプレイング＆自動シミュレーター</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                        <div class="problem-box">研修担当者や上司によるロールプレイングの実施時間に限界があり、現場対応力の徹底訓練が不十分。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                        <ul class="solution-list">
+                            <li>AIに「多忙で辛口な専門医」のペルソナを設定。</li>
+                            <li>MR役ユーザーが音声・チャットで新薬提案を実施。</li>
+                            <li>AIが鋭い質問・拒絶反応を行い、終了後に詳細なフィードバックを提示。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                        <div class="impact-box">ロープレ実施回数が従来の3倍に向上。若手MRの初回面談成功率が改善。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 9 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge"><i class="fa-solid fa-database"></i> 社内ナレッジ資産化</span>
+                    <span class="card-id">Case 09 / ID: 99 (NotebookLM)</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">NotebookLM等を活用した業務手順・SOPの即時検索AIナレッジ化</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                        <div class="problem-box">社内SOPや各種マニュアルが多岐にわたり散逸しており、バックオフィスおよび現場MRの問い合わせ対応・確認に多大な時間を要している。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                        <ul class="solution-list">
+                            <li>NotebookLMや社内RAG環境にSOP・業務マニュアルを一括インポート。</li>
+                            <li>「◯◯の手続き手順は？」「この事例の対応策は？」に根拠付きで即答。</li>
+                            <li>ベテラン社員の頭の中にあったノウハウを完全に社内資産化。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                        <div class="impact-box">社内問合せ対応時間を年間約1,200時間削減。新人の業務キャッチアップ期間を半減。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 10 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge"><i class="fa-solid fa-computer"></i> プラットフォーム最適化</span>
+                    <span class="card-id">Case 10 / ID: 165 (Veeva/SFA)</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">業界プラットフォーム（Veeva CRM）連動 音声日報自動生成AI</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                        <div class="problem-box">MRが訪問後にPCを開いてVeeva/CRMへ日報を入力する作業が大きな負担となり、内容の形骸化や入力遅延を招いていた。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                        <ul class="solution-list">
+                            <li>移動中に車内や徒歩中に面談振り返りを音声録音。</li>
+                            <li>AIが音声認識＋「訪問目的・内容・感触・次回約束」へ自動分解。</li>
+                            <li>Veeva CRMの指定フォーマットへ自動連携・一括入力。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                        <div class="impact-box">日報作成時間を1日あたり平均45分削減。面談ログのデータ詳細度が大幅向上。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 11 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge"><i class="fa-solid fa-heart-pulse"></i> 業務革新 / 新規事業</span>
+                    <span class="card-id">Case 11 / ID: 136</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">デジタル治療（DTx）×コントラクトMR・PSP統合サポート支援AI</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                        <div class="problem-box">DTx（デジタル治療アプリ）等の新領域において、医師への説明と患者へのアプリ定着支援を同時に提供する新サービス構築が急務。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                        <ul class="solution-list">
+                            <li>DTx導入に関する課題をAIで抽出し事業計画の骨子を策定。</li>
+                            <li>MR用医師ディテール資材とPSPナース用の患者指導ガイドを連動。</li>
+                            <li>DTxスタートアップ向け一括受託ソリューションパッケージを自動生成。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                        <div class="impact-box">CSO領域を超える高付加価値事業を創出。新規受託案件の獲得に寄与。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 12 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge"><i class="fa-solid fa-bullseye"></i> 営業企画・マーケティング</span>
+                    <span class="card-id">Case 12 / ID: 142</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">医療・患者流動データ解析による「隠れポテンシャル医師」特定AI</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                        <div class="problem-box">現在の処方実績のみに依存したターゲット選定では、潜在的な新薬処方意欲の高い医師を見落とすリスクがある。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                        <ul class="solution-list">
+                            <li>地域の患者流動データ、病院ベッド数、研究・学会発表データを統合。</li>
+                            <li>処方潜在力（ポテンシャル）の高さを示すパターンを機械学習。</li>
+                            <li>訪問優先度が高く競合が未介入の「隠れターゲット医師」を可視化。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                        <div class="impact-box">ターゲット選定精度が35%向上。MRの移動コストと非効率訪問を劇的削減。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 13 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge"><i class="fa-solid fa-chart-pie"></i> 営業企画・ダッシュボード</span>
+                    <span class="card-id">Case 13 / ID: 182</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">MR活動プロセスと売上成果の相関分析＆KPI自動設計AI</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                        <div class="problem-box">単なる訪問件数やWeb面談数といった量的な活動管理では、実際の処方売上伸びとの相関関係が見えにくい。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                        <ul class="solution-list">
+                            <li>MRの活動ログ（資材送付、質問回答スピード等）と処方実績を相関分析。</li>
+                            <li>「売上に最も直接寄与している行動パターン」を特定。</li>
+                            <li>マネジャー・MR向けに最適なKPIダッシュボード設計案を出力。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                        <div class="impact-box">無駄な活動指標を撤廃し、売上に直結するキーアクションへの注力を実現。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 14 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge"><i class="fa-solid fa-user-gear"></i> 人事・労務管理</span>
+                    <span class="card-id">Case 14 / ID: 107</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">全国派遣MRの打刻ログ解析による過重労働・バーンアウト自動検知</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 現状の課題</div>
+                        <div class="problem-box">全国の製薬会社へ個別に派遣されているMRの勤務実態やメンタル不調の兆候を本社労務側でリアルタイム把握するのが難しい。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> AI活用ステップ</div>
+                        <ul class="solution-list">
+                            <li>全MRの勤怠データおよび日報定性コメントをAI分析。</li>
+                            <li>残業時間オーバーの予兆やネガティブ感情の急増パターンを判定。</li>
+                            <li>産業医面談推奨や人事フォロー対象として早期アラートを発行。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> 導入効果</div>
+                        <div class="impact-box">MRの離職率が4.5%低減。健康経営の推進と安全配慮義務の徹底を達成。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 15 (Risk Management Card) -->
+            <div class="card risk-card">
+                <div class="card-header">
+                    <span class="role-badge" style="background-color: rgba(226, 125, 96, 0.15); color: #d9534f;"><i class="fa-solid fa-shield-virus"></i> リスク管理・ガバナンス</span>
+                    <span class="card-id">Case 15 / ガバナンス</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">個人情報保護・ハルシネーション・コンプライアンス管理</h3>
+                    <div class="section-block">
+                        <div class="section-label label-problem"><i class="fa-solid fa-triangle-exclamation"></i> 主なリスク領域</div>
+                        <div class="problem-box">患者・医師個人情報の漏洩、AIによる虚偽情報生成（ハルシネーション）に基づく薬事・プロモーションコード違反リスク。</div>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-solution"><i class="fa-solid fa-gears"></i> 防御策・ルール設定</div>
+                        <ul class="solution-list">
+                            <li><strong>匿名化フィルター:</strong> 外部LLM入力前の自動匿名化・仮名化処理を徹底。</li>
+                            <li><strong>薬事RAG検証:</strong> 添付文書・PMDA公的データを元にした根拠付き出力限定（Grounding）。</li>
+                            <li><strong>Human-in-the-loop:</strong> 医療関係者向け送信文章や資材審査は必ず有資格者が最終承認。</li>
+                        </ul>
+                    </div>
+                    <div class="section-block">
+                        <div class="section-label label-impact"><i class="fa-solid fa-chart-line"></i> ガバナンス強化効果</div>
+                        <div class="impact-box">情報漏洩リスク「0件」を維持しつつ、AI生成コンテンツの信頼性を担保。</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 CMIC Inizio Co., Ltd. All Rights Reserved. | Designed by AI DX Strategic Consulting</p>
+    </footer>
+
+</body>
+</html>
